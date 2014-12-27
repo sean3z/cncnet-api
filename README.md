@@ -19,7 +19,7 @@ This is an open source WOL Game Resolution emulator for legacy Command and Conqu
 ### API Endpoints
 There's a few params listed below.
 
-* `:game` can be any of the following `(td|d2k|ra1|ts|fs|ra2|yr)`
+* `:game` can be any of the following `(td|d2k|ra|ts|fs|ra2|yr)`
 * `:gameId` can only be numeric `(0-9)`
 * `:player` can be alpha-numeric with some special characers `(\w\d\[\])`
 
