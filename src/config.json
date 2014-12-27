@@ -1,0 +1,20 @@
+{
+	"production": {
+		"port": 4007,
+		"database": {
+			"hostname": "localhost",
+			"username": "root",
+			"password": "toor",
+			"database": "wol"
+		}
+	},
+	"development": {
+		"port": 4005,
+		"database": {
+			"hostname": "localhost",
+			"username": "root",
+			"password": "toor",
+			"database": "wol"
+		}
+	}
+}
