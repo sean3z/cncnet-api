@@ -7,5 +7,5 @@
     "disallowKeywords": [ "with" ],
     "disallowMultipleLineBreaks": true,
     "disallowSpaceAfterObjectKeys": true,
-    "excludeFiles": ["node_modules/**", "src/lib/sha1.js", "_storage"]
+    "excludeFiles": ["node_modules/**", "src/inc/sha1.js", "_storage"]
 }
