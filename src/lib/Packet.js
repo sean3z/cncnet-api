@@ -14,26 +14,30 @@
 *   limitations under the License.
 */
 
-var GameResolution = require('./GameResolution.js'),
-	sha1 = require('./sha1.js');
+var _gameres = require('./GameResolution.js'),
+	_database = require('./Database.js'),
+	_ladder = require('./Ladder.js'),
+	sha1 = require('./../inc/sha1.js');
 
-function Packet(config) {
-	this._database = config.database;
-	this._ladder = config.ladder;
-	this.packet = config.packet;
-	this.lid = config.lid;
+function Packet(_data) {
+	this.packet = _data.packet;
+	this.lid = _data.lid;
 
-	this.game = GameResolution.parse(this.packet);
+	this.game = _gameres.parse(this.packet);
 	this.hash = this.sha1(this.game);
 }
 
 Packet.prototype.handle = function(callback) {
 	var $this = this, callback = callback || function(){};
-	var query = this._database.format('SELECT gid FROM ?? WHERE hash = ?', ['wol_games_raw', this.hash]);
-	this._database.query(query, function(err, data) {
+
+	var query = _database.format(
+		'SELECT gid FROM ?? WHERE hash = ?', ['wol_games_raw', this.hash]
+	);
+
+	_database.query(query, function(err, data) {
 		if (data.length < 1) {
 			// save raw game
-			$this._database.insert('wol_games_raw', {
+			_database.insert('wol_games_raw', {
 				hash: $this.hash,
 				packet: $this.packet,
 				lid: $this.lid,
@@ -49,8 +53,10 @@ Packet.prototype.handle = function(callback) {
 			// we have at least 2 of the same packet; create game
 			if (!data[0].gid) {
 				
-				$this._ladder.save($this.hash, $this.game, $this.lid, function(gid) {
-					$this._database.query('UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]);
+				_ladder.save($this.hash, $this.game, $this.lid, function(gid) {
+					_database.query(
+						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]
+					);
 
 					callback({
 						code: '0x02',
@@ -70,6 +76,7 @@ Packet.prototype.handle = function(callback) {
 
 Packet.prototype.sha1 = function(game) {
 	var unique = [
+		game.IDNO,
 		game.DURA,
 		game.SCEN,
 		game.OOSY,
