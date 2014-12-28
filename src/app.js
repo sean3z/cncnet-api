@@ -17,18 +17,17 @@
 var restify = require('restify'),
 	environment = process.env.NODE_ENV || 'production',
 	config = require('./config.json')[environment],
-	Database = require('./lib/Database.js'),
 	Packet = require('./lib/Packet.js'),
-	Ladder = require('./lib/Ladder.js');
+	_database = require('./lib/Database.js');
 
 var app = restify.createServer();
 app.use(restify.bodyParser());
 
-var _database = new Database(config.database),
-	_ladder = new Ladder(_database),
-	lids = {};
+_database.configure(config.database);
+_database.connect();
 
-var $lids = lids; // Prefetch lids for faster lookup
+var lids = {}, $lids = lids; // Prefetch lids for faster lookup
+
 _database.query('SELECT lid, abbrev FROM wol_ladders', function(err, data) {
 	for (var i = data.length - 1; i >= 0; i--) {
 		var row = data[i];
@@ -45,8 +44,6 @@ app.post('/ladder/:game', function(req, res) {
 	var body = req.body, game = req.params.game;
 
 	var _packet = new Packet({
-		database: _database, 
-		ladder: _ladder, 
 		packet: body, 
 		lid: $lids[game]
 	});
