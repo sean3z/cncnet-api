@@ -24,7 +24,7 @@ function Packet(config) {
 	this.lid = config.lid;
 
 	this.game = GameResolution.parse(this.packet);
-	this.hash = this.sha1(this.packet);
+	this.hash = this.sha1(this.game);
 }
 
 Packet.prototype.handle = function(callback) {
@@ -68,8 +68,18 @@ Packet.prototype.handle = function(callback) {
 	});
 };
 
-Packet.prototype.sha1 = function(packet) {
-	return sha1.hash(packet);
+Packet.prototype.sha1 = function(game) {
+	var unique = [
+		game.DURA,
+		game.SCEN,
+		game.OOSY,
+		game.CRED,
+		game.TECH,
+		game.CRAT,
+		game.DATE
+	].join('');
+
+	return sha1.hash(unique);
 };
 
 module.exports = Packet;
