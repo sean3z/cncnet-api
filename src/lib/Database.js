@@ -16,43 +16,50 @@
 
 var mysql = require('mysql');
 
-var Database = function(config) {
-	if (!config.hostname) throw new Error('Missing database config!');
+var Database = {
+	db: undefined,
+	config: {},
+	configure: function(config) {
+		this.config = {
+			host: config.hostname,
+			user: config.username,
+			password: config.password,
+			database: config.database,
+			connectTimeout: 0
+		};
+	},
 
-	this.db = new mysql.createConnection({
-		host: config.hostname,
-		user: config.username,
-		password: config.password,
-		database: config.database,
-		connectTimeout: 0
-	});
+	connect: function() {
+		this.db = new mysql.createConnection(this.config);
+		this.db.connect();
+	},
 
-	this.db.connect(function(err) {
-		if (err) throw err;
-	});
-};
+	end: function() {
+		this.db.end();
+	},
 
-Database.prototype.insert = function(table, data, callback) {
-	if (typeof data === 'object') {
-		var fields = [], values = [];
-		for (var key in data) {
-			fields.push(key);
-			values.push(data[key]);
-		}
+	insert: function(table, data, callback) {
+		if (typeof data === 'object') {
+			var fields = [], values = [];
+			for (var key in data) {
+				fields.push(key);
+				values.push(data[key]);
+			}
 
-		this.db.query('INSERT INTO ?? (??) VALUES (?)', [table, fields, values], function(err, result) {
-			if (err) throw err;
-			if (callback) callback(result.insertId);
-		});
-	} 
-};
+			this.db.query('INSERT INTO ?? (??) VALUES (?)', [table, fields, values], function(err, result) {
+				if (err) throw err;
+				if (callback) callback(result.insertId);
+			});
+		} 
+	},
 
-Database.prototype.query = function(query, callback) {
-	this.db.query(query, callback);
-};
+	query: function(query, callback) {
+		this.db.query(query, callback);
+	},
 
-Database.prototype.format = function(sql, inserts) {
-	return this.db.format(sql, inserts);
+	format: function(sql, inserts) {
+		return this.db.format(sql, inserts);
+	}
 };
 
 module.exports = Database;

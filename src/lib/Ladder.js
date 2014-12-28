@@ -14,30 +14,33 @@
 *   limitations under the License.
 */
 
-function Ladder(_database) {
-	this._database = _database;
-}
+var _database = require('./Database.js'),
+	Player = require('./Player.js');
 
-Ladder.prototype.save = function(hash, game, lid, callback) {
-	var wol_games = {
-		lid: lid,
-		mid: 1,
-		wol_gid: 0,
-		duration: game.DURA,
-		afps: game.AFPS,
-		crates: game.CRAT,
-		oosy: game.OOSY,
-		bases: game.BASE,
-		credits: game.CRED,
-		units: game.UNIT,
-		tech: game.TECH,
-		mtime: Math.floor(new Date().getTime() / 1000)
-	};
+var Ladder = {
+	save: function(hash, game, lid, callback) {
+		var wol_game = {
+			lid: lid,
+			mid: 1,
+			// wol_gid: game.IDNO,
+			wol_gid: 1,
+			duration: game.DURA,
+			afps: game.AFPS,
+			crates: game.CRAT,
+			oosy: game.OOSY,
+			bases: game.BASE,
+			credits: game.CRED,
+			units: game.UNIT,
+			tech: game.TECH,
+			mtime: Math.floor(new Date().getTime() / 1000)
+		};
 
-	this._database.insert('wol_games', wol_games, function(gid) {
-		callback(gid);
-		// @TODO: insert into wol_players and wol_game_stats
-	});
+		_database.insert('wol_games', wol_game, function(gid) {
+			// @TODO: insert into wol_players and wol_game_stats
+			
+			callback(gid);
+		});
+	}
 };
 
 module.exports = Ladder;
