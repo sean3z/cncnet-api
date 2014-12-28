@@ -31,7 +31,7 @@ Packet.prototype.handle = function(callback) {
 	var $this = this, callback = callback || function(){};
 
 	var query = _database.format(
-		'SELECT gid FROM ?? WHERE hash = ?', ['wol_games_raw', this.hash]
+		'SELECT gid FROM wol_games_raw WHERE hash = ?', [this.hash]
 	);
 
 	_database.query(query, function(err, data) {
