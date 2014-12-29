@@ -46,12 +46,14 @@ var Database = {
 				values.push(data[key]);
 			}
 
-			this.db.query(
-				'INSERT INTO ?? (??) VALUES (?)', [table, fields, values], function(err, result) {
-					if (err) throw err;
-					if (callback) callback(result.insertId);
-				}
+			var query = this.db.format(
+				'INSERT INTO ?? (??) VALUES (?)', [table, fields, values]
 			);
+
+			this.db.query(query, function(err, result) {
+				if (err) throw err;
+				if (callback) callback(result.insertId);
+			});
 		} 
 	},
 
