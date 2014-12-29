@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2014-12-28 23:38:31
+Date: 2014-12-28 23:51:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -70,6 +70,7 @@ CREATE TABLE `wol_games_stats` (
   `pc` smallint(11) NOT NULL DEFAULT '0' COMMENT 'Player points change',
   `cid` int(11) NOT NULL DEFAULT '0' COMMENT 'Clan Id',
   `hrv` int(11) NOT NULL DEFAULT '0' COMMENT 'Tiberium Harvested',
+  `cra` smallint(11) DEFAULT NULL,
   `crd` int(11) NOT NULL DEFAULT '0' COMMENT 'Player credits',
   `inb` smallint(11) NOT NULL DEFAULT '0' COMMENT 'Infantry Built',
   `unb` smallint(11) NOT NULL DEFAULT '0' COMMENT 'Units Built',
@@ -89,11 +90,13 @@ CREATE TABLE `wol_games_stats` (
   `blc` smallint(11) NOT NULL DEFAULT '0' COMMENT 'Buildings Captured',
   `spc` smallint(11) DEFAULT NULL COMMENT '??',
   `ded` smallint(11) DEFAULT NULL COMMENT '??',
+  `con` smallint(11) DEFAULT NULL,
   `spa` smallint(11) DEFAULT NULL COMMENT '??',
   `rsg` smallint(11) DEFAULT NULL COMMENT '??',
   `aly` smallint(11) DEFAULT NULL COMMENT '??',
   `tid` smallint(11) DEFAULT NULL COMMENT '??',
   `ipa` bigint(11) NOT NULL DEFAULT '0' COMMENT 'Short IP Address',
+  `adr` varchar(15) DEFAULT NULL,
   KEY `pid` (`pid`),
   KEY `cid` (`cid`),
   KEY `gid` (`gid`)
