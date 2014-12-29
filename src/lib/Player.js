@@ -24,7 +24,7 @@ var Player = {
 
 		_database.query(query, function(err, result) {
 			if (result.length < 1) {
-				player.mtime = Math.floor(new Date().getTime() / 1000);
+				player.ctime = player.mtime = Math.floor(new Date().getTime() / 1000);
 				_database.insert('wol_players', player, function(pid) {
 					player.pid = pid;
 					callback(player);

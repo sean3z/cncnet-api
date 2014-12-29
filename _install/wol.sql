@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2014-12-27 06:21:35
+Date: 2014-12-28 21:42:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -156,6 +156,7 @@ CREATE TABLE `wol_players` (
   `countries` int(11) NOT NULL DEFAULT '0',
   `lid` int(11) NOT NULL COMMENT 'Ladder Id',
   `mtime` int(11) NOT NULL COMMENT 'Modified time',
+  `ctime` int(11) NOT NULL COMMENT 'Created time',
   PRIMARY KEY (`pid`),
   UNIQUE KEY `name` (`name`,`lid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
