@@ -37,6 +37,7 @@ _database.query('SELECT lid, abbrev FROM wol_ladders', function(err, data) {
 
 app.get('/ping', function(req, res) {
 	res.send('pong');
+	res.end();
 });
 
 // @TODO: open similar udp listener
