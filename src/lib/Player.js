@@ -17,20 +17,28 @@
 var _database = require('./Database.js');
 
 var Player = {
-	locate: function(player, callback) {
+	locate: function(data, callback) {
 		var query = _database.format(
-			'SELECT pid, lid, name FROM wol_players WHERE name = ? AND lid = ?', [player.name, player.lid]
+			'SELECT pid FROM wol_players WHERE name = ? AND lid = ?', [data.name, data.lid]
 		);
 
 		_database.query(query, function(err, result) {
 			if (result.length < 1) {
-				player.ctime = player.mtime = Math.floor(new Date().getTime() / 1000);
+				var ctime = Math.floor(new Date().getTime() / 1000);
+				var player = {
+					name: data.name,
+					lid: data.lid,
+					ctime: ctime,
+					mtime: ctime
+				};
+
 				_database.insert('wol_players', player, function(pid) {
-					player.pid = pid;
-					callback(player);
+					data.pid = pid;
+					callback(data);
 				});
 			} else {
-				callback(result[0]);
+				data.pid = result[0].pid;
+				callback(data);
 			}
 		});
 	}
