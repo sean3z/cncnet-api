@@ -15,15 +15,16 @@
 */
 
 var _database = require('./Database.js'),
-	Player = require('./Player.js');
+	_player = require('./Player.js');
 
 var Ladder = {
 	save: function(hash, game, lid, callback) {
+		var $this = this;
+
 		var wol_game = {
 			lid: lid,
 			mid: 1,
-			// wol_gid: game.IDNO,
-			wol_gid: 1,
+			wol_gid: 1, // game.IDNO
 			duration: game.DURA,
 			afps: game.AFPS,
 			crates: game.CRAT,
@@ -36,10 +37,35 @@ var Ladder = {
 		};
 
 		_database.insert('wol_games', wol_game, function(gid) {
-			// @TODO: insert into wol_players and wol_game_stats
-			
+			for (var i in game.players) {
+				var user = {
+					name: game.players[i].NAM,
+					lid: lid,
+					gid: gid,
+					stats: game.players[i]
+				};
+
+				_player.locate(user, $this.stats);
+			}
+
 			callback(gid);
 		});
+	},
+
+	stats: function(data) {
+		delete data.stats.NAM;
+
+		var stats = {
+			gid: data.gid,
+			pid: data.pid
+		};
+
+		for (var field in data.stats) {
+			if (data.stats[field].length < 1) continue;
+			stats[field.toLowerCase()] = data.stats[field];
+		}
+
+		_database.insert('wol_games_stats', stats);
 	}
 };
 
