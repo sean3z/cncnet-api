@@ -25,14 +25,14 @@ var Ladder = {
 			lid: lid,
 			mid: 1,
 			wol_gid: 1, // game.IDNO
-			duration: game.DURA,
-			afps: game.AFPS,
-			crates: game.CRAT,
-			oosy: game.OOSY,
-			bases: game.BASE,
-			credits: game.CRED,
-			units: game.UNIT,
-			tech: game.TECH,
+			duration: game.DURA || 300,
+			afps: game.AFPS || 60,
+			crates: game.CRAT || 0,
+			oosy: game.OOSY || 0,
+			bases: game.BASE || 1,
+			credits: game.CRED || 1000,
+			units: game.UNIT || 1,
+			tech: game.TECH || 10,
 			mtime: Math.floor(new Date().getTime() / 1000)
 		};
 
