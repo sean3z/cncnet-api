@@ -18,11 +18,14 @@
 var GameResolution = {
 	parse: function(packet) {
 
-		// remove any unnessiccary whitespace
-		packet = packet.replace(/(\r|\n|\r\n|\s+)/gm, '');
+		var buffer = packet;
+		if (typeof packet == 'string') {
+			// remove any unnessiccary whitespace
+			packet = packet.replace(/(\r|\n|\r\n|\s+)/gm, '');
+			buffer = new Buffer(packet, 'hex');
+		}
 
-		var buffer = new Buffer(packet, 'hex'),
-			slice = buffer.slice(0, 4), 
+		var slice = buffer.slice(0, 4), 
 			bufferLength = slice.readUInt16BE(0) - 4,
 			flat = {}, i = 4;
 
