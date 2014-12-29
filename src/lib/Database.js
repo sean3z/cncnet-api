@@ -51,7 +51,7 @@ var Database = {
 			);
 
 			this.db.query(query, function(err, result) {
-				if (err) console.log(err);
+				if (err) console.log('Error', err, '\r\nQuery', query);
 				if (callback) callback(result.insertId);
 			});
 		} 
