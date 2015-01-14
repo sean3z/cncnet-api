@@ -66,6 +66,6 @@ app.get('/ladder/:game/player/:player', function(req, res) {
 });
 
 app.listen(config.port, function() {
-	console.log('\033[32mSUCCESS!!\033[0m WOL Ladder listening on port:%s', config.port);
+	console.log('SUCCESS!! WOL Ladder listening on port:%s', config.port);
 	console.log('Control + C to cancel');
 });

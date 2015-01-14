@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "mysql": "^2.5.4",
+    "q": "^1.1.2",
     "restify": "^2.8.3"
   },
   "devDependencies": {
