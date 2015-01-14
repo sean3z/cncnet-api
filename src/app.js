@@ -16,9 +16,9 @@
 
 var restify = require('restify'),
 	environment = process.env.NODE_ENV || 'production',
-	config = require('./config.json')[environment],
-	Packet = require('./lib/Packet.js'),
-	_database = require('./lib/Database.js');
+	config = require(__dirname +'/config.json')[environment],
+	Packet = require(__dirname +'/lib/Packet.js'),
+	_database = require(__dirname +'/lib/Database.js');
 
 var app = restify.createServer();
 app.use(restify.bodyParser());

@@ -14,10 +14,10 @@
 *   limitations under the License.
 */
 
-var _gameres = require('./GameResolution.js'),
-	_database = require('./Database.js'),
-	_ladder = require('./Ladder.js'),
-	sha1 = require('./../inc/sha1.js');
+var _gameres = require(__dirname +'/GameResolution.js'),
+	_database = require(__dirname +'/Database.js'),
+	_ladder = require(__dirname +'/Ladder.js'),
+	sha1 = require(__dirname +'/../inc/sha1.js');
 
 function Packet(_data) {
 	this.packet = _data.packet;

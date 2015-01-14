@@ -14,8 +14,8 @@
 *   limitations under the License.
 */
 
-var _database = require('./Database.js'),
-	_player = require('./Player.js');
+var _database = require(__dirname +'/Database.js'),
+	_player = require(__dirname +'/Player.js');
 
 var Ladder = {
 	save: function(hash, game, lid, callback) {
