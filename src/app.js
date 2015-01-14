@@ -26,27 +26,23 @@ app.use(restify.bodyParser());
 _database.configure(config.database);
 _database.connect();
 
-var lids = {}, $lids = lids; // Prefetch lids for faster lookup
+var lids = {}; // Prefetch lids for faster lookup
 
 _database.query('SELECT lid, abbrev FROM wol_ladders', function(err, data) {
 	for (var i = data.length - 1; i >= 0; i--) {
-		var row = data[i];
-		$lids[row.abbrev] = row.lid;
+		lids[data[i].abbrev] = data[i].lid;
 	}
 });
 
 app.get('/ping', function(req, res) {
 	res.send('pong');
-	res.end();
 });
 
 // @TODO: open similar udp listener
 app.post('/ladder/:game', function(req, res) {
-	var body = req.body, game = req.params.game;
-
 	var _packet = new Packet({
-		packet: body, 
-		lid: $lids[game]
+		packet: req.body, 
+		lid: lids[req.params.game]
 	});
 
 	_packet.handle(function(response) {
@@ -56,7 +52,7 @@ app.post('/ladder/:game', function(req, res) {
 
 app.get('/ladder/:game', function(req, res) {
 	// return top 250 results for given game
-	res.json({test: 1});
+	res.json({test: 1, game: lids[req.params.game]});
 });
 
 app.get('/ladder/:game/game/:gameId', function(req, res) {
