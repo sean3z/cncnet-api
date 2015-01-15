@@ -17,7 +17,7 @@
 var _gameres = require(__dirname +'/GameResolution.js'),
 	_database = require(__dirname +'/Database.js'),
 	_ladder = require(__dirname +'/Ladder.js'),
-	sha1 = require(__dirname +'/../inc/sha1.js');
+	crypto = require('crypto');
 
 function Packet(_data) {
 	this.packet = _data.packet;
@@ -76,17 +76,13 @@ Packet.prototype.handle = function(callback) {
 
 Packet.prototype.sha1 = function(game) {
 	var unique = [
-		game.IDNO,
-		game.DURA,
-		game.SCEN,
-		game.OOSY,
-		game.CRED,
-		game.TECH,
-		game.CRAT,
-		game.DATE
+		game.IDNO, game.DURA,
+		game.SCEN, game.OOSY,
+		game.CRED, game.TECH,
+		game.CRAT, game.DATE
 	].join('');
 
-	return sha1.hash(unique);
+	return crypto.createHash('sha1').update(unique).digest('hex');
 };
 
 module.exports = Packet;
