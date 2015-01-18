@@ -23,14 +23,17 @@ There's a few params listed below.
 * `:gameId` can only be numeric `(0-9)`
 * `:player` can be alpha-numeric with some special characers `(\w\d\[\])`
 
-**Endpoints**
-
+##### General Endpoints
 * GET `/ping` to ensure that the ladder is online
+
+##### Game Endpoints
 * GET `/ladder/:game` will return the top 250 ladder results for the supplied `:game`
 * GET `/ladder/:game/games` will return the latest 250 games played for the given `:game`
 * GET `/ladder/:game/games/:gameId` will return all data for a given `:gameId`
-* POST `/ladder/:game` accepts gameres packet (from POST body) for the supplied `:game`
+* POST `/ladder/:game` accepts gameres packet (via POST body) for the supplied `:game`
+
+##### Player Endpoints
 * PUT `/ladder/:game/player/:player` will create the given `:player`
 * GET `/ladder/:game/player/:player` will return most data for given `:player` 
-* DELETE `/ladder/:game/player/:player` will delete the given `:player` (cannot be undeleted)
-* POST `/auth/:game/player/:player` will attempt the authenticate the given `:player`
+* DELETE `/ladder/:game/player/:player` will delete the given `:player`
+* GET `/auth/:game/player/:player` will attempt the authenticate the given `:player`
