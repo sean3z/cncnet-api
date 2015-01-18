@@ -25,8 +25,12 @@ There's a few params listed below.
 
 **Endpoints**
 
-* GET `/ping` to test that the ladder is online
+* GET `/ping` to ensure that the ladder is online
 * GET `/ladder/:game` will return the top 250 ladder results for the supplied `:game`
-* GET `/ladder/:game/game/:gameId` will return all data for a given `:gameId`
-* GET `/ladder/:game/player/:player` will return all data for a given `:player` 
+* GET `/ladder/:game/games` will return the latest 250 games played for the given `:game`
+* GET `/ladder/:game/games/:gameId` will return all data for a given `:gameId`
 * POST `/ladder/:game` accepts gameres packet (from POST body) for the supplied `:game`
+* PUT `/ladder/:game/player/:player` will create the given `:player`
+* GET `/ladder/:game/player/:player` will return most data for given `:player` 
+* DELETE `/ladder/:game/player/:player` will delete the given `:player` (cannot be undeleted)
+* POST `/auth/:game/player/:player` will attempt the authenticate the given `:player`
