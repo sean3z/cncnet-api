@@ -35,18 +35,25 @@ There's a few params listed below.
 ##### Player Endpoints
 * PUT `/ladder/:game/player/:player` will create the given `:player`
 * GET `/ladder/:game/player/:player` will return most data for given `:player` 
-* DELETE `/ladder/:game/player/:player` will delete the given `:player`
-
-##### Auth Endpoints
-* GET `/auth/:game` basic HTTP authentication using credentials supplied during player creation
+* DELETE `/ladder/:game/player/:player` will irrevocably delete the given `:player`
+* GET `/ladder/:game/player/:player/auth` HTTP authentication using credentials supplied during player creation
+* GET `/ladder/:game/player/:player/reset` request to reset account password (ie: Forgot Password)
 
 #### Player Creation
 Player creation is optional as the ladder will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players. 
 
-Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a JSON request body containing at least `username`, `password` and `email` fields. Other fields to help uniquely identify players can be added but, are currently ignored.
+Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a JSON request body containing at least `username`, `password` and `email` fields to establish an account. Other fields to help uniquely identify players will eventually be added but, are currently ignored.
 
-After a player has been created, they can then proceed to login using the GET `/auth/:game` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example login request would look similar to the following
-
+_**example player creation request**_
 ```shell
-$ curl -isu Tahj:MySecretPassword http://localhost:4007/auth/ts
+curl -is -X PUT -d '{"username": "Tahj", "password": "MySecretPassword": "email": "tahj.kirk@gmail.com"}' http://localhost:4007/ladder/ts/player/tahj3z
+```
+
+If this is the first player registration for the user, the account will be stored using the credentials provided. If the account has been previously registered, the new `:player` will be associated with the account as long as the credentials provided are correct.
+
+After a player has been created, they can then proceed to login using the GET `/ladder/:game/player/:player/auth` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example login request would look similar to the following
+
+_**example player auth request**_
+```shell
+$ curl -isu Tahj:MySecretPassword http://localhost:4007/ladder/ts/player/tahj3z/auth
 ```
