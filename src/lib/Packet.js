@@ -23,6 +23,7 @@ var _gameres = require(__dirname +'/GameResolution.js'),
 function Packet(_data) {
 	this.packet = _data.packet;
 	this.lid = _data.lid;
+	this.game = _data.game;
 
 	this.gameres = _gameres.parse(this.packet);
 	this.hash = this.sha1(this.gameres);

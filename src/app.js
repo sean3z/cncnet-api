@@ -48,7 +48,8 @@ app.get('/ping', function(req, res) {
 app.post('/ladder/:game', function(req, res) {
 	var _packet = new Packet({
 		packet: req.body, 
-		lid: lids.search(req.params.game)
+		lid: lids.search(req.params.game),
+		game: req.params.game
 	});
 
 	_packet.handle().then(function(response) {
