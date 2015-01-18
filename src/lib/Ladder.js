@@ -19,32 +19,32 @@ var _database = require(__dirname +'/Database.js'),
 	Q = require('q');
 
 var Ladder = {
-	save: function(hash, game, lid) {
+	save: function(hash, gameres, lid) {
 		this.deferred = Q.defer();
 		var $this = this;
 
 		var wol_game = {
 			lid: lid,
 			mid: 1,
-			wol_gid: 1, // game.IDNO
-			duration: game.DURA || 300,
-			afps: game.AFPS || 60,
-			crates: game.CRAT || 0,
-			oosy: game.OOSY || 0,
-			bases: game.BASE || 1,
-			credits: game.CRED || 1000,
-			units: game.UNIT || 1,
-			tech: game.TECH || 10,
+			wol_gid: 1, // gameres.IDNO
+			duration: gameres.DURA || 300,
+			afps: gameres.AFPS || 60,
+			crates: gameres.CRAT || 0,
+			oosy: gameres.OOSY || 0,
+			bases: gameres.BASE || 1,
+			credits: gameres.CRED || 1000,
+			units: gameres.UNIT || 1,
+			tech: gameres.TECH || 10,
 			mtime: Math.floor(new Date().getTime() / 1000)
 		};
 
 		_database.insert('wol_games', wol_game, function(gid) {
-			for (var i in game.players) {
+			for (var i in gameres.players) {
 				var user = {
-					name: game.players[i].NAM,
+					name: gameres.players[i].NAM,
 					lid: lid,
 					gid: gid,
-					stats: game.players[i]
+					stats: gameres.players[i]
 				};
 
 				_player.locate(user, $this.stats);
