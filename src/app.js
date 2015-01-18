@@ -19,10 +19,12 @@ var restify = require('restify'),
 	config = require(__dirname +'/config.json')[environment],
 	Packet = require(__dirname +'/lib/Packet.js'),
 	_database = require(__dirname +'/lib/Database.js'),
+	Authentication = require(__dirname +'/lib/Authentication.js'),
 	port = process.env.WOL_PORT || 4007;
 
 var app = restify.createServer();
 app.use(restify.bodyParser());
+app.use(restify.authorizationParser());
 
 _database.configure(config.database);
 _database.connect();
@@ -74,6 +76,22 @@ app.get('/ladder/:game/game/:gameId', function(req, res) {
 app.get('/ladder/:game/player/:player', function(req, res) {
 	// return all data for given player
 	res.json({test: 3});
+});
+
+app.get('/auth/:game', function(req, res) {
+
+	var password = req.authorization.basic || {},
+		attempt = {
+			username: req.username, 
+			password: password.password,
+			ipa: req.connection.remoteAddress
+		};
+
+	Authentication.identify(attempt).then(function(response) {
+		res.status(response.status || 401);
+		res.header('WWW-Authenticate', 'Basic realm="Ladder Auth"');
+		res.end();
+	});
 });
 
 app.listen(port, function() {

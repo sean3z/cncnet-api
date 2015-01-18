@@ -10,10 +10,27 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2014-12-28 23:51:41
+Date: 2015-01-18 03:15:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `wol_auth`
+-- ----------------------------
+DROP TABLE IF EXISTS `wol_auth`;
+CREATE TABLE `wol_auth` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of wol_auth
+-- ----------------------------
+
 -- ----------------------------
 -- Table structure for `wol_games`
 -- ----------------------------
