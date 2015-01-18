@@ -45,7 +45,7 @@ Player creation is optional as the ladder will accept results from players that 
 
 Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a JSON request body containing at least `username`, `password` and `email` fields. Other fields to help uniquely identify players can be added but, are currently ignored.
 
-After a player has been created, they can then proceed to login using the GET `/auth/:game` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example request would look similar to the following
+After a player has been created, they can then proceed to login using the GET `/auth/:game` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example login request would look similar to the following
 
 ```shell
 $ curl -isu Tahj:MySecretPassword http://localhost:4007/auth/ts
