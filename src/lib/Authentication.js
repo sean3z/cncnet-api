@@ -14,8 +14,8 @@
 *   limitations under the License.
 */
 
-var _database = require(__dirname +'/Database.js'),
-	_player = require(__dirname +'/Player.js'),
+var Database = require(__dirname +'/Database.js'),
+	Player = require(__dirname +'/Player.js'),
 	Q = require('q');
 
 var Authentication = {
@@ -32,12 +32,12 @@ var Authentication = {
 			return this.deferred.promise;
 		}
 
-		var query = _database.format(
+		var query = Database.format(
 			'SELECT uid FROM wol_auth WHERE username = ? and password = ?', 
 			[attempt.username, attempt.password]
 		);
 
-		_database.query(query, function(err, data) {
+		Database.query(query, function(err, data) {
 			if (data.length < 1) {
 				$this.deferred.resolve({status: 401});
 			} else {

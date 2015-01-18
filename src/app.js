@@ -18,16 +18,18 @@ var restify = require('restify'),
 	environment = process.env.NODE_ENV || 'production',
 	config = require(__dirname +'/config.json')[environment],
 	Packet = require(__dirname +'/lib/Packet.js'),
-	_database = require(__dirname +'/lib/Database.js'),
+	Database = require(__dirname +'/lib/Database.js'),
 	Authentication = require(__dirname +'/lib/Authentication.js'),
+	Player = require(__dirname +'/lib/Player.js'),
+	Ladder = require(__dirname +'/lib/Ladder.js'),
 	port = process.env.WOL_PORT || 4007;
 
 var app = restify.createServer();
 app.use(restify.bodyParser());
 app.use(restify.authorizationParser());
 
-_database.configure(config.database);
-_database.connect();
+Database.configure(config.database);
+Database.connect();
 
 var lids = {
 	search: function(lid) {
@@ -36,7 +38,7 @@ var lids = {
 }; 
 
 // Prefetch lids for faster lookup
-_database.query('SELECT lid, abbrev FROM wol_ladders', function(err, data) {
+Database.query('SELECT lid, abbrev FROM wol_ladders', function(err, data) {
 	for (var i = data.length - 1; i >= 0; i--) {
 		lids[data[i].abbrev] = data[i].lid;
 	}

@@ -14,8 +14,8 @@
 *   limitations under the License.
 */
 
-var _database = require(__dirname +'/Database.js'),
-	_player = require(__dirname +'/Player.js'),
+var Database = require(__dirname +'/Database.js'),
+	Player = require(__dirname +'/Player.js'),
 	Q = require('q');
 
 var Ladder = {
@@ -38,16 +38,17 @@ var Ladder = {
 			mtime: Math.floor(new Date().getTime() / 1000)
 		};
 
-		_database.insert('wol_games', wol_game, function(gid) {
+		Database.insert('wol_games', wol_game, function(gid) {
 			for (var i in gameres.players) {
 				var user = {
 					name: gameres.players[i].NAM,
 					lid: lid,
 					gid: gid,
-					stats: gameres.players[i]
+					stats: gameres.players[i],
+					create: true
 				};
 
-				_player.locate(user, $this.stats);
+				Player.locate(user).then($this.stats);
 			}
 
 			$this.deferred.resolve(gid);
@@ -69,7 +70,7 @@ var Ladder = {
 			stats[field.toLowerCase()] = data.stats[field];
 		}
 
-		_database.insert('wol_games_stats', stats);
+		Database.insert('wol_games_stats', stats);
 	}
 };
 

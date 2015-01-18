@@ -14,9 +14,9 @@
 *   limitations under the License.
 */
 
-var _gameres = require(__dirname +'/GameResolution.js'),
-	_database = require(__dirname +'/Database.js'),
-	_ladder = require(__dirname +'/Ladder.js'),
+var GameRes = require(__dirname +'/GameResolution.js'),
+	Database = require(__dirname +'/Database.js'),
+	Ladder = require(__dirname +'/Ladder.js'),
 	crypto = require('crypto'),
 	Q = require('q');
 
@@ -25,7 +25,7 @@ function Packet(_data) {
 	this.lid = _data.lid;
 	this.game = _data.game;
 
-	this.gameres = _gameres.parse(this.packet);
+	this.gameres = GameRes.parse(this.packet);
 	this.hash = this.sha1(this.gameres);
 	this.deferred = Q.defer();
 }
@@ -33,14 +33,14 @@ function Packet(_data) {
 Packet.prototype.handle = function() {
 	var $this = this;
 
-	var query = _database.format(
+	var query = Database.format(
 		'SELECT gid FROM wol_games_raw WHERE hash = ?', [this.hash]
 	);
 
-	_database.query(query, function(err, data) {
+	Database.query(query, function(err, data) {
 		if (data.length < 1) {
 			// save raw game
-			_database.insert('wol_games_raw', {
+			Database.insert('wol_games_raw', {
 				hash: $this.hash,
 				packet: $this.packet,
 				lid: $this.lid,
@@ -55,8 +55,8 @@ Packet.prototype.handle = function() {
 
 			} else {
 				// we have at least 2 of the same packet; create game
-				_ladder.save($this.hash, $this.gameres, $this.lid).then(function(gid) {
-					_database.query(
+				Ladder.save($this.hash, $this.gameres, $this.lid).then(function(gid) {
+					Database.query(
 						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]
 					);
 
