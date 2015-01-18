@@ -18,7 +18,8 @@ var restify = require('restify'),
 	environment = process.env.NODE_ENV || 'production',
 	config = require(__dirname +'/config.json')[environment],
 	Packet = require(__dirname +'/lib/Packet.js'),
-	_database = require(__dirname +'/lib/Database.js');
+	_database = require(__dirname +'/lib/Database.js'),
+	port = process.env.WOL_PORT || 4005;
 
 var app = restify.createServer();
 app.use(restify.bodyParser());
@@ -70,7 +71,7 @@ app.get('/ladder/:game/player/:player', function(req, res) {
 	res.json({test: 3});
 });
 
-app.listen(config.port, function() {
+app.listen(port, function() {
 	console.log('SUCCESS!! WOL Ladder listening on port:%s', config.port);
 	console.log('Control + C to cancel');
 });
