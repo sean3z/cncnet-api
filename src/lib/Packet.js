@@ -50,9 +50,11 @@ Packet.prototype.handle = function() {
 			$this.queued();
 		} else {
 			// do NOT delete hash; cron will cleanup
-			// we have at least 2 of the same packet; create game
-			if (!data[0].gid) {
-				
+			if (data[0].gid) {
+				$this.processed(data[0].gid);
+
+			} else {
+				// we have at least 2 of the same packet; create game
 				_ladder.save($this.hash, $this.gameres, $this.lid).then(function(gid) {
 					_database.query(
 						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]
@@ -60,10 +62,7 @@ Packet.prototype.handle = function() {
 
 					$this.processed(gid);
 				});
-
-			} else {
-				$this.processed(data[0].gid);
-			}
+			} 
 		}
 	});
 
