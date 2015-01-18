@@ -24,8 +24,8 @@ function Packet(_data) {
 	this.packet = _data.packet;
 	this.lid = _data.lid;
 
-	this.game = _gameres.parse(this.packet);
-	this.hash = this.sha1(this.game);
+	this.gameres = _gameres.parse(this.packet);
+	this.hash = this.sha1(this.gameres);
 	this.deferred = Q.defer();
 }
 
@@ -55,7 +55,7 @@ Packet.prototype.handle = function() {
 			// we have at least 2 of the same packet; create game
 			if (!data[0].gid) {
 				
-				_ladder.save($this.hash, $this.game, $this.lid).then(function(gid) {
+				_ladder.save($this.hash, $this.gameres, $this.lid).then(function(gid) {
 					_database.query(
 						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]
 					);
@@ -78,12 +78,12 @@ Packet.prototype.handle = function() {
 	return this.deferred.promise;
 };
 
-Packet.prototype.sha1 = function(game) {
+Packet.prototype.sha1 = function(gameres) {
 	var unique = [
-		game.IDNO, game.DURA,
-		game.SCEN, game.OOSY,
-		game.CRED, game.TECH,
-		game.CRAT, game.DATE
+		gameres.IDNO, gameres.DURA,
+		gameres.SCEN, gameres.OOSY,
+		gameres.CRED, gameres.TECH,
+		gameres.CRAT, gameres.DATE
 	].join('');
 
 	return crypto.createHash('sha1').update(unique).digest('hex');
