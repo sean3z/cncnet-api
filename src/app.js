@@ -19,7 +19,7 @@ var restify = require('restify'),
 	config = require(__dirname +'/config.json')[environment],
 	Packet = require(__dirname +'/lib/Packet.js'),
 	_database = require(__dirname +'/lib/Database.js'),
-	port = process.env.WOL_PORT || 4005;
+	port = process.env.WOL_PORT || 4007;
 
 var app = restify.createServer();
 app.use(restify.bodyParser());
