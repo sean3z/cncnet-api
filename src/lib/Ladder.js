@@ -15,10 +15,12 @@
 */
 
 var _database = require(__dirname +'/Database.js'),
-	_player = require(__dirname +'/Player.js');
+	_player = require(__dirname +'/Player.js'),
+	Q = require('q');
 
 var Ladder = {
-	save: function(hash, game, lid, callback) {
+	save: function(hash, game, lid) {
+		this.deferred = Q.defer();
 		var $this = this;
 
 		var wol_game = {
@@ -48,8 +50,10 @@ var Ladder = {
 				_player.locate(user, $this.stats);
 			}
 
-			callback(gid);
+			$this.deferred.resolve(gid);
 		});
+
+		return this.deferred.promise;
 	},
 
 	stats: function(data) {

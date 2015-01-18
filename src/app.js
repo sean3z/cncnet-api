@@ -51,7 +51,7 @@ app.post('/ladder/:game', function(req, res) {
 		lid: lids.search(req.params.game)
 	});
 
-	_packet.handle(function(response) {
+	_packet.handle().then(function(response) {
 		res.json(response);
 	});
 });

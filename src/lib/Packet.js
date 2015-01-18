@@ -17,7 +17,8 @@
 var _gameres = require(__dirname +'/GameResolution.js'),
 	_database = require(__dirname +'/Database.js'),
 	_ladder = require(__dirname +'/Ladder.js'),
-	crypto = require('crypto');
+	crypto = require('crypto'),
+	Q = require('q');
 
 function Packet(_data) {
 	this.packet = _data.packet;
@@ -25,10 +26,11 @@ function Packet(_data) {
 
 	this.game = _gameres.parse(this.packet);
 	this.hash = this.sha1(this.game);
+	this.deferred = Q.defer();
 }
 
-Packet.prototype.handle = function(callback) {
-	var $this = this, callback = callback || function(){};
+Packet.prototype.handle = function() {
+	var $this = this;
 
 	var query = _database.format(
 		'SELECT gid FROM wol_games_raw WHERE hash = ?', [this.hash]
@@ -44,7 +46,7 @@ Packet.prototype.handle = function(callback) {
 				ctime: Math.floor(new Date().getTime() / 1000)
 			});
 
-			callback({
+			$this.deferred.resolve({
 				code: '0x01',
 				message: 'Game saved in raw format'
 			});
@@ -53,25 +55,27 @@ Packet.prototype.handle = function(callback) {
 			// we have at least 2 of the same packet; create game
 			if (!data[0].gid) {
 				
-				_ladder.save($this.hash, $this.game, $this.lid, function(gid) {
+				_ladder.save($this.hash, $this.game, $this.lid).then(function(gid) {
 					_database.query(
 						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]
 					);
 
-					callback({
+					$this.deferred.resolve({
 						code: '0x02',
 						message: 'Game saved'
 					});
 				});
 
 			} else {
-				callback({
+				$this.deferred.resolve({
 					code: '0x03',
 					message: 'Game already saved'
 				});
 			}
 		}
 	});
+
+	return this.deferred.promise;
 };
 
 Packet.prototype.sha1 = function(game) {
