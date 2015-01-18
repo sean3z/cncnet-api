@@ -28,12 +28,25 @@ There's a few params listed below.
 
 ##### Game Endpoints
 * GET `/ladder/:game` will return the top 250 ladder results for the supplied `:game`
+* POST `/ladder/:game` accepts gameres packet (via POST body) for the supplied `:game`
 * GET `/ladder/:game/games` will return the latest 250 games played for the given `:game`
 * GET `/ladder/:game/games/:gameId` will return all data for a given `:gameId`
-* POST `/ladder/:game` accepts gameres packet (via POST body) for the supplied `:game`
 
 ##### Player Endpoints
 * PUT `/ladder/:game/player/:player` will create the given `:player`
 * GET `/ladder/:game/player/:player` will return most data for given `:player` 
 * DELETE `/ladder/:game/player/:player` will delete the given `:player`
-* GET `/auth/:game/player/:player` will attempt the authenticate the given `:player`
+
+##### Auth Endpoints
+* GET `/auth/:game` basic HTTP authentication using credentials supplied during player creation
+
+#### Player Creation
+Player creation is optional as the ladder will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players. 
+
+Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a JSON request body containing at least `username`, `password` and `email` fields. Other fields to help uniquely identify players can be added but, are currently ignored.
+
+After a player has been created, they can then proceed to login using the GET `/auth/:game` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example request would look similar to the following
+
+```shell
+$ curl -isu Tahj:MySecretPassword http://localhost:4007/auth/ts
+```
