@@ -36,13 +36,13 @@ There's a few params listed below.
 * PUT `/ladder/:game/player/:player` will create the given `:player`
 * GET `/ladder/:game/player/:player` will return most data for given `:player` 
 * DELETE `/ladder/:game/player/:player` will irrevocably delete the given `:player`
-* GET `/ladder/:game/player/:player/auth` HTTP authentication using credentials supplied during player creation
-* GET `/ladder/:game/player/:player/reset` request to reset account password (ie: Forgot Password)
+* GET `/ladder/:game/player/:player/auth` HTTP authentication using player creation credentials
+* GET `/ladder/:game/player/:player/reset` request to reset account password
 
 #### Player Creation
 Player creation is optional as the ladder will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players. 
 
-Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a JSON request body containing at least `username`, `password` and `email` fields to establish an account. Other fields to help uniquely identify players will eventually be added but, are currently ignored.
+Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a JSON request body containing at least `username`, `password` and `email` fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
 
 _**example player creation request**_
 ```shell
