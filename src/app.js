@@ -53,7 +53,11 @@ app.post('/ladder/:game', function(req, res) {
 	});
 
 	_packet.handle().then(function(response) {
-		res.json(response);
+		res.status(response.status || 200);
+		if (response.location) {
+			res.header('Location', response.location);
+		}
+		res.end();
 	});
 });
 

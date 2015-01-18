@@ -47,10 +47,7 @@ Packet.prototype.handle = function() {
 				ctime: Math.floor(new Date().getTime() / 1000)
 			});
 
-			$this.deferred.resolve({
-				code: '0x01',
-				message: 'Game saved in raw format'
-			});
+			$this.queued();
 		} else {
 			// do NOT delete hash; cron will cleanup
 			// we have at least 2 of the same packet; create game
@@ -61,17 +58,11 @@ Packet.prototype.handle = function() {
 						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]
 					);
 
-					$this.deferred.resolve({
-						code: '0x02',
-						message: 'Game saved'
-					});
+					$this.processed(gid);
 				});
 
 			} else {
-				$this.deferred.resolve({
-					code: '0x03',
-					message: 'Game already saved'
-				});
+				$this.processed(data[0].gid);
 			}
 		}
 	});
@@ -88,6 +79,19 @@ Packet.prototype.sha1 = function(gameres) {
 	].join('');
 
 	return crypto.createHash('sha1').update(unique).digest('hex');
+};
+
+Packet.prototype.queued = function() {
+	this.deferred.resolve({
+		status: 202
+	});
+};
+
+Packet.prototype.processed = function(gid) {
+	this.deferred.resolve({
+		status: 201,
+		location: ['/ladder', this.game, 'game', gid].join('/')
+	});
 };
 
 module.exports = Packet;
