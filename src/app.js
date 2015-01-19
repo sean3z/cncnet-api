@@ -75,12 +75,37 @@ app.get('/ladder/:game/game/:gameId', function(req, res) {
 	res.json({test: 2});
 });
 
+app.put('/ladder/:game/player/:player', function(req, res) {
+	var account = {
+		username: req.body.username,
+		password: req.body.password,
+		email: req.body.email,
+		name: req.params.player,
+		lid: lids.search(req.params.game),
+		game: req.params.game,
+		create: true
+	};
+
+	Authentication.create(account).then(function(response) {
+		res.status(response.status || 400);
+
+		if (response.location) {
+			res.header('Location', response.location);
+		}
+
+		if (response.body) {
+			res.json(response.body);
+		}
+		res.end();
+	});
+});
+
 app.get('/ladder/:game/player/:player', function(req, res) {
 	// return all data for given player
 	res.json({test: 3});
 });
 
-app.get('/auth/:game', function(req, res) {
+app.get('/ladder/:game/player/:player/auth', function(req, res) {
 
 	var password = req.authorization.basic || {},
 		attempt = {
@@ -92,6 +117,11 @@ app.get('/auth/:game', function(req, res) {
 	Authentication.identify(attempt).then(function(response) {
 		res.status(response.status || 401);
 		res.header('WWW-Authenticate', 'Basic realm="Ladder Auth"');
+
+		if (response.body) {
+			res.json(response.body);
+		}
+		
 		res.end();
 	});
 });
