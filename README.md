@@ -55,5 +55,5 @@ After a player has been created, they can then proceed to login using the GET `/
 
 _**example player auth request**_
 ```shell
-$ curl -isu Tahj:MySecretPassword http://localhost:4007/ladder/ts/player/tahj3z/auth
+curl -isu Tahj:MySecretPassword http://localhost:4007/ladder/ts/player/tahj3z/auth
 ```
