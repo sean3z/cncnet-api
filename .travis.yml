@@ -6,7 +6,7 @@ env:
   - NODE_ENV="production"
 before_script:
   - "npm install -g jshint jscs"
- notifications:
+notifications:
   irc:
     channels:
       - "irc.freenode.org#cncnet"
