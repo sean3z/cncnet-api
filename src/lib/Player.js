@@ -22,7 +22,7 @@ var Player = {
 		var deferred = Q.defer();
 
 		if (!player.name || !player.lid) {
-			deferred.resolve({
+			deferred.reject({
 				status: 400
 			});
 
@@ -53,7 +53,7 @@ var Player = {
 						deferred.resolve(player);
 					});
 				} else {
-					deferred.resolve({
+					deferred.reject({
 						status: 404
 					});
 				}
