@@ -28,7 +28,6 @@ app.use(restify.bodyParser());
 app.use(restify.authorizationParser());
 
 Database.configure(config.database);
-Database.connect();
 
 var lids = {
 	search: function(lid) {
@@ -95,7 +94,7 @@ app.put('/ladder/:game/player/:player', function(req, res) {
 		if (response.body) {
 			res.json(response.body);
 		}
-		
+
 		res.end();
 	});
 });
