@@ -42,11 +42,11 @@ There's a few params listed below.
 #### Player Creation
 Player creation is optional as the ladder will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players. 
 
-Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a JSON request body containing at least `username`, `password` and `email` fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
+Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
 
 _**example player creation request**_
 ```shell
-curl -is -X PUT -d '{"username": "Tahj", "password": "MySecretPassword": "email": "tahj.kirk@gmail.com"}' http://localhost:4007/ladder/ts/player/tahj3z
+curl -X PUT -H "Content-Type: multipart/form-data" -F "username=Tahj" -F "password=MySecretPassword" -F "email=tahj.kirk@gmail.com" http://localhost:4003/ladder/ts/player/tahj3z
 ```
 
 If this is the first player registration for the user, the account will be stored using the credentials provided. If the account has been previously registered, the new `:player` will be associated with the account as long as the credentials provided are correct.
