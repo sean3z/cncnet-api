@@ -18,27 +18,31 @@ var Database = require('./Database.js'),
 	Q = require('q');
 
 var Player = {
-	locate: function(data) {
+	locate: function(player) {
 		var deferred = Q.defer();
 
 		var query = Database.format(
-			'SELECT pid FROM wol_players WHERE name = ? AND lid = ?', [data.name, data.lid]
+			'SELECT pid, uid FROM wol_players WHERE name = ? AND lid = ?', [player.name, player.lid]
 		);
 
 		Database.query(query, function(err, result) {
 			if (result.length < 1) {
-				if (!!data.create) {
+				if (!!player.create) {
 					var ctime = Math.floor(new Date().getTime() / 1000);
 					var player = {
-						name: data.name,
-						lid: data.lid,
+						name: player.name,
+						lid: player.lid,
 						ctime: ctime,
 						mtime: ctime
 					};
 
+					if (player.uid) {
+						player.uid = player.uid;
+					}
+
 					Database.insert('wol_players', player, function(pid) {
-						data.pid = pid;
-						deferred.resolve(data);
+						player.pid = pid;
+						deferred.resolve(player);
 					});
 				} else {
 					deferred.resolve({
@@ -46,26 +50,11 @@ var Player = {
 					});
 				}
 			} else {
-				data.pid = result[0].pid;
-				deferred.resolve(data);
+				player.pid = result[0].pid;
+				player.uid = result[0].uid;
+				deferred.resolve(player);
 			}
 		});
-
-		return deferred.promise;
-	},
-
-	create: function(data) {
-		var deferred = Q.defer();
-
-		if (!data.username || !data.password || !data.email) {
-			deferred.resolve({
-				status: 400
-			});
-
-			return false;
-		}
-
-
 
 		return deferred.promise;
 	}
