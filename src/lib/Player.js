@@ -60,6 +60,7 @@ var Player = {
 			} else {
 				player.pid = result[0].pid;
 				player.uid = result[0].uid;
+				player.exists = true;
 				deferred.resolve(player);
 			}
 		});
