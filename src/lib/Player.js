@@ -21,6 +21,14 @@ var Player = {
 	locate: function(player) {
 		var deferred = Q.defer();
 
+		if (!player.name || !player.lid) {
+			deferred.resolve({
+				status: 400
+			});
+
+			return deferred.promise;
+		}
+
 		var query = Database.format(
 			'SELECT pid, uid FROM wol_players WHERE name = ? AND lid = ?', [player.name, player.lid]
 		);
@@ -29,7 +37,7 @@ var Player = {
 			if (result.length < 1) {
 				if (!!player.create) {
 					var ctime = Math.floor(new Date().getTime() / 1000);
-					var player = {
+					var insert = {
 						name: player.name,
 						lid: player.lid,
 						ctime: ctime,
@@ -37,10 +45,10 @@ var Player = {
 					};
 
 					if (player.uid) {
-						player.uid = player.uid;
+						insert.uid = player.uid;
 					}
 
-					Database.insert('wol_players', player, function(pid) {
+					Database.insert('wol_players', insert, function(pid) {
 						player.pid = pid;
 						deferred.resolve(player);
 					});
