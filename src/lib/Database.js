@@ -18,24 +18,15 @@ var mysql = require('mysql');
 
 var Database = {
 	db: undefined,
-	config: {},
+	pool: {},
 	configure: function(config) {
-		this.config = {
+		this.pool = mysql.createPool({
 			host: config.hostname,
 			user: config.username,
 			password: config.password,
 			database: config.database,
-			connectTimeout: 0
-		};
-	},
-
-	connect: function() {
-		this.db = new mysql.createConnection(this.config);
-		this.db.connect();
-	},
-
-	end: function() {
-		this.db.end();
+			connectionLimit: 10
+		});
 	},
 
 	insert: function(table, data, callback) {
@@ -46,23 +37,31 @@ var Database = {
 				values.push(data[key]);
 			}
 
-			var query = this.db.format(
+			var query = mysql.format(
 				'INSERT INTO ?? (??) VALUES (?)', [table, fields, values]
 			);
 
-			this.db.query(query, function(err, result) {
-				if (err) console.log('Error', err, '\r\nQuery', query);
-				if (callback) callback(result.insertId);
+			this.pool.getConnection(function(err, connection) {
+				connection.query(query, function(err, result) {
+					if (err) console.log('Error', err, '\r\nQuery', query);
+					if (callback) callback(result.insertId);
+
+					connection.release();
+				});
 			});
 		} 
 	},
 
 	query: function(query, callback) {
-		this.db.query(query, callback);
+		this.pool.getConnection(function(err, connection) {
+			connection.query(query, callback);
+
+			connection.release();
+		});
 	},
 
 	format: function(sql, inserts) {
-		return this.db.format(sql, inserts);
+		return mysql.format(sql, inserts);
 	}
 };
 
