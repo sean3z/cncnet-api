@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-01-18 03:15:28
+Date: 2015-01-19 11:03:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -112,6 +112,7 @@ CREATE TABLE `wol_games_stats` (
   `rsg` smallint(11) DEFAULT NULL COMMENT '??',
   `aly` smallint(11) DEFAULT NULL COMMENT '??',
   `tid` smallint(11) DEFAULT NULL COMMENT '??',
+  `uid` int(11) DEFAULT NULL,
   `ipa` bigint(11) NOT NULL DEFAULT '0' COMMENT 'Short IP Address',
   `adr` varchar(15) DEFAULT NULL,
   KEY `pid` (`pid`),
@@ -176,6 +177,7 @@ CREATE TABLE `wol_players` (
   `points` int(11) NOT NULL DEFAULT '0',
   `countries` int(11) NOT NULL DEFAULT '0',
   `lid` int(11) NOT NULL COMMENT 'Ladder Id',
+  `uid` int(11) DEFAULT NULL,
   `mtime` int(11) NOT NULL COMMENT 'Modified time',
   `ctime` int(11) NOT NULL COMMENT 'Created time',
   PRIMARY KEY (`pid`),
@@ -185,3 +187,21 @@ CREATE TABLE `wol_players` (
 -- ----------------------------
 -- Records of wol_players
 -- ----------------------------
+
+-- ----------------------------
+-- Procedure structure for `spHardReset`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `spHardReset`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spHardReset`()
+BEGIN
+	#Routine body goes here...
+	TRUNCATE wol_games;
+	TRUNCATE wol_games_raw;
+	TRUNCATE wol_games_stats;
+	TRUNCATE wol_players;
+	TRUNCATE wol_auth;
+
+END
+;;
+DELIMITER ;
