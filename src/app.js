@@ -20,7 +20,6 @@ var restify = require('restify'),
 	Packet = require(__dirname +'/lib/Packet.js'),
 	Database = require(__dirname +'/lib/Database.js'),
 	Authentication = require(__dirname +'/lib/Authentication.js'),
-	Player = require(__dirname +'/lib/Player.js'),
 	Ladder = require(__dirname +'/lib/Ladder.js'),
 	port = process.env.WOL_PORT || 4007;
 
@@ -96,6 +95,7 @@ app.put('/ladder/:game/player/:player', function(req, res) {
 		if (response.body) {
 			res.json(response.body);
 		}
+		
 		res.end();
 	});
 });
@@ -121,7 +121,7 @@ app.get('/ladder/:game/player/:player/auth', function(req, res) {
 		if (response.body) {
 			res.json(response.body);
 		}
-		
+
 		res.end();
 	});
 });
