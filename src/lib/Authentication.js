@@ -19,10 +19,6 @@ var Database = require(__dirname +'/Database.js'),
 	Q = require('q');
 
 var Authentication = {
-	/*** 
-	 * username doesn't mean nick. players can auth using their credentials
-	 * the ladder will track players via IP and add uid from wol_auth into wol_game_stats.uid
-	 */
 	identify: function(attempt) {
 		var deferred = Q.defer();
 
