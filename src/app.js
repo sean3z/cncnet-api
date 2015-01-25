@@ -21,7 +21,7 @@ var restify = require('restify'),
 	Database = require(__dirname +'/lib/Database.js'),
 	Authentication = require(__dirname +'/lib/Authentication.js'),
 	Ladder = require(__dirname +'/lib/Ladder.js'),
-	port = process.env.WOL_PORT || 4007;
+	port = process.env.WOL_LADDER_PORT || 4007;
 
 var app = restify.createServer();
 app.use(restify.bodyParser());
