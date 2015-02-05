@@ -21,6 +21,7 @@ var restify = require('restify'),
 	Database = require(__dirname +'/lib/Database.js'),
 	Authentication = require(__dirname +'/lib/Authentication.js'),
 	Ladder = require(__dirname +'/lib/Ladder.js'),
+	GameRes = require(__dirname +'/lib/GameResolution.js'),
 	port = process.env.WOL_LADDER_PORT || 4007;
 
 var app = restify.createServer();
@@ -30,13 +31,13 @@ app.use(restify.authorizationParser());
 Database.configure(config.database);
 
 var lids = {
-	search: function(lid) {
+	search: function (lid) {
 		return this[lid] || 0;
 	}
-}; 
+};
 
 // Prefetch lids for faster lookup
-Database.query('SELECT lid, abbrev FROM wol_ladders', function(err, data) {
+Database.query('SELECT lid, abbrev FROM wol_ladders', function (err, data) {
 	for (var i = data.length - 1; i >= 0; i--) {
 		lids[data[i].abbrev] = data[i].lid;
 	}
@@ -47,7 +48,7 @@ app.get('/ping', function(req, res) {
 });
 
 // @TODO: open similar udp listener
-app.post('/ladder/:game', function(req, res) {
+app.post('/ladder/:game', function (req, res) {
 	var _packet = new Packet({
 		packet: req.body, 
 		lid: lids.search(req.params.game),
@@ -122,6 +123,21 @@ app.get('/ladder/:game/player/:player/auth', function(req, res) {
 		}
 
 		res.end();
+	});
+});
+
+app.get('/debug/gameres/:hash', function(req, res) {
+	var query = Database.format(
+		'SELECT HEX(packet) as packet FROM wol_games_raw WHERE hash = ?', [req.params.hash]
+	);
+
+	Database.query(query, function(err, results) {
+		if (results.length < 1) {
+			res.send('Not Found');
+			return;
+		}
+
+		res.json(GameRes.parse(results[0].packet));
 	});
 });
 
