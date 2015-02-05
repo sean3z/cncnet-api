@@ -27,7 +27,7 @@ function Packet(_data) {
 
 	this.gameres = GameRes.parse(this.packet);
 	// this.hash = this.sha1(this.gameres);
-    this.hash = this.lid +'_'+ this.gameres.IDNO;
+    this.hash = this.lid + '_' + this.gameres.IDNO;
     
 	this.deferred = Q.defer();
 }
