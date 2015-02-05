@@ -43,6 +43,10 @@ Database.query('SELECT lid, abbrev FROM wol_ladders', function (err, data) {
 	}
 });
 
+/* adding d2k hack since FunkyFr3sh is lazy :P */
+lids['dune 2000'] = 6;
+lids['dune%202000'] = 6; /* unsure whether restify will urlencode */
+
 app.get('/ping', function(req, res) {
 	res.send('pong');
 });
