@@ -25,8 +25,8 @@ var GameResolution = {
 			buffer = new Buffer(packet, 'hex');
 		}
 
-		var slice = buffer.slice(0, 4), 
-			bufferLength = slice.readUInt16BE(0) - 4,
+		var slice = buffer.slice(0, 4),
+			bufferLength = slice.readUInt16BE(0),
 			flat = {}, i = 4;
 
 		while (i < bufferLength) {
@@ -39,20 +39,17 @@ var GameResolution = {
 				
 			var type = chunk.readUInt16BE(0),
 				length = chunk.readUInt16BE(2),
-				data = '';
+				data = 'Unprocessed Data';
 
 			i += 4;
 
-			if (length > 0) {
+            var end = i + length >= bufferLength ? bufferLength : i + length;
 
-				var end = i + length >= bufferLength ? bufferLength : i + length;
-				if (i < end) {
-					data = this.type(type, buffer.slice(i, end));
-				}
-				
-				length = Math.ceil(length / 4) * 4;
-				i += length;
-			}
+            if (i <= end) {
+                data = this.type(type, buffer.slice(i, end));
+                length = Math.ceil(length / 4) * 4;
+                i += length;
+            }
 			
 			flat[field] = data;
 		}
@@ -60,6 +57,7 @@ var GameResolution = {
 		return this.consolidate(flat);
 	},
 
+    /* consolidate player stats */
 	consolidate: function(flat) {
 		var consolidated = {players: {}};
 		
@@ -79,28 +77,48 @@ var GameResolution = {
 		return consolidated;
 	},
 
-	// WOL field type interpretter
+	/* WOL field type interpretter */
 	type: function (type, chunk) {
-		var data = 'Unprocessed';
-		/***
-			[15:37:56] <CCHyper> 5 = long
-			[15:38:07] <CCHyper> 4 = unsigned short
-			[15:38:14] <CCHyper> 3 = short
-			[15:39:10] <CCHyper> 1 = byte
-		*/
+		var data = 'Unprocessed Type';
 
 		switch (type) {
+            case 1:
+                // [15:39:10] <CCHyper> 1 = byte
+                data = chunk.readInt8(0);
+            break;
+                
 			case 2:
 				// [15:39:24] <CCHyper> 2 = boolean
 				data = chunk.readInt8(0) > 0 ? 1 : 0;
 			break;
+                
+            case 3:
+                // [15:38:14] <CCHyper> 3 = short
+                data = chunk.readInt16BE(0);
+            break;
+                
+            case 4:
+                // [15:38:07] <CCHyper> 4 = unsigned short
+                data = chunk.readUInt16BE(0);
+            break;
 
 			case 5:
-			case 6:
-				// [15:37:49] <CCHyper> 6 = ulong/ unsigned long
-				data = chunk.readUInt32BE(0);
+                // [15:37:56] <CCHyper> 5 = long
+				data = chunk.readInt32BE(0);
 			break;
+                
+            case 6:
+                // [15:37:49] <CCHyper> 6 = ulong/ unsigned long
+                data = chunk.readUInt32BE(0);
+            break;
 
+			case 7:
+				// [15:38:35] <CCHyper> 7= char
+				data = chunk.toString('ascii').replace('\u0000', ''); // charCode(0) at end of string
+				if (data == "ON") data = 1;
+				else if (data == "OFF") data = 0;
+			break;
+                
 			case 20:
 				// [15:39:34] <CCHyper> 20 is a string
 				// [15:40:28] <CCHyper> 0x14 is qword
@@ -111,13 +129,6 @@ var GameResolution = {
 					_data += slice.readUInt32BE(0);
 				}
 				data = _data;
-			break;
-
-			case 7:
-				// [15:38:35] <CCHyper> 7= char
-				data = chunk.toString('ascii').replace('\u0000', ''); // charCode(0) at end of string
-				if (data == "ON") data = 1;
-				else if (data == "OFF") data = 0;
 			break;
 		}
 
