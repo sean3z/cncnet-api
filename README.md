@@ -44,7 +44,7 @@ Player creation is optional as the ladder will accept results from players that 
 
 Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
 
-_**example player creation request**_
+_example player creation request_
 ```shell
 curl -X PUT -H "Content-Type: multipart/form-data" -F "username=Tahj" -F "password=MySecretPassword" -F "email=tahj.kirk@gmail.com" http://localhost:4003/ladder/ts/player/tahj3z
 ```
@@ -53,7 +53,7 @@ If this is the first player registration for the user, the account will be store
 
 After a player has been created, they can then proceed to login using the GET `/ladder/:game/player/:player/auth` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example login request would look similar to the following
 
-_**example player auth request**_
+_example player auth request_
 ```shell
 curl -isu Tahj:MySecretPassword http://localhost:4007/ladder/ts/player/tahj3z/auth
 ```
