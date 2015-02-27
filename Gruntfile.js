@@ -27,9 +27,9 @@ module.exports = function(grunt) {
         },
         
         watch: {
-            styles: {
-                files: ['src/www/assets/less/*.less'],
-                tasks: ['less:development']
+            www: {
+                files: ['src/www/*'],
+                tasks: ['copy', 'less:development']
             }
         },
         
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
         
         concurrent: {
             development: {
-                tasks: ['watch:styles', 'nodemon:development'],
+                tasks: ['watch:www', 'nodemon:development'],
                 options: {
                     logConcurrentOutput: true
                 }
