@@ -2,13 +2,13 @@
 This is an open source WOL Game Resolution emulator for legacy Command and Conquer games. Ideally, this app should work with any system sending WOLv1 or WOLv2 gameres packets - including Game Resolution UDP requests sent by the game clients. This app has several REST API endpoints to consume and post ladder data which are documented below.
 
 ### Games Supported
-* Yuri's Revenge
-* Red Alert 2
-* Firestorm
-* Tiberian Sun
-* Red Alert 1
-* Dune 2k
-* Tiberian Dawn
+* [Red Alert 2](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Red_Alert_2)
+* [Yuri's Revenge](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Yuri%27s_Revenge)
+* [Tiberian Sun](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Tiberian_Sun)
+* [Firestorm](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Tiberian_Sun#Firestorm)
+* [Red Alert 1](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Red_Alert)
+* [Dune 2000](http://en.wikipedia.org/wiki/Dune_2000)
+* [Tiberian Dawn](http://en.wikipedia.org/wiki/Command_%26_Conquer)
 
 ### Usage
 1. `npm install --production`
