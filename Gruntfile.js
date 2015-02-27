@@ -32,7 +32,7 @@ module.exports = function(grunt) {
         
         watch: {
             www: {
-                files: ['src/www/*'],
+                files: ['src/www/**'],
                 tasks: ['copy', 'sass:development']
             }
         },
@@ -41,6 +41,7 @@ module.exports = function(grunt) {
             development: {
                 script: 'src/app.js',
                 options: {
+                    ignore: ['src/www'],
                     env: {
                         'NODE_ENV': 'development'
                     }
