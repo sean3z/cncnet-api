@@ -13,7 +13,7 @@ This is an open source WOL Game Resolution emulator for legacy Command and Conqu
 * Tiberian Dawn
 
 ### Usage
-1. `npm install`
+1. `npm install --production`
 2. Install `_install/wol.sql`
 3. Configure `src/config.js`
 4. `npm start`
