@@ -16,30 +16,30 @@
 
 // WOL Game Resolution interpreter
 var GameResolution = {
-	parse: function(packet) {
+	parse: function (packet) {
 
 		var buffer = packet;
-		if (typeof packet == 'string') {
+		if (typeof packet === 'string') {
 			// remove any unnessiccary whitespace
 			packet = packet.replace(/(\r|\n|\r\n|\s+)/gm, '');
 			buffer = new Buffer(packet, 'hex');
 		}
 
-		var slice = buffer.slice(0, 4),
-			bufferLength = slice.readUInt16BE(0),
-			flat = {}, i = 4;
+		var slice = buffer.slice(0, 4);
+        var bufferLength = slice.readUInt16BE(0);
+        var flat = {}, i = 4;
 
 		while (i < bufferLength) {
-			var chunk = buffer.slice(i,  i + 4),
-				field = chunk.toString();
+			var chunk = buffer.slice(i,  i + 4);
+            var field = chunk.toString();
 
 			i += 4;
 
 			chunk = buffer.slice(i, i + 8);
 				
-			var type = chunk.readUInt16BE(0),
-				length = chunk.readUInt16BE(2),
-				data = 'Unprocessed Data';
+            var type = chunk.readUInt16BE(0);
+            var length = chunk.readUInt16BE(2);
+            var data = 'Unprocessed Data';
 
 			i += 4;
 
@@ -57,27 +57,7 @@ var GameResolution = {
 		return this.consolidate(flat);
 	},
 
-    /* consolidate player stats */
-	consolidate: function(flat) {
-		var consolidated = {players: {}};
-		
-		if (flat.NAM0 || flat.NAM1) {
-			for (var key in flat) {
-				var val = flat[key], index = parseInt(key.slice(-1));
-
-				if (index > -1) {
-					if (!consolidated.players[index]) consolidated.players[index] = {};
-					consolidated.players[index][key.slice(0, -1)] = val;
-				} else {
-					consolidated[key] = val;
-				}
-			}
-		}
-
-		return consolidated;
-	},
-
-	/* WOL field type interpretter */
+	/* WOL field type interpreter */
 	type: function (type, chunk) {
 		var data = 'Unprocessed Type';
 
@@ -134,6 +114,26 @@ var GameResolution = {
 
 		return data;
 	},
+    
+    /* consolidate player stats */
+	consolidate: function (flat) {
+		var consolidated = {players: {}};
+		
+		if (flat.NAM0 || flat.NAM1) {
+			for (var key in flat) {
+				var val = flat[key], index = parseInt(key.slice(-1));
+
+				if (index > -1) {
+					if (!consolidated.players[index]) consolidated.players[index] = {};
+					consolidated.players[index][key.slice(0, -1)] = val;
+				} else {
+					consolidated[key] = val;
+				}
+			}
+		}
+
+		return consolidated;
+	}
 };
 
 module.exports = GameResolution;
