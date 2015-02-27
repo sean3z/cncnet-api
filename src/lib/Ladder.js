@@ -71,6 +71,14 @@ var Ladder = {
 		}
 
 		Database.insert('wol_games_stats', stats);
+
+        var query = Database.format(
+            'UPDATE wol_players SET games_count = games_count + 1 WHERE pid = ?', [stats.pid]
+        );
+
+        Database.query(query, function(err, results) {
+            // do nothing
+        });
 	}
 };
 
