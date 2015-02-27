@@ -149,6 +149,11 @@ app.post('/debug/gameres/', function(req, res) {
     res.json(GameRes.parse(req.body));
 });
 
+app.get(/.*/, restify.serveStatic({
+    directory: __dirname + '/www',
+    default: 'index.html'
+}));
+
 app.listen(port, function() {
 	console.log('SUCCESS!! WOL Ladder listening on port:%s', port);
 	console.log('Control + C to cancel');
