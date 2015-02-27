@@ -150,7 +150,7 @@ app.post('/debug/gameres/', function(req, res) {
 });
 
 app.get(/.*/, restify.serveStatic({
-    directory: __dirname + '/www',
+    directory: __dirname + '/../dist/www',
     default: 'index.html'
 }));
 
