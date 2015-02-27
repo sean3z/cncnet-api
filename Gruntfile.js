@@ -8,18 +8,22 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/www',
-                    src: ['**', '!**/less/**'],
+                    src: ['**', '!**/sass/**'],
                     dest: 'dist/www/'
                 }]
             }
         },
         
-        less: {
+        sass: {
             development: {
+                options: {
+                    sourcemap: 'none',
+                    style: 'compact'
+                },
                 files: [{
                     expand: true,
-                    cwd: 'src/www/assets/less',
-                    src: ['*.less'],
+                    cwd: 'src/www/assets/sass',
+                    src: ['*.scss'],
                     dest: 'dist/www/assets/css',
                     ext: '.css'
                 }]
@@ -29,7 +33,7 @@ module.exports = function(grunt) {
         watch: {
             www: {
                 files: ['src/www/*'],
-                tasks: ['copy', 'less:development']
+                tasks: ['copy', 'sass:development']
             }
         },
         
@@ -56,11 +60,11 @@ module.exports = function(grunt) {
     
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     
-    grunt.registerTask('serve-app-dev', ['clean', 'copy', 'less:development', 'concurrent:development']);
-    grunt.registerTask('build-app-prod', ['clean', 'copy', 'less:development']);
+    grunt.registerTask('serve-app-dev', ['clean', 'copy', 'sass:development', 'concurrent:development']);
+    grunt.registerTask('build-app-prod', ['clean', 'copy', 'sass:development']);
 };

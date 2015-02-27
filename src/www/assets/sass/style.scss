@@ -1,0 +1,8 @@
+@import 'inc/mixins';
+@import 'inc/variables';
+
+body {
+    p {
+        color: $colorRed;
+    }
+}
