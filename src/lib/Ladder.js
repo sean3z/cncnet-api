@@ -26,7 +26,8 @@ var Ladder = {
 		var wol_game = {
 			lid: lid,
 			mid: 1,
-			wol_gid: gameres.IDNO,
+            scene: gameres.SCNE || 'No Map',
+			wol_gid: gameres.IDNO || 1,
 			duration: gameres.DURA || 300,
 			afps: gameres.AFPS || 60,
 			crates: gameres.CRAT || 0,
@@ -45,6 +46,7 @@ var Ladder = {
 					lid: lid,
 					gid: gid,
 					stats: gameres.players[i],
+                    oosy: wol_game.oosy,
 					create: true
 				};
 
@@ -61,8 +63,13 @@ var Ladder = {
 		delete data.stats.NAM;
 
 		var stats = {
+            lid: data.lid,
 			gid: data.gid,
-			pid: data.pid
+			pid: data.pid,
+            wins: 0,
+            loss: 0,
+            oosy: 0,
+            points: 0
 		};
 
 		for (var field in data.stats) {
@@ -72,13 +79,26 @@ var Ladder = {
 
 		Database.insert('wol_games_stats', stats);
 
+        // if RA2,YR,TS or FS
+        if ([2,4,5,7].indexOf(stats.lid) > -1) {
+            if (parseInt(data.stats.CMP) == 512) {
+                stats.wins = 1;
+                stats.points = 20;
+            } else if (parseInt(data.stats.CMP) == 256) {
+                stats.loss = 1;
+                stats.points = 10;
+            }
+        }
+
+        if (parseInt(data.oosy) > 0) {
+            stats.oosy = 1;
+        }
+
         var query = Database.format(
-            'UPDATE wol_players SET games_count = games_count + 1 WHERE pid = ?', [stats.pid]
+            'UPDATE wol_players SET games_count = games_count + 1, win_count = win_count + ?, loss_count = loss_count + ?, oos_count = oos_count + ?, points = points + ? WHERE pid = ?', [stats.wins, stats.loss, stats.oosy, stats.points, stats.pid]
         );
 
-        Database.query(query, function(err, results) {
-            // do nothing
-        });
+        Database.query(query, function(err, results) {});
 	}
 };
 
