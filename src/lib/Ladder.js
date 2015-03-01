@@ -63,14 +63,16 @@ var Ladder = {
 		delete data.stats.NAM;
 
 		var stats = {
-            lid: data.lid,
 			gid: data.gid,
-			pid: data.pid,
+			pid: data.pid
+		};
+
+        var _stats = {
             wins: 0,
             loss: 0,
             oosy: 0,
             points: 0
-		};
+        };
 
 		for (var field in data.stats) {
 			if (data.stats[field].length < 1) continue;
@@ -80,22 +82,22 @@ var Ladder = {
 		Database.insert('wol_games_stats', stats);
 
         // if RA2,YR,TS or FS
-        if ([2,4,5,7].indexOf(stats.lid) > -1) {
+        if ([2,4,5,7].indexOf(data.lid) > -1) {
             if (parseInt(data.stats.CMP) == 512) {
-                stats.wins = 1;
-                stats.points = 20;
+                _stats.wins = 1;
+                _stats.points = 20;
             } else if (parseInt(data.stats.CMP) == 256) {
-                stats.loss = 1;
-                stats.points = 10;
+                _stats.loss = 1;
+                _stats.points = 10;
             }
         }
 
         if (parseInt(data.oosy) > 0) {
-            stats.oosy = 1;
+            _stats.oosy = 1;
         }
 
         var query = Database.format(
-            'UPDATE wol_players SET games_count = games_count + 1, win_count = win_count + ?, loss_count = loss_count + ?, oos_count = oos_count + ?, points = points + ? WHERE pid = ?', [stats.wins, stats.loss, stats.oosy, stats.points, stats.pid]
+            'UPDATE wol_players SET games_count = games_count + 1, win_count = win_count + ?, loss_count = loss_count + ?, oos_count = oos_count + ?, points = points + ? WHERE pid = ?', [_stats.wins, _stats.loss, _stats.oosy, _stats.points, stats.pid]
         );
 
         Database.query(query, function(err, results) {});
