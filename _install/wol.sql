@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-01-19 11:03:36
+Date: 2015-03-01 02:15:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,6 +39,7 @@ CREATE TABLE `wol_games` (
   `gid` int(11) NOT NULL AUTO_INCREMENT,
   `lid` int(11) NOT NULL,
   `mid` int(11) NOT NULL COMMENT 'Map Id',
+  `scene` varchar(255) NOT NULL,
   `wol_gid` int(11) NOT NULL COMMENT 'WOL (external) Game Id',
   `duration` int(11) NOT NULL,
   `afps` int(1) NOT NULL DEFAULT '60' COMMENT 'Average FPS',
