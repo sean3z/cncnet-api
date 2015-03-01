@@ -1,4 +1,4 @@
-angular.module('Ladder.Player', ['ui.router']).controller('LadderPlayerCtrl', LadderPlayerCtrl);
+angular.module('Ladder.Player').controller('LadderPlayerCtrl', LadderPlayerCtrl);
 
 LadderPlayerCtrl.$inject = ['$stateParams'];
 function LadderPlayerCtrl($stateParams) {
