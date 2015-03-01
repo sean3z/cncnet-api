@@ -14,3 +14,4 @@ dist
 # workspace files are user-specific
 *.sublime-workspace
 *.sublime-project
+/src/config.json
