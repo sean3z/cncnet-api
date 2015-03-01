@@ -27,6 +27,7 @@ var restify = require('restify'),
 var app = restify.createServer();
 app.use(restify.bodyParser());
 app.use(restify.authorizationParser());
+app.use(restify.fullResponse());
 
 Database.configure(config.database);
 
