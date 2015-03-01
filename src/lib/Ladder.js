@@ -101,7 +101,29 @@ var Ladder = {
         );
 
         Database.query(query, function(err, results) {});
-	}
+	},
+
+    top: function(limit, lid) {
+        var deferred = Q.defer();
+
+        var query = Database.format(
+            'SELECT name, win_count, loss_count, games_count, oos_count, points FROM wol_players WHERE lid = ? AND points > 0 ORDER BY points DESC LIMIT ?', [lid, limit]
+        );
+
+        Database.query(query, function(err, results) {
+            if (results.length < 1) {
+                deferred.resolve({
+                   status: 404
+                });
+            } else {
+                deferred.resolve({
+                    body: results
+                });
+            }
+        });
+
+        return deferred.promise;
+    }
 };
 
 module.exports = Ladder;

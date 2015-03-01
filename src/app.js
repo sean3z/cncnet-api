@@ -69,8 +69,14 @@ app.post('/ladder/:game', function (req, res) {
 });
 
 app.get('/ladder/:game', function(req, res) {
-	// return top 250 results for given game
-	res.json({test: 1, game: lids.search(req.params.game)});
+	// return top 250 players for given game
+    Ladder.top(250, lids.search(req.params.game)).then(function(response) {
+        res.status(response.status || 200);
+        if (response.body) {
+            res.send(response.body);
+        }
+    });
+
 });
 
 app.get('/ladder/:game/game/:gameId', function(req, res) {
@@ -143,6 +149,22 @@ app.get('/debug/gameres/:hash', function(req, res) {
 
 		res.json(GameRes.parse(results[0].packet));
 	});
+});
+
+app.get('/debug/gameres/:hash/raw', function(req, res) {
+    var query = Database.format(
+		'SELECT HEX(packet) as packet FROM wol_games_raw WHERE hash = ?', [req.params.hash]
+	);
+
+	Database.query(query, function(err, results) {
+		if (results.length < 1) {
+			res.send('Not Found');
+			return;
+		}
+
+		res.send(results[0].packet);
+	});
+
 });
 
 app.post('/debug/gameres/', function(req, res) {
