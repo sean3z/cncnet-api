@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>WOL Ladder</title>
+        <title>Ladder for Command and Conquer</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/angular-material.min.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     </head>
-    <body>
-        Hello World!
+    <body ng-app="app">
+        <div layout="row" flex>
+            <div layout="column" ui-view>
+            </div>
+        </div>
         
         <script type="text/javascript" src="assets/js/vendor/angular.min.js"></script>
+        <script type="text/javascript" src="assets/js/vendor/angular-animate.min.js"></script>
         <script type="text/javascript" src="assets/js/vendor/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="assets/js/vendor/angular-material.min.js"></script>
+
         <script type="text/javascript" src="assets/js/app.js"></script>
+        <script type="text/javascript" src="assets/js/controllers/Ladder.js"></script>
+        <script type="text/javascript" src="assets/js/controllers/LadderGame.js"></script>
+        <script type="text/javascript" src="assets/js/controllers/LadderPlayer.js"></script>
     </body>
 </html>
