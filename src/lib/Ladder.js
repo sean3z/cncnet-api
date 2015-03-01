@@ -26,7 +26,7 @@ var Ladder = {
 		var wol_game = {
 			lid: lid,
 			mid: 1,
-            scene: gameres.SCNE || 'No Map',
+            scene: gameres.SCEN || 'No Map',
 			wol_gid: gameres.IDNO || 1,
 			duration: gameres.DURA || 300,
 			afps: gameres.AFPS || 60,
