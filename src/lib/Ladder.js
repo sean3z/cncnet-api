@@ -26,7 +26,7 @@ var Ladder = {
 		var wol_game = {
 			lid: lid,
 			mid: 1,
-			wol_gid: 1, // gameres.IDNO
+			wol_gid: gameres.IDNO,
 			duration: gameres.DURA || 300,
 			afps: gameres.AFPS || 60,
 			crates: gameres.CRAT || 0,
