@@ -1,4 +1,11 @@
-angular.module('app', ['ui.router']).config(configuration);
+angular.module('app', [
+    'ui.router',
+    'Ladder',
+    'Ladder.Game',
+    'Ladder.Player'
+]);
+
+angular.module('app').config(configuration);
 
 function configuration($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -9,21 +16,21 @@ function configuration($stateProvider, $urlRouterProvider) {
 
         .state('ladder', {
             url: '/ladder/:game',
-            controller: LadderCtrl,
+            controller: 'LadderCtrl',
             controllerAs: 'ladderCtrlVm',
             templateUrl: 'assets/js/components/ladder/ladder.partial.html'
         })
 
         .state('ladder.player', {
             url: '/player/:player',
-            controller: LadderPlayerCtrl,
+            controller: 'LadderPlayerCtrl',
             controllerAs: 'ladderPlayerCtrlVm',
             templateUrl: 'assets/js/components/ladder-player/ladder-player.partial.html'
         })
 
         .state('ladder.game', {
             url: '/game/:gameId',
-            controller: LadderGameCtrl,
+            controller: 'LadderGameCtrl',
             controllerAs: 'ladderGameCtrlVm',
             templateUrl: 'assets/js/components/ladder-game/ladder-game.partial.html'
         });
