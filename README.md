@@ -1,7 +1,7 @@
 # Westwood Online (WOL) Ladder 
 [![Build Status](https://travis-ci.org/sean3z/wol-ladder.svg?branch=develop)](https://travis-ci.org/sean3z/wol-ladder) [![PayPal donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5PWNYVG8W7UFS&lc=US&item_name=Westwood%20Online%20Ladder&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest) [![Apache License](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-This is an open source WOL emulator and ladder for legacy [Westwood Studios](http://en.wikipedia.org/wiki/Westwood_Studios) games; specifically, those hosted by [CnCNet](http://cncnet.org). Ideally though, this application should work with any client sending WOLv1 or WOLv2 Game Resolution packets. This application serves several REST API endpoints (documented below) to consume and post ladder data.
+This is an open source WOL ladder emulator for legacy [Westwood Studios](http://en.wikipedia.org/wiki/Westwood_Studios) games; specifically, those hosted by [CnCNet](http://cncnet.org). Ideally though, this application should work with any client sending WOLv1 or WOLv2 Game Resolution packets. This application serves several REST API endpoints (documented below) to consume and post ladder data.
 
 ### Games Supported
 * [Red Alert 2](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Red_Alert_2)
