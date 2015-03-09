@@ -17,7 +17,6 @@
 var GameRes = require(__dirname +'/GameResolution.js'),
 	Database = require(__dirname +'/Database.js'),
 	Ladder = require(__dirname +'/Ladder.js'),
-	crypto = require('crypto'),
 	Q = require('q');
 
 function Packet(_data) {
@@ -26,7 +25,6 @@ function Packet(_data) {
 	this.game = _data.game;
 
 	this.gameres = GameRes.parse(this.packet);
-	// this.hash = this.sha1(this.gameres);
     this.hash = this.lid + '_' + this.gameres.IDNO;
     
 	this.deferred = Q.defer();
@@ -69,17 +67,6 @@ Packet.prototype.handle = function() {
 	});
 
 	return this.deferred.promise;
-};
-
-Packet.prototype.sha1 = function(gameres) {
-	var unique = [
-		gameres.IDNO, gameres.DURA,
-		gameres.SCEN, gameres.OOSY,
-		gameres.CRED, gameres.TECH,
-		gameres.CRAT, gameres.DATE
-	].join('');
-
-	return crypto.createHash('sha1').update(unique).digest('hex');
 };
 
 Packet.prototype.queued = function() {
