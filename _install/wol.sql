@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-03-01 02:15:03
+Date: 2015-03-09 13:08:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -179,7 +179,7 @@ CREATE TABLE `wol_players` (
   `countries` int(11) NOT NULL DEFAULT '0',
   `lid` int(11) NOT NULL COMMENT 'Ladder Id',
   `uid` int(11) DEFAULT NULL,
-  `mtime` int(11) NOT NULL COMMENT 'Modified time',
+  `mtime` int(11) DEFAULT NULL COMMENT 'Modified time',
   `ctime` int(11) NOT NULL COMMENT 'Created time',
   PRIMARY KEY (`pid`),
   UNIQUE KEY `name` (`name`,`lid`) USING BTREE
