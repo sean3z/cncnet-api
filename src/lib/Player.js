@@ -34,33 +34,36 @@ var Player = {
 		);
 
 		Database.query(query, function(err, result) {
-			if (result.length < 1) {
-				if (!!search.create) {
-					var insert = {
-						name: search.name,
-						lid: search.lid,
-						ctime: Math.floor(new Date().getTime() / 1000)
-					};
-
-					if (search.uid) {
-						insert.uid = search.uid;
-					}
-
-					Database.insert('wol_players', insert, function(pid) {
-						search.pid = pid;
-						deferred.resolve(player);
-					});
-				} else {
-					deferred.reject({
-						status: 404
-					});
-				}
-			} else {
-				search.pid = result[0].pid;
+            if (result.length > 0) {
+                search.pid = result[0].pid;
 				search.uid = result[0].uid;
-				search.exists = true;
-				deferred.resolve(search);
-			}
+				search.exists = true; // player located
+				return deferred.resolve(search);
+            }
+
+            if (!search.create) {
+                // return player not found
+                return deferred.reject({
+                    status: 404
+                });
+            }
+
+            // create player
+            var insert = {
+                name: search.name,
+                lid: search.lid,
+                ctime: Math.floor(new Date().getTime() / 1000)
+            };
+
+            if (search.uid) {
+                insert.uid = search.uid;
+            }
+
+            Database.insert('wol_players', insert, function(pid) {
+                search.pid = pid;
+                deferred.resolve(search);
+            });
+
 		});
 
 		return deferred.promise;
