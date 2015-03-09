@@ -1,7 +1,7 @@
 # Westwood Online (WOL) Ladder 
 [![Build Status](https://travis-ci.org/sean3z/wol-ladder.svg?branch=develop)](https://travis-ci.org/sean3z/wol-ladder) [![PayPal donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5PWNYVG8W7UFS&lc=US&item_name=Westwood%20Online%20Ladder&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest) [![Apache License](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-This is an open source WOL emulator and ladder for legacy [Westwood Studios](http://en.wikipedia.org/wiki/Westwood_Studios) games; specifically, those hosted by [CnCNet](http://cncnet.org). Ideally though, this application should work with any client sending WOLv1 or WOLv2 Game Resolution packets. This application serves several REST API endpoints (documented below) to consume and post ladder data.
+This is an open source WOL ladder emulator for legacy [Westwood Studios](http://en.wikipedia.org/wiki/Westwood_Studios) games; specifically, those hosted by [CnCNet](http://cncnet.org). Ideally though, this application should work with any client sending WOLv1 or WOLv2 Game Resolution packets. This application serves several REST API endpoints (documented below) to consume and post ladder data.
 
 ### Games Supported
 * [Red Alert 2](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Red_Alert_2)
@@ -18,30 +18,30 @@ This is an open source WOL emulator and ladder for legacy [Westwood Studios](htt
 3. Configure `src/config.js`
 4. `npm start`
 
-### API Endpoints
+## REST API Endpoints
 There's a few params listed below.
 
 * `:game` can be any of the following `(td|d2k|ra|ts|fs|ra2|yr)`
 * `:gameId` can only be numeric `(0-9)`
 * `:player` can be alpha-numeric with some special characers `(\w\d\[\])`
 
-##### General Endpoints
+###### General Endpoints
 * GET `/ping` to ensure that the ladder is online
 
-##### Game Endpoints
+###### Game Endpoints
 * GET `/ladder/:game` will return the top 250 ladder results for the supplied `:game`
 * POST `/ladder/:game` accepts gameres packet (via POST body) for the supplied `:game`
 * GET `/ladder/:game/games` will return the latest 250 games played for the given `:game`
 * GET `/ladder/:game/games/:gameId` will return all data for a given `:gameId`
 
-##### Player Endpoints
+###### Player Endpoints
 * PUT `/ladder/:game/player/:player` will create the given `:player`
 * GET `/ladder/:game/player/:player` will return most data for given `:player` 
 * DELETE `/ladder/:game/player/:player` will irrevocably delete the given `:player`
 * GET `/ladder/:game/player/:player/auth` HTTP authentication using player creation credentials
 * GET `/ladder/:game/player/:player/reset` request to reset account password
 
-#### Player Creation
+###### Player Creation
 Player creation is optional as the ladder will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players. 
 
 Players can be created using the PUT `/ladder/:game/player/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
