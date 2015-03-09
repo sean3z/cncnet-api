@@ -21,6 +21,11 @@ var Player = {
 	locate: function(search) {
 		var deferred = Q.defer();
 
+        // @hack: if name is empty, use Computer
+        if (!search.name) {
+            search.name = 'Computer';
+        }
+
 		if (!search.name || !search.lid) {
 			deferred.reject({
 				status: 400
@@ -41,8 +46,8 @@ var Player = {
 				return deferred.resolve(search);
             }
 
+            // create player if flag true
             if (search.create) {
-                // create player
                 var insert = {
                     name: search.name,
                     lid: search.lid,
