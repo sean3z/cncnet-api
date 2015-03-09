@@ -18,10 +18,10 @@ var Database = require('./Database.js'),
 	Q = require('q');
 
 var Player = {
-	locate: function(player) {
+	locate: function(search) {
 		var deferred = Q.defer();
 
-		if (!player.name || !player.lid) {
+		if (!search.name || !search.lid) {
 			deferred.reject({
 				status: 400
 			});
@@ -30,26 +30,24 @@ var Player = {
 		}
 
 		var query = Database.format(
-			'SELECT pid, uid FROM wol_players WHERE name = ? AND lid = ?', [player.name, player.lid]
+			'SELECT pid, uid FROM wol_players WHERE name = ? AND lid = ?', [search.name, search.lid]
 		);
 
 		Database.query(query, function(err, result) {
 			if (result.length < 1) {
-				if (!!player.create) {
-					var ctime = Math.floor(new Date().getTime() / 1000);
+				if (!!search.create) {
 					var insert = {
-						name: player.name,
-						lid: player.lid,
-						ctime: ctime,
-						mtime: ctime
+						name: search.name,
+						lid: search.lid,
+						ctime: Math.floor(new Date().getTime() / 1000)
 					};
 
-					if (player.uid) {
-						insert.uid = player.uid;
+					if (search.uid) {
+						insert.uid = search.uid;
 					}
 
 					Database.insert('wol_players', insert, function(pid) {
-						player.pid = pid;
+						search.pid = pid;
 						deferred.resolve(player);
 					});
 				} else {
@@ -58,10 +56,10 @@ var Player = {
 					});
 				}
 			} else {
-				player.pid = result[0].pid;
-				player.uid = result[0].uid;
-				player.exists = true;
-				deferred.resolve(player);
+				search.pid = result[0].pid;
+				search.uid = result[0].uid;
+				search.exists = true;
+				deferred.resolve(search);
 			}
 		});
 
