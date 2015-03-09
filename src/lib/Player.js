@@ -41,29 +41,30 @@ var Player = {
 				return deferred.resolve(search);
             }
 
-            if (!search.create) {
-                // return player not found
-                return deferred.reject({
-                    status: 404
+            if (search.create) {
+                // create player
+                var insert = {
+                    name: search.name,
+                    lid: search.lid,
+                    ctime: Math.floor(new Date().getTime() / 1000)
+                };
+
+                if (search.uid) {
+                    insert.uid = search.uid;
+                }
+
+                Database.insert('wol_players', insert, function(pid) {
+                    search.pid = pid;
+                    deferred.resolve(search);
                 });
+
+                return;
             }
 
-            // create player
-            var insert = {
-                name: search.name,
-                lid: search.lid,
-                ctime: Math.floor(new Date().getTime() / 1000)
-            };
-
-            if (search.uid) {
-                insert.uid = search.uid;
-            }
-
-            Database.insert('wol_players', insert, function(pid) {
-                search.pid = pid;
-                deferred.resolve(search);
+            // return player not found
+            return deferred.reject({
+                status: 404
             });
-
 		});
 
 		return deferred.promise;
