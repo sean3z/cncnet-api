@@ -81,6 +81,9 @@ var Ladder = {
 
 		Database.insert('wol_games_stats', stats);
 
+        // @TODO: base points on opponents experience
+        // @TODO: add (daily or monthly) game limit against opponent
+
         // if RA2,YR,TS or FS
         if ([2,4,5,7].indexOf(data.lid) > -1) {
             if (parseInt(data.stats.CMP) == 512) {
@@ -88,7 +91,7 @@ var Ladder = {
                 _stats.points = 20;
             } else if (parseInt(data.stats.CMP) == 256) {
                 _stats.loss = 1;
-                _stats.points = 10;
+                _stats.points = 5;
             }
         }
 
