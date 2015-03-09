@@ -34,12 +34,12 @@ Packet.prototype.handle = function() {
 	var self = this;
 
 	var query = Database.format(
-		'SELECT gid FROM wol_games_raw WHERE hash = ?', [this.hash]
+		'SELECT * FROM wol_games_raw WHERE hash = ?', [this.hash]
 	);
 
 	Database.query(query, function(err, data) {
 		if (data.length < 1) {
-			// save raw game
+			// hash not found, save raw game
 			Database.insert('wol_games_raw', {
 				hash: self.hash,
 				packet: self.packet,
@@ -47,32 +47,25 @@ Packet.prototype.handle = function() {
 				ctime: Math.floor(new Date().getTime() / 1000)
 			});
 
-			self.queued();
+            self.deferred.resolve({
+                status: 202
+            });
 		} else {
-			// do NOT delete hash; cron will cleanup
-			if (data[0].gid) {
-				self.processed(data[0].gid);
+			// game already associated; do NOT remove hash - cron will cleanup
+			if (parseInt(data[0].gid) > 0) return self.processed(data[0].gid);
 
-			} else {
-				// we have at least 2 of the same packet; create game
-				Ladder.save(self.hash, self.gameres, self.lid).then(function(gid) {
-					Database.query(
-						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, self.hash]
-					);
+            // we have at least 2 of the same packet; create game
+            Ladder.save(self.hash, self.gameres, self.lid).then(function(gid) {
+                Database.query(
+                    'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, self.hash]
+                );
 
-					self.processed(gid);
-				});
-			} 
+                self.processed(gid);
+            });
 		}
 	});
 
 	return this.deferred.promise;
-};
-
-Packet.prototype.queued = function() {
-	this.deferred.resolve({
-		status: 202
-	});
 };
 
 Packet.prototype.processed = function(gid) {
