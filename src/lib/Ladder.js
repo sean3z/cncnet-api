@@ -21,7 +21,7 @@ var Database = require(__dirname +'/Database.js'),
 var Ladder = {
 	save: function(hash, gameres, lid) {
 		this.deferred = Q.defer();
-		var $this = this;
+		var self = this;
 
 		var wol_game = {
 			lid: lid,
@@ -50,10 +50,10 @@ var Ladder = {
 					create: true
 				};
 
-				Player.locate(user).then($this.stats);
+				Player.locate(user).then(self.stats);
 			}
 
-			$this.deferred.resolve(gid);
+			self.deferred.resolve(gid);
 		});
 
 		return this.deferred.promise;
