@@ -43,10 +43,9 @@ var Database = {
 
 			this.pool.getConnection(function(err, connection) {
 				connection.query(query, function(err, result) {
-					if (err) console.log('Error', err, '\r\nQuery', query);
+					if (err) console.log('MySQL Error:', err, '\r\nMySQL Query:', query);
 					if (callback) callback(result.insertId);
-
-					connection.release();
+                    connection.release();
 				});
 			});
 		} 
@@ -54,9 +53,10 @@ var Database = {
 
 	query: function(query, callback) {
 		this.pool.getConnection(function(err, connection) {
-			connection.query(query, callback);
-
-			connection.release();
+			connection.query(query, function(err, response) {
+                callback(err, response);
+                connection.release();
+            });
 		});
 	},
 
