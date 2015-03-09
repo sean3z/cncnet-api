@@ -33,7 +33,7 @@ function Packet(_data) {
 }
 
 Packet.prototype.handle = function() {
-	var $this = this;
+	var self = this;
 
 	var query = Database.format(
 		'SELECT gid FROM wol_games_raw WHERE hash = ?', [this.hash]
@@ -43,26 +43,26 @@ Packet.prototype.handle = function() {
 		if (data.length < 1) {
 			// save raw game
 			Database.insert('wol_games_raw', {
-				hash: $this.hash,
-				packet: $this.packet,
-				lid: $this.lid,
+				hash: self.hash,
+				packet: self.packet,
+				lid: self.lid,
 				ctime: Math.floor(new Date().getTime() / 1000)
 			});
 
-			$this.queued();
+			self.queued();
 		} else {
 			// do NOT delete hash; cron will cleanup
 			if (data[0].gid) {
-				$this.processed(data[0].gid);
+				self.processed(data[0].gid);
 
 			} else {
 				// we have at least 2 of the same packet; create game
-				Ladder.save($this.hash, $this.gameres, $this.lid).then(function(gid) {
+				Ladder.save(self.hash, self.gameres, self.lid).then(function(gid) {
 					Database.query(
-						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, $this.hash]
+						'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, self.hash]
 					);
 
-					$this.processed(gid);
+					self.processed(gid);
 				});
 			} 
 		}
