@@ -1,7 +1,7 @@
 {
   "name": "wol-ladder",
   "version": "0.0.1",
-  "description": "Ladder for Westwood Online (WOL) based Command and Conquer games",
+  "description": "Ladder for Westwood Online (WOL) Command and Conquer games",
   "author": "Sean Wragg <seanwragg@gmail.com>",
   "main": "src/app.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "jshintConfig": {
     "shadow": true
   },
-  "license": "Apache",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/sean3z/wol-ladder.git"
@@ -36,5 +36,5 @@
   "bugs": {
     "url": "https://github.com/sean3z/wol-ladder/issues"
   },
-  "homepage": "https://github.com/sean3z/wol-ladder"
+  "homepage": "http://cnc-comm.com/community/"
 }
