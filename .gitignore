@@ -4,6 +4,7 @@ node_modules
 _storage
 dist
 .sass-cache
+.idea
 
 ### SublimeText ###
 # cache files for sublime text
