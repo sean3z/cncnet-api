@@ -40,9 +40,10 @@ Packet.prototype.handle = function() {
 
             // we have at least 2 of the same packet; create game
             Ladder.save(self.hash, self.gameres, self.lid).then(function(gid) {
-                Database.query(
+                var query = Database.format(
                     'UPDATE wol_games_raw SET gid = ? WHERE hash = ?', [gid, self.hash]
                 );
+                Database.query(query);
 
                 self.processed(gid);
             });
