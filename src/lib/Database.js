@@ -21,9 +21,13 @@ var Database = {
 				values.push(data[key]);
 			}
 
-			var query = mysql.format(
-				'INSERT INTO ?? (??) VALUES (?)', [table, fields, values]
-			);
+            // if no callback, assume we can ignore
+            var insert = 'INSERT ';
+            if (!callback) insert += 'IGNORE ';
+
+            var query = insert + mysql.format(
+                'INTO ?? (??) VALUES (?)', [table, fields, values]
+            );
 
 			this.pool.getConnection(function(err, connection) {
 				connection.query(query, function(err, result) {
