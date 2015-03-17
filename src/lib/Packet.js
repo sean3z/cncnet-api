@@ -18,7 +18,7 @@ Packet.prototype.handle = function() {
 	var self = this;
 
 	var query = Database.format(
-		'SELECT * FROM wol_games_raw WHERE hash = ?', [this.hash]
+		'SELECT hash, gid FROM wol_games_raw WHERE hash = ?', [this.hash]
 	);
 
 	Database.query(query, function(err, data) {
