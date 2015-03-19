@@ -32,12 +32,13 @@ Database.query('SELECT lid, abbrev FROM wol_ladders', function (err, data) {
 lids['dune 2000'] = 6;
 lids['dune%202000'] = 6; /* unsure whether restify will urlencode */
 
-app.get('/ping', function(req, res) {
+app.get('/ping', function(req, res, next) {
 	res.send('pong');
+    return next();
 });
 
 // @TODO: open similar udp listener
-app.post('/ladder/:game', function (req, res) {
+app.post('/ladder/:game', function (req, res, next) {
 	var _packet = new Packet({
 		packet: req.body, 
 		lid: lids.search(req.params.game),
@@ -50,26 +51,29 @@ app.post('/ladder/:game', function (req, res) {
 			res.header('Location', response.location);
 		}
 		res.end();
+        next();
 	});
 });
 
-app.get('/ladder/:game', function(req, res) {
+app.get('/ladder/:game', function(req, res, next) {
 	// return top 250 players for given game
     Ladder.top(250, lids.search(req.params.game)).then(function(response) {
         res.status(response.status || 200);
         if (response.body) {
             res.send(response.body);
         }
+        next();
     });
 
 });
 
-app.get('/ladder/:game/game/:gameId', function(req, res) {
+app.get('/ladder/:game/game/:gameId', function(req, res, next) {
 	// return all data for given gameId
 	res.json({test: 2});
+    return next();
 });
 
-app.put('/ladder/:game/player/:player', function(req, res) {
+app.put('/ladder/:game/player/:player', function(req, res, next) {
 	var account = {
 		username: req.body.username,
 		password: req.body.password,
@@ -92,15 +96,17 @@ app.put('/ladder/:game/player/:player', function(req, res) {
 		}
 
 		res.end();
+        next();
 	});
 });
 
-app.get('/ladder/:game/player/:player', function(req, res) {
+app.get('/ladder/:game/player/:player', function(req, res, next) {
 	// return all data for given player
 	res.json({test: 3});
+    return next();
 });
 
-app.get('/ladder/:game/player/:player/auth', function(req, res) {
+app.get('/ladder/:game/player/:player/auth', function(req, res, next) {
 
 	var password = req.authorization.basic || {},
 		attempt = {
@@ -118,10 +124,11 @@ app.get('/ladder/:game/player/:player/auth', function(req, res) {
 		}
 
 		res.end();
+        next();
 	});
 });
 
-app.get('/debug/gameres/:hash', function(req, res) {
+app.get('/debug/gameres/:hash', function(req, res, next) {
 	var query = Database.format(
 		'SELECT HEX(packet) as packet FROM wol_games_raw WHERE hash = ?', [req.params.hash]
 	);
@@ -133,10 +140,11 @@ app.get('/debug/gameres/:hash', function(req, res) {
 		}
 
 		res.json(GameRes.parse(results[0].packet));
+        next();
 	});
 });
 
-app.get('/debug/gameres/:hash/raw', function(req, res) {
+app.get('/debug/gameres/:hash/raw', function(req, res, next) {
     var query = Database.format(
 		'SELECT HEX(packet) as packet FROM wol_games_raw WHERE hash = ?', [req.params.hash]
 	);
@@ -148,12 +156,14 @@ app.get('/debug/gameres/:hash/raw', function(req, res) {
 		}
 
 		res.send(results[0].packet);
+        next();
 	});
 
 });
 
-app.post('/debug/gameres/', function(req, res) {
+app.post('/debug/gameres/', function(req, res, next) {
     res.json(GameRes.parse(req.body));
+    return next();
 });
 
 app.get(/.*/, restify.serveStatic({
