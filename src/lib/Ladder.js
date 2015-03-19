@@ -100,7 +100,8 @@ var Ladder = {
         Database.query(query, function(err, results) {
             if (results.length < 1) {
                 deferred.resolve({
-                   status: 404
+                   status: 404,
+                   body: []
                 });
             } else {
                 deferred.resolve({
