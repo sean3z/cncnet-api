@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-03-09 13:08:11
+Date: 2015-03-19 21:29:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -111,7 +111,7 @@ CREATE TABLE `wol_games_stats` (
   `con` smallint(11) DEFAULT NULL,
   `spa` smallint(11) DEFAULT NULL COMMENT '??',
   `rsg` smallint(11) DEFAULT NULL COMMENT '??',
-  `aly` smallint(11) DEFAULT NULL COMMENT '??',
+  `aly` int(11) DEFAULT NULL COMMENT '??',
   `tid` smallint(11) DEFAULT NULL COMMENT '??',
   `uid` int(11) DEFAULT NULL,
   `ipa` bigint(11) NOT NULL DEFAULT '0' COMMENT 'Short IP Address',
@@ -200,8 +200,9 @@ BEGIN
 	TRUNCATE wol_games;
 	TRUNCATE wol_games_raw;
 	TRUNCATE wol_games_stats;
-	TRUNCATE wol_players;
-	TRUNCATE wol_auth;
+	-- TRUNCATE wol_players;
+	-- TRUNCATE wol_auth;
+	UPDATE wol_players SET games_count = 0, dc_count = 0, loss_count = 0, win_count = 0, oos_count = 0, points = 0;
 
 END
 ;;
