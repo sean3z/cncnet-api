@@ -1,12 +1,12 @@
-var restify = require('restify'),
-	environment = process.env.NODE_ENV || 'production',
-	config = require(__dirname +'/config.json')[environment],
-	Packet = require(__dirname +'/lib/Packet.js'),
-	Database = require(__dirname +'/lib/Database.js'),
-	Authentication = require(__dirname +'/lib/Authentication.js'),
-	Ladder = require(__dirname +'/lib/Ladder.js'),
-	GameRes = require(__dirname +'/lib/GameResolution.js'),
-	port = process.env.WOL_LADDER_PORT || 4007;
+var restify = require('restify');
+var environment = process.env.NODE_ENV || 'production';
+var config = require(__dirname +'/config.json')[environment];
+var Packet = require(__dirname +'/lib/Packet.js');
+var Database = require(__dirname +'/lib/Database.js');
+var Authentication = require(__dirname +'/lib/Authentication.js');
+var Ladder = require(__dirname +'/lib/Ladder.js');
+var GameRes = require(__dirname +'/lib/GameResolution.js');
+var port = process.env.WOL_LADDER_PORT || 4007;
 
 var app = restify.createServer();
 app.use(restify.bodyParser());
@@ -27,10 +27,6 @@ Database.query('SELECT lid, abbrev FROM wol_ladders', function (err, data) {
 		lids[data[i].abbrev] = data[i].lid;
 	}
 });
-
-/* adding d2k hack since FunkyFr3sh is lazy :P */
-lids['dune 2000'] = 6;
-lids['dune%202000'] = 6; /* unsure whether restify will urlencode */
 
 app.get('/ping', function(req, res, next) {
 	res.send('pong');
@@ -172,6 +168,5 @@ app.get(/.*/, restify.serveStatic({
 }));
 
 app.listen(port, function() {
-	console.log('SUCCESS!! WOL Ladder listening on port:%s', port);
-	console.log('Control + C to cancel');
+	console.log('WOL Ladder listening on %s:%s', require('os').hostname(), port);
 });
