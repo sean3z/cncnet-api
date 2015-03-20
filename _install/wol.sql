@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-03-19 21:29:59
+Date: 2015-03-19 22:47:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -144,7 +144,7 @@ INSERT INTO wol_ladders VALUES ('2', 'Tiberian Sun', 'ts');
 INSERT INTO wol_ladders VALUES ('3', 'Red Alert', 'ra');
 INSERT INTO wol_ladders VALUES ('4', 'Red Alert 2', 'ra2');
 INSERT INTO wol_ladders VALUES ('5', 'Yuri\'s Revenge', 'yr');
-INSERT INTO wol_ladders VALUES ('6', 'Dune 2k', 'd2k');
+INSERT INTO wol_ladders VALUES ('6', 'Dune 2k', 'd2');
 INSERT INTO wol_ladders VALUES ('7', 'Firestorm', 'fs');
 
 -- ----------------------------
