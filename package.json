@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "description": "Ladder for Westwood Online (WOL) Command and Conquer games",
   "author": "Sean Wragg <seanwragg@gmail.com>",
-  "main": "src/app.js",
+  "main": "src/server/app.js",
   "scripts": {
-    "test": "jshint src && jscs src",
-    "start": "node src/app.js"
+    "test": "jshint src/server && jscs src/server",
+    "start": "node src/server/app.js"
   },
   "dependencies": {
+    "express": "^4.12.3",
     "mysql": "^2.5.4",
-    "q": "^1.1.2",
-    "restify": "^2.8.3"
+    "q": "^1.1.2"
   },
   "devDependencies": {
     "chalk": "^1.0.0",

@@ -7,9 +7,9 @@ module.exports = function(grunt) {
             development: {
                 files: [{
                     expand: true,
-                    cwd: 'src/www',
+                    cwd: 'src/client',
                     src: ['**', '!**/sass/**'],
-                    dest: 'dist/www/'
+                    dest: 'dist/client/'
                 }]
             }
         },
@@ -22,26 +22,26 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src/www/assets/sass',
+                    cwd: 'src/client/assets/sass',
                     src: ['*.scss'],
-                    dest: 'dist/www/assets/css',
+                    dest: 'dist/client/assets/css',
                     ext: '.css'
                 }]
             }
         },
         
         watch: {
-            www: {
-                files: ['src/www/**'],
+            client: {
+                files: ['src/client/**'],
                 tasks: ['copy', 'sass:development']
             }
         },
         
         nodemon: {
             development: {
-                script: 'src/app.js',
+                script: 'src/server/app.js',
                 options: {
-                    ignore: ['src/www'],
+                    ignore: ['src/client'],
                     env: {
                         'NODE_ENV': 'development'
                     }
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         
         concurrent: {
             development: {
-                tasks: ['watch:www', 'nodemon:development'],
+                tasks: ['watch:client', 'nodemon:development'],
                 options: {
                     logConcurrentOutput: true
                 }

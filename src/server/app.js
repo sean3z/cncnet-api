@@ -1,6 +1,6 @@
-var restify = require('restify');
+var express = require('express');
 var environment = process.env.NODE_ENV || 'production';
-var config = require(__dirname +'/config.json')[environment];
+var config = require('./config');
 var Packet = require(__dirname +'/lib/Packet.js');
 var Database = require(__dirname +'/lib/Database.js');
 var Authentication = require(__dirname +'/lib/Authentication.js');
@@ -28,7 +28,7 @@ Database.query('SELECT lid, abbrev FROM wol_ladders', function (err, data) {
 	}
 });
 
-app.get('/ping', function(req, res, next) {
+/*app.get('/ping', function(req, res, next) {
 	res.send('pong');
     return next();
 });
@@ -165,7 +165,7 @@ app.post('/debug/gameres/', function(req, res, next) {
 app.get(/.*/, restify.serveStatic({
     directory: __dirname + '/../dist/www',
     default: 'index.html'
-}));
+}));*/
 
 app.listen(port, function() {
 	console.log('WOL Ladder listening on %s:%s', require('os').hostname(), port);
