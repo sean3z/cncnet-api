@@ -16,7 +16,7 @@ This is an open source WOL ladder emulator for legacy [Westwood Studios](http://
 1. `npm install --production`
 2. Install `_install/wol.sql`
 3. Configure `src/config.js`
-4. `npm start`
+4. `grunt serve`
 
 ## REST API Endpoints
 There's a few params listed below.
@@ -58,6 +58,17 @@ After a player has been created, they can then proceed to login using the GET `/
 _example player auth request_
 ```shell
 curl -isu Tahj:MySecretPassword http://localhost:4007/ladder/ts/player/tahj3z/auth
+```
+
+## Debug
+Windows
+```shell
+set DEBUG=wol:ladder,-not-this
+```
+
+Mac
+```shell
+DEBUG=wol:ladder grunt serve
 ```
 
 ## Contributing

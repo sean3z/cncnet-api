@@ -39,7 +39,7 @@ module.exports = function(grunt) {
         
         nodemon: {
             development: {
-                script: 'src/server/app.js',
+                script: 'src/server',
                 options: {
                     ignore: ['src/client'],
                     env: {
@@ -56,6 +56,16 @@ module.exports = function(grunt) {
                     logConcurrentOutput: true
                 }
             }
+        },
+        
+        mochaTest: {
+            server: {
+                options: {
+                    reporter: 'spec',
+                    require: './test/helpers/spec-helper.js'
+                },
+                src: ['test/server/**/*.spec.js']
+            }
         }
     });
     
@@ -65,7 +75,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-mocha-test');
     
-    grunt.registerTask('serve-app-dev', ['clean', 'copy', 'sass:development', 'concurrent:development']);
-    grunt.registerTask('build-app-prod', ['clean', 'copy', 'sass:development']);
+    grunt.registerTask('serve', ['clean', 'copy', 'sass:development', 'concurrent:development']);
+    grunt.registerTask('build', ['clean', 'copy', 'sass:development']);
+    grunt.registerTask('test', ['mochaTest:server'])
 };
