@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/../client'));
 app.get('/ping', ping);
 
 // Ladder
-app.post('/ladder/:game', ladder.game)
+app.post('/ladder/:game', ladder.game);
 
 // Auth
 app.get('/auth/:game/:player', auth.player);
