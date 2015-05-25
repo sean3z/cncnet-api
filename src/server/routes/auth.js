@@ -15,3 +15,8 @@ exports.player = function(req, res, next) {
     }
     
 };
+
+
+exports.create = function(req, res, next) {
+    
+};

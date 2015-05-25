@@ -19,6 +19,7 @@ app.post('/ladder/:game', ladder.game);
 
 // Auth
 app.get('/auth/:game/:player', auth.player);
+app.put('/auth/:game/:player', auth.create);
 
 app.listen(WOL_PORT, function() {
     console.log('WOL Ladder listening on %s:%s', require('os').hostname(), WOL_PORT);
