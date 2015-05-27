@@ -1,2 +1,2 @@
 /* collection of game related helper functions */
-var mongo = require('./mongo')();
+var mongo = require('./mongo');
