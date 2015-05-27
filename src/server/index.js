@@ -8,8 +8,10 @@ var ping = require('./routes/ping');
 var ladder = require('./routes/ladder');
 var auth = require('./routes/auth');
 
-app.use(bodyParser.raw());
-app.use(express.static(__dirname + '/../client'));
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname + '/../../dist/client'));
 
 /* ensure game abbr is valid */
 app.param('game', function(req, res, next, abbr) {
@@ -31,7 +33,7 @@ app.put('/auth/:game/:player', auth.create);
 
 /* error handler */
 app.use(function(err, req, res, next) {
-    res.status(500).json({error: err.message});
+    res.status(500).json({error: err.message, stack: err.stack});
 });
 
 app.listen(WOL_PORT, function() {
