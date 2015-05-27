@@ -1,8 +1,9 @@
 module.exports = function(grunt) {
+    require('jit-grunt')(grunt);
 
     grunt.initConfig({
         clean: ['dist'],
-        
+
         copy: {
             development: {
                 files: [{
@@ -13,7 +14,7 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        
+
         sass: {
             development: {
                 options: {
@@ -29,14 +30,14 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        
+
         watch: {
             client: {
                 files: ['src/client/**'],
                 tasks: ['copy', 'sass:development']
             }
         },
-        
+
         nodemon: {
             development: {
                 script: 'src/server',
@@ -48,7 +49,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        
+
         concurrent: {
             development: {
                 tasks: ['watch:client', 'nodemon:development'],
@@ -57,7 +58,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        
+
         mochaTest: {
             server: {
                 options: {
@@ -68,15 +69,7 @@ module.exports = function(grunt) {
             }
         }
     });
-    
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-concurrent');
-    grunt.loadNpmTasks('grunt-mocha-test');
-    
+
     grunt.registerTask('serve', ['clean', 'copy', 'sass:development', 'concurrent:development']);
     grunt.registerTask('build', ['clean', 'copy', 'sass:development']);
     grunt.registerTask('test', ['mochaTest:server'])
