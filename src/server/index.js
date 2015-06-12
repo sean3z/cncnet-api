@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var path = require('path');
 var WOL_PORT = process.env.WOL_PORT || 4007;
 
 /* route separation http://bit.ly/1Kt87xZ */
@@ -11,7 +12,7 @@ var auth = require('./routes/auth');
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(__dirname + '/../../dist/client'));
+app.use(express.static(path.join(__dirname, '../public')));
 
 /* ensure game abbr is valid */
 app.param('game', function(req, res, next, abbr) {
