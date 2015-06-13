@@ -10,7 +10,7 @@ function configuration($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('index', {
             url: '/index',
-            template: '<h3>Hey index</h3>'
+            templateUrl: 'modules/home/views/list-home.client.view.html'
         })
 
         .state('leaderboard', {

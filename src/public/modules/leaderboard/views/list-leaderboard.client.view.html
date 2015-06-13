@@ -1,26 +1,30 @@
-<div ui-view>
+<div class="container" ui-view>
+    <div class="row">
 
-    <h3>Leaderboards...</h3>
+        <div class="col-md-12">
+            <h3>Leaderboards...</h3>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Wins</th>
-            <th>Losses</th>
-            <th>Points</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="player in players">
-            <td>{{$index + 1}}</td>
-            <td><a ui-sref="ladder.player({player: player.name})">{{player.name}}</a></td>
-            <td>{{player.win_count}}</td>
-            <td>{{player.loss_count}}</td>
-            <td>{{player.points}}</td>
-        </tr>
-        </tbody>
-    </table>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Wins</th>
+                    <th>Losses</th>
+                    <th>Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="player in players">
+                    <td>{{$index + 1}}</td>
+                    <td><a ui-sref="ladder.player({player: player.name})">{{player.name}}</a></td>
+                    <td>{{player.win_count}}</td>
+                    <td>{{player.loss_count}}</td>
+                    <td>{{player.points}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
+    </div>
 </div>

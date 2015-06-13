@@ -2,6 +2,14 @@
   border: 0 solid $brand-success;
 }
 
+.btn-outline {
+  background: none;
+  border-width: 2px;
+  a {
+    color: $brand-success!important;
+  }
+}
+
 // Primary button size
 .btn-large {
   padding: 12px 40px;
