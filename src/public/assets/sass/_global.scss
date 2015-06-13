@@ -1,0 +1,32 @@
+// Slightly adjusting navbar brand to suit logo
+.navbar {
+  background: none;
+  border: none;
+  .navbar-brand {
+    padding: 25px 15px;
+  }
+}
+
+.feature-banner {
+  @extend .jumbotron;
+
+  background-image: url(../images/jumbo.png);
+  background-position: right;
+  background-repeat: no-repeat;
+
+  h1, h2 {
+    font-family: "fira-sans",sans-serif;
+    font-weight: 400;
+
+    strong {
+      font-weight: 500;
+    }
+  }
+  p {
+    font-family: "fira-sans",sans-serif;
+    font-weight: 100;
+    color: $white;
+  }
+
+  padding: 15px 0 75px;
+}

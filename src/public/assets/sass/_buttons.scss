@@ -1,0 +1,19 @@
+.btn-success {
+  border: 0 solid $brand-success;
+}
+
+// Primary button size
+.btn-large {
+  padding: 12px 40px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+
+// Ghost button
+.btn-large.btn-outline {
+  background: none;
+  border-width: 2px;
+  padding: 11px 40px;
+  color: $brand-success;
+}

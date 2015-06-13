@@ -12,7 +12,7 @@ var auth = require('./routes/auth');
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '/../../dist/public')));
 
 /* ensure game abbr is valid */
 app.param('game', function(req, res, next, abbr) {
