@@ -5,7 +5,7 @@ _storage
 dist
 .sass-cache
 .idea
-
+src/public/lib/*
 ### SublimeText ###
 # cache files for sublime text
 *.tmlanguage.cache
