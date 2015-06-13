@@ -87,4 +87,6 @@ DEBUG=wol:leaderboard grunt serve
 
 #### MongoDB
 Leaderboard stats are stored via [MongoDB](https://www.mongodb.org/). You'll need this installed for local development. You can start Mongo using the following command.
-`mongod --dbpath data/db`
+```shell
+mongod --dbpath data/db
+```
