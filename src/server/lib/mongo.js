@@ -1,6 +1,6 @@
-var debug = require('debug')('ladder');
+var debug = require('debug')('leaderboard');
 var Client = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/ladder';
+var url = 'mongodb://localhost:27017/leaderboard';
 
 Client.connect(url, function(err, db) {
     if (err) throw err;

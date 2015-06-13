@@ -1,7 +1,7 @@
 angular.module('app', [
     'ui.router',
     'ui.bootstrap',
-    'Ladder'
+    'Leaderboard'
 ]);
 
 angular.module('app').config(configuration);
@@ -13,10 +13,10 @@ function configuration($stateProvider, $urlRouterProvider) {
             template: '<h3>Hey index</h3>'
         })
 
-        .state('ladder', {
-            url: '/ladder/:game',
-            templateUrl: 'modules/ladder/views/list-ladder.client.view.html',
-            controller: 'LadderController'
+        .state('leaderboard', {
+            url: '/leaderboard/:game',
+            templateUrl: 'modules/leaderboard/views/list-leaderboard.client.view.html',
+            controller: 'LeaderboardController'
         });
 
         //.state('ladder.player', {

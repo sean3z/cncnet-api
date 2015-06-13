@@ -6,7 +6,7 @@ var WOL_PORT = process.env.WOL_PORT || 4007;
 
 /* route separation http://bit.ly/1Kt87xZ */
 var ping = require('./routes/ping');
-var ladder = require('./routes/ladder');
+var leaderboard = require('./routes/leaderboard');
 var auth = require('./routes/auth');
 
 app.use(bodyParser.json());
@@ -25,8 +25,8 @@ app.param('game', function(req, res, next, abbr) {
 /* general */
 app.get('/ping', ping);
 
-/* ladder */
-app.post('/ladder/:game', ladder.game);
+/* leaderboard */
+app.post('/leaderboard/:game', leaderboard.game);
 
 /* auth */
 app.get('/auth/:game/:player', auth.player);
@@ -38,5 +38,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(WOL_PORT, function() {
-    console.log('WOL Ladder listening on %s:%s', require('os').hostname(), WOL_PORT);
+    console.log('WOL Leaderboard listening on %s:%s', require('os').hostname(), WOL_PORT);
 });

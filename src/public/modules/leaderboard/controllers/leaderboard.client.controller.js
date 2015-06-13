@@ -1,11 +1,11 @@
 'use strict';
 
 // Ladder controller
-angular.module('Ladder').controller('LadderController', ['$scope', '$state', '$stateParams', 'LadderSvc',
+angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$state', '$stateParams', 'LadderSvc',
     function ($scope, $state, $stateParams, LadderSvc) {
 
         console.log('$state', $state);
-        console.log('Ladder', $stateParams);
+        console.log('Leaderboard', $stateParams);
         console.log($scope);
 
         LadderSvc.top($stateParams.game).then(function(response) {
