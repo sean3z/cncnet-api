@@ -1,0 +1,23 @@
+{
+  "name": "Leaderboard",
+  "version": "0.0.0",
+  "homepage": "https://github.com/CnCNet/ladder",
+  "authors": [
+    "GrantBartlett <hello@grant-bartlett.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.13.0",
+    "angular-ui-router": "~0.2.15",
+    "angular": "~1.4.0",
+    "bootstrap-sass": "~3.3.4"
+  }
+}
