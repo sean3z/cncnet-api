@@ -9,7 +9,7 @@
 //## Gray and brand colors for use across Bootstrap.
 
 $white:                  #fff !default;
-
+$off-white:               #E3EAF4 !default;
 $gray-base:              #000 !default;
 $gray-darker:            #222 !default; // #222
 $gray-dark:              #282828 !default;   // #333
@@ -23,13 +23,18 @@ $brand-info:            #9933CC !default;
 $brand-warning:         #FF8800 !default;
 $brand-danger:          #CC0000 !default;
 
+$blue-base: #262F3C;
+$blue-light: #313E4F;
+$blue-lighter: #9EA7B1;
+
+$dark-base: #1B2128;
 
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #0a0e11 !default;
+$body-bg:               $dark-base !default;
 //** Global text color on `<body>`.
 $text-color:            $gray-light !default;
 
@@ -130,15 +135,15 @@ $table-cell-padding:            8px !default;
 $table-condensed-cell-padding:  5px !default;
 
 //** Default background color used for all tables.
-$table-bg:                      darken($gray-darker, 4%) !default;
+$table-bg:                      darken($blue-base, 4%) !default;
 //** Background color used for `.table-striped`.
-$table-bg-accent:               darken($table-bg, 6%) !default;
+$table-bg-accent:               darken($blue-base, 6%) !default;
 //** Background color used for `.table-hover`.
-$table-bg-hover:                $gray-dark !default;
-$table-bg-active:               $table-bg-hover !default;
+$table-bg-hover:                $blue-light !default;
+$table-bg-active:               $blue-light !default;
 
 //** Border color for table and cell borders.
-$table-border-color:            $gray-dark !default;
+$table-border-color:            $blue-light !default;
 
 
 //== Buttons

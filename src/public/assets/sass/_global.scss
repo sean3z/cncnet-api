@@ -1,52 +1,11 @@
+html, body {
+  overflow-x: hidden;
+}
+
 // Type
 .thin-italic {
   font-family: "fira-sans",sans-serif;
   font-weight: 100;
   font-style: italic;
   color: darken($white, 15%);
-}
-
-
-// Slightly adjusting navbar brand to suit logo
-.navbar {
-  background: none;
-  border: none;
-  .navbar-brand {
-    padding: 25px 15px;
-  }
-  .navbar-nav {
-    margin-top: 20px;
-    li {
-      a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-    }
-  }
-}
-
-
-.intro {
-  position: relative;
-  height: 100px;
-
-  h3 {
-    // Not quite h2 material
-    font-size: 38px;
-  }
-  .angle-background {
-    background: $body-bg;
-    position: absolute;
-    top: -80px;
-    left: -50%;
-    width: 200%;
-    height: 150px;
-    transform: rotate(-4.2deg);
-    -webkit-transform: rotate(-4.2deg);
-    z-index: 1;
-  }
-  .content {
-    position: relative;
-    z-index: 2;
-  }
 }

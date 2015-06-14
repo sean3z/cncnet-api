@@ -1,29 +1,37 @@
-<div class="container" ui-view>
+<div class="feature-banner text-center">
+    <div class="container small">
+        <h2 class="text-uppercase">Leaderboard</h2>
+    </div>
+</div>
+
+<div class="container">
     <div class="row">
 
         <div class="col-md-12">
-            <h3>Leaderboards...</h3>
-
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Wins</th>
-                    <th>Losses</th>
-                    <th>Points</th>
+                    <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
+                    <th>Profile <i class="fa fa-user fa-fw"></i></th>
+                    <th>Points <i class="fa fa-bolt fa-fw"></i></th>
+                    <th>Won <i class="fa fa-level-up fa-fw"></i></th>
+                    <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="player in players">
-                    <td>{{$index + 1}}</td>
+                <tr ng-repeat="player in players | orderBy:'-points' | limitTo: limit as results" n="{{player}}">
+                    <td class="rank"><strong>#{{$index + 1}}</strong></td>
                     <td><a ui-sref="ladder.player({player: player.name})">{{player.name}}</a></td>
+                    <td>{{player.points}} points</td>
                     <td>{{player.win_count}}</td>
                     <td>{{player.loss_count}}</td>
-                    <td>{{player.points}}</td>
                 </tr>
                 </tbody>
             </table>
+
+            <button class="btn btn-primary btn-block text-uppercase" ng-hide="results.length === player.length" ng-click="limit = limit + 10">
+                Load More <i class="fa fa-refresh fa-fw"></i>
+            </button>
         </div>
 
     </div>

@@ -1,5 +1,28 @@
 // Re-usable elements
 
+// Navbar
+.navbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: none;
+  border: none;
+  .navbar-brand {
+    padding: 25px 15px;
+  }
+  .navbar-nav {
+    margin-top: 20px;
+    li {
+      a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
+
+// Jumbotron
 .feature-banner {
   @extend .jumbotron;
 
@@ -21,5 +44,84 @@
     color: $white;
   }
 
-  padding: 15px 0 100px;
+  .large {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .small {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
+
+
+
+// Angled Feature
+.angled-feature-intro {
+  position: relative;
+  height: 100px;
+
+  h3 {
+    // Not quite h2 material
+    font-size: 38px;
+  }
+  // @todo: implement less hacky way of angles
+  .angle-background {
+    background: $dark-base;
+    position: absolute;
+    top: -80px;
+    left: -50%;
+    width: 200%;
+    height: 150px;
+    transform: rotate(-4.2deg);
+    -webkit-transform: rotate(-4.2deg);
+    z-index: 1;
+  }
+  .content {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+
+// Table
+
+
+
+.table {
+  > tbody > tr > td {
+    padding: 20px;
+    color: $off-white;
+  }
+
+  > thead > tr > th {
+    border-bottom: 5px solid $blue-light;
+    padding: 20px;
+    background: darken($blue-base, 10%);
+    font-weight: bold;
+    color: $blue-lighter;
+    text-transform: uppercase;
+  }
+
+  .rank {
+    width: 10%;
+  }
+  td.rank {
+    font-size: 18px;
+  }
+  .wins, .losses {
+    width: 10%;
+  }
+}
+
+.table {
+  tr {
+    background: #262F3C;
+
+    &:hover {
+      background: lighten(#262F3C, 5%)!important;
+    }
+  }
+}
+
