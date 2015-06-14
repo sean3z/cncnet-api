@@ -1,1 +1,1 @@
-angular.module('Leaderboard.Player', ['ui.router']);
+angular.module('Leaderboard.Player', ['ui.router', 'helloWorld']);
