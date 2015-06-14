@@ -21,7 +21,7 @@
                 <tbody>
                 <tr ng-repeat="player in players | orderBy:'-points' | limitTo: limit as results" n="{{player}}">
                     <td class="rank"><strong>#{{$index + 1}}</strong></td>
-                    <td><a ui-sref="ladder.player({player: player.name})">{{player.name}}</a></td>
+                    <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
                     <td>{{player.points}} points</td>
                     <td>{{player.win_count}}</td>
                     <td>{{player.loss_count}}</td>

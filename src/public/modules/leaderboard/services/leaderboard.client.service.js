@@ -7,7 +7,7 @@ angular.module('Leaderboard')
         function ($http, $q) {
 
             var factory = {};
-            var url = window.location.protocol + '//' + window.location.hostname + ':4007/leaderboard';
+            var url = window.location.protocol + '//' + window.location.hostname + ':4007/ladder';
 
             factory.top = function (game) {
                 var deferred = $q.defer();
