@@ -58,18 +58,36 @@ function _type(type, chunk) {
 
 /* consolidate player stats */
 function _consolidate(flat) {
-    var consolidated = {players: {}};
+    var consolidated = {players: [], settings: {}, client: {}};
+    var settings = ['sped', 'plrs', 'scen', 'tech', 'unit', 'flag', 'shad', 'crat', 'tibr', 'base', 'cred', 'trny', 'shrt', 'supr', 'aipl'];
+    var client = ['date', 'vers', 'vidm', 'memo', 'proc', 'afps', 'oosy', 'gsku'];
 
     if (flat.NAM0 || flat.NAM1) {
-        for (var key in flat) {
-            var val = flat[key], index = parseInt(key.slice(-1));
+        for (var item in flat) {
+            var value = flat[item];
+            var key = item.toLowerCase();
+            var index = parseInt(key.slice(-1));
 
+            /* player stats */
             if (index > -1) {
                 if (!consolidated.players[index]) consolidated.players[index] = {};
-                consolidated.players[index][key.slice(0, -1)] = val;
-            } else {
-                consolidated[key] = val;
+                consolidated.players[index][key.slice(0, -1)] = value;
+                continue;
             }
+
+            /* game settings */
+            if (settings.indexOf(key) > -1) {
+                consolidated.settings[key] = value;
+                continue;
+            }
+
+            /* client settings */
+            if (client.indexOf(key) > -1) {
+                consolidated.client[key] = value;
+                continue;
+            }
+
+            consolidated[key] = value;
         }
     }
 
@@ -77,7 +95,7 @@ function _consolidate(flat) {
 }
 
 /* WOL Game Resolution interpreter */
-function _parse(packet) {
+function _process(packet) {
 
     var buffer = packet;
     if (typeof packet === 'string') {
@@ -89,6 +107,7 @@ function _parse(packet) {
     var slice = buffer.slice(0, 4);
     var bufferLength = slice.readUInt16BE(0);
     var flat = {}, i = 4;
+    flat.buffer = buffer;
 
     while (i < bufferLength) {
         var chunk = buffer.slice(i,  i + 4);
@@ -118,4 +137,4 @@ function _parse(packet) {
     return _consolidate(flat);
 }
 
-module.exports = _parse;
+module.exports = _process;
