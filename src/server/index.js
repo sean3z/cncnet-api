@@ -26,7 +26,7 @@ app.param('game', function(req, res, next, abbr) {
 app.get('/ping', ping);
 
 /* leaderboard */
-app.post('/ladder/:game', leaderboard.game);
+app.post('/ladder/:game', leaderboard.match);
 
 /* auth */
 app.get('/auth/:game/:player', auth.player);
