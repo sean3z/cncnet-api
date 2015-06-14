@@ -30,14 +30,12 @@
 
         <div class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
-                <!--<li><a href="/#/leaderboard/" class="btn btn-success">Leaderboard</a></li>-->
             </ul>
         </div>
     </div>
 </nav>
 
-<main>
-    <ui-view></ui-view>
+<main ui-view>
 </main>
 
 <footer>
@@ -51,9 +49,12 @@
 
 <script type="text/javascript" src="app.js"></script>
 
-<script type="text/javascript" src="modules/leaderboard/ladder.client.module.js"></script>
+<script type="text/javascript" src="modules/leaderboard/leaderboard.client.module.js"></script>
 <script type="text/javascript" src="modules/leaderboard/controllers/leaderboard.client.controller.js"></script>
 <script type="text/javascript" src="modules/leaderboard/services/leaderboard.client.service.js"></script>
+
+<script type="text/javascript" src="modules/leaderboard-player/leaderboard-player.client.module.js"></script>
+<script type="text/javascript" src="modules/leaderboard-player/controllers/leaderboard-player.client.controller.js"></script>
 
 </body>
 </html>
