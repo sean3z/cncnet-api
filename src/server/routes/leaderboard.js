@@ -1,6 +1,9 @@
 //var packet = require('./lib/packet');
+var match = require('../lib/match');
+var debug = require('debug')('wol:leaderboard');
 
-exports.game = function (req, res, next) {
+exports.match = function (req, res, next) {
+    debug('recieved WOL Gameres packet');
 /*        var _packet = new Packet({
         packet: req.body, 
         lid: lids.search(req.params.game),
@@ -15,5 +18,8 @@ exports.game = function (req, res, next) {
         res.end();
         next();
     });*/
-    res.send('rawr');
+    match.process(req.params.game, req.body).then(function(match) {
+        res.send(match);
+    });
+    // res.send(game.process(req.body));
 };
