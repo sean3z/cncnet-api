@@ -3,7 +3,6 @@ var match = require('../lib/match');
 var debug = require('debug')('wol:leaderboard');
 
 exports.match = function (req, res, next) {
-    debug('recieved WOL Gameres packet');
 /*        var _packet = new Packet({
         packet: req.body, 
         lid: lids.search(req.params.game),
