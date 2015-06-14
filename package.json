@@ -1,7 +1,7 @@
 {
-  "name": "cncnet-ladder",
+  "name": "cncnet-leaderboard",
   "version": "0.0.1",
-  "description": "Ladder for Westwood Online (WOL) Command and Conquer games",
+  "description": "Leaderboard for Westwood Online (WOL) Command and Conquer games",
   "author": "Sean Wragg <seanwragg@gmail.com>",
   "main": "src/server",
   "scripts": {
@@ -12,7 +12,7 @@
     "basic-auth": "^1.0.1",
     "body-parser": "^1.12.4",
     "express": "^4.12.3",
-    "mongodb": "^2.0.33",
+    "monk": "^1.0.1",
     "q": "^1.1.2"
   },
   "devDependencies": {
@@ -37,10 +37,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cncnet/ladder.git"
+    "url": "https://github.com/cncnet/leaderboard.git"
   },
   "bugs": {
-    "url": "https://github.com/cncnet/ladder/issues"
+    "url": "https://github.com/cncnet/leaderboard/issues"
   },
   "homepage": "http://cncnet.org"
 }
