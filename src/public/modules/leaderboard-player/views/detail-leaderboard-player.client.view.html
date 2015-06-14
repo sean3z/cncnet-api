@@ -1,5 +1,49 @@
 <div class="feature-banner text-center">
     <div class="container small">
-        <h2 class="text-uppercase">Player Detail?</h2>
+        <h2 class="text-uppercase">{{ player.name }}</h2>
+        <h3><span class="small"> {{player.wins}} wins, {{player.losses}} losses</span></h3>
     </div>
+</div>
+
+<div class="player-detail">
+
+    <div class="container">
+
+        <div class="row">
+
+
+                <div class="col-md-6">
+                    <h3>{{ player.name }}'s Statistics</h3>
+                    <hr>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Points <i class="fa fa-bolt fa-fw"></i></th>
+                            <th>Won <i class="fa fa-level-up fa-fw"></i></th>
+                            <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{player.points}}</td>
+                            <td>{{player.wins}}</td>
+                            <td>{{player.losses}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-6">
+                 <div helloWorld></div>
+                </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
 </div>
