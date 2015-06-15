@@ -17,6 +17,21 @@ angular.module('Leaderboard.Player').controller('LeaderboardPlayerController', [
             points: 250
         };
 
+        $scope.data =  [
+            ['Firefox', 45.0],
+            ['IE', 26.8],
+            ['Chrome', 12.8],
+            ['Safari', 8.5],
+            ['Opera', 6.2],
+            {
+                name: 'Others',
+                y: 0.7,
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        ];
+
     }
 ]);
 
