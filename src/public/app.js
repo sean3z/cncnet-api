@@ -1,7 +1,6 @@
 angular.module('app', [
     'ui.router',
     'ui.bootstrap',
-    'mgcrea.ngStrap',
     'Leaderboard',
     'Leaderboard.Player'
 ]);
