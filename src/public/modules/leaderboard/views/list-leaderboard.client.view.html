@@ -9,7 +9,8 @@
     <div class="row">
 
         <div class="col-md-12">
-            <table class="table table-hover">
+            <div class="table-responsive">
+                <table class="table table-hover">
                 <thead>
                 <tr>
                     <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
@@ -29,7 +30,7 @@
                 </tr>
                 </tbody>
             </table>
-
+            </div>
             <button class="btn btn-primary btn-block text-uppercase" ng-hide="results.length === player.length" ng-click="limit = limit + 10">
                 Load More <i class="fa fa-refresh fa-fw"></i>
             </button>

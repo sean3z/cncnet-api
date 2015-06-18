@@ -11,13 +11,23 @@
     padding: 25px 15px;
   }
   .navbar-nav {
-    margin-top: 20px;
+    margin-top: 27px;
+    text-transform: uppercase;
     li {
+      font-family: "open-sans", sans-serif;
+      font-weight: 600;
+      padding-left: 15px;
+      padding-right: 15px;
       a {
         padding-top: 10px;
         padding-bottom: 10px;
       }
     }
+  }
+  // Fatten up the bars
+  .icon-bar {
+    width: 28px;
+    height: 4px;
   }
 }
 
@@ -25,6 +35,7 @@
 // Jumbotron
 .feature-banner {
   @extend .jumbotron;
+  padding: 50px 0;
 
   background: #11161B url(../images/jumbo.png);
   background-position: right;
@@ -52,6 +63,8 @@
   .small {
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 
@@ -101,9 +114,6 @@
     text-transform: uppercase;
   }
 
-  .rank {
-    width: 10%;
-  }
   td.rank {
     font-size: 18px;
   }
@@ -124,7 +134,7 @@
 
 
 // Profile
-// todo: tidy up, less hack.
+// todo: tidy up, less hack and use variables
 $text-dark: mix($off-white, $dark-base, 15%);
 
 .profile-social {

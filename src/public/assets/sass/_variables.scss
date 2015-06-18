@@ -17,6 +17,7 @@ $gray:                   #555 !default; // #555
 $gray-light:             #888 !default;   // #999
 $gray-lighter:           #ADAFAE !default; // #eee
 
+$brand-green:           #47E356;
 $brand-primary:         #2A9FD6 !default;
 $brand-success:         #279d32 !default;
 $brand-info:            #9933CC !default;
@@ -373,9 +374,9 @@ $navbar-default-border:            $gray-dark !default;
 
 // Navbar links
 $navbar-default-link-color:                $white !default;
-$navbar-default-link-hover-color:          #fff !default;
+$navbar-default-link-hover-color:          $brand-green !default;
 $navbar-default-link-hover-bg:             transparent !default;
-$navbar-default-link-active-color:         #fff !default;
+$navbar-default-link-active-color:         $brand-green !default;
 $navbar-default-link-active-bg:            transparent !default;
 $navbar-default-link-disabled-color:       $gray-light !default;
 $navbar-default-link-disabled-bg:          transparent !default;
@@ -386,9 +387,9 @@ $navbar-default-brand-hover-color:         #fff !default;
 $navbar-default-brand-hover-bg:            transparent !default;
 
 // Navbar toggle
-$navbar-default-toggle-hover-bg:           $gray-dark !default;
-$navbar-default-toggle-icon-bar-bg:        #ccc !default;
-$navbar-default-toggle-border-color:       $gray-dark !default;
+$navbar-default-toggle-hover-bg:           transparent !default;
+$navbar-default-toggle-icon-bar-bg:        $white !default;
+$navbar-default-toggle-border-color:       transparent !default;
 
 
 // Inverted navbar

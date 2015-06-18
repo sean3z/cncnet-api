@@ -33,6 +33,6 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
             {name: 'loveW1nning', win_count: 50, loss_count: 25, points: 16},
             {name: 'ojset1o5j', win_count: 50, loss_count: 25, points: 6},
             {name: 'theRock24', win_count: 10, loss_count: 55, points: 3}
-        ]
+        ];
     }
 ]);
