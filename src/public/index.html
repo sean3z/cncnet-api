@@ -13,7 +13,7 @@
 </head>
 <body ng-app="app">
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" bs-navbar>
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -30,6 +30,9 @@
 
         <div class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
+                <li data-match-route="/download/*"><a href="#/download/">Downloads</a></li>
+                <li data-match-route="/leaderboard/*"><a href="#/leaderboard/" data-animation="am-flip-x">Leaderboard</a></li>
+                <li data-match-route="/forums.*"><a href="#/forums/">Forums</a></li>
             </ul>
         </div>
     </div>
@@ -44,14 +47,9 @@
 <script type="text/javascript" src="lib/angular/angular.min.js"></script>
 <script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script type="text/javascript" src="lib/angular-strap/dist/angular-strap.min.js"></script>
 <script type="text/javascript" src="lib/angular-strap/dist/angular-strap.tpl.min.js"></script>
-
-<!--
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.highcharts.com/highcharts-more.js"></script>
--->
 
 <script type="text/javascript" src="app.js"></script>
 

@@ -11,13 +11,23 @@
     padding: 25px 15px;
   }
   .navbar-nav {
-    margin-top: 20px;
+    margin-top: 27px;
+    text-transform: uppercase;
     li {
+      font-family: "open-sans", sans-serif;
+      font-weight: 600;
+      padding-left: 15px;
+      padding-right: 15px;
       a {
         padding-top: 10px;
         padding-bottom: 10px;
       }
     }
+  }
+  // Fatten up the bars
+  .icon-bar {
+    width: 28px;
+    height: 4px;
   }
 }
 
@@ -25,6 +35,7 @@
 // Jumbotron
 .feature-banner {
   @extend .jumbotron;
+  padding: 50px 0;
 
   background: #11161B url(../images/jumbo.png);
   background-position: right;
@@ -52,6 +63,8 @@
   .small {
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 
@@ -86,9 +99,6 @@
 
 
 // Table
-
-
-
 .table {
   > tbody > tr > td {
     padding: 20px;
@@ -104,9 +114,6 @@
     text-transform: uppercase;
   }
 
-  .rank {
-    width: 10%;
-  }
   td.rank {
     font-size: 18px;
   }
@@ -125,3 +132,68 @@
   }
 }
 
+
+// Profile
+// todo: tidy up, less hack and use variables
+$text-dark: mix($off-white, $dark-base, 15%);
+
+.profile-social {
+  color: $off-white;
+}
+
+.panel-profile {
+  background: #171B20;
+  padding: 20px;
+  border: none;
+  margin-top: -50px;
+  box-shadow: 0 4px #C00;
+  color: $text-dark;
+
+  .rank-list {
+    margin-top: 10px;
+    font-size: 11px;
+    li > span {
+      margin-bottom: 5px;
+    }
+  }
+
+  .quick-fire {
+    border-right: 1px solid #1A1E24;
+  }
+
+  .profile-rank {
+    h3 {
+      color: darken($white, 15%);
+    }
+    h5 {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $text-dark;
+    }
+  }
+
+  .profile-stats {
+    margin-top: 20px;
+    strong {
+      color: lighten($text-dark, 5%);
+    }
+  }
+
+  .progress-bar {
+    > span {
+      color: #E0EBF5;
+      text-transform: uppercase;
+      font-size: 10px;
+    }
+  }
+
+  .profile-picture {
+    width: 200px;
+    height: 200px;
+    background: #000;
+    text-align: center;
+    padding-top: 65px;
+    margin-top: -40px;
+  }
+}

@@ -1,8 +1,8 @@
 'use strict';
 
 // Ladder controller
-angular.module('Leaderboard.Player').controller('LeaderboardPlayerController', ['$scope', '$state', '$stateParams',
-    function ($scope, $state, $stateParams) {
+angular.module('Leaderboard.Player').controller('LeaderboardPlayerController', ['$scope', '$state', '$stateParams', '$modal',
+    function ($scope, $state, $stateParams, $modal) {
 
         console.log('We are at player detail');
 
@@ -16,7 +16,6 @@ angular.module('Leaderboard.Player').controller('LeaderboardPlayerController', [
             losses: 10,
             points: 250
         };
-
     }
 ]);
 
