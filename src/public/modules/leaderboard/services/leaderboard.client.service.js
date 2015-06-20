@@ -5,20 +5,20 @@ angular.module('Leaderboard')
 
     .factory('LadderSvc', ['$http', '$q',
         function ($http, $q) {
+            return {
+                getTop50: function (game) {
+                    var deferred = $q.defer(),
+                    url = "http://tahj.cncnet.org:4007/ladder";
 
-            var factory = {};
-            var url = window.location.protocol + '//' + window.location.hostname + ':4007/ladder';
-
-            factory.top = function (game) {
-                var deferred = $q.defer();
-
-                $http.get(url + '/' + game).then(function (results) {
-                    deferred.resolve(results.data);
-                });
-
-                return deferred.promise;
-            };
-
-            return factory;
+                    $http.jsonp(url + '/' + game + '?callback=JSON_CALLBACK')
+                        .success(function (data) {
+                            return deferred.resolve(data);
+                        })
+                        .error(function (data) {
+                            deferred.reject(status);
+                        });
+                    return deferred.promise;
+                }
+            }
         }]
 );

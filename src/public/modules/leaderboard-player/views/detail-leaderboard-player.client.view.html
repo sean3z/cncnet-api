@@ -10,7 +10,6 @@
 </div>
 
 <div class="player-detail">
-
     <div class="container">
 
         <div class="row">
@@ -74,26 +73,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Sean</td>
-                            <td>Won the game</td>
-                            <td><span class="label label-success">{{player.wins * 2}} points <i class="fa fa-smile-o fa-fw fa-lg"></i></span></td>
-                            <td><span class="label label-primary">{{player.wins/ player.points * 100}} <i class="fa fa-user-plus fa-fw fa-lg"></i> experience</span></td>
-                        </tr>
-                        <tr>
-                            <td>Jacko</td>
-                            <td>Won the game</td>
-                            <td><span class="label label-success">{{player.wins * 2}} points <i class="fa fa-smile-o fa-fw fa-lg"></i></span></td>
-                            <td><span class="label label-primary">{{player.wins/ player.points * 100}} <i class="fa fa-user-plus fa-fw fa-lg"></i> experience</span></td>
-                        </tr>
-                        <tr>
-                            <td>Tahj</td>
-                            <td>Won the game</td>
-                            <td><span class="label label-success">{{player.wins * 2}} points <i class="fa fa-smile-o fa-fw fa-lg"></i></span></td>
-                            <td><span class="label label-primary">{{player.wins/ player.points * 100}} <i class="fa fa-user-plus fa-fw fa-lg"></i> experience</span></td>
-                        </tr>
-                        <tr>
-                            <td>hifi</td>
+                        <tr ng-repeat="game in games">
+                            <td>{{ game }}</td>
                             <td>Won the game</td>
                             <td><span class="label label-success">{{player.wins * 2}} points <i class="fa fa-smile-o fa-fw fa-lg"></i></span></td>
                             <td><span class="label label-primary">{{player.wins/ player.points * 100}} <i class="fa fa-user-plus fa-fw fa-lg"></i> experience</span></td>
@@ -104,5 +85,4 @@
             </div>
         </div>
     </div>
-
 </div>

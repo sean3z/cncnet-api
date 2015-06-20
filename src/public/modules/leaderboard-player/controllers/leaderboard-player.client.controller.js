@@ -1,25 +1,24 @@
 'use strict';
 
-// Ladder controller
-angular.module('Leaderboard.Player').controller('LeaderboardPlayerController', ['$scope', '$state', '$stateParams', '$modal',
-    function ($scope, $state, $stateParams, $modal) {
+// Ladder.Player controller
+angular.module('Leaderboard.Player').controller('LeaderboardPlayerController', ['$scope', '$state', '$stateParams', 'LadderSvc',
+    function ($scope, $state, $stateParams, LadderSvc) {
 
-        console.log('We are at player detail');
+        LadderSvc.getTop50($stateParams.game).then(function (response) {
+            $scope.filterByPlayer(response);
+        });
 
-        // Todo: Fetch player stats, and push into object
-
-        // Example object
-        $scope.player = {
-            name: $stateParams.player,
-            rank: 30,
-            wins: 25,
-            losses: 10,
-            points: 250
+        /***
+         * Filter by current player
+         * @param data
+         */
+        $scope.filterByPlayer = function (data) {
+            angular.forEach(data, function (value, key) {
+                if (value.name === $stateParams.player) {
+                    $scope.player = value;
+                    $scope.games = value.games;
+                }
+            });
         };
     }
 ]);
-
-
-
-
-

@@ -21,21 +21,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="player in players | orderBy:'-points' | limitTo: limit as results" n="{{player}}">
+                <tr ng-repeat="player in players | orderBy:'-points' | limitTo: 10">
                     <td class="rank"><strong>#{{$index + 1}}</strong></td>
                     <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
                     <td>{{player.points}} points</td>
-                    <td>{{player.win_count}}</td>
-                    <td>{{player.loss_count}}</td>
+                    <td>{{player.wins}}</td>
+                    <td>{{player.losses}}</td>
                 </tr>
                 </tbody>
             </table>
             </div>
-            <button class="btn btn-primary btn-block text-uppercase" ng-hide="results.length === player.length" ng-click="limit = limit + 10">
-                Load More <i class="fa fa-refresh fa-fw"></i>
-            </button>
         </div>
-
     </div>
 </div>
 </div>
