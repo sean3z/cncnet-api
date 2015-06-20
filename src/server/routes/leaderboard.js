@@ -4,8 +4,9 @@ var debug = require('debug')('wol:leaderboard');
 var $db = require('../lib/mongo');
 
 exports.match = function (req, res, next) {
+    // debug('WOL Gameres packet recieved');
     match.process(req.params.game, req.body);
-    res.status(200).end();
+    res.status(200);
 };
 
 exports.rankings = function (req, res, next) {
