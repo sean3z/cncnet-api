@@ -37,19 +37,28 @@ exports.process = function(game, dmp) {
         // create player entry
         var $players = $db.get(game +'_players');
         match.players.forEach(function(player) {
-            $players.update(
-                {name: player.nam},
-                {
-                    $push: {games: match.idno},
-                    $inc: {points: 2}
-                },
-                {upsert: true}
-            );
+            var stats = {
+                $push: {games: match.idno},
+                $inc: {points: 2}
+            };
+
+            /* evaluate wolv2 completions */
+            // 256 is won, 512 is defated
+            // 528 is lost connection or kicked
+            if (player.cmp) {
+                stats.$inc[(player.cmp == 256 ? 'wins' : 'losses')] = 1;
+                if (player.cmp == 528) stats.$inc.disconnects = 1;
+                if (player.cmp == 256) stats.$inc.points += 10;
+            }
+
+            $players.update({name: player.nam}, stats, {upsert: true});
         });
 
-        // create game entry
-        // mongo.insert(game +'_'+ 'games', dmp);
-        // locate ts_games document with matching idno then insert or update
+        // create game entry if WOLv2
+        if (match.client.vers.toLowerCase() === 'v2.0') {
+            // mongo.insert(game +'_'+ 'games', dmp);
+            // locate ts_games document with matching idno then insert or update
+        }
     });
 
     return defer.promise;
