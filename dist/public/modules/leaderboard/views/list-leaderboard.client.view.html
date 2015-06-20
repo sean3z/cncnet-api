@@ -1,0 +1,37 @@
+<div ui-view>
+<div class="feature-banner text-center">
+    <div class="container small">
+        <h2 class="text-uppercase">Leaderboard</h2>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
+                    <th>Profile <i class="fa fa-user fa-fw"></i></th>
+                    <th>Points <i class="fa fa-bolt fa-fw"></i></th>
+                    <th>Won <i class="fa fa-level-up fa-fw"></i></th>
+                    <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="player in players | orderBy:'-points' | limitTo: 10">
+                    <td class="rank"><strong>#{{$index + 1}}</strong></td>
+                    <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
+                    <td>{{player.points}} points</td>
+                    <td>{{player.wins}}</td>
+                    <td>{{player.losses}}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
