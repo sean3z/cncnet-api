@@ -1,26 +1,30 @@
 var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
+var restify = require('restify');
+var app = restify.createServer();
 var path = require('path');
 var WOL_PORT = process.env.WOL_PORT || 4007;
+
+app.use(restify.queryParser());
+app.use(restify.jsonp());
 
 /* route separation http://bit.ly/1Kt87xZ */
 var ping = require('./routes/ping');
 var leaderboard = require('./routes/leaderboard');
 var auth = require('./routes/auth');
+var debug = require('./routes/debug');
 
-app.use(bodyParser.json());
-app.use(bodyParser.text());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(restify.bodyParser());
+/*
 app.use(express.static(path.join(__dirname, '/../../dist/public')));
 
-/* ensure game abbr is valid */
+// ensure game abbr is valid
 app.param('game', function(req, res, next, abbr) {
     if (!(!!abbr.match(/^(td|d2k?|ra2?|ts|fs|yr)$/))) {
         return next(new Error('game abbr invalid'));
     }
     next();
 });
+*/
 
 /* general */
 app.get('/ping', ping);
