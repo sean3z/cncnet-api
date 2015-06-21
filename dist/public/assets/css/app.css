@@ -2183,6 +2183,7 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .feature-banner .large { padding-top: 50px; padding-bottom: 50px; }
 .feature-banner .small { padding-top: 20px; padding-bottom: 20px; margin-top: 20px; margin-bottom: 20px; }
 .feature-banner .search input { background: rgba(0, 0, 0, 0.8); border: none; }
+.feature-banner .back-to-leaderboard a { font-size: 15px; color: #888; }
 
 .angled-feature-intro { position: relative; height: 100px; }
 .angled-feature-intro h3 { font-size: 38px; }

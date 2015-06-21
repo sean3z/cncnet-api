@@ -4,7 +4,12 @@
 angular.module('Leaderboard.Player').controller('LeaderboardPlayerController', ['$scope', '$state', '$stateParams', 'LadderSvc',
     function ($scope, $state, $stateParams, LadderSvc) {
 
-        LadderSvc.getTop50($stateParams.game).then(function (response) {
+        $scope.game = $stateParams.game;
+
+        /***
+         * Get top 50 by game
+         */
+        LadderSvc.getTop50($scope.game).then(function (response) {
             $scope.filterByPlayer(response);
         });
 
