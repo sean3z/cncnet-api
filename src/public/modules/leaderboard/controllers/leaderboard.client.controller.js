@@ -6,7 +6,6 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
 
         LadderSvc.getTop50($stateParams.game).then(function(response) {
             $scope.players = response;
-        console.log($scope.players);
         });
 
         // Until we have game names in our response
