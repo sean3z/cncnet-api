@@ -7,22 +7,18 @@
   right: 0;
   background: none;
   border: none;
+
   .navbar-brand {
-    padding: 25px 15px;
+    padding: 20px 15px;
+  }
+  .open > .dropdown-toggle {
+    background: $dark-base !important;
   }
   .navbar-nav {
-    margin-top: 27px;
-    text-transform: uppercase;
-    li {
-      font-family: "open-sans", sans-serif;
-      font-weight: 600;
-      padding-left: 15px;
-      padding-right: 15px;
-      a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
+    > li {
+      margin-right: 15px;
     }
+    text-transform: uppercase;
   }
   // Fatten up the bars
   .icon-bar {
@@ -30,7 +26,6 @@
     height: 4px;
   }
 }
-
 
 // Jumbotron
 .feature-banner {
@@ -42,7 +37,7 @@
   background-repeat: no-repeat;
 
   h1, h2 {
-    font-family: "fira-sans",sans-serif;
+    font-family: "fira-sans", sans-serif;
     font-weight: 400;
 
     strong {
@@ -50,7 +45,7 @@
     }
   }
   p {
-    font-family: "fira-sans",sans-serif;
+    font-family: "fira-sans", sans-serif;
     font-weight: 100;
     color: $white;
   }
@@ -66,9 +61,12 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
+  .search input {
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
+  }
 }
-
-
 
 // Angled Feature
 .angled-feature-intro {
@@ -96,7 +94,6 @@
     z-index: 2;
   }
 }
-
 
 // Table
 .table {
@@ -127,11 +124,10 @@
     background: #262F3C;
 
     &:hover {
-      background: lighten(#262F3C, 5%)!important;
+      background: lighten(#262F3C, 5%) !important;
     }
   }
 }
-
 
 // Profile
 // todo: tidy up, less hack and use variables

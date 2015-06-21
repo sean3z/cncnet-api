@@ -236,9 +236,9 @@ $cursor-disabled:                not-allowed !default;
 //## Dropdown menu container and contents.
 
 //** Background for the dropdown menu.
-$dropdown-bg:                    $gray-darker !default;
+$dropdown-bg:                    $dark-base !default;
 //** Dropdown menu `border-color`.
-$dropdown-border:                rgba(255,255,255,0.1) !default;
+$dropdown-border:                $dark-base !default;
 //** Dropdown menu `border-color` **for IE8**.
 $dropdown-fallback-border:       #444 !default;
 //** Divider color for between dropdown items.
@@ -249,12 +249,12 @@ $dropdown-link-color:            #fff !default;
 //** Hover color for dropdown links.
 $dropdown-link-hover-color:      #fff !default;
 //** Hover background for dropdown links.
-$dropdown-link-hover-bg:         $component-active-bg !default;
+$dropdown-link-hover-bg:         $brand-success !default;
 
 //** Active dropdown menu item text color.
 $dropdown-link-active-color:     #fff !default;
 //** Active dropdown menu item background color.
-$dropdown-link-active-bg:        $component-active-bg !default;
+$dropdown-link-active-bg:        $dark-base !default;
 
 //** Disabled dropdown menu item background color.
 $dropdown-link-disabled-color:   $gray-light !default;
@@ -387,7 +387,7 @@ $navbar-default-brand-hover-color:         #fff !default;
 $navbar-default-brand-hover-bg:            transparent !default;
 
 // Navbar toggle
-$navbar-default-toggle-hover-bg:           transparent !default;
+$navbar-default-toggle-hover-bg:           $dark-base !default;
 $navbar-default-toggle-icon-bar-bg:        $white !default;
 $navbar-default-toggle-border-color:       transparent !default;
 
