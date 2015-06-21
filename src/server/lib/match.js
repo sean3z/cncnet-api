@@ -7,7 +7,7 @@ var $q = require('q');
 exports.process = function(game, dmp) {
     var match = gameres(dmp);
     if (!match.idno) return; /* if no game id, discontinue */
-    console.log('game: %s, idno: %d', game, match.idno);
+    debug('game: %s, idno: %d', game, match.idno);
 
     // create raw dump entry
     // TODO: check against spid (sender id) to ensure only 1 packet from each player
