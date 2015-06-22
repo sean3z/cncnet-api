@@ -7,6 +7,21 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
         LadderSvc.getTop50($stateParams.game).then(function(response) {
             $scope.players = response;
         });
+
+        // Until we have game names in our response
+        switch($stateParams.game) {
+            case 'ts':
+                $scope.game = 'Tiberian Sun';
+                break;
+            case 'ra':
+                $scope.game = 'Red Alert';
+                break;
+            case 'yr':
+                $scope.game = 'Yuri\'s Revenge';
+                break;
+            default:
+                $scope.game = 'Global';
+        }
     }
 ]);
 

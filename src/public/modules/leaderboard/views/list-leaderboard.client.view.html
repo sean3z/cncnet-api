@@ -1,7 +1,11 @@
 <div ui-view>
 <div class="feature-banner text-center">
     <div class="container small">
-        <h2 class="text-uppercase">Leaderboard</h2>
+        <h2 class="text-uppercase">Leaderboard <span class="hidden-xs">-</span> {{ game }}</h2>
+
+        <div class="search form-group col-sm-4 col-sm-offset-4">
+            <input type="text" class="form-control" placeholder="Find player by name" ng-model="player.search" id="playerSearch">
+        </div>
     </div>
 </div>
 
@@ -21,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="player in players | orderBy:'-points' | limitTo: 10">
+                <tr ng-repeat="player in players | filter:player.search | orderBy:'-points' | limitTo: 50">
                     <td class="rank"><strong>#{{$index + 1}}</strong></td>
                     <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
                     <td>{{player.points}} points</td>
