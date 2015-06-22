@@ -7,20 +7,19 @@ var WOL_PORT = process.env.WOL_PORT || 4007;
 var ping = require('./routes/ping');
 var leaderboard = require('./routes/leaderboard');
 var auth = require('./routes/auth');
-//var debug = require('./routes/debug');
 
 app.use(restify.queryParser());
 app.use(restify.jsonp());
 app.use(restify.bodyParser());
-/*
+
 // ensure game abbr is valid
-app.param('game', function(req, res, next, abbr) {
-    if (!(!!abbr.match(/^(td|d2k?|ra2?|ts|fs|yr)$/))) {
+app.use(function(req, res, next) {
+    if (!req.params.game) return next();
+    if (!(!!req.params.game.match(/^(td|d2k?|ra2?|ts|fs|yr)$/))) {
         return next(new Error('game abbr invalid'));
     }
     next();
 });
-*/
 
 /* general */
 app.get('/ping', ping);
