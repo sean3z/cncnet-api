@@ -19,8 +19,6 @@ exports.process = function(game, dmp) {
         _stats
     );
 
-    // todo: make this more efficent; no need to update then find
-    // should be able to use the same search query
     function _stats(err, data) {
         $dumps.find({idno: match.idno}, function(err, doc) {
             if (doc.length > 1) {
