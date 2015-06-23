@@ -24,9 +24,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-/* declare api version */
+/* declare api version and allow origin */
 app.use(function(req, res, next) {
     res.header('API-Version', require('../../package').version);
+    res.header('Access-Control-Allow-Origin', '*');
     next();
 });
 
