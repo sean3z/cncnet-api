@@ -14,7 +14,12 @@ exports.rankings = function (req, res, next) {
 };
 
 exports.match = function(req, res, next) {
-    match.information(req.params.game, parseInt(req.params.gameId)).then(function(data) {
+    match.information(req.params.game, parseInt(req.params.gameId)).then(_success, _error);
+    function _success(data) {
         res.send(data);
-    });
+    }
+
+    function _error() {
+        res.send(404);
+    }
 };
