@@ -1,5 +1,6 @@
 var match = require('../lib/match');
 var ranking = require('../lib/ranking');
+var player = require('../lib/player');
 var debug = require('debug')('wol:leaderboard');
 
 exports.incoming = function (req, res, next) {
@@ -11,6 +12,14 @@ exports.rankings = function (req, res, next) {
     ranking.player(req.params.game, 150).then(function(data) {
         res.send(data);
     });
+};
+
+exports.search = function (req, res, next) {
+    if (req.body.player) {
+        player.locate(req.params.game, req.body.player).then(function(data) {
+            res.send(data);
+        });
+    }
 };
 
 exports.match = function(req, res, next) {

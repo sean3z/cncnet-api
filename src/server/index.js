@@ -37,6 +37,7 @@ app.get('/ping', ping);
 app.post('/ladder/:game', leaderboard.incoming);
 app.get('/ladder/:game', leaderboard.rankings);
 app.get('/ladder/:game/game/:gameId', leaderboard.match);
+app.post('/ladder/:game/search', leaderboard.search);
 
 /* auth */
 app.get('/auth/:game/:player', auth.player);
