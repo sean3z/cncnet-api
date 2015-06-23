@@ -17,7 +17,7 @@ exports.process = function(game, match) {
         };
 
         /* evaluate wolv2 completions */
-        // 256 is won, 512 is defated
+        // 256 is won, 512 is defeated
         // 528 is lost connection or kicked
         if (player.cmp) {
             stats.$inc[(player.cmp == 256 ? 'wins' : 'losses')] = 1;
