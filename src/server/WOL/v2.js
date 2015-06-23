@@ -19,6 +19,7 @@ exports.process = function(game, match) {
         /* evaluate wolv2 completions */
         // 256 is won, 512 is defeated
         // 528 is lost connection or kicked
+        // NEED TO KNOW CMP: 2,8
         if (player.cmp) {
             stats.$inc[(player.cmp == 256 ? 'wins' : 'losses')] = 1;
             if (player.cmp == 528) stats.$inc.disconnects = 1;
@@ -26,9 +27,15 @@ exports.process = function(game, match) {
         }
 
         $players.update({name: player.nam}, stats, {upsert: true});
+
+        /* tack on stats so it can be referenced in game object */
+        player.gained = stats.$inc;
     });
 
     // create game entry
     delete match.buffer;
     $db.get(game +'_games').insert(match);
+
+    /* handle any game specific processing */
+    require('../game/'+ game).process(match);
 };
