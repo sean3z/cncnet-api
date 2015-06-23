@@ -36,11 +36,11 @@ exports.process = function(game, dmp) {
 
             switch(match.client.vers.toLowerCase()) {
                 case 'v2.0':
-                    require('./WOLv2').process(game, match);
+                    require('../WOL/v2').process(game, match);
                 break;
 
                 default:
-                    require('./WOLv1').process(game, match);
+                    require('../WOL/v1').process(game, match);
             }
         });
     }

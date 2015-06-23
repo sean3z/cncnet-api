@@ -22,7 +22,7 @@ exports.process = function(game, match) {
         if (player.cmp) {
             stats.$inc[(player.cmp == 256 ? 'wins' : 'losses')] = 1;
             if (player.cmp == 528) stats.$inc.disconnects = 1;
-            if (player.cmp == 256) stats.$inc.points += 10;
+            if (player.cmp == 256) stats.$inc.points += 4;
         }
 
         $players.update({name: player.nam}, stats, {upsert: true});
