@@ -51,7 +51,8 @@ exports.process = function(game, dmp) {
 exports.information = function(game, gameId) {
     var defer = $q.defer();
     $db.get(game +'_games').find({idno: gameId}, function(err, data) {
-        defer.resolve(data);
+        if (data.length < 1) return defer.reject();
+        defer.resolve(data[0]);
     });
     return defer.promise;
 };
