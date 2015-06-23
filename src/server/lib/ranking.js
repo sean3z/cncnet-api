@@ -9,4 +9,4 @@ exports.player = function(game, limit) {
     });
 
     return defer.promise;
-}
+};
