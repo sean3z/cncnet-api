@@ -1,4 +1,4 @@
-var $db = require('./mongo');
+var $db = require('../lib/mongo');
 var debug = require('debug')('wol:leaderboard');
 
 exports.process = function(game, match) {
@@ -29,5 +29,6 @@ exports.process = function(game, match) {
     });
 
     // create game entry
-    $db.insert(game +'_games', match);
+    delete match.buffer;
+    $db.get(game +'_games').insert(match);
 };
