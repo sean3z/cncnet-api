@@ -60,7 +60,7 @@ function _type(type, chunk) {
 function _consolidate(flat) {
     var consolidated = {players: [], settings: {}, client: {}};
     var settings = ['sped', 'plrs', 'scen', 'tech', 'unit', 'flag', 'shad', 'crat', 'tibr', 'base', 'cred', 'trny', 'shrt', 'supr', 'aipl'];
-    var client = ['date', 'vers', 'vidm', 'memo', 'proc', 'afps', 'oosy', 'gsku', 'spid'];
+    var client = ['vers', 'vidm', 'memo', 'proc', 'afps', 'oosy', 'gsku', 'spid'];
 
     if (flat.NAM0 || flat.NAM1) {
         for (var item in flat) {
