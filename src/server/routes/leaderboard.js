@@ -5,7 +5,7 @@ var $db = require('../lib/mongo');
 
 exports.match = function (req, res, next) {
     match.process(req.params.game, req.body);
-    res.status(200);
+    res.send(200);
 };
 
 exports.rankings = function (req, res, next) {
