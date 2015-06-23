@@ -1,4 +1,3 @@
-//var packet = require('./lib/packet');
 var match = require('../lib/match');
 var ranking = require('../lib/ranking');
 var debug = require('debug')('wol:leaderboard');
