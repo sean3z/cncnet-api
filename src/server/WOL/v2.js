@@ -29,7 +29,7 @@ exports.process = function(game, match) {
         $players.update({name: player.nam}, stats, {upsert: true});
 
         /* tack on stats so it can be referenced in game object */
-        player.gained = stats.$inc;
+        player.__gained = stats.$inc;
     });
 
     // create game entry
