@@ -53,5 +53,5 @@ exports.information = function(game, gameId) {
     $db.get(game +'_games').find({idno: gameId}, function(err, data) {
         defer.resolve(data);
     });
-    return defer.prmoise;
+    return defer.promise;
 };
