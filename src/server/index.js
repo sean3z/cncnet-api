@@ -7,6 +7,7 @@ var WOL_PORT = process.env.WOL_PORT || 4007;
 var ping = require('./routes/ping');
 var leaderboard = require('./routes/leaderboard');
 var auth = require('./routes/auth');
+var debug = require('./routes/debug');
 
 app.use(restify.queryParser());
 app.use(restify.jsonp());
@@ -31,6 +32,9 @@ app.get('/ladder/:game', leaderboard.rankings);
 /* auth */
 app.get('/auth/:game/:player', auth.player);
 app.put('/auth/:game/:player', auth.create);
+
+/* debug */
+app.get('/debug/reset', debug.reset);
 
 /* static server for development */
 app.get(/.*/, restify.serveStatic({
