@@ -22,6 +22,12 @@ app.use(function(req, res, next) {
     next();
 });
 
+// declare api version
+app.use(function(req, res, next) {
+    res.header('API-Version', require('../../package').version);
+    next();
+});
+
 /* general */
 app.get('/ping', ping);
 
