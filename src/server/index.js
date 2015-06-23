@@ -13,16 +13,18 @@ app.use(restify.queryParser());
 app.use(restify.jsonp());
 app.use(restify.bodyParser());
 
-// ensure game abbr is valid
+/* ensure game abbr is valid */
 app.use(function(req, res, next) {
     if (!req.params.game) return next();
     if (!(!!req.params.game.match(/^(td|d2k?|ra2?|ts|fs|yr)$/))) {
         return next(new Error('game abbr invalid'));
     }
+    /* in case someone sends in caps */
+    req.params.game = req.params.game.toLowerCase();
     next();
 });
 
-// declare api version
+/* declare api version */
 app.use(function(req, res, next) {
     res.header('API-Version', require('../../package').version);
     next();
