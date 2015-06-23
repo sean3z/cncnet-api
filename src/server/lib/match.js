@@ -6,7 +6,7 @@ var $q = require('q');
 
 exports.process = function(game, dmp) {
     var match = gameres(dmp);
-    if (!match.idno) return; /* if no game id, discontinue */
+    // if (!match.idno) return; /* if no game id, discontinue */
     debug('game: %s, idno: %d', game, match.idno);
 
     // create raw dump entry
@@ -46,4 +46,12 @@ exports.process = function(game, dmp) {
     }
 
     return;
+};
+
+exports.information = function(game, gameId) {
+    var defer = $q.defer();
+    $db.get(game +'_games').find({idno: gameId}, function(err, data) {
+        defer.resolve(data);
+    });
+    return defer.prmoise;
 };
