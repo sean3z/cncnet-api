@@ -16,11 +16,11 @@ app.use(restify.bodyParser());
 /* ensure game abbr is valid */
 app.use(function(req, res, next) {
     if (!req.params.game) return next();
+    /* in case client sends abbrv in caps */
+    req.params.game = req.params.game.toLowerCase();
     if (!(!!req.params.game.match(/^(td|d2k?|ra2?|ts|fs|yr)$/))) {
         return next(new Error('game abbr invalid'));
     }
-    /* in case someone sends in caps */
-    req.params.game = req.params.game.toLowerCase();
     next();
 });
 
