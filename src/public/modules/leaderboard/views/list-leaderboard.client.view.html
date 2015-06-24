@@ -1,10 +1,13 @@
-<div ui-view>
+<div ng-controller="LeaderboardController">
 <div class="feature-banner text-center">
     <div class="container small">
         <h2 class="text-uppercase">Leaderboard <span class="hidden-xs">-</span> {{ game }}</h2>
 
         <div class="search form-group col-sm-4 col-sm-offset-4">
-            <input type="text" class="form-control" placeholder="Find player by name" ng-model="player.search" id="playerSearch">
+            <form name="search" novalidate ng-submit="search.$valid && searchByPlayer()">
+                <input type="text" ng-model="search.name" name="player" class="form-control"
+                       placeholder="Enter a player name to search">
+            </form>
         </div>
     </div>
 </div>
@@ -13,6 +16,16 @@
     <div class="row">
 
         <div class="col-md-12">
+
+            <div class="panel panel-warning" ng-show="searchResults">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search results</h3>
+                </div>
+                <div class="panel-body">
+                    {{ searchResults | json }}
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-hover">
                 <thead>
