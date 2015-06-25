@@ -22,7 +22,6 @@ function configuration($stateProvider, $urlRouterProvider) {
 
         .state('leaderboard.player', {
             url: '/player/:player',
-            controller: 'LeaderboardPlayerController',
             templateUrl: 'modules/leaderboard-player/views/detail-leaderboard-player.client.view.html'
         });
 
