@@ -2,6 +2,10 @@ var $db = require('../lib/mongo');
 var debug = require('debug')('wol:leaderboard');
 
 exports.process = function(game, match) {
+    // only continue if we have proper stats
+    // TODO: figure out why cmp is 2 or 8
+    if ([2, 8].indexOf(match.players[0].cmp) > -1) return;
+
     // create player entry
     var $players = $db.get(game +'_players');
     match.players.forEach(function(player) {
@@ -11,6 +15,7 @@ exports.process = function(game, match) {
             return;
         }
 
+        // TODO: increase player map count
         var stats = {
             $push: {games: match.idno},
             $inc: {points: 2}
