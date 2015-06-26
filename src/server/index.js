@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 app.get('/ping', ping);
 
 /* leaderboard */
-app.post('/ladder/:game', leaderboard.incoming);
+app.post('/ladder/:game', leaderboard.submit);
 app.get('/ladder/:game', leaderboard.rankings);
 app.get('/ladder/:game/game/:gameId', leaderboard.match);
 app.post('/ladder/:game/search', leaderboard.search);

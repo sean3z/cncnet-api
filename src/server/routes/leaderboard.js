@@ -3,7 +3,7 @@ var ranking = require('../lib/ranking');
 var player = require('../lib/player');
 var debug = require('debug')('wol:leaderboard');
 
-exports.incoming = function (req, res, next) {
+exports.submit = function (req, res, next) {
     match.process(req.params.game, req.body);
     res.send(200);
 };
