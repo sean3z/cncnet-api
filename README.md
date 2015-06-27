@@ -1,4 +1,4 @@
-# Westwood Online (WOL) Leaderboard 
+# Westwood Online (WOL) Leaderboard
 [![Build Status](https://travis-ci.org/sean3z/wol-ladder.svg?branch=develop)](https://travis-ci.org/sean3z/wol-ladder) [![PayPal donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5PWNYVG8W7UFS&lc=US&item_name=Westwood%20Online%20leaderboard&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest) [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
 This is an open source WOL leaderboard emulator for legacy [Westwood Studios](http://en.wikipedia.org/wiki/Westwood_Studios) games; specifically, those hosted by [CnCNet](http://cncnet.org). Ideally though, this application should work with any client sending WOLv1 or WOLv2 Game Resolution packets. This application serves several REST API endpoints (documented below) to consume and post leaderboard data.
@@ -14,9 +14,7 @@ This is an open source WOL leaderboard emulator for legacy [Westwood Studios](ht
 
 ### Usage
 1. `npm install --production`
-2. Install `_install/wol.sql`
-3. Configure `src/config.js`
-4. `grunt serve`
+2. `grunt serve`
 
 ## REST API Endpoints
 There's a few params listed below.
@@ -28,27 +26,22 @@ There's a few params listed below.
 ###### General Endpoints
 * GET `/ping` to ensure that the leaderboard is online
 
-###### Leaderboard Game Endpoints
-* GET `/ladder/:game` will return the top 250 leaderboard results for the supplied `:game`
+###### Leaderboard Endpoints
 * POST `/ladder/:game` accepts gameres packet (via POST body) for the supplied `:game`
-* GET `/ladder/:game/games` will return the latest 250 games played for the given `:game`
-* GET `/ladder/:game/games/:gameId` will return all data for a given `:gameId`
-
-###### Leaderboard Player Endpoints
-* PUT `/ladder/:game/player/:player` will create the given `:player`
-* GET `/ladder/:game/player/:player` will return most data for given `:player` 
-* DELETE `/ladder/:game/player/:player` will irrevocably delete the given `:player`
+* GET `/ladder/:game` will return the top 150 leaderboard players for the supplied `:game`
+* GET `/ladder/:game/game/:gameId` will return all data for a given `:gameId`
+* GET `/ladder/:game/player/:player` will return most data for given `:player`
 
 ###### Player Creation
 * PUT `/auth/:game/:player` player creation
 
-Player creation is optional as the leaderboard will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players. 
+Player creation is optional as the leaderboard will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players.
 
 Players can be created using the PUT `/auth/:game/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
 
 _example player creation request_
 ```shell
-curl -X PUT -H "Content-Type: multipart/form-data" -F "username=Tahj" -F "password=MySecretPassword" -F "email=tahj.kirk@gmail.com" http://localhost:4003/auth/ts/tahj3z
+curl -X PUT -H "Content-Type: multipart/form-data" -F "username=Tahj" -F "password=MyPassword" -F "email=tahj.kirk@gmail.com" http://localhost:4007/auth/ts/tahj3z
 ```
 
 If this is the first player registration for the user, the account will be stored using the credentials provided. If the account has been previously registered, the new `:player` will be associated with the account as long as the credentials provided are correct.
@@ -60,7 +53,7 @@ After a player has been created, they can then proceed to login using the GET `/
 
 _example player auth request_
 ```shell
-curl -isu Tahj:MySecretPassword http://localhost:4007/auth/ts/tahj3z
+curl -isu Tahj:MyPassword http://localhost:4007/auth/ts/tahj3z
 ```
 
 ## Contributing
