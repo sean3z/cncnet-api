@@ -92,7 +92,7 @@ function _consolidate(flat) {
     }
 
     /* overwrite date */
-    consolidated['date'] = Math.floor(Date.now() / 1000);
+    consolidated.date = Math.floor(Date.now() / 1000);
     return consolidated;
 }
 
