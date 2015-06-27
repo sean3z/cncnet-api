@@ -26,3 +26,5 @@
   - Show a players estimated calculation of wins/losses required for promotion/demotion.
   - Show list of players game
     - The id of the game, outcome of game, experience gained
+- Game Resolution Parser
+  - Automatically detect match stats leader on disconnect or out of sync games
