@@ -32,8 +32,11 @@ exports.process = function(game, dmp) {
             // only continue if this is the first entry for a game
             if (doc[0].buffers && doc[0].buffers.length > 1) return;
 
-            switch (match.client.vers.toLowerCase()) {
-                case 'v2.0':
+            switch (game) {
+                case 'ra2': /* red alert 2 */
+                case 'yr':  /* yuri's revenge */
+                case 'ts':  /* tiberian sun */
+                case 'fs':  /* firestorm */
                     require('../WOL/v2').process(game, match);
                 break;
 
