@@ -42,5 +42,5 @@ exports.process = function(game, match) {
     $db.get(game +'_games').insert(match);
 
     /* handle any game specific processing */
-    require('../game/'+ game).process(match);
+    require('../game/' + game).process(match);
 };

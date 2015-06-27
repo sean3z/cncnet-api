@@ -1,10 +1,10 @@
-var basicAuth = require('basic-auth');
+var auth = require('basic-auth');
 
 exports.player = function(req, res, next) {
-    var credentials = basicAuth(req);
-    
+    var credentials = auth(req);
+
     console.log(credentials);
-    
+
     if (!credentials || credentials.name !== 'john' || credentials.pass !== 'secret') {
         res.writeHead(401, {
             'WWW-Authenticate': 'Basic realm="example"'
@@ -13,10 +13,8 @@ exports.player = function(req, res, next) {
     } else {
         res.json({test: 'meow'});
     }
-    
 };
 
-
 exports.create = function(req, res, next) {
-    
+
 };

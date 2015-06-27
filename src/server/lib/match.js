@@ -25,14 +25,14 @@ exports.process = function(game, dmp) {
                 // error scneario, we have two entries for the same game
                 // todo: figure out what the hell to do?
                 // todo: elimiate duplicates?
-                console.log('found duplicates game: %s, idno: %d', game, match.idno);
+                console.log('found duplicates! game: %s, idno: %d', game, match.idno);
                 return;
             }
 
             // only continue if this is the first entry for a game
             if (doc[0].buffers && doc[0].buffers.length > 1) return;
 
-            switch(match.client.vers.toLowerCase()) {
+            switch (match.client.vers.toLowerCase()) {
                 case 'v2.0':
                     require('../WOL/v2').process(game, match);
                 break;
