@@ -1,7 +1,7 @@
 # Leaderboard Feature List
 
 ### Release version - 1.0
-- [ ] Leadeboard support for Tiberian Sun and Red Alert 1.
+- [ ] Leaderboard support for Tiberian Sun and Red Alert 1.
 - [x] Player listings
   - [x] Show top 50 player rankings for each game
   - [x] To display players: Rank, Points, Wins, Losses.
