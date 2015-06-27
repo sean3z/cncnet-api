@@ -2,7 +2,7 @@
 .grunt
 node_modules
 _storage
-#dist
+dist
 .sass-cache
 .idea
 ### SublimeText ###
