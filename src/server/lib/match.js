@@ -11,6 +11,7 @@ exports.process = function(game, dmp) {
 
     // create raw dump entry
     // TODO: check against spid (sender id) to ensure only 1 packet from each player
+    // TODO: idno is random but could collide. check if record exists and compare dates
     var $dumps = $db.get(game +'_dumps');
     $dumps.update(
         {idno: match.idno},
