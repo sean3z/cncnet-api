@@ -10,7 +10,7 @@
                         <li><i class="fa fa-facebook fa-2x"></i></li>
                     </ul>
                     <p class="back-to-leaderboard text-uppercase">
-                        <a href="#/leaderboard/{{ game }}">
+                        <a href="#/leaderboard/{{ gameName }}">
                             <i class="fa fa-angle-left"></i> Back to Leaderboard
                         </a>
                     </p>
@@ -61,7 +61,8 @@
                                 <ul class="list-inline text-right">
                                     <li>Points <strong>{{player.points}}</strong><i class="fa fa-bolt fa-fw"></i></li>
                                     <li>Won <strong>{{player.wins}}</strong><i class="fa fa-level-up fa-fw"></i></li>
-                                    <li>Lost <strong>{{player.losses}}</strong><i class="fa fa-level-down fa-fw"></i></li>
+                                    <li>Lost <strong>{{player.losses}}</strong><i class="fa fa-level-down fa-fw"></i>
+                                    </li>
                                     <li>Win/Loss Ratio <strong>{{player.wins / player.losses }}% </strong><i
                                             class="fa fa-tachometer fa-fw"></i></li>
                                 </ul>
@@ -77,20 +78,62 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>vs. <i class="fa fa-level-up fa-fw"></i></th>
-                                <th>Result <i class="fa fa-level-down fa-fw"></i></th>
-                                <th>Points won <i class="fa fa-bolt fa-fw"></i></th>
-                                <th>Experience gained<i class="fa fa-bolt fa-fw"></i></th>
+                                <th>When? <i class="fa fa-level-up fa-fw"></i></th>
+                                <th>Players in game <i class="fa fa-user fa-fw"></i></th>
+                                <th>Duration of game <i class="fa fa-clock-o"></i></th>
+                                <th>Map played <i class="fa fa-map-marker"></i></th>
+                                <th>Game Settings <i class="fa fa-cog"></i></th>
+                                <!--<th>Result <i class="fa fa-level-down fa-fw"></i></th>-->
+                                <!--<th>Points won <i class="fa fa-bolt fa-fw"></i></th>-->
+                                <!--<th>Experience gained<i class="fa fa-bolt fa-fw"></i></th>-->
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="game in games | limitTo: 10">
-                                <td>{{ game }}</td>
-                                <td>Won the game</td>
-                                <td><span class="label label-success">{{player.wins * 2}} points <i
-                                        class="fa fa-smile-o fa-fw fa-lg"></i></span></td>
-                                <td><span class="label label-primary">{{player.wins/ player.points * 100}} <i
-                                        class="fa fa-user-plus fa-fw fa-lg"></i> experience</span></td>
+
+                            <tr ng-repeat="game in player.games">
+                                <td>{{ game.date * 1000 | date:'medium' }}</td>
+                                <td>
+                                    <div ng-repeat="players in game.players">
+                                        <ul class="list-unstyled">
+                                            <li ng-if="players.__gained.wins && players.__gained.points > 1">
+                                                <a href="#/leaderboard/{{ gameName }}/player/{{ players.nam }}">
+                                                    <span class="label label-success">
+                                                        {{ players.nam}}
+                                                        <i class="fa fa-smile-o fa-fw fa-lg"></i>
+                                                    </span>
+                                                    <span class="label label-default">
+                                                        + {{ players.__gained.points }} points
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li ng-if="players.__gained.losses">
+                                                <a href="#/leaderboard/{{ gameName }}/player/{{ players.nam }}">
+                                                    <span class="label label-danger">
+                                                        {{ players.nam}}
+                                                        <i class="fa fa-frown-o fa-fw fa-lg"></i>
+                                                    </span>
+                                                    <span class="label label-default">
+                                                        + {{ players.__gained.points }} points
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ game.dura | secondsToDateTime | date:'HH:mm:ss'}}
+                                </td>
+                                <td>
+                                    {{ game.settings.scen }}
+                                </td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li>Tech level: {{ game.settings.tech }}</li>
+                                        <li>Crates: {{ game.settings.crat === '1' ? 'On' : 'Off'}}</li>
+                                        <li>Money: {{ game.settings.cred }}</li>
+                                        <li>Total Players: {{ game.settings.plrs }}</li>
+                                    </ul>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -98,5 +141,5 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </div>
