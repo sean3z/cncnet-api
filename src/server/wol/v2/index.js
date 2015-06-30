@@ -40,6 +40,7 @@ exports.process = function(game, match) {
 
         /* remove unused info */
         delete player.ipa; /* could be tunnel or p2p (unreliable) */
+        delete player.addr; /* same reason but for ra1 */
         delete player.ser; /* serials are not used on CnCNet */
 
         $players.update({name: player.nam}, stats, {upsert: true});
