@@ -15,8 +15,16 @@ exports.locate = function(game, search) {
 /* left join game data */
 exports.stats = function(game, player) {
     var defer = $q.defer();
-    $db.get(game + '_players').find({name: player}, function(err, data) {
-        defer.resolve(data);
+    $db.get(game + '_players').findOne({name: new RegExp(player, 'i')}, function(err, player_data) {
+        $db.get(game + '_games').find({idno: {$in: player_data.games}}, function(err, game_data) {
+            if (game_data.length < 1) defer.resolve(player_data);
+
+            game_data.forEach(function(stats, index) {
+                player_data.games[index] = stats;
+            });
+
+            defer.resolve(player_data);
+        });
     });
 
     return defer.promise;
