@@ -38,11 +38,11 @@ exports.process = function(game, dmp) {
                 case 'yr':  /* yuri's revenge */
                 case 'ts':  /* tiberian sun */
                 case 'fs':  /* firestorm */
-                    require('../WOL/v2').process(game, match);
+                    require('../wol/v2').process(game, match);
                 break;
 
                 default:
-                    require('../WOL/v1').process(game, match);
+                    require('../wol/v1').process(game, match);
             }
         });
     }
