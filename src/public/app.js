@@ -15,6 +15,11 @@ function configuration($stateProvider, $urlRouterProvider) {
             templateUrl: 'modules/home/views/list-home.client.view.html'
         })
 
+        .state('download', {
+            url: '/download',
+            templateUrl: 'modules/home/views/list-download.client.view.html'
+        })
+
         .state('leaderboard', {
             url: '/leaderboard/:game',
             templateUrl: 'modules/leaderboard/views/list-leaderboard.client.view.html'

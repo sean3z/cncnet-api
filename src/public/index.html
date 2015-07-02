@@ -9,10 +9,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <script src="//use.typekit.net/fpg6sss.js"></script>
-    <script>try {
-        Typekit.load();
-    } catch (e) {
-    }</script>
+    <script>try { Typekit.load();} catch (e) {}</script>
 </head>
 <body ng-app="app">
 
@@ -36,8 +33,9 @@
             <ul class="nav navbar-nav">
 
                 <li class="dropdown" data-match-route="/leaderboard/*" dropdown is-open="status.isopen">
-                    <a class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">Leaderboard<span
-                            class="caret"></span></a>
+                    <a class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                        Leaderboard<span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="#leaderboard/ra">Red Alert</a></li>
                         <li><a href="#/leaderboard/ts">Tiberian Sun</a></li>
@@ -45,8 +43,7 @@
                         <li class="divider"></li>
                     </ul>
                 </li>
-                <li data-match-route="/download/*"><a href="#/download/">Downloads</a></li>
-
+                <li data-match-route="/download/*"><a ui-sref="download">Downloads</a></li>
                 <li data-match-route="/forums.*"><a href="#/forums/">Forums</a></li>
             </ul>
         </div>

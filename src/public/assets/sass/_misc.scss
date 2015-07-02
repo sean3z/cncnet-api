@@ -1,0 +1,19 @@
+//
+// Misc
+// --------------------------------------------------
+html, body {
+  overflow-x: hidden;
+}
+
+// Type
+.thin-italic {
+  font-family: "fira-sans", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+  color: darken($white, 15%);
+}
+
+.supported-games {
+  padding: 20px;
+  margin: 20px;
+}

@@ -1,0 +1,47 @@
+//
+// Jumbo
+// --------------------------------------------------
+.feature-banner {
+  @extend .jumbotron;
+  padding: 50px 0;
+
+  background: #11161B url(../images/jumbo.png);
+  background-position: right;
+  background-repeat: no-repeat;
+
+  h1, h2 {
+    font-family: "fira-sans", sans-serif;
+    font-weight: 400;
+
+    strong {
+      font-weight: 500;
+    }
+  }
+  p {
+    font-family: "fira-sans", sans-serif;
+    font-weight: 100;
+    color: $white;
+  }
+
+  .large {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .small {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .search input {
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
+  }
+
+  .back-to-leaderboard a {
+    font-size: 15px;
+    color: $gray-light;
+  }
+}
