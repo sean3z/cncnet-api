@@ -8,6 +8,7 @@ exports.reset = function(req, res, next) {
         $db.get(game +'_dumps').drop();
         $db.get(game +'_games').drop();
         $db.get(game +'_players').drop();
+        $db.get(game +'_ladder').drop();
     });
 
     res.send(200);
