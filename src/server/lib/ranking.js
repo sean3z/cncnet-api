@@ -8,7 +8,7 @@ exports.player = function(game, limit) {
     var defer = $q.defer();
     _notch(game).then(function() {
         $db.get(game + '_ladder').find({}, {limit: limit, sort: {rank: 1}}, function(err, data) {
-            data.push({last_update: last_update[game]});
+            // data.push({last_update: last_update[game]});
             defer.resolve(data);
         });
     });
