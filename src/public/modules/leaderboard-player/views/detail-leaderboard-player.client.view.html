@@ -63,7 +63,7 @@
                                     <li>Won <strong>{{player.wins || 0}}</strong><i class="fa fa-level-up fa-fw"></i></li>
                                     <li>Lost <strong>{{player.losses || 0}}</strong><i class="fa fa-level-down fa-fw"></i>
                                     </li>
-                                    <li>Win/Loss Ratio <strong>{{player.wins / player.losses }}% </strong><i
+                                    <li>Win/Loss Ratio <strong>{{player.wins / player.losses | number:0}}% </strong><i
                                             class="fa fa-tachometer fa-fw"></i></li>
                                 </ul>
                             </div>
