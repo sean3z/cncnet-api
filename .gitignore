@@ -3,6 +3,7 @@
 node_modules
 _storage
 dist
+data
 .sass-cache
 .idea
 ### SublimeText ###
