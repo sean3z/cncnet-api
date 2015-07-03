@@ -60,8 +60,8 @@
                             <div class="profile-stats">
                                 <ul class="list-inline text-right">
                                     <li>Points <strong>{{player.points}}</strong><i class="fa fa-bolt fa-fw"></i></li>
-                                    <li>Won <strong>{{player.wins}}</strong><i class="fa fa-level-up fa-fw"></i></li>
-                                    <li>Lost <strong>{{player.losses}}</strong><i class="fa fa-level-down fa-fw"></i>
+                                    <li>Won <strong>{{player.wins || 0}}</strong><i class="fa fa-level-up fa-fw"></i></li>
+                                    <li>Lost <strong>{{player.losses || 0}}</strong><i class="fa fa-level-down fa-fw"></i>
                                     </li>
                                     <li>Win/Loss Ratio <strong>{{player.wins / player.losses }}% </strong><i
                                             class="fa fa-tachometer fa-fw"></i></li>

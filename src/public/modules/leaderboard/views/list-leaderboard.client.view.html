@@ -43,8 +43,8 @@
                     <td class="rank"><strong>#{{$index + 1}}</strong></td>
                     <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
                     <td>{{player.points}} points</td>
-                    <td>{{player.wins}}</td>
-                    <td>{{player.losses}}</td>
+                    <td>{{player.wins || 0}}</td>
+                    <td>{{player.losses || 0}}</td>
                 </tr>
                 </tbody>
             </table>
