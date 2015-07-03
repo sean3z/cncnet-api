@@ -95,25 +95,25 @@
                                 <td>
                                     <div ng-repeat="players in game.players">
                                         <ul class="list-unstyled">
-                                            <li ng-if="players.__gained.wins && players.__gained.points > 1">
+                                            <li ng-if="players.__gains.wins && players.__gains.points > 1">
                                                 <a href="#/leaderboard/{{ gameName }}/player/{{ players.nam }}">
                                                     <span class="label label-success">
                                                         {{ players.nam}}
                                                         <i class="fa fa-smile-o fa-fw fa-lg"></i>
                                                     </span>
                                                     <span class="label label-default">
-                                                        + {{ players.__gained.points }} points
+                                                        + {{ players.__gains.points }} points
                                                     </span>
                                                 </a>
                                             </li>
-                                            <li ng-if="players.__gained.losses">
+                                            <li ng-if="players.__gains.losses">
                                                 <a href="#/leaderboard/{{ gameName }}/player/{{ players.nam }}">
                                                     <span class="label label-danger">
                                                         {{ players.nam}}
                                                         <i class="fa fa-frown-o fa-fw fa-lg"></i>
                                                     </span>
                                                     <span class="label label-default">
-                                                        + {{ players.__gained.points }} points
+                                                        + {{ players.__gains.points }} points
                                                     </span>
                                                 </a>
                                             </li>
