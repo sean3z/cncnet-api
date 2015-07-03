@@ -1,4 +1,4 @@
-var $db = require('../lib/mongo');
+var $db = require(__dirname + '/../../lib/mongo');
 var debug = require('debug')('wol:leaderboard');
 
 exports.process = function(game, match) {
