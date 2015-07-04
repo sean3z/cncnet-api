@@ -28,3 +28,5 @@
     - The id of the game, outcome of game, experience gained
 - Game Resolution Parser
   - Automatically detect match stats leader on disconnect or out of sync games
+- Clans
+  - Players can create and join clans to compete on a clan ladder
