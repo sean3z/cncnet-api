@@ -19,7 +19,7 @@ exports.player = function(game, limit) {
 function _notch(game) {
     var defer = $q.defer();
 
-    if (last_update[game] > _timestamp() - 150) {
+    if (last_update[game] > _timestamp() - 300) {
         defer.resolve();
         return defer.promise;
     }
@@ -29,9 +29,10 @@ function _notch(game) {
             item.rank = (index + 1);
         });
         $db.get(game + '_ladder').drop();
-        $db.get(game + '_ladder').insert(data);
-        last_update[game] = _timestamp();
-        defer.resolve();
+        $db.get(game + '_ladder').insert(data, function(err, doc) {
+            last_update[game] = _timestamp();
+            defer.resolve();
+        });
     });
 
     return defer.promise;
