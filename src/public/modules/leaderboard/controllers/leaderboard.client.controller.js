@@ -20,15 +20,15 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
         // Until we have game names in our response
         switch($stateParams.game) {
             case 'ts':
-                $scope.image = 'ts';
+                $scope.abbr = 'ts';
                 $scope.game = 'Tiberian Sun';
                 break;
             case 'ra':
-                $scope.image = 'ra';
+                $scope.abbr = 'ra';
                 $scope.game = 'Red Alert';
                 break;
             case 'yr':
-                $scope.image = 'yr';
+                $scope.abbr = 'yr';
                 $scope.game = 'Yuri\'s Revenge';
                 break;
             default:

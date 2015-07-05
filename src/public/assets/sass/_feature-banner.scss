@@ -3,7 +3,7 @@
 // --------------------------------------------------
 .feature-banner {
   @extend .jumbotron;
-  padding: 50px 0 0;
+  padding: 50px 0;
 
   background: #11161B url(../images/jumbo.png);
   background-position: right;
@@ -13,8 +13,6 @@
   h1, h2 {
     font-family: "fira-sans", sans-serif;
     font-weight: 400;
-    font-size: 15px;
-    color: darken($white, 15%);
 
     strong {
       font-weight: 500;
@@ -36,6 +34,11 @@
     padding-bottom: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+
+  .small-text {
+    font-size: 15px;
+    color: darken($white, 15%);
   }
 
   .search input {

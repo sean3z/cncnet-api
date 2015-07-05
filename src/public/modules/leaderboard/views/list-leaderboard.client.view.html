@@ -1,64 +1,87 @@
 <div ui-view>
-<div ng-controller="LeaderboardController">
-<div class="feature-banner text-center">
-    <div class="container small">
+    <div ng-controller="LeaderboardController">
+        <div class="feature-banner text-center">
+            <div class="container small">
 
-        <div class="logo {{ image }}">
-            <img ng-src="assets/images/game-logos/{{ image }}.png">
+                <div class="logo {{ abbr }}">
+                    <img ng-src="assets/images/game-logos/{{ abbr }}.png">
+                </div>
+
+                <h2 class="text-uppercase small-text">Player Leaderboard <span class="hidden-xs">-</span> {{ game }}
+                </h2>
+
+                <div class="search form-group col-sm-4 col-sm-offset-4">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
+
+                        <form name="search" novalidate ng-submit="search.$valid && searchByPlayer()">
+                            <input type="text" ng-model="search.name" name="player" class="form-control"
+                                   placeholder="Enter a player name to search">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2 class="text-uppercase">Player Leaderboard <span class="hidden-xs">-</span> {{ game }}</h2>
+        <div class="container">
+            <div class="row">
 
-        <div class="search form-group col-sm-4 col-sm-offset-4">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
-                <form name="search" novalidate ng-submit="search.$valid && searchByPlayer()">
-                <input type="text" ng-model="search.name" name="player" class="form-control"
-                       placeholder="Enter a player name to search">
-                </form>
+                <div class="col-md-12">
+
+                    <div class="search-results panel panel-success" ng-show="searchResults">
+                        <div class="panel-heading">
+                            <h4>Profile search for <strong>{{ search.name }}</strong>, in {{ game }}. Wow, there are {{ searchResults.length }} Profile Results!</h4>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Profile <i class="fa fa-user fa-fw"></i></th>
+                                        <th>Points <i class="fa fa-bolt fa-fw"></i></th>
+                                        <th>Won <i class="fa fa-level-up fa-fw"></i></th>
+                                        <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="player in searchResults">
+                                        <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
+                                        </td>
+                                        <td>{{ player.points}} points</td>
+                                        <td>{{player.wins || 0}}</td>
+                                        <td>{{player.losses || 0}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
+                                <th>Profile <i class="fa fa-user fa-fw"></i></th>
+                                <th>Points <i class="fa fa-bolt fa-fw"></i></th>
+                                <th ng-if="abbr !== 'ra'">Won <i class="fa fa-level-up fa-fw"></i></th>
+                                <th ng-if="abbr !== 'ra'">Lost <i class="fa fa-level-down fa-fw"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="player in players">
+                                <td class="rank"><strong>#{{player.rank}}</strong></td>
+                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
+                                <td>{{player.points}} points</td>
+                                <td ng-if="abbr !== 'ra'">{{player.wins}}</td>
+                                <td ng-if="abbr !== 'ra'">{{player.losses}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="row">
-
-        <div class="col-md-12">
-
-            <div class="panel panel-warning" ng-show="searchResults">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Search results</h3>
-                </div>
-                <div class="panel-body">
-                    {{ searchResults | json }}
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
-                    <th>Profile <i class="fa fa-user fa-fw"></i></th>
-                    <th>Points <i class="fa fa-bolt fa-fw"></i></th>
-                    <th>Won <i class="fa fa-level-up fa-fw"></i></th>
-                    <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="player in players | filter:player.search | orderBy:'-points' | limitTo: 50">
-                    <td class="rank"><strong>#{{$index + 1}}</strong></td>
-                    <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
-                    <td>{{player.points}} points</td>
-                    <td>{{player.wins || 0}}</td>
-                    <td>{{player.losses || 0}}</td>
-                </tr>
-                </tbody>
-            </table>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 </div>
