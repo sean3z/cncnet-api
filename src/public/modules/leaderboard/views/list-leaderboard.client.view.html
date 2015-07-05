@@ -2,13 +2,21 @@
 <div ng-controller="LeaderboardController">
 <div class="feature-banner text-center">
     <div class="container small">
-        <h2 class="text-uppercase">Leaderboard <span class="hidden-xs">-</span> {{ game }}</h2>
+
+        <div class="logo {{ image }}">
+            <img ng-src="assets/images/game-logos/{{ image }}.png">
+        </div>
+
+        <h2 class="text-uppercase">Player Leaderboard <span class="hidden-xs">-</span> {{ game }}</h2>
 
         <div class="search form-group col-sm-4 col-sm-offset-4">
-            <form name="search" novalidate ng-submit="search.$valid && searchByPlayer()">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
+                <form name="search" novalidate ng-submit="search.$valid && searchByPlayer()">
                 <input type="text" ng-model="search.name" name="player" class="form-control"
                        placeholder="Enter a player name to search">
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>

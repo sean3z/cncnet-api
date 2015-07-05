@@ -3,15 +3,18 @@
 // --------------------------------------------------
 .feature-banner {
   @extend .jumbotron;
-  padding: 50px 0;
+  padding: 50px 0 0;
 
   background: #11161B url(../images/jumbo.png);
   background-position: right;
   background-repeat: no-repeat;
 
+
   h1, h2 {
     font-family: "fira-sans", sans-serif;
     font-weight: 400;
+    font-size: 15px;
+    color: darken($white, 15%);
 
     strong {
       font-weight: 500;
@@ -40,8 +43,23 @@
     border: none;
   }
 
+  .search .input-group-addon {
+    background: #000;
+    border-color: #000;
+  }
+
   .back-to-leaderboard a {
     font-size: 15px;
     color: $gray-light;
+  }
+
+  .logo.ra img {
+    max-width: 30%;
+  }
+  .logo.ts img {
+    max-width: 50%;
+  }
+  .logo.yr img {
+    max-width: 40%;
   }
 }

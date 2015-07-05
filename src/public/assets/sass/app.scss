@@ -1,7 +1,8 @@
 @import "_variables";
 @import "../../lib/bootstrap-sass/assets/stylesheets/_bootstrap";
 
-@import "_jumbotron";
+// Most of these imports represent class names
+@import "_feature-banner";
 @import "_navbar";
 @import "_tables";
 @import "_buttons";
