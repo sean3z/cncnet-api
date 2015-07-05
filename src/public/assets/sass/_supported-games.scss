@@ -1,0 +1,79 @@
+//
+// Supported Games
+// --------------------------------------------------
+.supported-games {
+  font-family: "fira-sans", sans-serif;
+
+  .thumbnail {
+    background: $dark-base;
+  }
+
+  h2 {
+    @extend .h4;
+    @extend .text-uppercase;
+    font-size: 17px;
+  }
+
+  p {
+    color: $text;
+    font-size: 15px;
+    text-align: left;
+    padding: 0 20px;
+  }
+
+  .thumbnail {
+    padding: 25px;
+    border: none;
+  }
+
+  .btn {
+    padding: 25px;
+    text-transform: uppercase;
+    bottom: 0;
+    left: 0;
+  }
+
+  .holder {
+    position: relative;
+    text-align: center;
+    background: #11161B;
+  }
+
+  .logo{
+    img {
+      width: 90%;
+    }
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: darken($dark-base, 10%);
+  }
+
+  .image {
+    width: 100%;
+  }
+}
+
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+  .supported-games {
+
+    .holder {
+      height: 500px;
+    }
+    .btn {
+      position: absolute;
+    }
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) { }

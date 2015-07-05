@@ -12,7 +12,6 @@ angular.module('Leaderboard')
 
                     $http.jsonp(url + '/' + game + '?callback=JSON_CALLBACK')
                         .success(function (data) {
-                            console.log(data);
                             return deferred.resolve(data);
                         })
                         .error(function (data) {
