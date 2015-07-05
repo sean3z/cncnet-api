@@ -90,7 +90,7 @@
                             </thead>
                             <tbody>
 
-                            <tr ng-repeat="game in player.games" ng-if="game._id">
+                            <tr ng-repeat="game in player.games | limitTo : 50" ng-if="game._id">
                                 <td>{{ game.date * 1000 | date:'medium' }}</td>
                                 <td>
                                     <div ng-repeat="players in game.players">
