@@ -38,6 +38,7 @@ exports.process = function(game, dmp) {
                 case 'yr':  /* yuri's revenge */
                 case 'ts':  /* tiberian sun */
                 case 'fs':  /* firestorm */
+                case 'dta': /* dawn of the tiberium age */
                     require('../wol/v2').process(game, match);
                 break;
 
