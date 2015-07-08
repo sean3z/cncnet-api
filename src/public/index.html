@@ -10,6 +10,7 @@
 
     <script src="//use.typekit.net/fpg6sss.js"></script>
     <script>try { Typekit.load();} catch (e) {}</script>
+    <base href="/">
 </head>
 <body ng-app="app">
 
@@ -32,19 +33,37 @@
         <div class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
 
-                <li class="dropdown" data-match-route="/leaderboard/*" dropdown is-open="status.isopen">
+                <li class="dropdown" dropdown is-open="downloads.isopen">
+                    <a class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                        Downloads<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/dune-2000">Dune 2000</a></li>
+                        <li><a href="/tiberian-dawn">Command &amp; Conquer</a></li>
+                        <li><a href="/red-alert">Red Alert 1</a></li>
+                        <li><a href="/tiberian-sun">Tiberian Sun</a></li>
+                        <li><a href="/red-alert-2">Red Alert 2</a></li>
+                        <li><a href="/yuris-revenge">Yuri's Revenge</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/download">View All Downloads</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" data-match-route="/leaderboard/*" dropdown is-open="leaderboard.isopen">
                     <a class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
                         Leaderboard<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#leaderboard/ra">Red Alert</a></li>
+                        <li><a href="#/leaderboard/ra">Red Alert</a></li>
                         <li><a href="#/leaderboard/ts">Tiberian Sun</a></li>
-                        <li><a href="#/leaderboard/yr">Yuri's Revenge</a></li>
                         <li class="divider"></li>
+                        <li class="disabled"><a href="#/leaderboard/td">Tiberian Dawn</a></li>
+                        <li class="disabled"><a href="#/leaderboard/dune">Red Alert 2</a></li>
+                        <li class="disabled"><a href="#/leaderboard/yr">Yuri's Revenge</a></li>
                     </ul>
                 </li>
-                <li data-match-route="/download/*"><a ui-sref="download">Downloads</a></li>
-                <li data-match-route="/forums.*"><a href="#/forums/">Forums</a></li>
+                <li><a href="/download">Downloads</a></li>
+                <li><a href="/forums">Forums</a></li>
             </ul>
         </div>
     </div>

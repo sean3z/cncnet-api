@@ -8,7 +8,7 @@ angular.module('app', [
 
 angular.module('app').config(configuration);
 
-function configuration($stateProvider, $urlRouterProvider) {
+function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
         .state('index', {
             url: '/index',
@@ -39,4 +39,5 @@ function configuration($stateProvider, $urlRouterProvider) {
         //});
 
     $urlRouterProvider.otherwise('/index');
+    //$locationProvider.html5Mode(true).hashPrefix('!') // todo: rewrite server side too...
 }
