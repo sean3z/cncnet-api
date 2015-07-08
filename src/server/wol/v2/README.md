@@ -76,5 +76,5 @@
 ### Red Alert 2/Yuri's Revenge
 * `CMPx` {int} completion status `2|8|256|512|528`
 * `CTYx` {int} player country (RA2/YR)
-* `SIDx` {bool int} Allied or Soviet
+* `SIDx` {bool int} Soviet or Allied
 * `SPID` {int} Client sender Id
