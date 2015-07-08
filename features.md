@@ -5,7 +5,7 @@
 - [x] Player listings
   - [x] Show top 50 player rankings for each game
   - [x] To display players: Rank, Points, Wins, Losses.
-- [ ] Player detail
+- [x] Player detail
   - [x] Show a player profile by clicking from player listings.
   - [x] Show a players rank, points, wins, losses.
   - [x] Show a players win/loss ratio.
