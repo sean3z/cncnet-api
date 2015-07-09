@@ -9,7 +9,6 @@ exports.player = function(game, limit) {
 
     $db.get(game + '_ladder').find({}, {limit: limit, sort: {rank: 1}}, function(err, data) {
         // data.push({last_update: last_update[game]});
-        // TODO: remove games array from each player in result
         defer.resolve(data);
 
         /* if cache theshold elapsed; generate new cache*/
@@ -24,6 +23,7 @@ function _notch(game) {
     $db.get(game + '_players').find({}, {limit: 1000, sort: {points: -1}}, function(err, data) {
         data.forEach(function(item, index) {
             item.rank = (index + 1);
+            delete item.games;
         });
         $db.get(game + '_ladder').drop();
         $db.get(game + '_ladder').insert(data, function(err, doc) {
