@@ -4,8 +4,12 @@ var $q = require('q');
 /* method to search for a quick list of players by name */
 exports.locate = function(game, search) {
     var defer = $q.defer();
-    $db.get(game + '_players').find({name: _sanitize(search)}, function(err, data) {
-        // TODO: remove games array from each player in result
+    $db.get(game + '_players').find({name: _sanitize(search)}, {limit: 10}, function(err, data) {
+        /* remove games array from response */
+        data.forEach(function(item) {
+            delete item.games;
+        });
+
         defer.resolve(data);
     });
 
