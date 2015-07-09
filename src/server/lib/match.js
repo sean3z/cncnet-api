@@ -6,7 +6,9 @@ var $q = require('q');
 
 exports.process = function(game, dmp) {
     var match = gameres(dmp);
-    if (!match.idno) return; /* if no game id, discontinue */
+
+    /* discontinue if no game id or match is less than 5 seconds */
+    if (!match.idno || match.dura < 5) return;
     debug('game: %s, idno: %d', game, match.idno);
 
     // create raw dump entry
