@@ -5,7 +5,7 @@ var gameres = require('./gameres');
 var $q = require('q');
 
 exports.process = function(game, dmp) {
-    var match = gameres(dmp);
+    var match = gameres.parse(dmp);
 
     /* discontinue if no game id or match is less than 5 seconds */
     if (!match.idno || match.dura < 5) return;
@@ -32,21 +32,25 @@ exports.process = function(game, dmp) {
                 return;
             }
 
+            /* if we have ra stats normalize then carry on  */
+            if (game == 'ra') {
+                if (match.nump !== 2) return; /* only process stats for 1v1 */
+
+                /* hack for now to process games only when 2 packets received */
+                if (doc[0].buffers && doc[0].buffers.length > 1) {
+
+                    /* interpret packet and update it to use wolv2 completion stats */
+                    gameres.normalize(game, match);
+                    gameres.process(game, match);
+                }
+                return;
+            }
+
             // only continue if this is the first entry for a game
             if (doc[0].buffers && doc[0].buffers.length > 1) return;
 
-            switch (game) {
-                case 'ra2': /* red alert 2 */
-                case 'yr':  /* yuri's revenge */
-                case 'ts':  /* tiberian sun */
-                case 'fs':  /* firestorm */
-                case 'dta': /* dawn of the tiberium age */
-                    require('../wol/v2').process(game, match);
-                break;
-
-                default:
-                    require('../wol/v1').process(game, match);
-            }
+            /* save game stats */
+            gameres.process(game, match);
         });
     }
 
