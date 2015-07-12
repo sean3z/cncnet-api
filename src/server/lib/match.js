@@ -17,7 +17,7 @@ exports.process = function(game, dmp) {
     var $dumps = $db.get(game +'_dumps');
     $dumps.update(
         {idno: match.idno},
-        {$push: {buffers: match.buffer.toString('utf8')}},
+        {$push: {buffers: match.buffer}},
         {upsert: true},
         _stats
     );
