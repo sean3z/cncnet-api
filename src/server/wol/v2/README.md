@@ -58,7 +58,7 @@
 * `RSGx` {int} ??
 * `SIDx` {string} Player country
 * `SPAx` {int} ??
-* `SPCx` {int} ??
+* `SPCx` {bool int} Spectator *
 * `VSBx` Vessels Built
 * `VSKx` Vessels Killed
 * `VSLx` Vessels Left
