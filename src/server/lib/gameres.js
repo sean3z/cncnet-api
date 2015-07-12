@@ -76,7 +76,7 @@ exports.process = function(game, match) {
 };
 
 /* brings ra1 gameres up to par */
-exports.normalize = function(match) {
+exports.normalize = function(game, match) {
     /* we can only parse ra 1v1 games, so reference player index directly */
     switch(match.client.cmpl) {
         case 1:
