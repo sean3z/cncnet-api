@@ -13,3 +13,9 @@ exports.reset = function(req, res, next) {
 
     res.send(200);
 };
+
+exports.buffer = function(req, res, next) {
+    $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
+        res.send(data.buffers[0].buffer.toString('hex'));
+    });
+};
