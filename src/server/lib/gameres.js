@@ -114,7 +114,7 @@ exports.normalize = function(game, match) {
         break;
     }
 
-    delete match.cmpl;
+    delete match.client.cmpl;
     return match;
 };
 
