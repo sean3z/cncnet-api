@@ -37,7 +37,7 @@ exports.process = function(game, dmp) {
                 if (match.nump !== 2) return; /* only process stats for 1v1 */
 
                 /* hack for now to process games only when 2 packets received */
-                if (doc[0].buffers && doc[0].buffers.length > 1) {
+                if (doc[0].buffers && doc[0].buffers.length == 2) {
 
                     /* interpret packet and update it to use wolv2 completion stats */
                     gameres.normalize(game, match);
