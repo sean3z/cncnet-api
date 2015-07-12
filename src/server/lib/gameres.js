@@ -81,28 +81,28 @@ exports.normalize = function(match) {
     switch(match.cmpl) {
         case 1:
         case 2:
-            // 2 = player 2 resigned (unused?, when player resignes the 'lost' value is used)
+            // 2 = player 2 resigned
             // 1 = player 2 lost
             match.players[0].cmp = 256;
             match.players[1].cmp = 528;
         break;
 
         case 3:
-            // 3 = player 2 disconnect  (also when player aborts in options menu ingame)
+            // 3 = player 2 disconnect
             match.players[0].cmp = 256;
             match.players[1].cmp = 2;
         break;
 
         case 4:
         case 5:
-            // 5 = player 1 resigned (unused?, when player resignes the 'lost' value is used)
+            // 5 = player 1 resigned
             // 4 = player 1 lost
             match.players[0].cmp = 528;
             match.players[1].cmp = 256;
         break;
 
         case 6:
-            // 6 = player 1 disconnect (also when player aborts in options menu ingame)
+            // 6 = player 1 disconnect
             match.players[0].cmp = 2;
             match.players[1].cmp = 256;
         break;
