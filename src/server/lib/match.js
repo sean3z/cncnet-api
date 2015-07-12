@@ -9,7 +9,7 @@ exports.process = function(game, dmp) {
 
     /* discontinue if no game id or match is less than 5 seconds */
     if (!match.idno || match.dura < 5) return;
-    debug('======\ngame: %s, idno: %d', game, match.idno);
+    debug('game: %s, idno: %d', game, match.idno);
 
     // create raw dump entry
     // TODO: check against spid (sender id) to ensure only 1 packet from each player
@@ -38,8 +38,8 @@ exports.process = function(game, dmp) {
                 debug('-- ra 1v1 match');
                 /* hack for now to process match only when 2nd packet received */
                 if (doc[0].buffers && doc[0].buffers.length == 2) {
-                    debug('-- ra 2nd packet ');
-                    if (match.client.cmpl > -1) return; /* only process legit cmpl */
+                    debug('-- ra 2nd packet');
+                    if (match.client.cmpl < 0) return; /* only process legit cmpl */
                     debug('-- ra legit stats');
                     // TODO: attempt to process other buffer if current one is bad
 
