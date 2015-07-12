@@ -1,4 +1,4 @@
-var $db = require(__dirname + '/../../lib/mongo');
+var $db = require('./mongo');
 var debug = require('debug')('wol:leaderboard');
 
 /* saves player and game data */
