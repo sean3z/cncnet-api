@@ -19,3 +19,9 @@ exports.buffer = function(req, res, next) {
         res.send(data.buffers[0].buffer.toString('hex'));
     });
 };
+
+exports.gameres = function(req, res, next) {
+    $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
+        res.send(gameres.parse(data.buffers[0].buffer));
+    });
+};
