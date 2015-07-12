@@ -35,9 +35,7 @@ There's a few params listed below.
 ###### Player Creation
 * PUT `/auth/:game/:player` player creation
 
-Player creation is optional as the leaderboard will accept results from players that are not authenticated. And although the database _will_ flag authenticated players, users can still impersonate one another (by playing as someone else). However, since the games are auth distingushed, it will be up to the API consumer to determine whether to display any games featuring unauthenticated players.
-
-Players can be created using the PUT `/auth/:game/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
+Player creation is optional as the leaderboard will accept results from players that are not authenticated. Players can be created using the PUT `/auth/:game/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
 
 _example player creation request_
 ```shell
