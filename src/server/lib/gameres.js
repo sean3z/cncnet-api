@@ -70,6 +70,7 @@ exports.process = function(game, match) {
     // delete match.client; /* ununsed information about the client */
 
     $db.get(game +'_games').insert(match);
+    debug('game: %s, idno: %d saved!', game, match.idno);
 
     /* handle any game specific processing (bonuses?, elo?) */
     // require('../game/' + game).process(match);
@@ -115,6 +116,7 @@ exports.normalize = function(game, match) {
     }
 
     delete match.client.cmpl;
+    debug('game: %s, idno: %d normalized!', game, match.idno);
     return match;
 };
 
