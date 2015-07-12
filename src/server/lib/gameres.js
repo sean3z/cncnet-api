@@ -253,8 +253,8 @@ function _consolidate(flat) {
         }
     }
 
-    /* players[0] is sometimes null? h4x */
-    if (consolidated.players[0] === null) {
+    /* players[0] is sometimes undefined? h4x */
+    if (consolidated.players[0] === undefined) {
         consolidated.players.shift();
     }
 
