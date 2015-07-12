@@ -36,7 +36,7 @@ exports.process = function(game, dmp) {
             if (game == 'ra') {
                 if (match.players.length !== 2) return; /* only process stats for 1v1 */
 
-                /* hack for now to process games only when 2 packets received */
+                /* hack for now to process match only when 2nd packet received */
                 if (doc[0].buffers && doc[0].buffers.length == 2) {
                     if (match.client.cmpl > -1) return; /* only process legit cmpl */
                     // TODO: attempt to process other buffer if current one is bad
