@@ -34,7 +34,7 @@ exports.process = function(game, dmp) {
 
             /* if we have ra stats normalize then carry on  */
             if (game == 'ra') {
-                if (match.nump !== 2) return; /* only process stats for 1v1 */
+                if (match.players.length !== 2) return; /* only process stats for 1v1 */
 
                 /* hack for now to process games only when 2 packets received */
                 if (doc[0].buffers && doc[0].buffers.length == 2) {
