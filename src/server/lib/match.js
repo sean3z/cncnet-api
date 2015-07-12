@@ -40,8 +40,7 @@ exports.process = function(game, dmp) {
                 if (doc[0].buffers && doc[0].buffers.length == 2) {
 
                     /* interpret packet and update it to use wolv2 completion stats */
-                    gameres.normalize(game, match);
-                    gameres.process(game, match);
+                    gameres.process(game, gameres.normalize(game, match));
                 }
                 return;
             }

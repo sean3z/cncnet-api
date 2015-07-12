@@ -113,6 +113,9 @@ exports.normalize = function(match) {
             match.players[1].cmp = 999;
         break;
     }
+
+    delete match.cmpl;
+    return match;
 };
 
 /* WOL Game Resolution interpreter */
@@ -124,10 +127,10 @@ exports.parse = function(packet) {
         buffer = new Buffer(packet, 'hex');
     }
 
-    var slice = buffer.slice(0, 4);
-    var bufferLength = slice.readUInt16BE(0);
     var flat = {}, i = 4;
     flat.buffer = buffer;
+    var slice = buffer.slice(0, 4);
+    var bufferLength = slice.readUInt16BE(0);
 
     while (i < bufferLength) {
         var chunk = buffer.slice(i,  i + 4);
