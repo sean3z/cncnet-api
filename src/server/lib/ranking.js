@@ -21,6 +21,8 @@ exports.player = function(game, limit) {
 /* updates leaderboard cache */
 function _notch(game) {
     $db.get(game + '_players').find({}, {limit: 1000, sort: {points: -1}}, function(err, data) {
+        if (data.length < 1) return;
+
         data.forEach(function(item, index) {
             item.rank = (index + 1);
             delete item.games;
