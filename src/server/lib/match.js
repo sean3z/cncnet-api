@@ -38,6 +38,8 @@ exports.process = function(game, dmp) {
 
                 /* hack for now to process games only when 2 packets received */
                 if (doc[0].buffers && doc[0].buffers.length == 2) {
+                    if (match.client.cmpl > -1) return; /* only process legit cmpl */
+                    // TODO: attempt to process other buffer if current one is bad
 
                     /* interpret packet and update it to use wolv2 completion stats */
                     gameres.process(game, gameres.normalize(game, match));
