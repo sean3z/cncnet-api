@@ -65,8 +65,8 @@
                                 <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
                                 <th>Profile <i class="fa fa-user fa-fw"></i></th>
                                 <th>Points <i class="fa fa-bolt fa-fw"></i></th>
-                                <th ng-if="abbr !== 'ra'">Won <i class="fa fa-level-up fa-fw"></i></th>
-                                <th ng-if="abbr !== 'ra'">Lost <i class="fa fa-level-down fa-fw"></i></th>
+                                <th>Won <i class="fa fa-level-up fa-fw"></i></th>
+                                <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -74,8 +74,8 @@
                                 <td class="rank"><strong>#{{player.rank}}</strong></td>
                                 <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
                                 <td>{{player.points}} points</td>
-                                <td ng-if="abbr !== 'ra'">{{player.wins}}</td>
-                                <td ng-if="abbr !== 'ra'">{{player.losses}}</td>
+                                <td>{{player.wins}}</td>
+                                <td>{{player.losses}}</td>
                             </tr>
                             </tbody>
                         </table>
