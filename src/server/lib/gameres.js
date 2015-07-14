@@ -115,6 +115,9 @@ exports.normalize = function(game, match) {
         break;
     }
 
+    match.client.plrs = match.client.nump;
+
+    delete match.client.nump;
     delete match.client.cmpl;
     debug('game: %s, idno: %d normalized!', game, match.idno);
     return match;
@@ -223,7 +226,7 @@ function _type(type, chunk) {
 /* consolidate player stats */
 function _consolidate(flat) {
     var consolidated = {players: [], settings: {}, client: {}};
-    var settings = ['sped', 'plrs', 'scen', 'tech', 'unit', 'flag', 'shad', 'crat', 'tibr', 'base', 'cred', 'trny', 'shrt', 'supr', 'aipl'];
+    var settings = ['sped', 'plrs', 'scen', 'tech', 'unit', 'flag', 'shad', 'crat', 'tibr', 'base', 'cred', 'trny', 'shrt', 'supr', 'aipl', 'nump'];
     var client = ['vers', 'vidm', 'memo', 'proc', 'afps', 'oosy', 'gsku', 'spid', 'accn', 'cmpl', 'quit'];
 
     if (flat.NAM0 || flat.NAM1) {
