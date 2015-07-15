@@ -49,15 +49,15 @@
 * `VIDM` Client video memory
 
 ### Red Alert
-* `ALYx` {int} ??
+* `ALYx` {int} alliance *
 * `CMPL` {int} completion status
-* `CONx` {int} ??
-* `DEDx` {int} ??
+* `CONx` {int} connection lost*
+* `DEDx` {bool int} is dead*
 * `REMN` {int} remaining players
 * `NUMP` {int} number of players
-* `RSGx` {int} ??
+* `RSGx` {int} player resigned *
 * `SIDx` {string} Player country
-* `SPAx` {int} ??
+* `SPAx` {int} spawn location *
 * `SPCx` {bool int} Spectator *
 * `VSBx` Vessels Built
 * `VSKx` Vessels Killed
