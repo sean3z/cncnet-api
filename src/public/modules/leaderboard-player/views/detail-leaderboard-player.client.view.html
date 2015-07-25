@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="text-uppercase">{{ player.name }}</h2>
-                    <ul class="list-inline profile-social">
-                        <li><i class="fa fa-youtube fa-2x"></i></li>
-                        <li><i class="fa fa-twitter fa-2x"></i></li>
-                        <li><i class="fa fa-facebook fa-2x"></i></li>
-                    </ul>
+                    <!--<ul class="list-inline profile-social">-->
+                        <!--<li><i class="fa fa-youtube fa-2x"></i></li>-->
+                        <!--<li><i class="fa fa-twitter fa-2x"></i></li>-->
+                        <!--<li><i class="fa fa-facebook fa-2x"></i></li>-->
+                    <!--</ul>-->
                     <p class="back-to-leaderboard text-uppercase">
                         <a href="#/leaderboard/{{ gameName }}">
                             <i class="fa fa-angle-left"></i> Back to Leaderboard
@@ -35,17 +35,17 @@
                                 </div>
 
                                 <div class="col-md-7 quick-fire">
-                                    <h4>{{ player.name }}'s Battle Statistics</h4>
-                                    <ul class="list-unstyled rank-list">
-                                        <li>
-                                            <span class="text-uppercase">To be promoted</span>
-                                            <progressbar value="55">5 wins required</progressbar>
-                                        </li>
-                                        <li>
-                                            <span class="text-uppercase">To be demoted</span>
-                                            <progressbar value="90" type="danger">1 loss required</progressbar>
-                                        </li>
-                                    </ul>
+                                    <h3>{{ player.name }}'s <br class="hidden-xs"> <small>Battle Statistics</small></h3>
+                                    <!--<ul class="list-unstyled rank-list">-->
+                                        <!--<li>-->
+                                            <!--<span class="text-uppercase">To be promoted</span>-->
+                                            <!--<progressbar value="55">5 wins required</progressbar>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<span class="text-uppercase">To be demoted</span>-->
+                                            <!--<progressbar value="90" type="danger">1 loss required</progressbar>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
                                 </div>
                             </div>
                         </div>
@@ -60,11 +60,17 @@
                             <div class="profile-stats">
                                 <ul class="list-inline text-right">
                                     <li>Points <strong>{{player.points}}</strong><i class="fa fa-bolt fa-fw"></i></li>
-                                    <li>Won <strong>{{player.wins || 0}}</strong><i class="fa fa-level-up fa-fw"></i></li>
-                                    <li>Lost <strong>{{player.losses || 0}}</strong><i class="fa fa-level-down fa-fw"></i>
+                                    <li>Won <strong>{{player.wins || 0}}</strong><i class="fa fa-level-up fa-fw"></i>
                                     </li>
-                                    <li>Win/Loss Ratio <strong>{{player.wins / player.losses | number:0}}% </strong><i
-                                            class="fa fa-tachometer fa-fw"></i></li>
+                                    <li>Lost <strong>{{player.losses || 0}}</strong><i
+                                            class="fa fa-level-down fa-fw"></i>
+                                    </li>
+                                    <li>
+                                        <span class="label label-info ng-binding">
+                                            Win % {{player.wins / player.losses + player.wins | number:0}}%
+                                            <i class="fa fa-tachometer fa-fw"></i>
+                                        </span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -75,7 +81,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover player-games">
                             <thead>
                             <tr>
                                 <th>When? <i class="fa fa-level-up fa-fw"></i></th>
@@ -133,7 +139,6 @@
                                         <li>Tech level: {{ game.settings.tech }}</li>
                                         <li>Crates: {{ game.settings.crat == '1' ? 'On' : 'Off'}}</li>
                                         <li>Money: {{ game.settings.cred }}</li>
-                                        <li>Total Players: {{ game.settings.plrs }}</li>
                                     </ul>
                                 </td>
                             </tr>
