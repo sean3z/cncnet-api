@@ -91,6 +91,8 @@
                             <tbody>
 
                             <tr ng-repeat="game in player.games | limitTo : 50" ng-if="game._id">
+
+
                                 <td>{{ game.date * 1000 | date:'medium' }}</td>
                                 <td>
                                     <div ng-repeat="players in game.players">
@@ -129,7 +131,7 @@
                                 <td>
                                     <ul class="list-unstyled">
                                         <li>Tech level: {{ game.settings.tech }}</li>
-                                        <li>Crates: {{ game.settings.crat === '1' ? 'On' : 'Off'}}</li>
+                                        <li>Crates: {{ game.settings.crat == '1' ? 'On' : 'Off'}}</li>
                                         <li>Money: {{ game.settings.cred }}</li>
                                         <li>Total Players: {{ game.settings.plrs }}</li>
                                     </ul>
