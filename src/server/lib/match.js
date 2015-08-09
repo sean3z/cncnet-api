@@ -32,13 +32,13 @@ exports.process = function(game, dmp) {
                 return;
             }
 
+            // only continue if this is the first entry for a game
+            if (doc[0].buffers && doc[0].buffers.length > 1) return;
+
             /* if we have ra stats normalize then carry on  */
             if (game == 'ra') {
                 require(__dirname + '/../games/ra').normalize(match);
             }
-
-            // only continue if this is the first entry for a game
-            if (doc[0].buffers && doc[0].buffers.length > 1) return;
 
             /* save game stats */
             gameres.process(game, match);
