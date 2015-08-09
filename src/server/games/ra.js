@@ -1,4 +1,4 @@
-var debug = require('debug');
+var debug = require('debug')('wol:leaderboard');
 
 /* brings ra1 gameres up to par */
 exports.normalize = function(match) {
@@ -10,7 +10,7 @@ exports.normalize = function(match) {
         } else if (player.con) {
             player.cmp = 2;
         } else {
-            player.cmp 256;
+            player.cmp = 256;
         }
     });
 
