@@ -25,7 +25,7 @@ exports.stats = function(game, player) {
         /* left join last 20 games */
         player_data.games = player_data.games.slice(-20);
         $db.get(game + '_games').find({idno: {$in: player_data.games}}, function(err, game_data) {
-            if (game_data.length > 0) {
+            if (game_data && game_data.length > 0) {
                 game_data.forEach(function(stats, index) {
                     player_data.games[index] = stats;
                 });
@@ -33,7 +33,10 @@ exports.stats = function(game, player) {
 
             /* leaderboard position */
             $db.get(game + '_ladder').findOne({name: player_data.name}, function(err, rank_data) {
-                player_data.rank = rank_data.rank || 0;
+                player_data.rank = 0;
+                if (rank_data && rank_data.rank) {
+                    player_data.rank = rank_data.rank;
+                }
                 defer.resolve(player_data);
             });
         });
