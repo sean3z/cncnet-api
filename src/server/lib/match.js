@@ -7,8 +7,8 @@ var $q = require('q');
 exports.process = function(game, dmp) {
     var match = gameres.parse(dmp);
 
-    /* discontinue if no game id or match is less than 5 seconds */
-    if (!match.idno || match.dura < 5) return;
+    /* discontinue if no game id or match is less than 1 minute */
+    if (!match.idno || match.dura < 60) return;
     debug('game: %s, idno: %d', game, match.idno);
 
     // create raw dump entry
@@ -34,19 +34,7 @@ exports.process = function(game, dmp) {
 
             /* if we have ra stats normalize then carry on  */
             if (game == 'ra') {
-                if (match.players.length !== 2) return; /* only process stats for 1v1 */
-                debug('-- ra 1v1 match');
-                /* hack for now to process match only when 2nd packet received */
-                if (doc[0].buffers && doc[0].buffers.length == 2) {
-                    debug('-- ra 2nd packet');
-                    if (match.client.cmpl < 0) return; /* only process legit cmpl */
-                    debug('-- ra legit stats');
-                    // TODO: attempt to process other buffer if current one is bad
-
-                    /* interpret packet and update it to use wolv2 completion stats */
-                    gameres.process(game, gameres.normalize(game, match));
-                }
-                return;
+                require(__dirname + '/../games/ra').normalize(match);
             }
 
             // only continue if this is the first entry for a game
