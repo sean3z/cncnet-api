@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
     if (!req.params.game) return next();
     /* in case client sends abbrv in caps */
     req.params.game = req.params.game.toLowerCase();
-    if (!(!!req.params.game.match(/^(td|d2k?|ra2?|ts|dta|fs|yr)$/))) {
+    if (!(!!req.params.game.match(/^(td|d2k?|ra2?|ts|dta|fs|yr|am)$/))) {
         return next(new Error('game abbr invalid'));
     }
     next();

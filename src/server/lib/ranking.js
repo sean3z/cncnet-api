@@ -1,8 +1,11 @@
 var $db = require('./mongo');
 var $q = require('q');
-var last_update = {};
-last_update['ts'] = _timestamp() - 350;
-last_update['ra'] = _timestamp() - 350;
+var last_update = {
+    ts: _timestamp() - 350,
+    ra: _timestamp() - 350,
+    fs: _timestamp() - 350,
+    am: _timestamp() - 350
+};
 
 exports.player = function(game, limit) {
     var defer = $q.defer();

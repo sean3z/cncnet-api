@@ -36,7 +36,7 @@ exports.process = function(game, dmp) {
             if (doc[0].buffers && doc[0].buffers.length > 1) return;
 
             /* if we have ra stats normalize then carry on  */
-            if (game == 'ra') {
+            if (game == 'ra' || game == 'am') {
                 require(__dirname + '/../games/ra').normalize(match);
             }
 
