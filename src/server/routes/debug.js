@@ -25,3 +25,7 @@ exports.gameres = function(req, res, next) {
         res.send(gameres.parse(data.buffers[0].buffer));
     });
 };
+
+exports.submit = function(req, res, next) {
+    res.send(gameres.parse(req.body));
+};

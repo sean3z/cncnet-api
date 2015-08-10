@@ -49,6 +49,7 @@ app.put('/auth/:game/:player', auth.create);
 app.get('/debug/reset', debug.reset);
 app.get('/debug/buffer/:game/:gameId', debug.buffer);
 app.get('/debug/gameres/:game/:gameId', debug.gameres);
+app.post('/debug/gameres/:game', debug.submit);
 
 /* static server for development */
 app.get(/.*/, restify.serveStatic({
