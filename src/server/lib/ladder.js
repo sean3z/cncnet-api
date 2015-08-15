@@ -14,8 +14,7 @@ exports.player = function(game, limit) {
         defer.resolve(data);
 
         /* if cache theshold elapsed; generate new cache*/
-        _notch(game);
-       // if (last_update[game] < _timestamp() - 300) _notch(game);
+        if (last_update[game] < _timestamp() - 300) _notch(game);
     });
 
     return defer.promise;
