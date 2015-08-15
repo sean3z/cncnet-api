@@ -6,15 +6,18 @@ exports.process = function(game, match) {
 
     // create player entry
     var $players = $db.get(game +'_players');
-    match.players.forEach(function(player) {
+    match.players.forEach(function(player, i) {
         /* typically Computer */
         if (!player.nam) {
             player.nam = 'Computer';
             return;
         }
 
-        /* skip spectators */
-        if (player.spc && player.spc > 0) return;
+        /* remove spectators */
+        if (player.spc && player.spc > 0) {
+            delete match.players[i];
+            return;
+        }
 
         // TODO: increase player map count
         var stats = {
