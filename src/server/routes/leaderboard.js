@@ -1,5 +1,5 @@
 var match = require('../lib/match');
-var ranking = require('../lib/ranking');
+var ladder = require('../lib/ladder');
 var player = require('../lib/player');
 var debug = require('debug')('wol:leaderboard');
 
@@ -8,8 +8,8 @@ exports.submit = function (req, res, next) {
     res.send(200);
 };
 
-exports.rankings = function (req, res, next) {
-    ranking.player(req.params.game, 150).then(function(data) {
+exports.ladder = function (req, res, next) {
+    ladder.player(req.params.game, 150).then(function(data) {
         res.send(data);
     });
 };
