@@ -1,8 +1,13 @@
 var $db = require('./mongo');
 var debug = require('debug')('wol:leaderboard');
+var Arpad = require('arpad');
 
+// TODO: move this whole function somewheres else
 /* saves player and game data */
 exports.process = function(game, match) {
+
+    /* fail if we're somehow missing players */
+    if (!match.players || match.players.length < 1) return;
 
     // create player entry
     var $players = $db.get(game +'_players');
@@ -22,7 +27,7 @@ exports.process = function(game, match) {
         // TODO: increase player map count
         var stats = {
             $push: {games: match.idno},
-            $inc: {points: 1}
+            $inc: {}
         };
 
         /* evaluate completions */
@@ -34,7 +39,6 @@ exports.process = function(game, match) {
                 break;
 
                 case 256:
-                    stats.$inc.points += 3;
                     stats.$inc.wins = 1;
                 break;
 
@@ -66,6 +70,28 @@ exports.process = function(game, match) {
 
     /* handle any game specific processing (bonuses?) */
     // require('../game/' + game).process(match);
+
+    /* handle elo only for 1v1 games */
+    if (match.players.length == 2) {
+        var elo = new Arpad();
+        var winner = (match.players[0].__gains.wins) ? 0 : 1;
+        var loser = (match.players[0].__gains.losses) ? 1 : 0;
+        $players.find({name: {$in: [match.players[0].nam, match.players[1].nam]}}, function(err, data) {
+            if (!data || data.length != 2) return;
+
+            data.forEach(function(player, index) {
+                var points = 0;
+                if (index === winner) {
+                    points = elo.newRatingIfWon(data[winner].points || 1500, data[loser].points || 1500);
+                } else {
+                    points = elo.newRatingIfLost(data[loser].points || 1500, data[winner].points || 1500);
+                }
+
+                $players.update({_id: player._id}, {$set: {points: points}});
+            });
+
+        });
+    }
 };
 
 /* WOL Game Resolution interpreter */
