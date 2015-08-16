@@ -33,14 +33,17 @@ exports.stats = function(game, player) {
                 });
             }
 
-            /* leaderboard position */
-            $db.get(game + '_ladder').findOne({name: player_data.name}, function(err, rank_data) {
-                player_data.rank = 0;
-                if (rank_data && rank_data.rank) {
-                    player_data.rank = rank_data.rank;
+            /* leaderboard position; todo make more efficient */
+            player_data.rank = 0;
+            var ladder = global.cache[game] || [];
+            for (var i = 0; i < ladder.length; i++) {
+                if (ladder[i].name == player_data.name) {
+                    player_data.rank = ladder[i].rank;
+                    break;
                 }
-                defer.resolve(player_data);
-            });
+            }
+
+            defer.resolve(player_data);
         });
     });
 

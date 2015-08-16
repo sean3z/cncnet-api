@@ -1,6 +1,6 @@
 var $db = require('./mongo');
 var $q = require('q');
-var cache = {};
+global.cache = {};
 var last_update = {
     ts: _timestamp() - 350,
     ra: _timestamp() - 350,
