@@ -85,7 +85,7 @@ exports.process = function(game, match) {
 
                     $players.update({_id: player._id}, {$set: {points: points}});
                 });
-            };
+            }
 
             deferred.resolve(match);
         });
