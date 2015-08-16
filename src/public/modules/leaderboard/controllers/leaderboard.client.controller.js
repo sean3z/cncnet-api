@@ -31,6 +31,14 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
                 $scope.abbr = 'yr';
                 $scope.game = 'Yuri\'s Revenge';
                 break;
+            case 'fs':
+                $scope.abbr = 'fs';
+                $scope.game = 'Firestorm';
+                break;
+            case 'am':
+                $scope.abbr = 'am';
+                $scope.game = 'Aftermath';
+                break;
             default:
                 $scope.game = 'Global';
         }
