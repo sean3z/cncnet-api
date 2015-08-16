@@ -74,13 +74,13 @@ exports.process = function(game, match) {
         $players.find({name: {$in: [match.players[0].nam, match.players[1].nam]}}, function(err, data) {
             if (data && data.length == 2) {
                 data.forEach(function(player, index) {
-                    var points = 0;
-                    if (index === winner) {
-                        points = elo.newRatingIfWon(data[winner].points || 1500, data[loser].points || 1500);
-                        match.players[winner].__gains.points = points - (data[winner].points || 1500);
+                    var opponent = (index === 0) ? 1 : 0;
+                    if (player.name == match.players[winner].nam)  {
+                        points = elo.newRatingIfWon(player.points || 1500, data[opponent].points || 1500);
+                        match.players[winner].__gains.points = points - (player.points || 1500);
                     } else {
-                        points = elo.newRatingIfLost(data[loser].points || 1500, data[winner].points || 1500);
-                        match.players[loser].__gains.points = (data[loser].points || 1500) - points;
+                        points = elo.newRatingIfLost(player.points || 1500, data[opponent].points || 1500);
+                        match.players[loser].__gains.points = (player.points || 1500) - points;
                     }
 
                     $players.update({_id: player._id}, {$set: {points: points}});
