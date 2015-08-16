@@ -1,10 +1,12 @@
 var $db = require('./mongo');
 var debug = require('debug')('wol:leaderboard');
 var Arpad = require('arpad');
+var $q = require('q');
 
 // TODO: move this whole function somewheres else
 /* saves player and game data */
 exports.process = function(game, match) {
+    var deferred = $q.defer();
 
     /* fail if we're somehow missing players */
     if (!match.players || match.players.length < 1) return;
@@ -61,13 +63,6 @@ exports.process = function(game, match) {
         player.__gains = stats.$inc;
     });
 
-    // create game entry
-    delete match.buffer; /* only used for additional parsing */
-    delete match.client; /* ununsed information about the client */
-
-    $db.get(game +'_games').insert(match);
-    debug('game: %s, idno: %d saved!', game, match.idno);
-
     /* handle any game specific processing (bonuses?) */
     // require('../game/' + game).process(match);
 
@@ -75,23 +70,30 @@ exports.process = function(game, match) {
     if (match.players.length == 2) {
         var elo = new Arpad();
         var winner = (match.players[0].__gains.wins) ? 0 : 1;
-        var loser = (match.players[0].__gains.losses) ? 1 : 0;
+        var loser = (winner == 1) ? 0 : 1;
         $players.find({name: {$in: [match.players[0].nam, match.players[1].nam]}}, function(err, data) {
-            if (!data || data.length != 2) return;
+            if (data && data.length == 2) {
+                data.forEach(function(player, index) {
+                    var points = 0;
+                    if (index === winner) {
+                        points = elo.newRatingIfWon(data[winner].points || 1500, data[loser].points || 1500);
+                        match.players[winner].__gains.points = points - (data[winner].points || 1500);
+                    } else {
+                        points = elo.newRatingIfLost(data[loser].points || 1500, data[winner].points || 1500);
+                        match.players[loser].__gains.points = (data[loser].points || 1500) - points;
+                    }
 
-            data.forEach(function(player, index) {
-                var points = 0;
-                if (index === winner) {
-                    points = elo.newRatingIfWon(data[winner].points || 1500, data[loser].points || 1500);
-                } else {
-                    points = elo.newRatingIfLost(data[loser].points || 1500, data[winner].points || 1500);
-                }
+                    $players.update({_id: player._id}, {$set: {points: points}});
+                });
+            };
 
-                $players.update({_id: player._id}, {$set: {points: points}});
-            });
-
+            deferred.resolve(match);
         });
+    } else {
+        deferred.resolve(match);
     }
+
+    return deferred.promise;
 };
 
 /* WOL Game Resolution interpreter */

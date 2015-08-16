@@ -41,7 +41,13 @@ exports.process = function(game, dmp) {
             }
 
             /* save game stats */
-            gameres.process(game, match);
+            gameres.process(game, match).then(function(match) {
+                delete match.buffer; /* only used for additional parsing */
+                delete match.client; /* ununsed information about the client */
+
+                $db.get(game +'_games').insert(match);
+                debug('game: %s, idno: %d saved!', game, match.idno);
+            });;
         });
     }
 
