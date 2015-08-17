@@ -144,7 +144,7 @@ exports.parse = function(packet) {
     }
 
     return _consolidate(flat);
-}
+};
 
 /* WOL field type interpreter */
 function _type(type, chunk) {

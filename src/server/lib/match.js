@@ -47,7 +47,7 @@ exports.process = function(game, dmp) {
 
                 $db.get(game +'_games').insert(match);
                 debug('game: %s, idno: %d saved!', game, match.idno);
-            });;
+            });
         });
     }
 
