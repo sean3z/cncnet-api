@@ -91,11 +91,12 @@ exports.process = function(game, match) {
                         $players.update({_id: player._id}, {$set: {points: points}});
                     });
                 }
+
                 deferred.resolve(match);
-            } else {
-                deferred.reject(match);
-            }
-        });
+            });
+        } else {
+            deferred.reject({code: 1, msg: 'Missing winner or loser'});
+        }
     } else {
         deferred.resolve(match);
     }
