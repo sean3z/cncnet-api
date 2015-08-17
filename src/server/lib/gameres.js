@@ -69,25 +69,32 @@ exports.process = function(game, match) {
     /* handle elo only for 1v1 games */
     if (match.players.length == 2) {
         var elo = new Arpad();
-        var winner = (match.players[0].__gains.wins) ? 0 : 1;
-        var loser = (winner == 1) ? 0 : 1;
-        $players.find({name: {$in: [match.players[0].nam, match.players[1].nam]}}, function(err, data) {
-            if (data && data.length == 2) {
-                data.forEach(function(player, index) {
-                    var opponent = (index === 0) ? 1 : 0;
-                    if (player.name == match.players[winner].nam)  {
-                        points = elo.newRatingIfWon(player.points || 1500, data[opponent].points || 1500);
-                        match.players[winner].__gains.points = points - (player.points || 1500);
-                    } else {
-                        points = elo.newRatingIfLost(player.points || 1500, data[opponent].points || 1500);
-                        match.players[loser].__gains.points = (player.points || 1500) - points;
-                    }
+        var winner, loser;
+        match.players.forEach(function(player, index) {
+            if (player.__gains.wins) winner = index;
+            if (player.__gains.losses) loser = index;
+        });
 
-                    $players.update({_id: player._id}, {$set: {points: points}});
-                });
+        if (winner && loser) {
+            $players.find({name: {$in: [match.players[0].nam, match.players[1].nam]}}, function(err, data) {
+                if (data && data.length == 2) {
+                    data.forEach(function(player, index) {
+                        var opponent = (index === 0) ? 1 : 0;
+                        if (player.name == match.players[winner].nam)  {
+                            points = elo.newRatingIfWon(player.points || 1500, data[opponent].points || 1500);
+                            match.players[winner].__gains.points = points - (player.points || 1500);
+                        } else {
+                            points = elo.newRatingIfLost(player.points || 1500, data[opponent].points || 1500);
+                            match.players[loser].__gains.points = (player.points || 1500) - points;
+                        }
+
+                        $players.update({_id: player._id}, {$set: {points: points}});
+                    });
+                }
+                deferred.resolve(match);
+            } else {
+                deferred.reject(match);
             }
-
-            deferred.resolve(match);
         });
     } else {
         deferred.resolve(match);
