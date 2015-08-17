@@ -21,7 +21,6 @@ exports.player = function(game, limit) {
     return defer.promise;
 };
 
-
 /* updates leaderboard cache */
 function _notch(game) {
     $db.get(game + '_players').find({}, {limit: 500, sort: {points: -1}}, function(err, data) {
