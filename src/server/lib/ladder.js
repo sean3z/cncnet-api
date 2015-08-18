@@ -23,7 +23,7 @@ exports.player = function(game, limit) {
 
 /* updates leaderboard cache */
 function _notch(game) {
-    $db.get(game + '_players').find({}, {limit: 500, sort: {points: -1}}, function(err, data) {
+    $db.get(game + '_players').find({$where: 'this.points > 0'}, {limit: 500, sort: {points: -1}}, function(err, data) {
         if (!data || data.length < 1) return;
 
         data.forEach(function(item, index) {
