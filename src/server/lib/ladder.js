@@ -2,10 +2,10 @@ var $db = require('./mongo');
 var $q = require('q');
 global.cache = {};
 var last_update = {
-    ts: _timestamp() - 60,
-    ra: _timestamp() - 60,
-    fs: _timestamp() - 60,
-    am: _timestamp() - 60
+    ts: _timestamp() - 65,
+    ra: _timestamp() - 65,
+    fs: _timestamp() - 65,
+    am: _timestamp() - 65
 };
 
 exports.player = function(game, limit) {
@@ -14,7 +14,7 @@ exports.player = function(game, limit) {
     defer.resolve(cache[game] || []);
 
     /* if cache theshold elapsed; generate new cache*/
-    if (last_update[game] < _timestamp() - 300) {
+    if (last_update[game] < _timestamp() - 60) {
         _notch(game);
     }
 
