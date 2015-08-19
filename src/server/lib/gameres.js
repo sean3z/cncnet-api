@@ -75,7 +75,7 @@ exports.process = function(game, match) {
             if (player.__gains.losses) loser = index;
         });
 
-        if (winner && loser) {
+        if (typeof winner !== 'undefined' && typeof loser !== 'undefined') {
             $players.find({name: {$in: [match.players[0].nam, match.players[1].nam]}}, function(err, data) {
                 if (data && data.length == 2) {
                     data.forEach(function(player, index) {
