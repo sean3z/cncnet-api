@@ -2,10 +2,10 @@ var $db = require('./mongo');
 var $q = require('q');
 global.cache = {};
 var last_update = {
-    ts: _timestamp() - 350,
-    ra: _timestamp() - 350,
-    fs: _timestamp() - 350,
-    am: _timestamp() - 350
+    ts: _timestamp() - 60,
+    ra: _timestamp() - 60,
+    fs: _timestamp() - 60,
+    am: _timestamp() - 60
 };
 
 exports.player = function(game, limit) {
