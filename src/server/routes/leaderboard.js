@@ -24,9 +24,14 @@ exports.search = function (req, res, next) {
 
 exports.player = function(req, res, next) {
     if (req.params.player) {
-        player.stats(req.params.game, req.params.player).then(function(data) {
+        player.stats(req.params.game, req.params.player).then(_success, _error);
+        function _success(data) {
             res.send(data);
-        });
+        }
+
+        function _error() {
+            res.send(404);
+        }
     }
 };
 

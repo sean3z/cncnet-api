@@ -51,5 +51,6 @@ exports.stats = function(game, player) {
 };
 
 function _sanitize(str) {
-    return new RegExp(str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
+    var reg = '^'+ str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") +'$';
+    return new RegExp(reg, 'i');
 }
