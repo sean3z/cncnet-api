@@ -50,6 +50,7 @@ app.get('/debug/reset', debug.reset);
 app.get('/debug/buffer/:game/:gameId', debug.buffer);
 app.get('/debug/gameres/:game/:gameId', debug.gameres);
 app.post('/debug/gameres/:game', debug.submit);
+app.get('/debug/reassess/:game', debug.reassess);
 
 /* static server for development */
 app.get(/.*/, restify.serveStatic({
@@ -59,4 +60,11 @@ app.get(/.*/, restify.serveStatic({
 
 app.listen(WOL_PORT, function() {
     console.log('WOL Leaderboard listening on %s:%s', require('os').hostname(), WOL_PORT);
+});
+
+app.on('uncaughtException', function (req, res, route, err) {
+    res.send({
+        message: err.message,
+        stack: err.stack
+    });
 });
