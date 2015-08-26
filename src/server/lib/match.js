@@ -2,6 +2,7 @@
 var $db = require('./mongo');
 var debug = require('debug')('wol:leaderboard');
 var gameres = require('./gameres');
+var ranking = require('./ranking');
 var $q = require('q');
 
 exports.process = function(game, dmp) {
@@ -41,13 +42,18 @@ exports.process = function(game, dmp) {
             }
 
             /* save game stats */
-            gameres.process(game, match).then(function(match) {
-                delete match.buffer; /* only used for additional parsing */
-                delete match.client; /* ununsed information about the client */
+            match = gameres.process(game, match);
+            delete match.buffer; /* only used for additional parsing */
+            delete match.client; /* ununsed information about the client */
 
-                $db.get(game +'_games').insert(match);
+            /* handle any game specific processing (bonuses?) */
+            // require('../game/' + game).process(match);
+
+            $db.get(game +'_games').insert(match).success(function(doc) {
+                ranking.process(game, match);
                 debug('game: %s, idno: %d saved!', game, match.idno);
             });
+
         });
     }
 
