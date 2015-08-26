@@ -1,24 +1,28 @@
 var $db = require('./mongo');
 var debug = require('debug')('wol:leaderboard');
-var Arpad = require('arpad');
-var $q = require('q');
 
 // TODO: move this whole function somewheres else
 /* saves player and game data */
 exports.process = function(game, match) {
-    var deferred = $q.defer();
+    debug('game: %s, idno: %d processing', game, match.idno);
 
     /* fail if we're somehow missing players */
     if (!match.players || match.players.length < 1) return;
+
+    match.winners = [];
+    match.losers = [];
 
     // create player entry
     var $players = $db.get(game +'_players');
     match.players.forEach(function(player, i) {
         /* typically Computer */
         if (!player.nam) {
-            player.nam = 'Computer';
+            player.nam = 'computer';
             return;
         }
+
+        /* lowercase all usernames */
+        player.nam = player.nam.toLowerCase();
 
         /* remove spectators */
         if (player.spc && player.spc > 0) {
@@ -38,15 +42,18 @@ exports.process = function(game, match) {
                 case 2:
                     stats.$inc.losses = 1;
                     stats.$inc.disconnects = 1;
+                    match.losers.push({name: player.nam, index: i});
                 break;
 
                 case 256:
                     stats.$inc.wins = 1;
+                    match.winners.push({name: player.nam, index: i});
                 break;
 
                 case 512:
                 case 528:
                     stats.$inc.losses = 1;
+                    match.losers.push({name: player.nam, index: i});
                 break;
             }
         }
@@ -58,50 +65,13 @@ exports.process = function(game, match) {
         delete player.accn; /* funky's client specific */
 
         $players.update({name: player.nam}, stats, {upsert: true});
+        debug('game: %s, idno: %s, player: %s updated', game, match.idno, player.nam);
 
         /* tack on stats so it can be referenced in game object */
         player.__gains = stats.$inc;
     });
 
-    /* handle any game specific processing (bonuses?) */
-    // require('../game/' + game).process(match);
-
-    /* handle elo only for 1v1 games */
-    if (match.players.length == 2) {
-        var elo = new Arpad();
-        var winner, loser;
-        match.players.forEach(function(player, index) {
-            if (player.__gains.wins) winner = index;
-            if (player.__gains.losses) loser = index;
-        });
-
-        if (typeof winner !== 'undefined' && typeof loser !== 'undefined') {
-            $players.find({name: {$in: [match.players[0].nam, match.players[1].nam]}}, function(err, data) {
-                if (data && data.length == 2) {
-                    data.forEach(function(player, index) {
-                        var opponent = (index === 0) ? 1 : 0;
-                        if (player.name == match.players[winner].nam)  {
-                            points = elo.newRatingIfWon(player.points || 1500, data[opponent].points || 1500);
-                            match.players[winner].__gains.points = points - (player.points || 1500);
-                        } else {
-                            points = elo.newRatingIfLost(player.points || 1500, data[opponent].points || 1500);
-                            match.players[loser].__gains.points = (player.points || 1500) - points;
-                        }
-
-                        $players.update({_id: player._id}, {$set: {points: points}});
-                    });
-                }
-
-                deferred.resolve(match);
-            });
-        } else {
-            deferred.reject({code: 1, msg: 'Missing winner or loser'});
-        }
-    } else {
-        deferred.resolve(match);
-    }
-
-    return deferred.promise;
+    return match;
 };
 
 /* WOL Game Resolution interpreter */
