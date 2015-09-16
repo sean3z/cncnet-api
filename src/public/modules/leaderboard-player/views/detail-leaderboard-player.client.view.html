@@ -59,11 +59,21 @@
                             </div>
                             <div class="profile-stats">
                                 <ul class="list-inline text-right">
-                                    <li>Points <strong>{{player.points}}</strong><i class="fa fa-bolt fa-fw"></i></li>
-                                    <li>Won <strong>{{player.wins || 0}}</strong><i class="fa fa-level-up fa-fw"></i>
+                                    <li>
+                                        Points <strong>{{player.points}}</strong>
+                                        <i class="fa fa-bolt fa-fw"></i>
                                     </li>
-                                    <li>Lost <strong>{{player.losses || 0}}</strong><i
-                                            class="fa fa-level-down fa-fw"></i>
+                                    <li>
+                                        Won <strong>{{player.wins || 0}}</strong>
+                                        <i class="fa fa-level-up fa-fw"></i>
+                                    </li>
+                                    <li>
+                                        Lost <strong>{{player.losses || 0}}</strong>
+                                        <i class="fa fa-level-down fa-fw"></i>
+                                    </li>
+                                    <li>
+                                        Disconnects <strong>{{player.disconnects || 0}}</strong>
+                                        <i class="fa fa-signal fa-fw"></i>
                                     </li>
                                     <li>
                                         <span class="label label-info ng-binding">
