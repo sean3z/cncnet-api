@@ -1,6 +1,8 @@
-var $db = require('./mongo');
+var $db = require(global.cwd + '/lib/mongo');
 var $q = require('q');
+
 global.cache = {};
+
 var last_update = {
     ts: _timestamp() - 65,
     ra: _timestamp() - 65,
@@ -8,7 +10,7 @@ var last_update = {
     am: _timestamp() - 65
 };
 
-exports.player = function(game, limit) {
+module.exports = function ladder(game, limit) {
     var defer = $q.defer();
 
     defer.resolve(cache[game] || []);

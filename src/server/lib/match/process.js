@@ -1,11 +1,9 @@
-/* collection of game related helper functions */
-var $db = require('./mongo');
+var $db = require(global.cwd + '/lib/mongo');
 var debug = require('debug')('wol:leaderboard');
-var gameres = require('./gameres');
-var ranking = require('./ranking');
-var $q = require('q');
+var gameres = require('../gameres');
+var ranking = require('../ranking');
 
-exports.process = function(game, dmp) {
+module.exports = function process(game, dmp) {
     var match = gameres.parse(dmp);
 
     /* discontinue if no game id or match is less than 1 minute */
@@ -36,19 +34,10 @@ exports.process = function(game, dmp) {
             // only continue if this is the first entry for a game
             if (doc[0].buffers && doc[0].buffers.length > 1) return;
 
-            /* if we have ra stats normalize then carry on  */
-            if (game == 'ra' || game == 'am') {
-                require(__dirname + '/../games/ra').normalize(match);
-            }
+            /* process match */
+            match = require(__dirname + '/lib/parse')(game, match);
 
             /* save game stats */
-            match = gameres.process(game, match);
-            delete match.buffer; /* only used for additional parsing */
-            delete match.client; /* ununsed information about the client */
-
-            /* handle any game specific processing (bonuses?) */
-            // require('../game/' + game).process(match);
-
             $db.get(game +'_games').insert(match).success(function(doc) {
                 ranking.process(game, match);
                 debug('game: %s, idno: %d saved!', game, match.idno);
@@ -60,11 +49,4 @@ exports.process = function(game, dmp) {
     return;
 };
 
-exports.information = function(game, gameId) {
-    var defer = $q.defer();
-    $db.get(game +'_games').find({idno: gameId}, function(err, data) {
-        if (data.length < 1) return defer.reject();
-        defer.resolve(data[0]);
-    });
-    return defer.promise;
-};
+

@@ -3,6 +3,9 @@ var app = restify.createServer();
 var path = require('path');
 var WOL_PORT = process.env.WOL_PORT || 4007;
 
+global.noop = function(){};
+global.cwd = __dirname;
+
 /* route separation http://bit.ly/1Kt87xZ */
 var ping = require('./routes/ping');
 var leaderboard = require('./routes/leaderboard');
