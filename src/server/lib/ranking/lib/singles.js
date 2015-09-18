@@ -28,14 +28,13 @@ module.exports = function(game, match) {
                         gains.points = myPoints - points;
                     }
 
-
                     $players.update({name: player.nam}, {$set: {points: points}, $inc: player.__gains}, {upsert: true});
                     debug('game: %s, idno: %s, player: %s updated', game, match.idno, player.nam);
 
                     var str = ['players', gains.player, '__gains', 'points'].join('.');
                     var update = {$set: {}};
                     update.$set[str] = gains.points;
-                    $games.update({idno: match.idno}, update)
+                    $games.update({idno: match.idno}, update);
                 });
             }
         });

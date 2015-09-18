@@ -42,4 +42,4 @@ module.exports = function _consolidate(flat) {
     consolidated.date = Math.floor(Date.now() / 1000);
 
     return consolidated;
-}
+};

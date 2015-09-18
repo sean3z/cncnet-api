@@ -54,4 +54,4 @@ module.exports = function _type(type, chunk) {
     }
 
     return data;
-}
+};

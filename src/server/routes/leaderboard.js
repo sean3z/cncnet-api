@@ -25,23 +25,23 @@ exports.search = function (req, res, next) {
 exports.player = function(req, res, next) {
     if (req.params.player) {
         player.stats(req.params.game, req.params.player).then(_success, _error);
-        function _success(data) {
+        var _success = function (data) {
             res.send(data);
-        }
+        };
 
-        function _error() {
+        var error = function () {
             res.send(404);
-        }
+        };
     }
 };
 
 exports.match = function(req, res, next) {
     match.information(req.params.game, parseInt(req.params.gameId)).then(_success, _error);
-    function _success(data) {
+    var _success = function (data) {
         res.send(data);
-    }
+    };
 
-    function _error() {
+    var error = function () {
         res.send(404);
-    }
+    };
 };

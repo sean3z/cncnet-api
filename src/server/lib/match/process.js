@@ -48,5 +48,3 @@ module.exports = function process(game, dmp) {
 
     return;
 };
-
-
