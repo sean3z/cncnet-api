@@ -2,8 +2,6 @@ var debug = require('debug')('wol:leaderboard');
 
 /* interpret packet and structure match object for easier use */
 module.exports = function parse(game, match) {
-    debug('game: %s, idno: %d processing', game, match.idno);
-
     /* fail if we're somehow missing players */
     if (!match.players || match.players.length < 1) return;
 
@@ -11,9 +9,6 @@ module.exports = function parse(game, match) {
     if (game == 'ra' || game == 'am') {
         match = require(global.cwd + '/lib/games/lib/ra').normalize(match);
     }
-
-    match.winners = [];
-    match.losers = [];
 
     match.players.forEach(function(player, i) {
         /* typically Computer */
@@ -23,7 +18,7 @@ module.exports = function parse(game, match) {
         }
 
         /* lowercase all usernames */
-        player.nam = player.nam.toLowerCase();
+        player.name = player.nam = player.nam.toLowerCase();
 
         /* remove spectators */
         if (player.spc && player.spc > 0) {
@@ -31,37 +26,25 @@ module.exports = function parse(game, match) {
             return;
         }
 
-        player.__gains = {};
+        player.won = 0;
+        player.loss = 0;
+        player.disconnected = 0;
 
         /* evaluate completions */
         if (player.cmp) {
             switch (player.cmp) {
                 case 2:
-                    player.__gains.disconnects = 1;
-                    match.losers.push({
-                        index: i,
-                        name: player.nam,
-                        gains: player.__gains,
-                    });
+                    player.loss = 1;
+                    player.disconnected = 1;
                 break;
 
                 case 256:
-                    player.__gains.wins = 1;
-                    match.winners.push({
-                        index: i,
-                        name: player.nam,
-                        gains: player.__gains,
-                    });
+                    player.won = 1;
                 break;
 
                 case 512:
                 case 528:
-                    player.__gains.losses = 1;
-                    match.losers.push({
-                        index: i,
-                        name: player.nam,
-                        gains: player.__gains,
-                    });
+                    player.loss = 1;
                 break;
             }
         }
