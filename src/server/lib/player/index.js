@@ -1,4 +1,4 @@
 module.exports = {
-    locate: require('./locate'),
+    search: require('./search'),
     stats: require('./stats')
 };

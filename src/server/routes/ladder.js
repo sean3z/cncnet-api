@@ -16,7 +16,7 @@ exports.ladder = function (req, res, next) {
 
 exports.search = function (req, res, next) {
     if (!req.body.player) return _error();
-    player.locate(req.params.game, req.body.player).then(res.send, _error);
+    player.search(req.params.game, req.body.player).then(res.send, _error);
 
     var _error = function () {
         res.send(404);
