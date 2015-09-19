@@ -18,7 +18,7 @@ module.exports = function stats(game, player) {
 
             /* leaderboard position; todo make more efficient */
             player_data.rank = 0;
-            var ladder = global.cache[game] || [];
+            var ladder = global.ladder[game] || [];
             for (var i = 0; i < ladder.length; i++) {
                 if (ladder[i].name == player_data.name) {
                     player_data.rank = ladder[i].rank;
