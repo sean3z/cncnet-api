@@ -4,7 +4,7 @@ var gameres = require('../gameres');
 var ranking = require('../ranking');
 
 module.exports = function process(game, dmp) {
-    var match = gameres.parse(dmp);
+    var match = require(__dirname + '/lib/parse')(game, gameres.parse(dmp));
 
     /* discontinue if no game id or match is less than 1 minute */
     if (!match.idno || match.dura < 60) return;
@@ -33,9 +33,6 @@ module.exports = function process(game, dmp) {
 
             // only continue if this is the first entry for a game
             if (doc[0].buffers && doc[0].buffers.length > 1) return;
-
-            /* process match */
-            match = require(__dirname + '/lib/parse')(game, match);
 
             /* save game stats */
             $db.get(game +'_games').insert(match).success(function(doc) {

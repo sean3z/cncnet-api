@@ -69,8 +69,8 @@ module.exports = function parse(game, match) {
         delete player.ser; /* serials are not used on CnCNet */
     });
 
-    delete match.buffer; /* only used for additional parsing */
-    delete match.client; /* ununsed information about the client */
+    // delete match.buffer; /* only used for additional parsing */
+    // delete match.client; /* ununsed information about the client */
 
     return match;
 };
