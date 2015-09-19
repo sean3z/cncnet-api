@@ -1,5 +1,6 @@
-/* interpret packet and structure match object for easier use */
+var debug = require('debug')('wol:leaderboard');
 
+/* interpret packet and structure match object for easier use */
 module.exports = function parse(game, match) {
     debug('game: %s, idno: %d processing', game, match.idno);
 
@@ -29,6 +30,8 @@ module.exports = function parse(game, match) {
             delete match.players[i];
             return;
         }
+
+        player.__gains = {};
 
         /* evaluate completions */
         if (player.cmp) {
