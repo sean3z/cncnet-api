@@ -1,5 +1,5 @@
 var $db = require('monk')('localhost/leaderboard');
-var games = ('../games');
+var games = require('./games');
 
 games.supported.forEach(function(game) {
     $db.get(game +'_dumps').index('idno', {unique: true})
