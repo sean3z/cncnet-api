@@ -1,6 +1,6 @@
 {
   "name": "cncnet-leaderboard",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Leaderboard for Westwood Online (WOL) Command and Conquer games",
   "author": "Sean Wragg <seanwragg@gmail.com>",
   "main": "src/server",
