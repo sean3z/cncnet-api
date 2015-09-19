@@ -1,19 +1,10 @@
 var $db = require('monk')('localhost/leaderboard');
+var games = ('../games');
 
-$db.get('ts_dumps').index('idno', {unique: true});
-$db.get('ts_players').index('name', {unique: true});
-$db.get('ts_games').index('idno', {unique: true});
-
-$db.get('fs_dumps').index('idno', {unique: true});
-$db.get('fs_players').index('name', {unique: true});
-$db.get('fs_games').index('idno', {unique: true});
-
-$db.get('ra_dumps').index('idno', {unique: true});
-$db.get('ra_players').index('name', {unique: true});
-$db.get('ra_games').index('idno', {unique: true});
-
-$db.get('am_dumps').index('idno', {unique: true});
-$db.get('am_players').index('name', {unique: true});
-$db.get('am_games').index('idno', {unique: true});
+games.supported.forEach(function(game) {
+    $db.get(game +'_dumps').index('idno', {unique: true})
+    $db.get(game +'_games').index('name', {unique: true});
+    $db.get(game +'_players').index('idno', {unique: true});
+});
 
 module.exports = $db;
