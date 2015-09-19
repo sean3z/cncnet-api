@@ -1,8 +1,8 @@
 /* consolidate player stats */
 module.exports = function _consolidate(flat) {
     var consolidated = {players: [], settings: {}, client: {}};
-    var settings = require('./settings');
-    var client = require('./client');
+    var settings = require('./lib/settings');
+    var client = require('./lib/client');
 
     if (flat.NAM0 || flat.NAM1) {
         for (var item in flat) {
