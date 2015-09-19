@@ -5,7 +5,7 @@ var games = require('../lib/games');
 
 exports.reset = function(req, res, next) {
     games.supported.forEach(function(game) {
-        // $db.get(game +'_dumps').drop();
+        $db.get(game +'_dumps').drop();
         $db.get(game +'_games').drop();
         $db.get(game +'_players').drop();
     });
