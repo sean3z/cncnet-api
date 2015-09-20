@@ -113,7 +113,7 @@
                                 <td>
                                     <div ng-repeat="participant in game.players">
                                         <ul class="list-unstyled">
-                                            <li ng-if="player.won > 0">
+                                            <li ng-if="participant.won > 0">
                                                 <a href="#/leaderboard/{{ gameName }}/player/{{participant.name}}">
                                                     <span class="label label-success">
                                                         {{participant.name}}
