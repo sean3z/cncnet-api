@@ -1,4 +1,5 @@
 module.exports = {
     search: require('./search'),
-    stats: require('./stats')
+    stats: require('./stats'),
+    auth: require('./auth')
 };
