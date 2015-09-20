@@ -111,27 +111,27 @@
 
                                 <td>{{ game.date * 1000 | date:'medium' }}</td>
                                 <td>
-                                    <div ng-repeat="player in game.players">
+                                    <div ng-repeat="participant in game.players">
                                         <ul class="list-unstyled">
                                             <li ng-if="player.won > 0">
-                                                <a href="#/leaderboard/{{ gameName }}/player/{{ player.name }}">
+                                                <a href="#/leaderboard/{{ gameName }}/player/{{participant.name}}">
                                                     <span class="label label-success">
-                                                        {{player.name}}
+                                                        {{participant.name}}
                                                         <i class="fa fa-smile-o fa-fw fa-lg"></i>
                                                     </span>
-                                                    <span class="label label-default" ng-if="player.exp > 0">
-                                                        + {{ players.exp }} points
+                                                    <span class="label label-default" ng-if="participant.exp > 0">
+                                                        + {{participant.exp}} points
                                                     </span>
                                                 </a>
                                             </li>
-                                            <li ng-if="player.loss > 0">
-                                                <a href="#/leaderboard/{{ gameName }}/player/{{ player.nam }}">
+                                            <li ng-if="participant.loss > 0">
+                                                <a href="#/leaderboard/{{ gameName }}/player/{{participant.name}}">
                                                     <span class="label label-danger">
-                                                        {{player.nam}}
+                                                        {{participant.name}}
                                                         <i class="fa fa-frown-o fa-fw fa-lg"></i>
                                                     </span>
-                                                    <span class="label label-default" ng-if="player.exp > 0">
-                                                        - {{ player.exp }} points
+                                                    <span class="label label-default" ng-if="participant.exp > 0">
+                                                        - {{participant.exp}} points
                                                     </span>
                                                 </a>
                                             </li>
