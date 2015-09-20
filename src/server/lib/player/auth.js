@@ -22,8 +22,10 @@ module.exports = function auth(game, player, username, password) {
                     $set: {uid: uid}
                 }, {upsert: true});
 
-                deferred.resolve();
+                return deferred.resolve();
             }
+
+            deferred.reject();
         });
 
     });
