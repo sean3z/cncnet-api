@@ -18,9 +18,11 @@ module.exports = function auth(game, player, username, password) {
 
             /* otherwise associate forum id */
             if (!data.uid) {
-                $players.update({name: player.name}, {
+                $players.update({name: player}, {
                     $set: {uid: uid}
                 }, {upsert: true});
+
+                deferred.resolve();
             }
         });
 
