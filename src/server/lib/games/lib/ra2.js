@@ -1,4 +1,3 @@
-var $db = require('../lib/mongo');
 var debug = require('debug')('wol:leaderboard');
 
 var official_maps = [

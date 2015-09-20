@@ -1,25 +1,9 @@
-var $db = require('./mongo');
+var $db = require(global.cwd + '/lib/mongo');
 var $q = require('q');
-
-/* method to search for a quick list of players by name */
-exports.locate = function(game, search) {
-    var defer = $q.defer();
-    $db.get(game + '_players').find({name: _sanitize(search, false)}, {limit: 10}, function(err, data) {
-        /* remove games array from response */
-        if (data && data.length > 0) {
-            data.forEach(function(item) {
-                delete item.games;
-            });
-        }
-
-        defer.resolve(data || []);
-    });
-
-    return defer.promise;
-};
+var _sanitize = require('./lib/sanitize');
 
 /* this method provides more data that .locate */
-exports.stats = function(game, player) {
+module.exports = function stats(game, player) {
     var defer = $q.defer();
     $db.get(game + '_players').findOne({name: _sanitize(player, true)}, function(err, player_data) {
         if (!player_data) return defer.reject();
@@ -35,7 +19,7 @@ exports.stats = function(game, player) {
 
             /* leaderboard position; todo make more efficient */
             player_data.rank = 0;
-            var ladder = global.cache[game] || [];
+            var ladder = global.ladder[game] || [];
             for (var i = 0; i < ladder.length; i++) {
                 if (ladder[i].name == player_data.name) {
                     player_data.rank = ladder[i].rank;
@@ -49,9 +33,3 @@ exports.stats = function(game, player) {
 
     return defer.promise;
 };
-
-function _sanitize(str, strict) {
-    var reg = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    if (strict) reg = '^'+ reg +'$';
-    return new RegExp(reg, 'i');
-}

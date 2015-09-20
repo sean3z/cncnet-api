@@ -1,6 +1,8 @@
-var $db = require('./mongo');
+var $db = require(global.cwd + '/lib/mongo');
 var $q = require('q');
-global.cache = {};
+
+global.ladder = {};
+
 var last_update = {
     ts: _timestamp() - 65,
     ra: _timestamp() - 65,
@@ -8,10 +10,10 @@ var last_update = {
     am: _timestamp() - 65
 };
 
-exports.player = function(game, limit) {
+module.exports = function ladder(game, limit) {
     var defer = $q.defer();
 
-    defer.resolve(cache[game] || []);
+    defer.resolve(global.ladder[game] || []);
 
     /* if cache theshold elapsed; generate new cache*/
     if (last_update[game] < _timestamp() - 60) {
@@ -31,7 +33,7 @@ function _notch(game) {
             delete item.games;
         });
 
-        cache[game] = data;
+        global.ladder[game] = data;
         last_update[game] = _timestamp();
     });
 }

@@ -1,20 +1,25 @@
 var auth = require('basic-auth');
+var player = require('../lib/player');
 
 exports.player = function(req, res, next) {
-    var credentials = auth(req);
+    var credentials = auth(req) || {};
 
-    console.log(credentials);
+    var _success = function() {
+        res.send(200);
+    };
 
-    if (!credentials || credentials.name !== 'john' || credentials.pass !== 'secret') {
+    var _error = function() {
         res.writeHead(401, {
-            'WWW-Authenticate': 'Basic realm="example"'
+            'WWW-Authenticate': 'Basic realm="CnCNet 5 Leaderboard"'
         });
+
         res.end();
-    } else {
-        res.json({test: 'meow'});
-    }
+    };
+
+    if (!credentials.name || !credentials.pass) return _error();
+    player.auth(req.params.game, req.params.player, credentials.name, credentials.pass).then(_success, _error);
 };
 
 exports.create = function(req, res, next) {
-
+    res.send(503);
 };
