@@ -9,34 +9,26 @@ exports.submit = function (req, res, next) {
 };
 
 exports.ladder = function (req, res, next) {
-    ranking.ladder(req.params.game, 150).then(function(data) {
-        res.send(data);
-    });
+    ranking.ladder(req.params.game, 150).then(res.send);
 };
 
 exports.search = function (req, res, next) {
-    if (!req.body.player) return _error();
-    player.search(req.params.game, req.body.player).then(res.send, _error);
-
     var _error = function () {
         res.send(404);
     };
+
+    if (!req.body.player) return _error();
+    player.search(req.params.game, req.body.player).then(res.send, _error);
 };
 
 exports.player = function(req, res, next) {
-    if (!req.params.player) return _error();
-    player.stats(req.params.game, req.params.player).then(res.send, _error);
-
-    var _error = function () {
+    player.stats(req.params.game, req.params.player).then(res.send, function() {
         res.send(404);
-    };
+    });
 };
 
 exports.match = function(req, res, next) {
-    if (!req.params.gameId) return _error();
-    match.information(req.params.game, parseInt(req.params.gameId)).then(res.send, _error);
-
-    var _error = function () {
+    match.information(req.params.game, parseInt(req.params.gameId)).then(res.send, function() {
         res.send(404);
-    };
+    });
 };
