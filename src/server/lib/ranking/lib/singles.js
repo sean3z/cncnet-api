@@ -1,42 +1,85 @@
 var $db = require(global.cwd + '/lib/mongo');
 var debug = require('debug')('wol:leaderboard');
 var Arpad = require('arpad');
+var $q = require('q');
 
-module.exports = function(game, match) {
+module.exports = function singles(game, match) {
+    /* stop if <> 1v1 */
+    if (match.players.length != 2) return;
+
+    /* find winner and loser */
+    var winner = -1;
+    var loser = -1;
+
+    match.players.forEach(function(player, index) {
+        if (player.won > 0) winner = index;
+        if (player.loss > 0) loser = index;
+    });
+
+    /* discontinue if no winner /and/ loser */
+    if (winner < 0 || loser < 0) return;
+
     var elo = new Arpad();
     var $players = $db.get(game +'_players');
-    var $games = $db.get(game +'_games');
 
-    if (match.winners[0] && match.losers[0]) {
-        $players.find({name: {$in: [match.winners[0].name, match.losers[0].name]}}, function(err, data) {
+    /* get points for players */
+    points(game, match.players).then(function(players) {
+        match.players = players; /* reassign modified players */
+        var update = {$set: {}}; /* query to update match obj */
 
-            if (data && data.length == 2) {
-                data.forEach(function(player, index) {
-                    var opponent = (index === 0) ? 1 : 0;
-                    var myPoints = player.points || 1500;
-                    var theirPoints = data[opponent].points || 1500;
-                    var points = 0;
-                    var gains = {};
+        /* note the type of match */
+        update.$set['type'] = 'singles';
 
-                    if (player.name == match.winners[0].name)  {
-                        points = elo.newRatingIfWon(myPoints, theirPoints);
-                        gains.player = match.winners[0].index;
-                        gains.points = points - myPoints;
-                    } else {
-                        points = elo.newRatingIfLost(myPoints, theirPoints);
-                        gains.player = match.losers[0].index;
-                        gains.points = myPoints - points;
-                    }
+        match.players.forEach(function(player, index) {
+            var opponent = match.players[loser];
+            var method = 'newRatingIfWon';
 
-                    $players.update({name: player.nam}, {$set: {points: points}, $inc: player.__gains}, {upsert: true});
-                    debug('game: %s, idno: %s, player: %s updated', game, match.idno, player.nam);
-
-                    var str = ['players', gains.player, '__gains', 'points'].join('.');
-                    var update = {$set: {}};
-                    update.$set[str] = gains.points;
-                    $games.update({idno: match.idno}, update);
-                });
+            if (player.loss > 0) {
+                opponent = match.players[winner];
+                method = 'newRatingIfLost';
             }
+
+            /* calculate new point value */
+            player.exp = elo[method](player.points, opponent.points);
+
+            /* update or create player */
+            $players.update({name: player.name}, {
+                $set: {points: player.exp},
+                $inc: {
+                    wins: player.won,
+                    losses: player.loss,
+                    disconnects: player.discon
+                }
+            }, {upsert: true});
+
+            /* update player in match object */
+            var str = ['players', index, 'exp'].join('.');
+            update.$set[str] = Math.abs(player.points - player.exp);
         });
-    }
+
+        /* update match object */
+        $db.get(game +'_games').update({idno: match.idno}, update);
+    });
 };
+
+function points(game, players) {
+    var deferred = $q.defer();
+
+    var search = [];
+    players.forEach(function(player) {
+       search.push(player.name);
+    });
+
+    $db.get(game +'_players').find({name: {$in: search}}, function(err, data) {
+        players.forEach(function(player) {
+            player.points = 1000;
+            data.forEach(function(row) {
+                if (player.name == row.name) player.points = row.points;
+            });
+        });
+
+        deferred.resolve(players);
+    });
+
+    return deferred.promise;
+}

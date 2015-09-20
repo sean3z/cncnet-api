@@ -28,14 +28,14 @@ module.exports = function parse(game, match) {
 
         player.won = 0;
         player.loss = 0;
-        player.disconnected = 0;
+        player.discon = 0;
 
         /* evaluate completions */
         if (player.cmp) {
             switch (player.cmp) {
                 case 2:
                     player.loss = 1;
-                    player.disconnected = 1;
+                    player.discon = 1;
                 break;
 
                 case 256:
