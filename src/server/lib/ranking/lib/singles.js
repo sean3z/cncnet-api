@@ -72,7 +72,7 @@ function points(game, players) {
 
     $db.get(game +'_players').find({name: {$in: search}}, function(err, data) {
         players.forEach(function(player) {
-            player.points = 1000;
+            player.points = 1500;
             data.forEach(function(row) {
                 if (player.name == row.name) player.points = row.points;
             });
