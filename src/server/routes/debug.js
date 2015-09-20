@@ -10,7 +10,7 @@ exports.reset = function(req, res, next) {
         $db.get(game +'_players').drop();
     });
 
-    global.cache = {};
+    global.ladder = {};
 
     res.send(200);
 };
