@@ -1,7 +1,7 @@
 # Leaderboard Feature List
 
 ### Release version - 1.0
-- [ ] Leaderboard support for Tiberian Sun and Red Alert 1.
+- [x] Leaderboard support for Tiberian Sun and Red Alert 1.
 - [x] Player listings
   - [x] Show top 50 player rankings for each game
   - [x] To display players: Rank, Points, Wins, Losses.
@@ -14,7 +14,7 @@
 - [x] Player search
   - [x] Input on player listings for user to search for player. Will return outside of top50 too.
   - [x] Result should show player name(s), and should be clickable to player profile.
-- [ ] HTMl5 Mode - server should re-write hashtags.
+- [ ] HTML5 Mode - server should re-write hashtags.
 - [ ] Landing page for leaderboard
   - [ ] Show available games on the leadeboard 
   - [ ] Clickable games should direct to the relevant leaderboard
