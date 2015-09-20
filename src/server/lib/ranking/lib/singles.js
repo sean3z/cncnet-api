@@ -45,6 +45,7 @@ module.exports = function singles(game, match) {
             /* update or create player */
             $players.update({name: player.name}, {
                 $set: {points: player.exp},
+                $push: {games: match.idno},
                 $inc: {
                     wins: player.won,
                     losses: player.loss,
