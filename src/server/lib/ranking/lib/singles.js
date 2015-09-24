@@ -28,7 +28,7 @@ module.exports = function singles(game, match) {
         var update = {$set: {}}; /* query to update match obj */
 
         /* note the type of match */
-        update.$set['type'] = 'singles';
+        update.$set.type = 'singles';
 
         match.players.forEach(function(player, index) {
             var opponent = match.players[loser];
