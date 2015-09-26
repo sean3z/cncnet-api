@@ -8,6 +8,10 @@ module.exports = function stats(game, player) {
     $db.get(game + '_players').findOne({name: _sanitize(player, true)}, function(err, player_data) {
         if (!player_data) return defer.reject();
 
+        /* remove any sensitive data from response */
+        delete player_data.email;
+        delete player_data.uid;
+
         /* left join last 50 games */
         player_data.games = player_data.games.slice(-50);
         $db.get(game + '_games').find({idno: {$in: player_data.games}}, function(err, game_data) {

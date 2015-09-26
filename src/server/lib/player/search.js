@@ -7,10 +7,12 @@ module.exports = function search(game, player) {
     var defer = $q.defer();
     $db.get(game + '_players').find({name: _sanitize(player, false)}, {limit: 10}, function(err, data) {
 
-        /* remove games array from response */
+        /* remove games array and sensitive data from response */
         if (data && data.length > 0) {
-            data.forEach(function(item) {
-                delete item.games;
+            data.forEach(function(row) {
+                delete row.games;
+                delete row.email;
+                delete row.uid;
             });
         }
 
