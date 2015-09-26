@@ -39,6 +39,10 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
                 $scope.abbr = 'am';
                 $scope.game = 'Aftermath';
                 break;
+            case 'ra2':
+                $scope.abbr = 'ra2';
+                $scope.game = 'Red Alert 2';
+                break;
             default:
                 $scope.game = 'Global';
         }
