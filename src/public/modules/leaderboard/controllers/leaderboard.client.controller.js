@@ -43,6 +43,10 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
                 $scope.abbr = 'ra2';
                 $scope.game = 'Red Alert 2';
                 break;
+            case 'dta':
+                $scope.abbr = 'dta';
+                $scope.game = 'The Dawn of the Tiberium Age';
+                break;
             default:
                 $scope.game = 'Global';
         }
