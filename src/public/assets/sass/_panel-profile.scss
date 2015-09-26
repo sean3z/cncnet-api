@@ -63,5 +63,9 @@ $text-dark: mix($off-white, $dark-base, 15%);
     text-align: center;
     padding-top: 65px;
     margin-top: -40px;
+
+    &.avatar {
+        padding-top: 35px;
+    }
   }
 }
