@@ -110,7 +110,7 @@
                             <tr ng-repeat="game in player.games | limitTo : 50" ng-if="game._id" data-idno="{{game.idno}}">
 
 
-                                <td>{{ game.date * 1000 | date:'medium' }}</td>
+                                <td>{{ game.date * 1000 | date:'dd/mm/yyyy' }}</td>
                                 <td>
                                     <div ng-repeat="participant in game.players">
                                         <ul class="list-unstyled">
