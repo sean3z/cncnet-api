@@ -41,7 +41,7 @@ function authorize(username, password) {
     var deferred = $q.defer();
 
     var query = $mysql.format(
-        'SELECT id_member, email_address, avatar FROM smf_members WHERE real_name = ? AND passwd = SHA1(CONCAT(?, ?))',
+        'SELECT id_member, email_address, avatar FROM smf_members WHERE member_name = ? AND passwd = SHA1(CONCAT(?, ?))',
         [username, username.toLowerCase(), password]
     );
 
