@@ -10,5 +10,6 @@ module.exports = {
         'dta',
         'ra2',
         'yr',
+        'all'
     ]
 };
