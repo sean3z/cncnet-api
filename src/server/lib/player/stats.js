@@ -14,7 +14,7 @@ module.exports = function stats(game, player) {
 
         /* left join last 50 games */
         player_data.games = player_data.games.slice(-50);
-        $db.get(game + '_games').find({idno: {$in: player_data.games}}, function(err, game_data) {
+        $db.get(game + '_games').find({idno: {$in: player_data.games}}, {sort: {date: -1}},function(err, game_data) {
             if (game_data && game_data.length > 0) {
                 game_data.forEach(function(stats, index) {
                     player_data.games[index] = stats;
