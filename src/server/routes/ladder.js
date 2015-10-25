@@ -9,7 +9,7 @@ exports.submit = function (req, res, next) {
 };
 
 exports.ladder = function (req, res, next) {
-    ranking.ladder(req.params.game, 150).then(function(data) {
+    ranking.ladder(req.params.game, req.params.limit ? req.params.limit : 250).then(function (data) {
         res.send(data);
     });
 };
@@ -26,7 +26,7 @@ exports.search = function (req, res, next) {
     player.search(req.params.game, req.body.player).then(_success, _error);
 };
 
-exports.player = function(req, res, next) {
+exports.player = function (req, res, next) {
     var _success = function (data) {
         res.send(data);
     };
@@ -37,7 +37,7 @@ exports.player = function(req, res, next) {
     player.stats(req.params.game, req.params.player).then(_success, _error);
 };
 
-exports.match = function(req, res, next) {
+exports.match = function (req, res, next) {
     var _success = function (data) {
         res.send(data);
     };
