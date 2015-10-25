@@ -15,7 +15,7 @@ module.exports = function auth(player, username, password) {
             data = data || {};
 
             /* success if forum id associated to player */
-            if (data.uid && data.uid == record.id_member) return deferred.resolve();
+            if (data.uid == record.id_member) return deferred.resolve();
 
             /* otherwise create auth entry */
             if (!data.uid) {
@@ -30,6 +30,8 @@ module.exports = function auth(player, username, password) {
                     debug('auth entry created for %s', player);
                     associate(player, record.id_member);
                 });
+
+                return deferred.resolve();
             }
 
             deferred.reject();
