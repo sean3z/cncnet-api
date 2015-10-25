@@ -29,7 +29,7 @@ module.exports = function auth(player, username, password) {
 
                 $auth.insert(entry).success(function() {
                     debug('auth entry created for %s', player);
-                    associate(player, record.id_member);
+                    associate(player, entry);
                 });
 
                 return deferred.resolve();
@@ -43,14 +43,13 @@ module.exports = function auth(player, username, password) {
 };
 
 /* add uid to given player in all supported games */
-function associate(player, uid) {
-
+function associate(player, entry) {
     games.supported.forEach(function(game) {
         var $players = $db.get(game + '_players');
         $players.find({name: player}, function(err, data) {
             data = data || {};
 
-            if (data.uid && data.uid != uid) {
+            if (data.uid && data.uid != entry.uid) {
                 // nick was somehow associated to another user
                 // no clue what to do here...
                 // something is wrong!! abort abort!!
@@ -61,8 +60,8 @@ function associate(player, uid) {
             if (!data.uid) {
                 $players.update({name: player}, {
                     $set: {
-                        uid: record.id_member,
-                        avatar: record.avatar
+                        uid: entry.uid,
+                        avatar: entry.avatar
                     }
                 }, {upsert: true});
             }
