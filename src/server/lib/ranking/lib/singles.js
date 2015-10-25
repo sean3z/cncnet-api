@@ -76,7 +76,7 @@ function points(game, players) {
             players[player].points = 1000;
 
             data.forEach(function(row) {
-                if (player.name == row.name) {
+                if (row.points && player.name == row.name) {
                     players[player].points = row.points;
                 }
             });
