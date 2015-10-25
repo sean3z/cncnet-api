@@ -12,10 +12,11 @@ var last_update = {
 
 module.exports = function ladder(game, limit) {
     var defer = $q.defer();
+    limit = limit || 150;
 
-    defer.resolve(global.ladder[game] || []);
+    defer.resolve((global.ladder[game] || []).slice(0, limit));
 
-    /* if cache theshold elapsed; generate new cache*/
+    /* if cache theshold elapsed; generate new cache */
     if (last_update[game] < _timestamp() - 60) {
         _notch(game, limit);
     }
@@ -24,8 +25,8 @@ module.exports = function ladder(game, limit) {
 };
 
 /* updates leaderboard cache */
-function _notch(game, limit) {
-    $db.get(game + '_players').find({$where: 'this.points > 0'}, {limit: limit, sort: {points: -1}}, function(err, data) {
+function _notch(game) {
+    $db.get(game + '_players').find({$where: 'this.points > 0'}, {limit: 1000, sort: {points: -1}}, function(err, data) {
         if (!data || data.length < 1) return;
 
         data.forEach(function(item, index) {

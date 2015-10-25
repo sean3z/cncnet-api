@@ -9,7 +9,7 @@ exports.submit = function (req, res, next) {
 };
 
 exports.ladder = function (req, res, next) {
-    ranking.ladder(req.params.game, req.params.limit ? req.params.limit : 150 ).then(function(data) {
+    ranking.ladder(req.params.game, req.params.limit ? req.params.limit : 150).then(function(data) {
         res.send(data);
     });
 };
