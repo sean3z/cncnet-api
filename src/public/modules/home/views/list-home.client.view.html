@@ -2,6 +2,7 @@
     <div class="feature-banner jumbo-feature text-center">
         <div class="container large">
             <h2 class="text-uppercase">Leaderboard</h2>
+            <h5 class="thin-italic">(Public beta) Report issues at <a href="http://cncnet.org/forums">our forum</a></h5>
 
         </div>
     </div>
@@ -11,13 +12,13 @@
 
         <div class="container content text-center">
             <h3 class="text-center text-uppercase">Leaderboards have arrived!</h3>
-            <h5 class="thin-italic">You can now compete against your fellow comrades in monthly rankings!<br
-                    class="hidden-xs"></h5>
+            <h5 class="thin-italic">You can now compete against your fellow comrades in monthly rankings!</h5>
         </div>
     </section>
 
     <section class="supported-games">
         <div class="container">
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="thumbnail">
@@ -200,81 +201,7 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="col-md-4">
-                <div class="logo text-center">
-                    <img src="/assets/images/game-logos/am.png" width="300">
-                </div>
-
-                <div class="game-details text-center">
-                    <p>Top 5 Player Aftermath Rankings</p>
-                </div>
-
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Profile <i class="fa fa-user fa-fw"></i></th>
-                                <th>Points <i class="fa fa-bolt fa-fw"></i></th>
-                                <th>Won <i class="fa fa-level-up fa-fw"></i></th>
-                                <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="player in top5.ra | limitTo : 5">
-                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
-                                </td>
-                                <td>{{ player.points }} points</td>
-                                <td>{{ player.wins || 0}}</td>
-                                <td>{{ player.losses || 0}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="logo text-center">
-                    <img src="/assets/images/game-logos/ts.png" width="400">
-                </div>
-
-                <div class="game-details text-center">
-                    <p>Top 5 Player Tiberian Sun Rankings</p>
-                </div>
-
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Profile <i class="fa fa-user fa-fw"></i></th>
-                                <th>Points <i class="fa fa-bolt fa-fw"></i></th>
-                                <th>Won <i class="fa fa-level-up fa-fw"></i></th>
-                                <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="player in top5.ts | limitTo : 5">
-                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
-                                </td>
-                                <td>{{ player.points }} points</td>
-                                <td>{{ player.wins || 0}}</td>
-                                <td>{{ player.losses || 0}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h4>Red Alert : Firestorm</h4>
-        </div>
-</div>
-</section>
+    </section>
 </div>
