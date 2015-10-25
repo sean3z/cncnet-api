@@ -1,3 +1,4 @@
+var debug = require('debug')('wol:leaderboard');
 var $mysql = require(global.cwd + '/lib/mysql');
 var $db = require(global.cwd + '/lib/mongo');
 var games = require(global.cwd + '/lib/games');
