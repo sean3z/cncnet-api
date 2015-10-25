@@ -17,15 +17,15 @@ module.exports = function ladder(game, limit) {
 
     /* if cache theshold elapsed; generate new cache*/
     if (last_update[game] < _timestamp() - 60) {
-        _notch(game);
+        _notch(game, limit);
     }
 
     return defer.promise;
 };
 
 /* updates leaderboard cache */
-function _notch(game) {
-    $db.get(game + '_players').find({$where: 'this.points > 0'}, {limit: 500, sort: {points: -1}}, function(err, data) {
+function _notch(game, limit) {
+    $db.get(game + '_players').find({$where: 'this.points > 0'}, {limit: limit, sort: {points: -1}}, function(err, data) {
         if (!data || data.length < 1) return;
 
         data.forEach(function(item, index) {
