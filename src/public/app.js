@@ -21,7 +21,7 @@ function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
         })
 
         .state('leaderboard', {
-            url: '/leaderboard/:game',
+            url: '/:game',
             templateUrl: 'modules/leaderboard/views/list-leaderboard.client.view.html'
         })
 
