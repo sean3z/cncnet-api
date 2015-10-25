@@ -33,25 +33,25 @@ There's a few params listed below.
 * GET `/ladder/:game/player/:player` will return most data for given `:player`
 
 ###### Player Creation
-* PUT `/auth/:game/:player` player creation
+* PUT `/auth/:player` player creation
 
-Player creation is optional as the leaderboard will accept results from players that are not authenticated. Players can be created using the PUT `/auth/:game/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
+Player creation is optional as the leaderboard will accept results from players that are not authenticated. Players can be created using the PUT `/auth/:player` endpoint. This endpoint expects a `form-data` request containing at least `username`, `password` and `email` (_not_ URL encoded) fields to establish an account. Other fields to help uniquely identify accounts will eventually be added but, are currently ignored.
 
 _example player creation request_
 ```shell
-curl -X PUT -H "Content-Type: multipart/form-data" -F "username=Tahj" -F "password=MyPassword" -F "email=tahj.kirk@gmail.com" http://localhost:4007/auth/ts/tahj3z
+curl -X PUT -H "Content-Type: multipart/form-data" -F "username=Tahj" -F "password=MyPassword" -F "email=tahj.kirk@gmail.com" http://localhost:4007/auth/tahj3z
 ```
 
 If this is the first player registration for the user, the account will be stored using the credentials provided. If the account has been previously registered, the new `:player` will be associated with the account as long as the credentials provided are correct.
 
 ###### Player Authentication
-* GET `/auth/:game/:player` HTTP authentication using player credentials
+* GET `/auth/:player` HTTP authentication using player credentials
 
-After a player has been created, they can then proceed to login using the GET `/auth/:game/:player` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example login request would look similar to the following
+After a player has been created, they can then proceed to login using the GET `/auth/:player` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example login request would look similar to the following
 
 _example player auth request_
 ```shell
-curl -isu Tahj:MyPassword http://localhost:4007/auth/ts/tahj3z
+curl -isu Tahj:MyPassword http://localhost:4007/auth/tahj3z
 ```
 
 ## Contributing

@@ -9,7 +9,6 @@ module.exports = function stats(game, player) {
         if (!player_data) return defer.reject();
 
         /* remove any sensitive data from response */
-        delete player_data.email;
         delete player_data.uid;
 
         /* left join last 50 games */

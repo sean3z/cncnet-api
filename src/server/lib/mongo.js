@@ -7,4 +7,6 @@ games.supported.forEach(function(game) {
     $db.get(game +'_games').index('idno', {unique: true});
 });
 
+$db.get('auth').index('name', {unique: true});
+
 module.exports = $db;

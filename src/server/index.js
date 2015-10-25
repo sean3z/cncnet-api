@@ -45,8 +45,8 @@ app.get('/ladder/:game/player/:player', ladder.player);
 app.post('/ladder/:game/search', ladder.search);
 
 /* auth */
-app.get('/auth/:game/:player', auth.player);
-app.put('/auth/:game/:player', auth.create);
+app.get('/auth/:player', auth.player);
+// app.put('/auth/:player', auth.create); // registration through cncnet forums
 
 /* debug */
 app.get('/debug/reset', debug.reset);
