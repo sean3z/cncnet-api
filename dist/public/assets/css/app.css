@@ -2211,15 +2211,15 @@ html, body { overflow-x: hidden; }
 
 .thin-italic { font-family: "fira-sans", sans-serif; font-weight: 100; font-style: italic; color: #d9d9d9; }
 
-.supported-games { padding: 20px; margin: 20px; }
-
 .panel { background: #1B2128; }
 
-.angled-feature-intro { position: relative; height: 100px; }
+.angled-feature-intro { position: relative; }
 .angled-feature-intro h3 { font-size: 38px; }
 .angled-feature-intro .angle-background { background: #1B2128; position: absolute; top: -80px; left: -50%; width: 200%; height: 150px; transform: rotate(-4.2deg); -webkit-transform: rotate(-4.2deg); z-index: 1; }
 .angled-feature-intro .content { position: relative; z-index: 2; }
 
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { .angled-feature-intro { position: relative; height: 100px; } }
 .profile-social { color: #E3EAF4; }
 
 .panel-profile { background: #171B20; padding: 20px; border: none; margin-top: -50px; box-shadow: 0 4px #C00; color: #393f47; }
@@ -2239,19 +2239,19 @@ html, body { overflow-x: hidden; }
 .supported-games h2 { font-size: 17px; }
 .supported-games p { color: #697481; font-size: 15px; text-align: left; padding: 0 20px; }
 .supported-games .thumbnail { padding: 25px; border: none; }
-.supported-games .btn { padding: 25px; text-transform: uppercase; bottom: 0; left: 0; }
+.supported-games .btn { margin-top: 15px; padding: 15px; text-transform: uppercase; bottom: 0; left: 0; }
 .supported-games .holder { position: relative; text-align: center; background: #11161B; }
 .supported-games .logo { padding-top: 15px; padding-bottom: 15px; background: #06080a; }
-.supported-games .logo img { width: 90%; }
 .supported-games .image { width: 100%; }
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 /* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { .supported-games { padding: 20px; margin: 20px; } }
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { .supported-games .holder { height: 500px; }
-  .supported-games .btn { position: absolute; } }
 /* Large devices (large desktops, 1200px and up) */
 .search-results .panel-body { padding: 0; }
 .search-results table { margin-bottom: 0; }
 .search-results h4 { font-size: 16px; }
+
+.home-listings .logo { height: 130px; }

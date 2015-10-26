@@ -2,6 +2,7 @@ angular.module('app', [
     'ui.router',
     'ui.bootstrap',
     'mgcrea.ngStrap',
+    'index',
     'Leaderboard',
     'Leaderboard.Player'
 ]);
@@ -21,7 +22,7 @@ function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
         })
 
         .state('leaderboard', {
-            url: '/leaderboard/:game',
+            url: '/:game',
             templateUrl: 'modules/leaderboard/views/list-leaderboard.client.view.html'
         })
 
@@ -39,5 +40,5 @@ function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
         //});
 
     $urlRouterProvider.otherwise('/index');
-    //$locationProvider.html5Mode(true).hashPrefix('!') // todo: rewrite server side too...
+    //$locationProvider.html5Mode(true).hashPrefix('!'); // todo: rewrite server side too...
 }

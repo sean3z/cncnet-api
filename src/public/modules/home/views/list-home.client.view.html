@@ -3,7 +3,6 @@
         <div class="container large">
             <h2 class="text-uppercase">Leaderboard</h2>
             <h5 class="thin-italic">(Public beta) Report issues at <a href="http://cncnet.org/forums">our forum</a></h5>
-
         </div>
     </div>
 
@@ -24,7 +23,9 @@
                     <div class="thumbnail">
                         <div class="holder">
                             <div class="logo">
-                                <img src="/assets/images/game-logos/ra.png" style="width:300px">
+                                <a href="#/ra">
+                                    <img src="assets/images/game-logos/ra.png" style="width:300px">
+                                </a>
                             </div>
 
                             <div class="feature">
@@ -41,7 +42,7 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="player in top5.ra | limitTo : 5">
-                                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
+                                                <td><a href="#/ra">{{player.name}}</a>
                                                 </td>
                                                 <td>{{ player.points }} points</td>
                                                 <td>{{ player.wins || 0}}</td>
@@ -57,7 +58,7 @@
                                 <h2>Red Alert Leaderboard</h2>
 
                                 <p>
-                                    <a href="/ra" class="btn btn-danger btn-block" role="button">View Full
+                                    <a href="#/ra" class="btn btn-danger btn-block" role="button">View Full
                                         Leaderboard</a>
                                 </p>
                             </div>
@@ -69,7 +70,9 @@
                     <div class="thumbnail">
                         <div class="holder">
                             <div class="logo">
-                                <img src="/assets/images/game-logos/am.png" style="width:300px">
+                                <a href="#/am">
+                                    <img src="/assets/images/game-logos/am.png" style="width:300px">
+                                </a>
                             </div>
 
                             <div class="feature">
@@ -86,7 +89,7 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="player in top5.am | limitTo : 5">
-                                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
+                                                <td><a href="#/am">{{player.name}}</a>
                                                 </td>
                                                 <td>{{ player.points }} points</td>
                                                 <td>{{ player.wins || 0}}</td>
@@ -102,7 +105,7 @@
                                 <h2>Red Alert : Aftermath Leaderboard</h2>
 
                                 <p>
-                                    <a href="/am" class="btn btn-danger btn-block" role="button">View Full
+                                    <a href="#/am" class="btn btn-danger btn-block" role="button">View Full
                                         Leaderboard</a>
                                 </p>
                             </div>
@@ -116,7 +119,9 @@
                     <div class="thumbnail">
                         <div class="holder">
                             <div class="logo">
-                                <img src="/assets/images/game-logos/ts.png" style="width:320px">
+                                <a href="#/ts">
+                                    <img src="/assets/images/game-logos/ts.png" style="width:320px">
+                                </a>
                             </div>
 
                             <div class="feature">
@@ -133,7 +138,7 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="player in top5.ts | limitTo : 5">
-                                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
+                                                <td><a href="#/ts">{{player.name}}</a>
                                                 </td>
                                                 <td>{{ player.points }} points</td>
                                                 <td>{{ player.wins || 0}}</td>
@@ -149,7 +154,7 @@
                                 <h2>Tiberian Sun Leaderboard</h2>
 
                                 <p>
-                                    <a href="/ts" class="btn btn-danger btn-block" role="button">View Full
+                                    <a href="#/ts" class="btn btn-danger btn-block" role="button">View Full
                                         Leaderboard</a>
                                 </p>
                             </div>
@@ -160,7 +165,9 @@
                     <div class="thumbnail">
                         <div class="holder">
                             <div class="logo">
-                                <img src="/assets/images/game-logos/fs.png" style="width:200px">
+                                <a href="#/fs">
+                                    <img src="/assets/images/game-logos/fs.png" style="width:200px">
+                                </a>
                             </div>
 
                             <div class="feature">
@@ -177,7 +184,7 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="player in top5.fs | limitTo : 5">
-                                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
+                                                <td><a href="#/fs">{{player.name}}</a>
                                                 </td>
                                                 <td>{{ player.points }} points</td>
                                                 <td>{{ player.wins || 0}}</td>
@@ -193,7 +200,7 @@
                                 <h2>Tiberian Sun : Firestorm Leaderboard </h2>
 
                                 <p>
-                                    <a href="/fs" class="btn btn-danger btn-block" role="button">View Full
+                                    <a href="#/fs" class="btn btn-danger btn-block" role="button">View Full
                                         Leaderboard</a>
                                 </p>
                             </div>
@@ -202,6 +209,5 @@
                 </div>
             </div>
         </div>
-
     </section>
 </div>

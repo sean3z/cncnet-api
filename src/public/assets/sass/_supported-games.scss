@@ -27,7 +27,7 @@
   }
 
   .btn {
-    margin-top:15px;
+    margin-top: 15px;
     padding: 15px;
     text-transform: uppercase;
     bottom: 0;
@@ -40,7 +40,7 @@
     background: #11161B;
   }
 
-  .logo{
+  .logo {
     img {
     }
     padding-top: 15px;
@@ -53,13 +53,15 @@
   }
 }
 
-
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {
-
+  .supported-games {
+    padding: 20px;
+    margin: 20px;
+  }
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -76,4 +78,5 @@
 }
 
 /* Large devices (large desktops, 1200px and up) */
-@media (min-width: $screen-lg-min) { }
+@media (min-width: $screen-lg-min) {
+}
