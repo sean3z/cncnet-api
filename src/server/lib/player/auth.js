@@ -2,6 +2,7 @@ var debug = require('debug')('wol:leaderboard');
 var $mysql = require(global.cwd + '/lib/mysql');
 var $db = require(global.cwd + '/lib/mongo');
 var games = require(global.cwd + '/lib/games');
+var _sanitize = require('./lib/sanitize');
 var $q = require('q');
 
 module.exports = function auth(player, username, password) {
@@ -12,10 +13,10 @@ module.exports = function auth(player, username, password) {
         if (!record.id_member) return deferred.reject();
 
         var $auth = $db.get('auth');
-        $auth.find({name: player}, function(err, data) {
+        $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
             data = data || {};
 
-            /* success if forum id associated to player */
+            /* success if forum account associated to player */
             if (data.uid && data.uid == record.id_member) return deferred.resolve();
 
             /* otherwise create auth entry */
@@ -29,10 +30,11 @@ module.exports = function auth(player, username, password) {
 
                 $auth.insert(entry).success(function() {
                     debug('auth entry created for %s', player);
+                    deferred.resolve();
                     associate(player, entry);
                 });
 
-                return deferred.resolve();
+                return;
             }
 
             deferred.reject();
@@ -46,7 +48,7 @@ module.exports = function auth(player, username, password) {
 function associate(player, entry) {
     games.supported.forEach(function(game) {
         var $players = $db.get(game + '_players');
-        $players.find({name: player}, function(err, data) {
+        $players.findOne({name: _sanitize(player, true)}, function(err, data) {
             data = data || {};
 
             if (data.uid && data.uid != entry.uid) {
@@ -58,7 +60,7 @@ function associate(player, entry) {
 
             /* associate if not already claimed */
             if (!data.uid) {
-                $players.update({name: player}, {
+                $players.update({name: _sanitize(player, true)}, {
                     $set: {
                         uid: entry.uid,
                         avatar: entry.avatar
