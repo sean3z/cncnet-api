@@ -60,8 +60,9 @@ function associate(player, entry) {
 
             /* associate if not already claimed */
             if (!data.uid) {
-                $players.update({name: {$regex: _sanitize(player, true)}}, {
+                $players.update({name: player}, {
                     $set: {
+                        name: player,
                         uid: entry.uid,
                         avatar: entry.avatar
                     }
