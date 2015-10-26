@@ -1,10 +1,9 @@
 var $db = require(global.cwd + '/lib/mongo');
 var debug = require('debug')('wol:leaderboard');
-var gameres = require('../gameres');
 var ranking = require('../ranking');
 
-module.exports = function process(game, dmp) {
-    var match = require(__dirname + '/lib/parse')(game, gameres.parse(dmp));
+module.exports = function process(game, dump) {
+    var match = require(__dirname + '/lib/parse')(game, dump);
 
     /* discontinue if no gameId or match is less than 1 minute */
     if (!match.idno || match.dura < 60) return;
