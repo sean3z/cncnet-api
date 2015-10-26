@@ -8,7 +8,7 @@ angular.module('Leaderboard.Player')
             return {
                 getPlayer: function (game, player) {
                     var deferred = $q.defer(),
-                        url = "http://tahj.cncnet.org:4007/ladder";
+                        url = "http://api.cncnet.org:4007/ladder";
 
                     $http.jsonp(url + '/' + game + '/player/' + player + '?callback=JSON_CALLBACK')
                         .success(function (data) {
