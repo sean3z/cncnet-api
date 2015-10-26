@@ -2,6 +2,7 @@ angular.module('app', [
     'ui.router',
     'ui.bootstrap',
     'mgcrea.ngStrap',
+    'index',
     'Leaderboard',
     'Leaderboard.Player'
 ]);
@@ -39,5 +40,5 @@ function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
         //});
 
     $urlRouterProvider.otherwise('/index');
-    //$locationProvider.html5Mode(true).hashPrefix('!') // todo: rewrite server side too...
+    //$locationProvider.html5Mode(true).hashPrefix('!'); // todo: rewrite server side too...
 }

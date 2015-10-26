@@ -27,7 +27,8 @@
   }
 
   .btn {
-    padding: 25px;
+    margin-top:15px;
+    padding: 15px;
     text-transform: uppercase;
     bottom: 0;
     left: 0;
@@ -41,7 +42,6 @@
 
   .logo{
     img {
-      width: 90%;
     }
     padding-top: 15px;
     padding-bottom: 15px;
@@ -67,10 +67,10 @@
   .supported-games {
 
     .holder {
-      height: 500px;
+      //height: 500px;
     }
     .btn {
-      position: absolute;
+      //position: absolute;
     }
   }
 }

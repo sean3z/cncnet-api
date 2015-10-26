@@ -1,3 +1,1 @@
-/**
- * Created by grantbartlett on 25/10/15.
- */
+angular.module('index', ['ui.router']);
