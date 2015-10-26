@@ -4,6 +4,10 @@ var player = require('../lib/player');
 exports.player = function(req, res, next) {
     var credentials = auth(req) || {};
 
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+
     var _success = function() {
         res.send(200);
     };
