@@ -7,7 +7,7 @@ var $q = require('q');
 
 module.exports = function auth(player, username, password) {
     var deferred = $q.defer();
-
+    player = player.toLowerCase();
     authorize(username, password).then(function(record) {
         /* forum user not found or login incorrect */
         if (!record.id_member) return deferred.reject();
@@ -60,7 +60,7 @@ function associate(player, entry) {
 
             /* associate if not already claimed */
             if (!data.uid) {
-                $players.update({name: _sanitize(player, true)}, {
+                $players.update({name: {$regex: _sanitize(player, true)}}, {
                     $set: {
                         uid: entry.uid,
                         avatar: entry.avatar
