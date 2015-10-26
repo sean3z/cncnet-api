@@ -5,9 +5,9 @@
                 <div class="col-md-12">
                     <h2 class="text-uppercase">{{ player.name }}</h2>
                     <!--<ul class="list-inline profile-social">-->
-                        <!--<li><i class="fa fa-youtube fa-2x"></i></li>-->
-                        <!--<li><i class="fa fa-twitter fa-2x"></i></li>-->
-                        <!--<li><i class="fa fa-facebook fa-2x"></i></li>-->
+                    <!--<li><i class="fa fa-youtube fa-2x"></i></li>-->
+                    <!--<li><i class="fa fa-twitter fa-2x"></i></li>-->
+                    <!--<li><i class="fa fa-facebook fa-2x"></i></li>-->
                     <!--</ul>-->
                     <p class="back-to-leaderboard text-uppercase">
                         <a href="#/leaderboard/{{ gameName }}">
@@ -30,22 +30,24 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="profile-picture" ng-class="{avatar: player.avatar}">
-                                        <img ng-if="player.avatar" ng-src="{{player.avatar}}" height="125" />
+                                        <img ng-if="player.avatar" ng-src="{{player.avatar}}" height="125"/>
                                         <i ng-if="!player.avatar" class="fa fa-user-secret fa-4x"></i>
                                     </div>
                                 </div>
 
                                 <div class="col-md-7 quick-fire">
-                                    <h3>{{ player.name }}'s <br class="hidden-xs"> <small>Battle Statistics</small></h3>
+                                    <h3>{{ player.name }}'s <br class="hidden-xs">
+                                        <small>Battle Statistics</small>
+                                    </h3>
                                     <!--<ul class="list-unstyled rank-list">-->
-                                        <!--<li>-->
-                                            <!--<span class="text-uppercase">To be promoted</span>-->
-                                            <!--<progressbar value="55">5 wins required</progressbar>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<span class="text-uppercase">To be demoted</span>-->
-                                            <!--<progressbar value="90" type="danger">1 loss required</progressbar>-->
-                                        <!--</li>-->
+                                    <!--<li>-->
+                                    <!--<span class="text-uppercase">To be promoted</span>-->
+                                    <!--<progressbar value="55">5 wins required</progressbar>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                    <!--<span class="text-uppercase">To be demoted</span>-->
+                                    <!--<progressbar value="90" type="danger">1 loss required</progressbar>-->
+                                    <!--</li>-->
                                     <!--</ul>-->
                                 </div>
                             </div>
@@ -110,10 +112,11 @@
                             </thead>
                             <tbody>
 
-                            <tr ng-repeat="game in player.games | limitTo : 50" ng-if="game._id" data-idno="{{game.idno}}">
+                            <tr ng-repeat="game in player.games | limitTo : 50" ng-if="game._id"
+                                data-idno="{{game.idno}}">
 
 
-                                <td>{{ game.date * 1000 | date:'dd/mm/yyyy' }}</td>
+                                <td>{{game.date * 1000 | date:'medium'}}</td>
                                 <td>
                                     <div ng-repeat="participant in game.players">
                                         <ul class="list-unstyled">
