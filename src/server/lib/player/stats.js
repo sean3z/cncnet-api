@@ -34,6 +34,8 @@ module.exports = function stats(game, player) {
 
                 defer.resolve(player_data);
             });
+        } else {
+            defer.resolve(player_data);
         }
     });
 
