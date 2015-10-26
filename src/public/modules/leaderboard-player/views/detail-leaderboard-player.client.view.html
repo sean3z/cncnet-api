@@ -72,6 +72,9 @@
                                         Lost <strong>{{player.losses || 0}}</strong>
                                         <i class="fa fa-level-down fa-fw"></i>
                                     </li>
+                                </ul>
+
+                                <ul class="list-inline text-right">
                                     <li>
                                         Disconnects <strong>{{player.disconnects || 0}}</strong>
                                         <i class="fa fa-signal fa-fw"></i>
@@ -148,7 +151,6 @@
                                 <td>
                                     <ul class="list-unstyled">
                                         <li>Tech level: {{ game.settings.tech }}</li>
-                                        <li>Crates: {{ game.settings.crat == '1' ? 'On' : 'Off'}}</li>
                                         <li>Money: {{ game.settings.cred }}</li>
                                     </ul>
                                 </td>
