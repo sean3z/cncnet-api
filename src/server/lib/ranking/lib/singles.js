@@ -11,7 +11,7 @@ module.exports = function singles(game, match) {
     var winner = -1;
     var loser = -1;
 
-    match.players.forEach(function(player, index) {
+    match.players.forEach(function (player, index) {
         if (player.won > 0) winner = index;
         if (player.loss > 0) loser = index;
     });
@@ -20,17 +20,19 @@ module.exports = function singles(game, match) {
     if (winner < 0 || loser < 0) return;
 
     var elo = new Arpad();
-    var $players = $db.get(game +'_players');
+    var $players = $db.get(game + '_players');
 
     /* get points for players */
-    points(game, match.players).then(function(players) {
-        match.players = players; /* reassign modified players */
-        var update = {$set: {}}; /* query to update match obj */
+    points(game, match.players).then(function (players) {
+        match.players = players;
+        /* reassign modified players */
+        var update = {$set: {}};
+        /* query to update match obj */
 
         /* note the type of match */
         update.$set.type = 'singles';
 
-        match.players.forEach(function(player, index) {
+        match.players.forEach(function (player, index) {
             var opponent = match.players[loser];
             var method = 'newRatingIfWon';
 
@@ -59,7 +61,7 @@ module.exports = function singles(game, match) {
         });
 
         /* update match object */
-        $db.get(game +'_games').update({idno: match.idno}, update);
+        $db.get(game + '_games').update({idno: match.idno}, update);
     });
 };
 
@@ -67,17 +69,18 @@ function points(game, players) {
     var deferred = $q.defer();
 
     var search = [];
-    players.forEach(function(player) {
-       search.push(player.name);
+    players.forEach(function (player) {
+        search.push(player.name);
     });
 
-    $db.get(game +'_players').find({name: {$in: search}}, function(err, data) {
-        players.forEach(function(player) {
-            players[player].points = 1000;
+    $db.get(game + '_players').find({name: {$in: search}}, function (err, data) {
+        players.forEach(function (player, key) {
 
-            data.forEach(function(row) {
+            players[key].points = 1000;
+
+            data.forEach(function (row) {
                 if (row.points && player.name == row.name) {
-                    players[player].points = row.points;
+                    players[key].points = row.points;
                 }
             });
         });
