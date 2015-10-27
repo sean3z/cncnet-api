@@ -2183,6 +2183,10 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .feature-banner .logo.ts img { max-width: 50%; }
 .feature-banner .logo.yr img { max-width: 40%; }
 
+.jumbo-ra, .jumbo-am { background: #070a09 url(../images/jumbo-ra.png); background-size: contain; background-position: right 0; background-repeat: no-repeat; }
+
+.jumbo-ts, .jumbo-fs { background: #070a09 url(../images/jumbo-ts.png); background-size: contain; background-position: right 0; background-repeat: no-repeat; }
+
 .navbar { position: absolute; left: 0; right: 0; background: none; border: none; }
 .navbar .navbar-brand { padding: 20px 15px; }
 .navbar .open > .dropdown-toggle { background: #1B2128 !important; }
@@ -2255,3 +2259,5 @@ html, body { overflow-x: hidden; }
 .search-results h4 { font-size: 16px; }
 
 .home-listings .logo { height: 130px; }
+.home-listings .logo.ra, .home-listings .logo.am { background-image: url(../images/jumbo-ra.png); background-size: 100%; }
+.home-listings .logo.ts, .home-listings .logo.fs { background-image: url(../images/jumbo-ts.png); background-size: 120%; background-position: 25% 50%; }

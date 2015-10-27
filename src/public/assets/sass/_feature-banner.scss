@@ -9,7 +9,6 @@
   background-position: right;
   background-repeat: no-repeat;
 
-
   h1, h2 {
     font-family: "fira-sans", sans-serif;
     font-weight: 400;
@@ -65,4 +64,18 @@
   .logo.yr img {
     max-width: 40%;
   }
+}
+
+.jumbo-ra, .jumbo-am {
+  background: #070a09 url(../images/jumbo-ra.png);
+  background-size: contain;
+  background-position: right 0;
+  background-repeat: no-repeat;
+}
+
+.jumbo-ts, .jumbo-fs {
+  background: #070a09 url(../images/jumbo-ts.png);
+  background-size: contain;
+  background-position: right 0;
+  background-repeat: no-repeat;
 }
