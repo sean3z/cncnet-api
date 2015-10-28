@@ -17,15 +17,11 @@ module.exports = function parse(game, match) {
             return;
         }
 
-
-        if (i == player.myid) {
-            player.name = player.nam = player.nick.toLowerCase();
+        if (i == match.client.myid) {
+            player.name = player.nam = match.client.nick.toLowerCase();
         } else {
-            player.name = player.nam = player.oppo.toLowerCase();
+            player.name = player.nam = match.client.oppo.toLowerCase();
         }
-
-        /* lowercase all usernames */
-        //player.name = player.nam = player.nam.toLowerCase();
 
         /* remove spectators */
         if (player.spc && player.spc > 0) {

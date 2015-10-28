@@ -2,7 +2,7 @@
     "mysql": {
         "hostname": "localhost",
         "username": "root",
-        "password": "pass",
-        "database": "db"
+        "password": "",
+        "database": "cnccomm"
     }
 }
