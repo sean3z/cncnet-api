@@ -17,7 +17,7 @@ exports.submit = function (req, res, next) {
     var dump = gameres.parse(req.body) || {};
 
     /* discontinue if missing gameres data */
-    if (!dump.client || !dump.client.accn) return res.send(400);
+    if (!dump.client || !dump.client.nick) return res.send(400);
 
     var _success = function() {
         res.send(202);
@@ -33,7 +33,7 @@ exports.submit = function (req, res, next) {
     };
 
     if (!credentials.name || !credentials.pass) return _error();
-    player.auth(dump.client.accn, credentials.name, credentials.pass).then(_success, _error);
+    player.auth(dump.client.nick, credentials.name, credentials.pass).then(_success, _error);
 };
 
 exports.ladder = function (req, res, next) {

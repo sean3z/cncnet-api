@@ -10,6 +10,7 @@ module.exports = [
     'gsku', /* (int) game sku */
     'spid', /* (int) sender id? */
     'accn', /* (str) nick of packet sender */
+    'nick', /* (str) forum account of packet sender */
     'cmpl', /* (int) match completion status */
     'quit', /* (bool) whether the player quit */
     'unid'
