@@ -10,15 +10,22 @@ module.exports = function parse(game, match) {
         match = require(global.cwd + '/lib/games/lib/ra').normalize(match);
     }
 
-    match.players.forEach(function(player, i) {
+    match.players.forEach(function (player, i) {
         /* typically Computer */
         if (!player.nam) {
             player.nam = 'computer';
             return;
         }
 
+
+        if (i == player.myid) {
+            player.name = player.nam = player.nick.toLowerCase();
+        } else {
+            player.name = player.nam = player.oppo.toLowerCase();
+        }
+
         /* lowercase all usernames */
-        player.name = player.nam = player.nam.toLowerCase();
+        //player.name = player.nam = player.nam.toLowerCase();
 
         /* remove spectators */
         if (player.spc && player.spc > 0) {
@@ -36,27 +43,31 @@ module.exports = function parse(game, match) {
                 case 2:
                     player.loss = 1;
                     player.discon = 1;
-                break;
+                    break;
 
                 case 256:
                     player.won = 1;
-                break;
+                    break;
 
                 case 512:
                 case 528:
                     player.loss = 1;
-                break;
+                    break;
             }
         }
 
         /* remove unused info */
-        delete player.ipa; /* could be tunnel or p2p (unreliable) */
-        delete player.addr; /* same reason but for ra1 */
-        delete player.ser; /* serials are not used on CnCNet */
+        delete player.ipa;
+        /* could be tunnel or p2p (unreliable) */
+        delete player.addr;
+        /* same reason but for ra1 */
+        delete player.ser;
+        /* serials are not used on CnCNet */
     });
 
     // delete match.buffer; /* only used for additional parsing */
-    delete match.client; /* ununsed information about the client */
+    delete match.client;
+    /* ununsed information about the client */
 
     return match;
 };

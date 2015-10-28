@@ -13,5 +13,7 @@ module.exports = [
     'nick', /* (str) forum account of packet sender */
     'cmpl', /* (int) match completion status */
     'quit', /* (bool) whether the player quit */
-    'unid'
+    'unid',
+    'myid',
+    'oppo'
 ];
