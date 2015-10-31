@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <script src="//use.typekit.net/fpg6sss.js"></script>
-    <script>try { Typekit.load();} catch (e) {}</script>
+    <script>try {
+        Typekit.load();
+    } catch (e) {
+    }</script>
 </head>
 <body ng-app="app">
 
@@ -70,7 +73,20 @@
         </div>
     </div>
 </nav>
-
+<style>
+    .maint {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+    }
+</style>
+<div class="maint">
+    <div class="alert alert-danger" role="alert" style="margin-bottom:0;">
+        <strong>Oh snap!</strong> The leaderboard is undergoing maintanance, please hold tight while we crush some bugs. Don't sweat, we'll re-enable it soon.
+    </div>
+</div>
 <main ui-view>
 </main>
 
@@ -98,8 +114,10 @@
 <script type="text/javascript" src="modules/leaderboard-player/leaderboard-player.client.module.js"></script>
 <script type="text/javascript" src="modules/leaderboard-player/services/leaderboard-player.client.service.js"></script>
 <script type="text/javascript" src="modules/leaderboard-player/filters/leaderboard-player.client.filter.js"></script>
-<script type="text/javascript" src="modules/leaderboard-player/controllers/leaderboard-player.client.controller.js"></script>
-<script type="text/javascript" src="modules/leaderboard-player/directives/leaderboard-player.client.directive.js"></script>
+<script type="text/javascript"
+        src="modules/leaderboard-player/controllers/leaderboard-player.client.controller.js"></script>
+<script type="text/javascript"
+        src="modules/leaderboard-player/directives/leaderboard-player.client.directive.js"></script>
 
 </body>
 </html>
