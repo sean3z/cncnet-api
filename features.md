@@ -15,10 +15,17 @@
   - [x] Input on player listings for user to search for player. Will return outside of top50 too.
   - [x] Result should show player name(s), and should be clickable to player profile.
 - [ ] HTML5 Mode - server should re-write hashtags.
-- [ ] Landing page for leaderboard
-  - [ ] Show available games on the leadeboard 
-  - [ ] Clickable games should direct to the relevant leaderboard
+- [x] Landing page for leaderboard
+  - [x] Show available games on the leadeboard 
+  - [x] Clickable games should direct to the relevant leaderboard
   
+### Release version - 1.1
+- [ ] Save Player Records 
+  - [ ] Award player for top 3 finish:Gold, Silver, Bronze.  
+  - [ ] Store Player Rank in player obj that can be displayed into UI.
+- [ ] HTML 5 Mode - rewrite hashtags
+
+
 ### In planning
 
 - Player listings
