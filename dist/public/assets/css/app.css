@@ -2169,7 +2169,7 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 @media print { .visible-print-inline-block { display: inline-block !important; } }
 
 @media print { .hidden-print { display: none !important; } }
-.feature-banner { padding: 50px 0; background: #11161B url(../images/jumbo.png); background-position: right; background-repeat: no-repeat; }
+.feature-banner { padding: 50px 0; background: #11161B url(../images/jumbo.png); background-position: right; background-repeat: no-repeat; background-size: cover; }
 .feature-banner h1, .feature-banner h2 { font-family: "fira-sans", sans-serif; font-weight: 400; }
 .feature-banner h1 strong, .feature-banner h2 strong { font-weight: 500; }
 .feature-banner p { font-family: "fira-sans", sans-serif; font-weight: 100; color: #fff; }
@@ -2179,14 +2179,18 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .feature-banner .search input { background: rgba(0, 0, 0, 0.8); border: none; }
 .feature-banner .search .input-group-addon { background: #000; border-color: #000; }
 .feature-banner .back-to-leaderboard a { font-size: 15px; color: #888; }
-.feature-banner .logo.ra img, .feature-banner .logo.am img { max-width: 30%; }
-.feature-banner .logo.ts img { max-width: 50%; }
-.feature-banner .logo.yr img { max-width: 40%; }
+.feature-banner .logo > img { width: 300px; padding-top: 20px; padding-bottom: 20px; }
+.feature-banner .logo.ts > img { width: 400px; }
+.feature-banner .logo.fs > img { width: 250px; }
 
-.jumbo-ra, .jumbo-am { background: #070a09 url(../images/jumbo-ra.png); background-size: contain; background-position: right 0; background-repeat: no-repeat; }
+.jumbo-ra, .jumbo-am { background: #070b09 url(../images/jumbo-ra.png); background-size: contain; background-position: right 0; background-repeat: no-repeat; }
 
 .jumbo-ts, .jumbo-fs { background: #070a09 url(../images/jumbo-ts.png); background-size: contain; background-position: right 0; background-repeat: no-repeat; }
 
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+/* Small devices (tablets, 768px and up) */
+/* Medium devices (desktops, 992px and up) */
 .navbar { position: absolute; left: 0; right: 0; background: none; border: none; }
 .navbar .navbar-brand { padding: 20px 15px; }
 .navbar .open > .dropdown-toggle { background: #1B2128 !important; }

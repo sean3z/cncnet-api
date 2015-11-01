@@ -8,6 +8,7 @@
   background: #11161B url(../images/jumbo.png);
   background-position: right;
   background-repeat: no-repeat;
+  background-size: cover;
 
   h1, h2 {
     font-family: "fira-sans", sans-serif;
@@ -55,19 +56,21 @@
     color: $gray-light;
   }
 
-  .logo.ra img, .logo.am img {
-    max-width: 30%;
+  .logo > img {
+    width: 300px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
-  .logo.ts img {
-    max-width: 50%;
+  .logo.ts > img {
+    width: 400px;
   }
-  .logo.yr img {
-    max-width: 40%;
+  .logo.fs > img {
+    width: 250px;
   }
 }
 
 .jumbo-ra, .jumbo-am {
-  background: #070a09 url(../images/jumbo-ra.png);
+  background: #070b09 url(../images/jumbo-ra.png);
   background-size: contain;
   background-position: right 0;
   background-repeat: no-repeat;
@@ -78,4 +81,17 @@
   background-size: contain;
   background-position: right 0;
   background-repeat: no-repeat;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+
 }
