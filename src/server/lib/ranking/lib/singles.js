@@ -41,7 +41,7 @@ module.exports = function singles(game, match) {
                 }
             };
 
-            /* only calculate points if winner and loser */
+            /* calculate points if winner and loser */
             if (winner >= 0 && loser >= 0) {
                 var opponent = match.players[loser];
                 var method = 'newRatingIfWon';
@@ -53,7 +53,16 @@ module.exports = function singles(game, match) {
 
                 /* calculate new point value */
                 player.exp = elo[method](player.points, opponent.points);
+            }
 
+            /* if we only have losers, deduct from both players */
+            if (winner < 0 && loser >= 0) {
+                /* deduct 0.7% percent of points (higher points, d/c hits harder) */
+                player.exp = player.points - Math.floor((0.7 / 100) * player.points);
+            }
+
+            /* if we have points, update the game and player records */
+            if (player.exp) {
                 /* update _player points */
                 _player.$set = {points: player.exp};
 
