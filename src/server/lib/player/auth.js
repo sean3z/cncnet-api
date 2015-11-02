@@ -8,6 +8,7 @@ var $q = require('q');
 module.exports = function auth(player, username, password) {
     var deferred = $q.defer();
     player = player.toLowerCase();
+
     authorize(username, password).then(function(record) {
         /* forum user not found or login incorrect */
         if (!record.id_member) return deferred.reject();
@@ -25,7 +26,8 @@ module.exports = function auth(player, username, password) {
                     name: player,
                     uid: record.id_member,
                     email: record.email_address,
-                    avatar: record.avatar
+                    avatar: record.avatar,
+                    registered: record.date_registered
                 };
 
                 $auth.insert(entry).success(function() {
@@ -76,7 +78,7 @@ function authorize(username, password) {
     var deferred = $q.defer();
 
     var query = $mysql.format(
-        'SELECT id_member, email_address, avatar FROM smf_members WHERE member_name = ? AND passwd = SHA1(CONCAT(?, ?))',
+        'SELECT id_member, email_address, avatar, date_registered FROM smf_members WHERE member_name = ? AND passwd = SHA1(CONCAT(?, ?))',
         [username, username.toLowerCase(), password]
     );
 
