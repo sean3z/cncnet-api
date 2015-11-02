@@ -16,48 +16,54 @@ module.exports = function singles(game, match) {
         if (player.loss > 0) loser = index;
     });
 
-    /* discontinue if no winner /and/ loser */
-    if (winner < 0 || loser < 0) return;
-
     var elo = new Arpad();
     var $players = $db.get(game + '_players');
 
     /* get points for players */
     points(game, match.players).then(function (players) {
-        match.players = players;
         /* reassign modified players */
-        var update = {$set: {}};
+        match.players = players;
+
         /* query to update match obj */
+        var update = {$set: {}};
 
         /* note the type of match */
         update.$set.type = 'singles';
 
         match.players.forEach(function (player, index) {
-            var opponent = match.players[loser];
-            var method = 'newRatingIfWon';
-
-            if (player.loss > 0) {
-                opponent = match.players[winner];
-                method = 'newRatingIfLost';
-            }
-
-            /* calculate new point value */
-            player.exp = elo[method](player.points, opponent.points);
-
-            /* update or create player */
-            $players.update({name: player.name}, {
-                $set: {points: player.exp},
+            /* query to update player obj */
+            var _player = {
                 $push: {games: match.idno},
                 $inc: {
                     wins: player.won,
                     losses: player.loss,
                     disconnects: player.discon
                 }
-            }, {upsert: true});
+            };
 
-            /* update player in match object */
-            var str = ['players', index, 'exp'].join('.');
-            update.$set[str] = Math.abs(player.points - player.exp);
+            /* only calculate points if winner and loser */
+            if (winner >= 0 && loser >= 0) {
+                var opponent = match.players[loser];
+                var method = 'newRatingIfWon';
+
+                if (player.loss > 0) {
+                    opponent = match.players[winner];
+                    method = 'newRatingIfLost';
+                }
+
+                /* calculate new point value */
+                player.exp = elo[method](player.points, opponent.points);
+
+                /* update _player points */
+                _player.$set = {points: player.exp};
+
+                /* update player, experience gained/loss in match object */
+                var str = ['players', index, 'exp'].join('.');
+                update.$set[str] = Math.abs(player.points - player.exp);
+            }
+
+            /* update or create player */
+            $players.update({name: player.name}, _player, {upsert: true});
         });
 
         /* update match object */
