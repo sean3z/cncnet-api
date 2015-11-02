@@ -70,6 +70,8 @@ exports.player = function(req, res, next) {
 };
 
 exports.match = function(req, res, next) {
+    res.header('Cache-Control', 'public, max-age=950400');
+
     var _success = function (data) {
         res.send(data);
     };
