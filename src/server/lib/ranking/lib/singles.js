@@ -97,6 +97,11 @@ module.exports = function singles(game, match, packets) {
                 }
             };
 
+            /* increase out of sync for player */
+            if (update.$set.oosy) {
+                _player.$inc.oos = 1;
+            }
+
             /* calculate points if winner and loser */
             if (winner >= 0 && loser >= 0) {
                 var opponent = match.players[loser];
