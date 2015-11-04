@@ -17,7 +17,11 @@ exports.reset = function(req, res, next) {
 
 exports.buffer = function(req, res, next) {
     $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
-        res.send(data.buffers[0].buffer.toString('hex'));
+        data.buffers.forEach(function(buffer, index) {
+            data.buffers[index] = buffer.buffer.toString('hex')
+        });
+
+        res.send(data.buffers);
     });
 };
 
