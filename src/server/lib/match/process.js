@@ -28,10 +28,19 @@ module.exports = function process(game, dump) {
             // only continue if this is the first entry for a game
             if (doc[0].buffers && doc[0].buffers.length > 1) return;
 
+            // remove unused properties from game object
+            delete match.buffer; /* only used for previous parsing */
+            delete match.client; /* unused information about the client */
+
             /* save match */
             $db.get(game +'_games').insert(match).success(function(doc) {
-                ranking.process(game, match);
                 debug('game: %s, idno: %d saved!', game, match.idno);
+
+                /* process rankings at a 1.5 minute delay */
+                /* this allows time for all packets to arrive */
+                setTimeout(function() {
+                    ranking.process(game, match);
+                }, 90000);
             });
         });
     }

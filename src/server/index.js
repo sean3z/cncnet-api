@@ -61,7 +61,7 @@ app.get(/.*/, restify.serveStatic({
     default: 'index.html'
 }));
 
-app.listen(WOL_PORT, function() {
+app.listen(WOL_PORT, function () {
     console.log('WOL Leaderboard listening on %s:%s', require('os').hostname(), WOL_PORT);
 });
 

@@ -9,9 +9,12 @@ module.exports = [
     'oosy', /* (bool) whether match was out of sync */
     'gsku', /* (int) game sku */
     'spid', /* (int) sender id? */
-    'accn', /* (str) nick of packet sender */
-    'nick', /* (str) forum account of packet sender */
+    'accn', /* !(str) nick of packet sender */
+    'nick', /* !(str) forum account of packet sender */
     'cmpl', /* (int) match completion status */
+    'sdfx', /* !(bool) sudden disconnect from game  */
     'quit', /* (bool) whether the player quit */
+    'myid', /* !(int) index of uploader in player array */
+    'pils', /* !(int) player ping connectivity streak */
     'unid'
 ];

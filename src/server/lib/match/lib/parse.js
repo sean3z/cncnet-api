@@ -5,27 +5,32 @@ module.exports = function parse(game, match) {
     /* fail if we're somehow missing players */
     if (!match.players || match.players.length < 1) return;
 
+    /* normalize nicks and remove useless entries */
+    match.players.forEach(function(player, index) {
+        /* typically Computer */
+        if (!player.nam) {
+            player.nam = 'Computer'; // stylized (CaMeLcAsE)
+            player.name = 'computer'; // computational (lowercase)
+            return;
+        }
+
+        /* lowercase username for further reference */
+        player.name = player.nam.toLowerCase();
+
+        /* remove spectators */
+        if (player.spc && player.spc > 0) {
+            delete match.players[index];
+            return;
+        }
+    });
+
     /* if we have ra stats normalize packet then carry on  */
     if (game == 'ra' || game == 'am') {
         match = require(global.cwd + '/lib/games/lib/ra').normalize(match);
     }
 
-    match.players.forEach(function(player, i) {
-        /* typically Computer */
-        if (!player.nam) {
-            player.nam = 'computer';
-            return;
-        }
-
-        /* lowercase all usernames */
-        player.name = player.nam = player.nam.toLowerCase();
-
-        /* remove spectators */
-        if (player.spc && player.spc > 0) {
-            delete match.players[i];
-            return;
-        }
-
+    /* determine win/loss outcome for each player */
+    match.players.forEach(function(player) {
         player.won = 0;
         player.loss = 0;
         player.discon = 0;
@@ -51,12 +56,9 @@ module.exports = function parse(game, match) {
 
         /* remove unused info */
         delete player.ipa; /* could be tunnel or p2p (unreliable) */
-        delete player.addr; /* same reason but for ra1 */
+        delete player.adr; /* same reason but for ra1 */
         delete player.ser; /* serials are not used on CnCNet */
     });
-
-    // delete match.buffer; /* only used for additional parsing */
-    delete match.client; /* ununsed information about the client */
 
     return match;
 };
