@@ -1,7 +1,6 @@
 /*jshint -W004 */
 var $db = require(global.cwd + '/lib/mongo');
 var debug = require('debug')('wol:leaderboard');
-var parse = require(global.cwd + '/lib/match/lib/parse');
 var Arpad = require('arpad');
 var $q = require('q');
 
