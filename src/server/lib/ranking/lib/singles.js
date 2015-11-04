@@ -19,8 +19,8 @@ module.exports = function singles(game, match, packets) {
         if (player.loss > 0) loser = index;
     });
 
-    /* D/C Scenario: 1 packet, both marked as loser */
-    if (packets[0] && !packets[1] && winner < 0 && loser >= 0) {
+    /* D/C Scenario: 1 packet, both marked as loser or winner */
+    if (packets[0] && !packets[1] && (winner < 0 && loser >= 0 || winner >= 0 && loser < 0)) {
         match.players.forEach(function(player, index) {
             loser = index;
             player.discon = 1;
@@ -35,6 +35,35 @@ module.exports = function singles(game, match, packets) {
                 player.loss = 0;
             }
         });
+    }
+
+    /* D/C Scenario: both still marked as loser, check if pils exists */
+    if (packets.length > 1 && winner < 0 && loser >= 0) {
+        if (packets[0].client.pils && packets[1].client.pils) {
+            match.players.forEach(function(player, index) {
+                loser = index;
+                player.discon = 1;
+                player.loss = 1;
+                player.won = 0;
+
+                /* higher pils means you lost connection */
+                if (player.name == packets[0].client.nick) {
+                    if (packets[0].client.pils < packets[1].client.pils) {
+                        winner = index;
+                        player.discon = 0;
+                        player.won = 1;
+                        player.loss = 0;
+                    }
+                } else if (player.name == packets[1].client.nick) {
+                    if (packets[1].client.pils < packets[0].client.pils) {
+                        winner = index;
+                        player.discon = 0;
+                        player.won = 1;
+                        player.loss = 0;
+                    }
+                }
+            });
+        }
     }
 
     var elo = new Arpad();
