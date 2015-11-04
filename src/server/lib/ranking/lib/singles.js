@@ -19,7 +19,7 @@ module.exports = function singles(game, match, packets) {
     });
 
     /* D/C Scenario: 1 packet, no clear winner */
-    if (packets[0] && !packets[1] && (winner < 0 && loser >= 0 || winner >= 0 && loser < 0)) {
+    if (packets[0] && !packets[1] && (winner < 0 || loser < 0)) {
         match.players.forEach(function(player, index) {
             loser = index;
             player.discon = 1;
@@ -37,7 +37,7 @@ module.exports = function singles(game, match, packets) {
     }
 
     /* D/C Scenario: no clear winner, check if pils exists */
-    if (packets.length > 1 && (winner < 0 && loser >= 0 || winner >= 0 && loser < 0)) {
+    if (packets.length > 1 && (winner < 0 || loser < 0)) {
         if (packets[0].client.pils >= 0 && packets[1].client.pils >= 0) {
             match.players.forEach(function(player, index) {
                 loser = index;
