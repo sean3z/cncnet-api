@@ -31,14 +31,6 @@ function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'modules/leaderboard-player/views/detail-leaderboard-player.client.view.html'
         });
 
-
-        //.state('ladder.game', {
-        //    url: '/game/:gameId',
-        //    controller: 'LadderGameCtrl',
-        //    controllerAs: 'ladderGameCtrlVm',
-        //    templateUrl: 'assets/js/components/ladder-game/ladder-game.partial.html'
-        //});
-
     $urlRouterProvider.otherwise('/index');
     //$locationProvider.html5Mode(true).hashPrefix('!'); // todo: rewrite server side too...
 }

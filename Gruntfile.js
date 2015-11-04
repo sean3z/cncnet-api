@@ -1,5 +1,15 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     require('jit-grunt')(grunt);
+
+    var config = {
+        modules: {
+            js: [
+                'src/public/app.js',
+                'src/public/modules/**/*.client.module.js',
+                'src/public/modules/**/*.js'
+            ]
+        }
+    };
 
     grunt.initConfig({
         clean: ['dist'],
@@ -50,6 +60,14 @@ module.exports = function(grunt) {
             }
         },
 
+        ngAnnotate: {
+            production: {
+                files: {
+                    'src/public/application.js': config.modules.js
+                }
+            }
+        },
+
         concurrent: {
             development: {
                 tasks: ['watch:public', 'nodemon:development'],
@@ -67,10 +85,20 @@ module.exports = function(grunt) {
                 },
                 src: ['test/server/**/*.spec.js']
             }
-        }
+        },
+
+        //concat: {
+        //    dist: {
+        //        src: 'src/public/application.js',
+        //        dest: 'dist/public/application.min.js'
+        //    }
+        //}
     });
 
+    grunt.loadNpmTasks('grunt-ng-annotate');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+
     grunt.registerTask('serve', ['clean', 'copy', 'sass:development', 'concurrent:development']);
-    grunt.registerTask('build', ['clean', 'copy', 'sass:development']);
+    grunt.registerTask('build', ['clean', 'copy', 'sass:development', 'ngAnnotate']);
     grunt.registerTask('test', ['mochaTest:server'])
 };
