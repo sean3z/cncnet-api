@@ -36,11 +36,11 @@ module.exports = function process(game, dump) {
             $db.get(game +'_games').insert(match).success(function(doc) {
                 debug('game: %s, idno: %d saved!', game, match.idno);
 
-                /* process rankings at a 3 minute delay */
+                /* process rankings at a 1.5 minute delay */
                 /* this allows time for all packets to arrive */
                 setTimeout(function() {
                     ranking.process(game, match);
-                }, 180000);
+                }, 90000);
             });
         });
     }
