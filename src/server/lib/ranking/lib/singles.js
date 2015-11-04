@@ -1,11 +1,14 @@
+/*jshint -W004 */
 var $db = require(global.cwd + '/lib/mongo');
 var debug = require('debug')('wol:leaderboard');
+var parse = require(global.cwd + '/lib/match/lib/parse');
 var Arpad = require('arpad');
 var $q = require('q');
 
-module.exports = function singles(game, match) {
+module.exports = function singles(game, match, packets) {
     /* stop if <> 1v1 */
     if (match.players.length != 2) return;
+    packets = packets || [];
 
     /* find winner and loser */
     var winner = -1;
@@ -15,6 +18,24 @@ module.exports = function singles(game, match) {
         if (player.won > 0) winner = index;
         if (player.loss > 0) loser = index;
     });
+
+    /* D/C Scenario: 1 packet, both marked as loser */
+    if (packets[0] && !packets[1] && winner < 0 && loser >= 0) {
+        match.players.forEach(function(player, index) {
+            loser = index;
+            player.discon = 1;
+            player.loss = 1;
+            player.won = 0;
+
+            /* assume uploader won */
+            if (player.name == packets[0].client.nick) {
+                winner = index;
+                player.discon = 0;
+                player.won = 1;
+                player.loss = 0;
+            }
+        });
+    }
 
     var elo = new Arpad();
     var $players = $db.get(game + '_players');
@@ -29,6 +50,13 @@ module.exports = function singles(game, match) {
 
         /* note the type of match */
         update.$set.type = 'singles';
+
+        /* determine if game is out of sync */
+        packets.forEach(function(packet) {
+            if (packet.client.oosy) {
+                update.$set.oosy = 1;
+            }
+        });
 
         match.players.forEach(function (player, index) {
             /* query to update player obj */
@@ -56,7 +84,7 @@ module.exports = function singles(game, match) {
             }
 
             /* if we only have losers, deduct from both players */
-            if (winner < 0 && loser >= 0) {
+            else if (winner < 0 && loser >= 0) {
                 /* deduct 0.7% percent of points (higher points, d/c hits harder) */
                 player.exp = player.points - Math.floor((0.7 / 100) * player.points);
             }
@@ -70,6 +98,12 @@ module.exports = function singles(game, match) {
                 var str = ['players', index, 'exp'].join('.');
                 update.$set[str] = Math.abs(player.points - player.exp);
             }
+
+            /* update win/loss/discon in game object just in case it's changed */
+            var str = ['players', index].join('.');
+            update.$set[str + '.won'] = player.won;
+            update.$set[str + '.loss'] = player.loss;
+            update.$set[str + '.discon'] = player.discon;
 
             /* update or create player */
             $players.update({name: player.name}, _player, {upsert: true});
