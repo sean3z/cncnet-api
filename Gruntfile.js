@@ -85,14 +85,7 @@ module.exports = function (grunt) {
                 },
                 src: ['test/server/**/*.spec.js']
             }
-        },
-
-        //concat: {
-        //    dist: {
-        //        src: 'src/public/application.js',
-        //        dest: 'dist/public/application.min.js'
-        //    }
-        //}
+        }
     });
 
     grunt.loadNpmTasks('grunt-ng-annotate');
