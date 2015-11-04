@@ -20,6 +20,11 @@ exports.normalize = function(match) {
         if (client.nick == player.name && client.sdfx) {
             player.cmp = 2;
         }
+
+        /* if cmpl = 255, player disconnected */
+        if (client.cmpl && client.cmpl == 255) {
+            player.cmp = 2;
+        }
     });
 
     match.settings.plrs = match.players.length;
