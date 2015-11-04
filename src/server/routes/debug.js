@@ -23,7 +23,13 @@ exports.buffer = function(req, res, next) {
 
 exports.gameres = function(req, res, next) {
     $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
-        res.send(gameres.parse(data.buffers[0].buffer));
+
+        doc.buffers.forEach(function(buffer, index) {
+            doc.buffers[index] = gameres.parse(buffer.buffer);
+            delete doc.buffers[index].buffer;
+        });
+
+        res.send(doc.buffers);
     });
 };
 
