@@ -1,4 +1,5 @@
 *.log
+.DS_Store
 .grunt
 node_modules
 _storage

@@ -1,12 +1,14 @@
 module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
-    var watchFiles = {
-        js : [
-            'src/public/app.js',
-            'src/public/modules/**/*.client.module.js',
-            'src/public/modules/**/*.js'
-        ]
+    var config = {
+        modules: {
+            js: [
+                'src/public/app.js',
+                'src/public/modules/**/*.client.module.js',
+                'src/public/modules/**/*.js'
+            ]
+        }
     };
 
     grunt.initConfig({
@@ -61,7 +63,7 @@ module.exports = function (grunt) {
         ngAnnotate: {
             production: {
                 files: {
-                    'src/public/application.js': watchFiles.js
+                    'src/public/application.js': config.modules.js
                 }
             }
         },
