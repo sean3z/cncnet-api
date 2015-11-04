@@ -19,8 +19,8 @@ module.exports = function singles(game, match, packets) {
         if (player.loss > 0) loser = index;
     });
 
-    /* D/C Scenario: 1 packet, both marked as loser */
-    if (packets[0] && !packets[1] && winner < 0 && loser >= 0) {
+    /* D/C Scenario: 1 packet, both marked as loser or winner */
+    if (packets[0] && !packets[1] && (winner < 0 && loser >= 0 || winner >= 0 && loser < 0)) {
         match.players.forEach(function(player, index) {
             loser = index;
             player.discon = 1;
