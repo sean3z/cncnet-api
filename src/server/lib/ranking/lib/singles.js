@@ -89,6 +89,7 @@ module.exports = function singles(game, match, packets) {
         packets.forEach(function(packet) {
             if (packet.client.oosy) {
                 update.$set.oosy = 1;
+                winner = loser = -1;
             }
         });
 
