@@ -1,6 +1,6 @@
-var $db = require(global.cwd + '/lib/mongo');
-var $q = require('q');
-var _sanitize = require('./lib/sanitize');
+var $db = require(global.cwd + '/lib/mongo'),
+    $q = require('q'),
+    _sanitize = require('./lib/sanitize');
 
 /* this method provides more data that .locate */
 module.exports = function stats(game, player) {

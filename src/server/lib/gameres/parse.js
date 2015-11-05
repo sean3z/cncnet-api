@@ -1,6 +1,6 @@
-var debug = require('debug')('wol:leaderboard');
-var _consolidate = require(__dirname + '/lib/consolidate');
-var _type = require(__dirname + '/lib/type');
+var debug = require('debug')('wol:leaderboard'),
+    _consolidate = require(__dirname + '/lib/consolidate'),
+    _type = require(__dirname + '/lib/type');
 
 /* WOL Game Resolution interpreter */
 module.exports = function parse(packet) {
@@ -13,20 +13,20 @@ module.exports = function parse(packet) {
 
     var flat = {}, i = 4;
     flat.buffer = buffer;
-    var slice = buffer.slice(0, 4);
-    var bufferLength = slice.readUInt16BE(0);
+    var slice = buffer.slice(0, 4),
+        bufferLength = slice.readUInt16BE(0);
 
     while (i < bufferLength) {
-        var chunk = buffer.slice(i,  i + 4);
-        var field = chunk.toString();
+        var chunk = buffer.slice(i,  i + 4),
+            field = chunk.toString();
 
         i += 4;
 
         chunk = buffer.slice(i, i + 8);
 
-        var type = chunk.readUInt16BE(0);
-        var length = chunk.readUInt16BE(2);
-        var data = 'Unprocessed Data';
+        var type = chunk.readUInt16BE(0),
+            length = chunk.readUInt16BE(2),
+            data = 'Unprocessed Data';
 
         i += 4;
 

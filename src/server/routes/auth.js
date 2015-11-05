@@ -1,5 +1,5 @@
-var auth = require('basic-auth');
-var player = require('../lib/player');
+var auth = require('basic-auth'),
+    player = require('../lib/player');
 
 exports.player = function(req, res, next) {
     var credentials = auth(req) || {};

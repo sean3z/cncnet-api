@@ -1,5 +1,5 @@
-var $db = require(global.cwd + '/lib/mongo');
-var $q = require('q');
+var $db = require(global.cwd + '/lib/mongo'),
+    $q = require('q');
 
 global.ladder = {};
 

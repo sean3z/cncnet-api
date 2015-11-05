@@ -1,9 +1,9 @@
-var match = require('../lib/match');
-var ranking = require('../lib/ranking');
-var player = require('../lib/player');
-var gameres = require('../lib/gameres');
-var auth = require('basic-auth');
-var debug = require('debug')('wol:leaderboard');
+var match = require('../lib/match'),
+    ranking = require('../lib/ranking'),
+    player = require('../lib/player'),
+    gameres = require('../lib/gameres'),
+    auth = require('basic-auth'),
+    debug = require('debug')('wol:leaderboard');
 
 exports.submit = function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -13,8 +13,8 @@ exports.submit = function (req, res, next) {
     /* discontinue if missing request data */
     if (!req.body || !req.params.game) return res.send(400);
 
-    var credentials = auth(req) || {};
-    var dump = gameres.parse(req.body) || {};
+    var credentials = auth(req) || {},
+        dump = gameres.parse(req.body) || {};
 
     /* discontinue if missing gameres data */
     if (!dump.client || !dump.client.nick) return res.send(400);

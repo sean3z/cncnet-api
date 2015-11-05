@@ -1,9 +1,9 @@
-var debug = require('debug')('wol:leaderboard');
-var $mysql = require(global.cwd + '/lib/mysql');
-var $db = require(global.cwd + '/lib/mongo');
-var games = require(global.cwd + '/lib/games');
-var _sanitize = require('./lib/sanitize');
-var $q = require('q');
+var debug = require('debug')('wol:leaderboard'),
+    $mysql = require(global.cwd + '/lib/mysql'),
+    $db = require(global.cwd + '/lib/mongo'),
+    games = require(global.cwd + '/lib/games'),
+    _sanitize = require('./lib/sanitize'),
+    $q = require('q');
 
 module.exports = function auth(player, username, password) {
     var deferred = $q.defer();
