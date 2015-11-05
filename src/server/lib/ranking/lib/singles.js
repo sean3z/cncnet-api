@@ -36,7 +36,7 @@ module.exports = function singles(game, match, packets) {
         });
     }
 
-    /* D/C Scenario: no clear winner, check if pils exists */
+    /* D/C Scenario: no clear winner, check if pils or para exists */
     if (packets.length > 1 && (winner < 0 || loser < 0)) {
         if (packets[0].client.pils >= 0 && packets[1].client.pils >= 0) {
             match.players.forEach(function(player, index) {
@@ -47,6 +47,9 @@ module.exports = function singles(game, match, packets) {
 
                 /* higher pils means you lost connection */
                 if (player.name == packets[0].client.nick) {
+                    /* player attempted abort */
+                    if (packets[0].client.para) return;
+
                     if (packets[0].client.pils < packets[1].client.pils) {
                         winner = index;
                         player.discon = 0;
@@ -54,6 +57,9 @@ module.exports = function singles(game, match, packets) {
                         player.loss = 0;
                     }
                 } else if (player.name == packets[1].client.nick) {
+                    /* player attempted abort */
+                    if (packets[1].client.para) return;
+
                     if (packets[1].client.pils < packets[0].client.pils) {
                         winner = index;
                         player.discon = 0;

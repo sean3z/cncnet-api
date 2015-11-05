@@ -16,5 +16,6 @@ module.exports = [
     'quit', /* (bool) whether the player quit */
     'myid', /* !(int) index of uploader in player array */
     'pils', /* !(int) player ping connectivity streak */
+    'para', /* !(bool) player aborted recon attempt */
     'unid'
 ];
