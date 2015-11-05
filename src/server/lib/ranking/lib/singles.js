@@ -48,7 +48,7 @@ module.exports = function singles(game, match, packets) {
                 /* higher pils means you lost connection */
                 if (player.name == packets[0].client.nick) {
                     /* player attempted abort */
-                    if (packets[0].client.para) return;
+                    if (packets[0].client.para > 0) return;
 
                     if (packets[0].client.pils < packets[1].client.pils) {
                         winner = index;
@@ -58,7 +58,7 @@ module.exports = function singles(game, match, packets) {
                     }
                 } else if (player.name == packets[1].client.nick) {
                     /* player attempted abort */
-                    if (packets[1].client.para) return;
+                    if (packets[1].client.para > 0) return;
 
                     if (packets[1].client.pils < packets[0].client.pils) {
                         winner = index;
