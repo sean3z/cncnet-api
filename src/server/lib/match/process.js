@@ -7,7 +7,7 @@ module.exports = function process(game, dump) {
 
     /* discontinue if no gameId or match is less than 1 minute */
     if (!match.idno || match.dura < 60) return;
-    debug('game: %s, idno: %d', game, match.idno);
+    debug('game: %s, idno: %d game received', game, match.idno);
 
     // create raw dump entry
     // TODO: check against spid (sender id) to ensure only 1 packet from each player
@@ -21,7 +21,7 @@ module.exports = function process(game, dump) {
                 // error scneario, we have two entries for the same game
                 // todo: figure out what the hell to do?
                 // todo: elimiate duplicates?
-                debug('found duplicates! game: %s, idno: %d', game, match.idno);
+                debug('game: %s, idno: %d found duplicates!', game, match.idno);
                 return;
             }
 
@@ -34,7 +34,7 @@ module.exports = function process(game, dump) {
 
             /* save match */
             $db.get(game +'_games').insert(match).success(function(doc) {
-                debug('game: %s, idno: %d saved!', game, match.idno);
+                debug('game: %s, idno: %d game saved!', game, match.idno);
 
                 /* process rankings at a 1.5 minute delay */
                 /* this allows time for all packets to arrive */

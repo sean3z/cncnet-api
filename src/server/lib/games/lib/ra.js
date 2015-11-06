@@ -30,7 +30,7 @@ exports.normalize = function(match) {
     match.settings.plrs = match.players.length;
     delete match.settings.nump;
 
-    debug('ra game, idno: %d normalized!', match.idno);
+    debug('game: ra, idno: %d stats normalized!', match.idno);
 
     return match;
 };

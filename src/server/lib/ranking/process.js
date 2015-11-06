@@ -6,6 +6,7 @@ var $db = require(global.cwd + '/lib/mongo'),
 module.exports = function process(game, match) {
     // discontinue if missing idno for any reason
     if (!match.idno) return;
+    debug('game: %s, idno: %d processing rank', game, match.idno);
 
     var $dumps = $db.get(game +'_dumps');
 
@@ -21,7 +22,6 @@ module.exports = function process(game, match) {
         switch (match.players.length) {
             case 2:
                 /* processing for singles games */
-                debug('game: %s, idno: %d is singles', game, match.idno);
                 require('./lib/singles')(game, match, doc.buffers);
 
                 /* @TODO: check if clan match */

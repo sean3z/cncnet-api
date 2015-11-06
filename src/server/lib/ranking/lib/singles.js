@@ -5,6 +5,8 @@ var $db = require(global.cwd + '/lib/mongo'),
     $q = require('q');
 
 module.exports = function singles(game, match, packets) {
+    debug('game: %s, idno: %d is singles', game, match.idno);
+
     /* stop if <> 1v1 */
     if (match.players.length != 2) return;
     packets = packets || [];
