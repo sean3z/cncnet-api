@@ -18,14 +18,12 @@ module.exports = function singles(game, match, packets) {
         if (player.loss > 0) loser = index;
     });
 
-    // lower case packet names for comparison
-    if (packets[0].client) {
-        packets[0].client.nick = (packets[0].client.nick || '').toLowerCase();
-    }
-
-    if (packets[1].client) {
-        packets[1].client.nick = (packets[1].client.nick || '').toLowerCase();
-    }
+    // lower case packet names for further comparison
+    packets.forEach(function(packet) {
+       if (packet.client) {
+           packet.client.nick = (packet.client.nick || '').toLowerCase();
+       }
+    });
 
     /* D/C Scenario: 1 packet, no clear winner */
     if (packets[0] && !packets[1] && (winner < 0 || loser < 0)) {
