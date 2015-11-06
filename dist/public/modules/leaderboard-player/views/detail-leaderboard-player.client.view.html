@@ -100,11 +100,10 @@
                         <table class="table table-hover player-games">
                             <thead>
                             <tr>
-                                <th>When? <i class="fa fa-level-up fa-fw"></i></th>
+                                <th>When &amp; Duration <i class="fa fa-clock-o fa-fw"></i></th>
                                 <th>Players in game <i class="fa fa-user fa-fw"></i></th>
-                                <th>Duration of game <i class="fa fa-clock-o"></i></th>
-                                <th>Map played <i class="fa fa-map-marker"></i></th>
-                                <th>Game Settings <i class="fa fa-cog"></i></th>
+                                <th>Map played <i class="fa fa-map-marker fa-fw"></i></th>
+                                <th>Game Settings <i class="fa fa-cog fa-fw"></i></th>
                                 <!--<th>Result <i class="fa fa-level-down fa-fw"></i></th>-->
                                 <!--<th>Points won <i class="fa fa-bolt fa-fw"></i></th>-->
                                 <!--<th>Experience gained<i class="fa fa-bolt fa-fw"></i></th>-->
@@ -114,9 +113,15 @@
 
                             <tr ng-repeat="game in player.games | limitTo : 50" ng-if="game._id"
                                 data-idno="{{game.idno}}">
-
-
-                                <td>{{game.date * 1000 | date:'medium'}}</td>
+                                <td>
+                                    <span class="label">
+                                        {{game.date * 1000 | date:'medium'}}
+                                    </span>
+                                    <br>
+                                      <span class="label label-default">
+                                        {{ game.dura | secondsToDateTime | date:'m'}} mins
+                                    </span>
+                                </td>
                                 <td>
                                     <div ng-repeat="participant in game.players">
                                         <ul class="list-unstyled">
@@ -127,6 +132,7 @@
                                                         <i class="fa fa-smile-o fa-fw fa-lg"></i>
                                                     </span>
                                                     <span class="label label-default" ng-if="participant.exp > 0">
+                                                        <i class="fa fa-signal fa-fw fa-lg" ng-if="participant.discon > 0"></i>
                                                         + {{participant.exp}} points
                                                     </span>
                                                 </a>
@@ -138,15 +144,13 @@
                                                         <i class="fa fa-frown-o fa-fw fa-lg"></i>
                                                     </span>
                                                     <span class="label label-default" ng-if="participant.exp > 0">
+                                                        <i class="fa fa-signal fa-fw fa-lg" ng-if="participant.discon > 0"></i>
                                                         - {{participant.exp}} points
                                                     </span>
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
-                                </td>
-                                <td>
-                                    {{ game.dura | secondsToDateTime | date:'HH:mm:ss'}}
                                 </td>
                                 <td>
                                     {{ game.settings.scen }}
