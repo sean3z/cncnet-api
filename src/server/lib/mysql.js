@@ -1,5 +1,5 @@
-var mysql = require('mysql');
-var config = require(global.cwd + '/config');
+var mysql = require('mysql'),
+    config = require(global.cwd + '/config');
 
 var Database = {
     db: undefined,

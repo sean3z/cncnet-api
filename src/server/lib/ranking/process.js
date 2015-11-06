@@ -1,7 +1,7 @@
-var $db = require(global.cwd + '/lib/mongo');
-var debug = require('debug')('wol:leaderboard');
-var gameres = require(global.cwd + '/lib/gameres');
-var parse = require(global.cwd + '/lib/match/lib/parse');
+var $db = require(global.cwd + '/lib/mongo'),
+    debug = require('debug')('wol:leaderboard'),
+    gameres = require(global.cwd + '/lib/gameres'),
+    parse = require(global.cwd + '/lib/match/lib/parse');
 
 module.exports = function process(game, match) {
     // discontinue if missing idno for any reason

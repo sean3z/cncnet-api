@@ -1,8 +1,8 @@
 /*jshint -W004 */
-var $db = require(global.cwd + '/lib/mongo');
-var debug = require('debug')('wol:leaderboard');
-var Arpad = require('arpad');
-var $q = require('q');
+var $db = require(global.cwd + '/lib/mongo'),
+    debug = require('debug')('wol:leaderboard'),
+    Arpad = require('arpad'),
+    $q = require('q');
 
 module.exports = function singles(game, match, packets) {
     /* stop if <> 1v1 */
@@ -10,8 +10,8 @@ module.exports = function singles(game, match, packets) {
     packets = packets || [];
 
     /* find winner and loser */
-    var winner = -1;
-    var loser = -1;
+    var winner = -1,
+        loser = -1;
 
     match.players.forEach(function (player, index) {
         if (player.won > 0) winner = index;
@@ -79,8 +79,8 @@ module.exports = function singles(game, match, packets) {
         }
     }
 
-    var elo = new Arpad();
-    var $players = $db.get(game + '_players');
+    var elo = new Arpad(),
+        $players = $db.get(game + '_players');
 
     /* get points for players */
     points(game, match.players).then(function (players) {

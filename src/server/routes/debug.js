@@ -1,7 +1,7 @@
-var debug = require('debug')('wol:leaderboard');
-var $db = require('../lib/mongo');
-var gameres = require('../lib/gameres');
-var games = require('../lib/games');
+var debug = require('debug')('wol:leaderboard'),
+    $db = require('../lib/mongo'),
+    gameres = require('../lib/gameres'),
+    games = require('../lib/games');
 
 exports.reset = function(req, res, next) {
     games.supported.forEach(function(game) {

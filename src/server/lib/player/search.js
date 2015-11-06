@@ -1,6 +1,6 @@
-var $db = require(global.cwd + '/lib/mongo');
-var $q = require('q');
-var _sanitize = require('./lib/sanitize');
+var $db = require(global.cwd + '/lib/mongo'),
+    $q = require('q'),
+    _sanitize = require('./lib/sanitize');
 
 /* method to search for a quick list of players by name */
 module.exports = function search(game, player) {

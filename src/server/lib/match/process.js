@@ -1,6 +1,6 @@
-var $db = require(global.cwd + '/lib/mongo');
-var debug = require('debug')('wol:leaderboard');
-var ranking = require('../ranking');
+var $db = require(global.cwd + '/lib/mongo'),
+    debug = require('debug')('wol:leaderboard'),
+    ranking = require('../ranking');
 
 module.exports = function process(game, dump) {
     var match = require(__dirname + '/lib/parse')(game, dump);

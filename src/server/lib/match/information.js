@@ -1,5 +1,5 @@
-var $db = require(global.cwd + '/lib/mongo');
-var $q = require('q');
+var $db = require(global.cwd + '/lib/mongo'),
+    $q = require('q');
 
 module.exports = function information(game, gameId) {
     var defer = $q.defer();
