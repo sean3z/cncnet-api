@@ -18,6 +18,7 @@ module.exports = function singles(game, match, packets) {
         if (player.loss > 0) loser = index;
     });
 
+    // lower case packet names for comparison
     if (packets[0].client) {
         packets[0].client.nick = (packets[0].client.nick || '').toLowerCase();
     }
