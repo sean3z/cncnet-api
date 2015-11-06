@@ -118,8 +118,11 @@
                                         {{game.date * 1000 | date:'medium'}}
                                     </span>
                                     <br>
-                                      <span class="label label-default">
+                                    <span class="label label-default">
                                         {{ game.dura | secondsToDateTime | date:'m'}} mins
+                                    </span>
+                                    <span ng-if="debug">
+                                        hello
                                     </span>
                                 </td>
                                 <td>

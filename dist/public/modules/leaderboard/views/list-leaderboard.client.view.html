@@ -30,7 +30,8 @@
 
                     <div class="search-results panel panel-success" ng-show="searchResults">
                         <div class="panel-heading">
-                            <h4>Profile search for <strong>{{ search.name }}</strong>, in {{ game }}. Wow, there are {{ searchResults.length }} Profile Results!</h4>
+                            <h4>Profile search for <strong>{{ search.name }}</strong>, in {{ game }}. Wow, there are {{
+                                searchResults.length }} Profile Results!</h4>
                         </div>
                         <div class="panel-body">
 
@@ -64,6 +65,7 @@
                                 <th>Profile <i class="fa fa-user fa-fw"></i></th>
                                 <th class="hidden-xs">Points <i class="fa fa-bolt fa-fw"></i></th>
                                 <th>Games Won <i class="fa fa-level-up fa-fw"></i></th>
+                                <th>Winning % </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,6 +74,11 @@
                                 <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
                                 <td class="hidden-xs">{{player.points}} points</td>
                                 <td>{{player.wins || 0}}</td>
+                                <td>
+                                    <span class="">
+                                        {{player.wins / (player.wins + player.losses) * 100 | number:0}}%
+                                    </span>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
