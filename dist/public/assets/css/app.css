@@ -2185,12 +2185,13 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 
 .jumbo-ra, .jumbo-am { background: #070b09 url(../images/jumbo-ra.png); background-size: contain; background-position: right 0; background-repeat: no-repeat; }
 
-.jumbo-ts, .jumbo-fs { background: #070a09 url(../images/jumbo-ts.png); background-size: contain; background-position: right 0; background-repeat: no-repeat; }
+.jumbo-ts, .jumbo-fs { background: #070a09 url(../images/jumbo-ts.png); background-size: cover; background-position: left; }
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 /* Small devices (tablets, 768px and up) */
 /* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { .jumbo-ts, .jumbo-fs { background: #070a09 url(../images/jumbo-ts.png); background-size: 100%; background-position: right 0; } }
 .navbar { position: absolute; left: 0; right: 0; background: none; border: none; }
 .navbar .navbar-brand { padding: 20px 15px; }
 .navbar .open > .dropdown-toggle { background: #1B2128 !important; }

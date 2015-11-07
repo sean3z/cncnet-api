@@ -78,9 +78,8 @@
 
 .jumbo-ts, .jumbo-fs {
   background: #070a09 url(../images/jumbo-ts.png);
-  background-size: contain;
-  background-position: right 0;
-  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
 }
 
 /* Extra small devices (phones, less than 768px) */
@@ -93,5 +92,9 @@
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: $screen-md-min) {
-
+  .jumbo-ts, .jumbo-fs {
+    background: #070a09 url(../images/jumbo-ts.png);
+    background-size: 100%;
+    background-position: right 0;
+  }
 }
