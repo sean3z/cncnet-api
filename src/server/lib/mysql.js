@@ -16,7 +16,11 @@ var Database = {
 
     query: function(query, callback) {
         this.pool.getConnection(function(err, connection) {
+            if (err) throw err;
+
             connection.query(query, function(err, response) {
+                if (err) throw err;
+
                 callback(err, response);
                 connection.release();
             });
