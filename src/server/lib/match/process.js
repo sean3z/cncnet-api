@@ -40,7 +40,7 @@ module.exports = function process(game, dump) {
                 /* this allows time for all packets to arrive */
                 setTimeout(function() {
                     ranking.process(game, match);
-                }, 90000);
+                }, (process.env.MATCH_DELAY || 90000));
             });
         });
     }

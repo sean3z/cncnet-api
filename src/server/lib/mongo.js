@@ -1,4 +1,5 @@
-var $db = require('monk')('localhost/leaderboard'),
+var port = process.env.MONGO_PORT || 27017,
+    $db = require('monk')('localhost:'+ port +'/leaderboard'),
     games = require('./games');
 
 games.supported.forEach(function(game) {
