@@ -1,3 +1,6 @@
 module.exports = function(req, res) {
-    res.send('pong');
+    /* intentionally throwing into event loop */
+    setTimeout(function() {
+        res.send('pong');
+    }, 1);
 };
