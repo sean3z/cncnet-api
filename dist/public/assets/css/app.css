@@ -2243,6 +2243,12 @@ html, body { overflow-x: hidden; }
 .panel-profile .profile-picture { height: 200px; background: #000; text-align: center; padding-top: 65px; margin-top: -40px; }
 .panel-profile .profile-picture.avatar { padding-top: 35px; }
 
+.game-faction { background-repeat: no-repeat; }
+
+.faction_0 { background-image: url(../images/game-icons/gdi.png); }
+
+.faction_1 { background-image: url(../images/game-icons/nod.png); }
+
 .supported-games { font-family: "fira-sans", sans-serif; }
 .supported-games .thumbnail { background: #1B2128; }
 .supported-games h2 { font-size: 17px; }

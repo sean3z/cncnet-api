@@ -65,7 +65,21 @@ $text-dark: mix($off-white, $dark-base, 15%);
     margin-top: -40px;
 
     &.avatar {
-        padding-top: 35px;
+      padding-top: 35px;
     }
   }
+}
+
+.game-faction {
+  background-repeat: no-repeat;
+}
+
+// GDI
+.faction_0 {
+  background-image: url(../images/game-icons/gdi.png);
+}
+
+// NOD
+.faction_1 {
+  background-image: url(../images/game-icons/nod.png);
 }
