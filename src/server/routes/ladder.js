@@ -10,8 +10,6 @@ exports.submit = function (req, res, next) {
     res.header('Expires', '-1');
     res.header('Pragma', 'no-cache');
 
-    console.log('body', req.body);
-
     /* discontinue if missing request data */
     if (!req.body || !req.params.game) return res.send(400);
 
