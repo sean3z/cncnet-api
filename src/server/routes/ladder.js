@@ -10,6 +10,8 @@ exports.submit = function (req, res, next) {
     res.header('Expires', '-1');
     res.header('Pragma', 'no-cache');
 
+    console.log('body', req.body);
+
     /* discontinue if missing request data */
     if (!req.body || !req.params.game) return res.send(400);
 
@@ -37,9 +39,11 @@ exports.submit = function (req, res, next) {
 };
 
 exports.ladder = function (req, res, next) {
-    res.header('Cache-Control', 'public, max-age=60');
+    ranking.ladder(req.params.game, (req.params.limit || 150)).then(function(data) {
+        if (data && data.length > 0) {
+            res.header('Cache-Control', 'public, max-age=60');
+        }
 
-    ranking.ladder(req.params.game, req.params.limit ? req.params.limit : 150).then(function(data) {
         res.send(data);
     });
 };
