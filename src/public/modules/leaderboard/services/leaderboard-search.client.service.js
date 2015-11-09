@@ -8,7 +8,7 @@ angular.module('Leaderboard')
             return {
                 byPlayer: function (game, name) {
                     var deferred = $q.defer(),
-                    url = "http://tahj.cncnet.org:4007/ladder";
+                    url = "http://api.cncnet.org:4007/ladder";
                     $http.post(url + '/' + game + '/' + 'search', { "player": name})
                         .success(function (data, status, headers, config) {
                             return deferred.resolve(data);

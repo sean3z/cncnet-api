@@ -8,7 +8,7 @@ angular.module('Leaderboard')
             return {
                 getTop50: function (game) {
                     var deferred = $q.defer(),
-                    url = "http://tahj.cncnet.org:4007/ladder";
+                    url = "http://api.cncnet.org:4007/ladder";
 
                     $http.jsonp(url + '/' + game + '?callback=JSON_CALLBACK')
                         .success(function (data) {
