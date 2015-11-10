@@ -2243,7 +2243,7 @@ html, body { overflow-x: hidden; }
 .panel-profile .profile-picture { height: 200px; background: #000; text-align: center; padding-top: 65px; margin-top: -40px; }
 .panel-profile .profile-picture.avatar { padding-top: 35px; }
 
-.game-faction { background-repeat: no-repeat; display: inline !important; padding-right: 10px; padding-left: 10px; background-color: #1B2128; background-position: center; background-size: 100%; }
+.game-faction { background-repeat: no-repeat; display: inline !important; padding-right: 10px; padding-left: 10px; background-position: center; background-size: 100%; }
 
 .faction_0 { background-image: url(../images/game-icons/gdi.png); }
 
