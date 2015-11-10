@@ -74,7 +74,7 @@ $text-dark: mix($off-white, $dark-base, 15%);
   background-repeat: no-repeat;
   @extend .label;
   @extend .label-default;
-  display: inline!important;
+  display: inline !important;
   padding-right: 10px;
   padding-left: 10px;
   background-color: $dark-base;
@@ -92,6 +92,13 @@ $text-dark: mix($off-white, $dark-base, 15%);
   background-image: url(../images/game-icons/nod.png);
 }
 
-.faction_ITA {
-  background-image: url(../images/game-icons/nod.png);
+// Ukraine
+.faction_ITA, .faction_USS {
+  background-image: url(../images/game-icons/soviet_ra.png);
 }
+
+// England, France, Turkey, Greece, Spain
+.faction_ENG, .faction_FRA, .faction_TKY, .faction_GRE, .faction_SPA, .faction_GER {
+  background-image: url(../images/game-icons/allied_ra.png);
+}
+

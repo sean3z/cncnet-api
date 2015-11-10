@@ -2249,7 +2249,9 @@ html, body { overflow-x: hidden; }
 
 .faction_1 { background-image: url(../images/game-icons/nod.png); }
 
-.faction_ITA { background-image: url(../images/game-icons/nod.png); }
+.faction_ITA, .faction_USS { background-image: url(../images/game-icons/soviet_ra.png); }
+
+.faction_ENG, .faction_FRA, .faction_TKY, .faction_GRE, .faction_SPA, .faction_GER { background-image: url(../images/game-icons/allied_ra.png); }
 
 .supported-games { font-family: "fira-sans", sans-serif; }
 .supported-games .thumbnail { background: #1B2128; }
