@@ -95,7 +95,7 @@ td, th { padding: 0; }
   select { background: #fff !important; }
   .navbar { display: none; }
   .btn > .caret, .dropup > .btn > .caret { border-top-color: #000 !important; }
-  .label { border: 1px solid #000; }
+  .label, .game-faction { border: 1px solid #000; }
   .table { border-collapse: collapse !important; }
   .table td, .table th { background-color: #fff !important; }
   .table-bordered th, .table-bordered td { border: 1px solid #ddd !important; } }
@@ -1677,14 +1677,14 @@ tbody.collapse.in { display: table-row-group; }
 .pager .previous > a, .pager .previous > span { float: left; }
 .pager .disabled > a, .pager .disabled > a:hover, .pager .disabled > a:focus, .pager .disabled > span { color: #888; background-color: #222; cursor: not-allowed; }
 
-.label { display: inline; padding: .2em .6em .3em; font-size: 75%; font-weight: bold; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: .25em; }
-.label:empty { display: none; }
-.btn .label { position: relative; top: -1px; }
+.label, .game-faction { display: inline; padding: .2em .6em .3em; font-size: 75%; font-weight: bold; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: .25em; }
+.label:empty, .game-faction:empty { display: none; }
+.btn .label, .btn .game-faction { position: relative; top: -1px; }
 
-a.label:hover, a.label:focus { color: #fff; text-decoration: none; cursor: pointer; }
+a.label:hover, a.game-faction:hover, a.label:focus, a.game-faction:focus { color: #fff; text-decoration: none; cursor: pointer; }
 
-.label-default { background-color: #424242; }
-.label-default[href]:hover, .label-default[href]:focus { background-color: #282828; }
+.label-default, .game-faction { background-color: #424242; }
+.label-default[href]:hover, [href].game-faction:hover, .label-default[href]:focus, [href].game-faction:focus { background-color: #282828; }
 
 .label-primary { background-color: #2A9FD6; }
 .label-primary[href]:hover, .label-primary[href]:focus { background-color: #2180ac; }
@@ -2243,11 +2243,13 @@ html, body { overflow-x: hidden; }
 .panel-profile .profile-picture { height: 200px; background: #000; text-align: center; padding-top: 65px; margin-top: -40px; }
 .panel-profile .profile-picture.avatar { padding-top: 35px; }
 
-.game-faction { background-repeat: no-repeat; }
+.game-faction { background-repeat: no-repeat; display: inline !important; padding-right: 10px; padding-left: 10px; background-color: #1B2128; background-position: center; background-size: 100%; }
 
 .faction_0 { background-image: url(../images/game-icons/gdi.png); }
 
 .faction_1 { background-image: url(../images/game-icons/nod.png); }
+
+.faction_ITA { background-image: url(../images/game-icons/nod.png); }
 
 .supported-games { font-family: "fira-sans", sans-serif; }
 .supported-games .thumbnail { background: #1B2128; }

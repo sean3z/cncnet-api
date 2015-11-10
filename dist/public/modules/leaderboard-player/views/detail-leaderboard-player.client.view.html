@@ -127,6 +127,7 @@
                                         <ul class="list-unstyled">
                                             <li ng-if="participant.won > 0">
                                                 <a href="#/{{ gameName }}/player/{{participant.name}}">
+                                                    <span class="game-faction faction_{{ participant.sid }}"></span>
                                                     <span class="label label-success">
                                                         {{participant.name}}
                                                         <i class="fa fa-smile-o fa-fw fa-lg"></i>
@@ -139,6 +140,7 @@
                                             </li>
                                             <li ng-if="participant.loss > 0">
                                                 <a href="#/{{ gameName }}/player/{{participant.name}}">
+                                                    <span class="game-faction faction_{{ participant.sid }}"></span>
                                                     <span class="label label-danger">
                                                         {{participant.name}}
                                                         <i class="fa fa-frown-o fa-fw fa-lg"></i>
