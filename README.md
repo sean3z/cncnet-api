@@ -4,13 +4,14 @@
 This is an open source WOL leaderboard emulator for legacy [Westwood Studios](http://en.wikipedia.org/wiki/Westwood_Studios) games; specifically, those hosted by [CnCNet](http://cncnet.org). Ideally though, this application should work with any client sending WOLv1 or WOLv2 Game Resolution packets. This application serves several REST API endpoints (documented below) to consume and post leaderboard data.
 
 ### Games Supported
-* [Red Alert 2](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Red_Alert_2)
-* [Yuri's Revenge](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Yuri%27s_Revenge)
-* [Tiberian Sun](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Tiberian_Sun)
-* [Firestorm](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Tiberian_Sun#Firestorm)
-* [Red Alert 1](http://en.wikipedia.org/wiki/Command_%26_Conquer:_Red_Alert)
-* [Dune 2000](http://en.wikipedia.org/wiki/Dune_2000)
-* [Tiberian Dawn](http://en.wikipedia.org/wiki/Command_%26_Conquer)
+* [Red Alert](http://cncnet.org/leaderboard/#/ra)
+* [Red Alert: The Aftermath](http://cncnet.org/leaderboard/#/am)
+* [Tiberian Sun](http://cncnet.org/leaderboard/#/ts)
+* [Tiberian Sun: Firestorm](http://cncnet.org/leaderboard/#/fs)
+* [Red Alert 2](http://cncnet.org/leaderboard/#/ra2)
+* [Yuri's Revenge](http://cncnet.org/leaderboard/#/yr)
+* Dune 2000
+* Tiberian Dawn
 
 ### Usage
 1. `npm install --production`
