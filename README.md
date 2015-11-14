@@ -19,7 +19,7 @@ This is an open source WOL leaderboard emulator for legacy [Westwood Studios](ht
 ## REST API Endpoints
 There's a few params listed below.
 
-* `:game` can be any of the following `(td|d2k?|ra2?|ts|fs|yr)`
+* `:game` can be any of the following `^(td|d2k?|ra2?|ts|dta|fs|yr|am)$`
 * `:gameId` can only be numeric `(\d+)`
 * `:player` can be alpha-numeric with some special characers `(\w\d\[\])`
 
