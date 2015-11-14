@@ -7,6 +7,11 @@ var debug = require('debug')('wol:leaderboard'),
 
 module.exports = function auth(player, username, password) {
     var deferred = $q.defer();
+
+    if (!player || !username || !password) {
+        return deferred.reject();
+    }
+
     player = player.toLowerCase();
 
     authorize(username, password).then(function(record) {

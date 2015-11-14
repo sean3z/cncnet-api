@@ -46,7 +46,6 @@ app.post('/ladder/:game/search', ladder.search);
 
 /* auth */
 app.get('/auth/:player', auth.player);
-app.get('/auth/:game/:player', auth.player); // temp route to support legacy consumers
 // app.put('/auth/:player', auth.create); // registration through cncnet forums
 
 /* debug */
