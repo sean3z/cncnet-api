@@ -20,9 +20,9 @@
   - [x] Clickable games should direct to the relevant leaderboard
   
 ### Release version - 1.1
-- [ ] Save Player Records 
-  - [ ] Award player for top 3 finish:Gold, Silver, Bronze.  
-  - [ ] Store Player Rank in player obj that can be displayed into UI.
+- [ ] Save Player Records after end of ladder cycle
+  - [ ] Award player for top 3 finish: Gold, Silver, Bronze.  
+  - [ ] Store Player's previous Rank in player obj that can be displayed into UI.
 - [ ] HTML 5 Mode - rewrite hashtags
 
 
@@ -37,7 +37,5 @@
   - Show a players estimated calculation of wins/losses required for promotion/demotion.
   - Show list of players game
     - The id of the game, outcome of game, experience gained
-- Game Resolution Parser
-  - Automatically detect match stats leader on disconnect or out of sync games
 - Clans
   - Players can create and join clans to compete on a clan ladder
