@@ -104,23 +104,24 @@ module.exports = function singles(game, match, packets) {
         });
 
         match.players.forEach(function (player, index) {
+            /* increase out of sync stats for player */
+            if (update.$set.oosy) {
+                player.oos = 1;
+                player.won = 0;
+                player.loss = 0;
+                player.discon = 0;
+            }
+
             /* query to update player obj */
             var _player = {
                 $push: {games: match.idno},
                 $inc: {
-                    wins: player.won,
-                    losses: player.loss,
-                    disconnects: player.discon
+                    wins: player.won || 0,
+                    losses: player.loss || 0,
+                    disconnects: player.discon || 0,
+                    oss: player.oos || 0
                 }
             };
-
-            /* increase out of sync for player */
-            if (update.$set.oosy) {
-                _player.$inc.oos = 1;
-                _player.$inc.wins = 0;
-                _player.$inc.losses = 0;
-                _player.$inc.disconnects = 0;
-            }
 
             /* calculate points if winner and loser */
             if (winner >= 0 && loser >= 0) {
