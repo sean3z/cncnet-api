@@ -22,7 +22,7 @@ There's a few params listed below.
 
 * `:game` can be any of the following `^(td|d2k?|ra2?|ts|dta|fs|yr|am)$`
 * `:gameId` can only be numeric `(\d+)`
-* `:player` can be alpha-numeric with some special characers `(\w\d\[\])`
+* `:player` can be alpha-numeric with some special characters `(\w\d\[\])`
 
 ###### General Endpoints
 * GET `/ping` to ensure that the leaderboard is online
