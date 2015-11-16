@@ -98,7 +98,8 @@ module.exports = function singles(game, match, packets) {
         packets.forEach(function(packet) {
             if (packet.client.oosy) {
                 update.$set.oosy = 1;
-                winner = loser = -1;
+                winner = -1;
+                loser = -1;
             }
         });
 
@@ -116,6 +117,9 @@ module.exports = function singles(game, match, packets) {
             /* increase out of sync for player */
             if (update.$set.oosy) {
                 _player.$inc.oos = 1;
+                _player.$inc.wins = 0;
+                _player.$inc.losses = 0;
+                _player.$inc.disconnects = 0;
             }
 
             /* calculate points if winner and loser */
