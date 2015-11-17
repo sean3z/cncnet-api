@@ -6,6 +6,7 @@ var official_maps = [
     'Casey\'s Canyon',
     'Cliffs of Insanity',
     'Desolation Redux',
+    'Dueling Islands',
     'Forest Fires',
     'Grand Canyon',
     'Grassy Knoll',
