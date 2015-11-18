@@ -3,14 +3,20 @@ var $db = require(global.cwd + '/lib/mongo'),
     _sanitize = require('./lib/sanitize');
 
 /* this method provides more data that .locate */
-module.exports = function stats(game, player) {
+module.exports = function stats(game, player, showGames) {
     var defer = $q.defer();
+    showGames = (!showGames || showGames === 'true');
     $db.get(game + '_players').findOne({name: _sanitize(player, true)}, function(err, player_data) {
         if (!player_data) return defer.reject();
         player_data.games = player_data.games || [];
 
         /* remove any sensitive data from response */
         delete player_data.uid;
+
+        if (!showGames) {
+            delete player_data.games;
+            return defer.resolve(player_data);
+        }
 
         if (!player_data.games.length) return defer.resolve(player_data);
 

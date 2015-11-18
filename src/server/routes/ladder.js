@@ -68,7 +68,7 @@ exports.player = function(req, res, next) {
         res.send(404);
     };
 
-    player.stats(req.params.game, req.params.player).then(_success, _error);
+    player.stats(req.params.game, req.params.player, req.params.games).then(_success, _error);
 };
 
 exports.match = function(req, res, next) {
