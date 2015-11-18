@@ -54,7 +54,7 @@ exports.search = function (req, res, next) {
         res.send(404);
     };
 
-    if (!req.body.player) return _error();
+    if (!req.body || !req.body.player) return _error();
     player.search(req.params.game, req.body.player).then(_success, _error);
 };
 
