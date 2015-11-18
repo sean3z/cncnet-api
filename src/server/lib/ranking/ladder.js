@@ -16,7 +16,7 @@ module.exports = function ladder(game, limit) {
 
     defer.resolve((global.ladder[game] || []).slice(0, limit));
 
-    /* if cache theshold elapsed; generate new cache */
+    /* if cache threshold elapsed; generate new cache */
     if (last_update[game] < _timestamp() - 60) {
         _notch(game, limit);
     }
