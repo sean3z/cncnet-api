@@ -61,7 +61,7 @@ app.get(/.*/, restify.serveStatic({
 }));
 
 app.listen(WOL_PORT, function () {
-    console.log('WOL Leaderboard listening on %s:%s', server.name, server.url);
+    console.log('WOL Leaderboard listening on %s:%s', app.name, app.url);
 });
 
 app.on('uncaughtException', function (req, res, route, err) {
