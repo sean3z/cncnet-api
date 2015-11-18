@@ -77,7 +77,7 @@ module.exports = function (grunt) {
             }
         },
 
-        mochaTest: {
+        mocha_istanbul: {
             server: {
                 options: {
                     reporter: 'spec',
@@ -93,5 +93,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('serve', ['clean', 'copy', 'sass:development', 'concurrent:development']);
     grunt.registerTask('build', ['clean', 'copy', 'sass:development', 'ngAnnotate']);
-    grunt.registerTask('test', ['mochaTest:server'])
+    grunt.registerTask('test', ['mocha_istanbul:server'])
 };
