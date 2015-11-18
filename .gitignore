@@ -4,6 +4,7 @@
 node_modules
 _storage
 src/server/config.json
+coverage
 
 data
 .sass-cache
