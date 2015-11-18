@@ -160,11 +160,21 @@ module.exports = function singles(game, match, packets) {
             update.$set[str + '.discon'] = player.discon;
 
             /* update or create player */
-            $players.update({name: player.name}, _player, {upsert: true});
+            $players.update({name: player.name}, _player, {upsert: true}).error(function(err) {
+                console.log('ranking/singles player update error');
+                console.log('game: %s, match: %d, player: %s', game, match.idno, player.name);
+                console.dir(_player);
+                console.dir(err);
+            });
         });
 
         /* update match object */
-        $db.get(game + '_games').update({idno: match.idno}, update);
+        $db.get(game + '_games').update({idno: match.idno}, update).error(function(err) {
+            console.log('ranking/singles game update error');
+            console.log('game: %s, match: %d', game, match.idno);
+            console.dir(update);
+            console.dir(err);
+        });
     });
 };
 
