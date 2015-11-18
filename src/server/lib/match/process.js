@@ -1,6 +1,7 @@
 var $db = require(global.cwd + '/lib/mongo'),
     debug = require('debug')('wol:leaderboard'),
-    ranking = require('../ranking');
+    ranking = require('../ranking'),
+    MATCH_DELAY = process.env.MATCH_DELAY || 90000;
 
 module.exports = function process(game, dump) {
     var match = require(__dirname + '/lib/parse')(game, dump);
@@ -40,7 +41,7 @@ module.exports = function process(game, dump) {
                 /* this allows time for all packets to arrive */
                 setTimeout(function() {
                     ranking.process(game, match);
-                }, (process.env.MATCH_DELAY || 90000));
+                }, MATCH_DELAY);
             });
         });
     }
