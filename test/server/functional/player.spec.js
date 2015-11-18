@@ -2,7 +2,7 @@ var request = require('request');
 
 describe('Player Endpoints', function() {
 
-    it('should return 404 if player not found', function(done) {
+    it('should error (404) if player not found', function(done) {
         request({url: url + '/ladder/ts/player/m30w'}, function(err, res) {
             expect(res.statusCode).to.equal(404);
             done();

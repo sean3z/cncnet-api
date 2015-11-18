@@ -60,6 +60,13 @@ describe('Ladder Endpoints', function() {
         });
     });
 
+    it('should error (404) when match not found', function(done) {
+        request(url + '/ladder/ts/game/000', function(err, res, body) {
+            expect(res.statusCode).to.equal(404);
+            done();
+        });
+    });
+
     it('D/C Scenario: 1 packet declare uploader winner', function(done) {
         var results = fs.readFileSync(scenarios + '/TS_DISCONNECT_PLAYER_1');
 
