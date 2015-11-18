@@ -51,6 +51,15 @@ describe('Ladder Endpoints', function() {
         });
     });
 
+    it('should persist match information', function(done) {
+        request(url + '/ladder/ts/game/1802807256', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.players.length).to.equal(2);
+            done();
+        });
+    });
+
     it('D/C Scenario: 1 packet declare uploader winner', function(done) {
         var results = fs.readFileSync(scenarios + '/TS_DISCONNECT_PLAYER_1');
 
