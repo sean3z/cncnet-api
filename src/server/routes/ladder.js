@@ -59,9 +59,8 @@ exports.search = function (req, res, next) {
 };
 
 exports.player = function(req, res, next) {
-    res.header('Cache-Control', 'public, max-age=30');
-
     var _success = function (data) {
+        res.header('Cache-Control', 'public, max-age=30');
         res.send(data);
     };
     var _error = function () {
@@ -71,10 +70,9 @@ exports.player = function(req, res, next) {
     player.stats(req.params.game, req.params.player, req.params.games).then(_success, _error);
 };
 
-exports.match = function(req, res, next) {
-    res.header('Cache-Control', 'public, max-age=950400');
-
+exports.match = function(req, res) {
     var _success = function (data) {
+        res.header('Cache-Control', 'public, max-age=950400');
         res.send(data);
     };
     var _error = function () {
