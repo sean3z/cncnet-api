@@ -94,19 +94,17 @@ describe('Ladder Endpoints', function() {
 
     it('should provide leaderboard for players', function(done) {
         /* warm up cache */
-        request(url + '/ladder/ts', function() {
+        request(url + '/ladder/ts', function() {});
 
-            /* actual results */
-            setTimeout(function() {
-                request(url + '/ladder/ts', function(err, res, body) {
-                    expect(res.statusCode).to.equal(200);
-                    body = JSON.parse(body);
-                    expect(body.length).to.equal(4);
-                    done();
-                });
-            }, MATCH_DELAY + 5);
-
-        });
+        /* actual results */
+        setTimeout(function() {
+            request(url + '/ladder/ts', function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.length).to.equal(4);
+                done();
+            });
+        }, MATCH_DELAY + 3);
     });
 
     it('should provide rank for individiual players', function(done) {
