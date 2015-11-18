@@ -22,6 +22,7 @@ module.exports = function process(game, dump) {
     });
 
     function _stats(err, data) {
+        if (err) throw err;
         $dumps.find({idno: match.idno}, function(err, doc) {
             if (doc.length > 1) {
                 // error scneario, we have two entries for the same game
