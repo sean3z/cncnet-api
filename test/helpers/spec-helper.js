@@ -11,7 +11,7 @@ global.cwd = path.resolve(__dirname + '/../../src/server');
 global.scenarios = path.resolve(__dirname + '/scenarios');
 process.env.MONGO_PORT = 27020;
 process.env.WOL_PORT = 4007;
-process.env.MATCH_DELAY = 1000; /* milliseconds */
+process.env.MATCH_DELAY = 1; /* milliseconds */
 global.url = 'http://localhost:'+ process.env.WOL_PORT;
 
 console.log('Cleaning up mongodb test directory');
