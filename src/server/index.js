@@ -61,12 +61,16 @@ app.get(/.*/, restify.serveStatic({
 }));
 
 app.listen(WOL_PORT, function () {
-    console.log('WOL Leaderboard listening on %s:%s', require('os').hostname(), WOL_PORT);
+    console.log('WOL Leaderboard listening on %s:%s', server.name, server.url);
 });
 
 app.on('uncaughtException', function (req, res, route, err) {
-    res.send({
-        message: err.message,
-        stack: err.stack
-    });
+    res.send(500);
+    console.log('uncaughtException: %s', err.message);
+    console.log(err.stack);
+});
+
+process.on('uncaughtException', function (err) {
+    console.log('uncaughtException: %s', err.message);
+    console.log(err.stack);
 });
