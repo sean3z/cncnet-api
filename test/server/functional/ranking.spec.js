@@ -107,10 +107,21 @@ describe('Ladder Endpoints', function() {
         }, MATCH_DELAY + 3);
     });
 
-    it('should provide rank for individiual players', function(done) {
+    it('should provide rank for individual players', function(done) {
         request(url + '/ladder/ts/player/kaizen', function(err, res, body) {
-           expect(res.statusCode).to.equal(200);
+            expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
+            expect(body.games.length).to.equal(1);
+            expect(body.rank).to.equal(1);
+            done();
+        });
+    });
+
+    it('should hide games from player object when query param passed', function(done) {
+        request(url + '/ladder/ts/player/kaizen?games=false', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.games).to.be.undefined;
             expect(body.rank).to.equal(1);
             done();
         });

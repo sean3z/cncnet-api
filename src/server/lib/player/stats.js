@@ -13,6 +13,16 @@ module.exports = function stats(game, player, showGames) {
         /* remove any sensitive data from response */
         delete player_data.uid;
 
+        /* leaderboard position; todo make more efficient */
+        player_data.rank = 0;
+        var ladder = global.ladder[game] || [];
+        for (var i = 0; i < ladder.length; i++) {
+            if (ladder[i].name == player_data.name) {
+                player_data.rank = ladder[i].rank;
+                break;
+            }
+        }
+
         if (!showGames) {
             delete player_data.games;
             return defer.resolve(player_data);
@@ -27,16 +37,6 @@ module.exports = function stats(game, player, showGames) {
                 game_data.forEach(function (stats, index) {
                     player_data.games[index] = stats;
                 });
-            }
-
-            /* leaderboard position; todo make more efficient */
-            player_data.rank = 0;
-            var ladder = global.ladder[game] || [];
-            for (var i = 0; i < ladder.length; i++) {
-                if (ladder[i].name == player_data.name) {
-                    player_data.rank = ladder[i].rank;
-                    break;
-                }
             }
 
             defer.resolve(player_data);
