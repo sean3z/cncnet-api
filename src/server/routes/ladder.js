@@ -28,7 +28,7 @@ exports.submit = function (req, res, next) {
     if (global.matches[dump.idno].length) {
         for (var i = 0, x = global.matches[dump.idno].length; i < x; i++) {
             var row = global.matches[dump.idno][i];
-            if (dump.client.unid == row.unid) return;
+            if (dump.client.unid == row.unid) return res.send(400);
         }
     }
 
