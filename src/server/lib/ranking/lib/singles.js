@@ -2,7 +2,8 @@
 var $db = require(global.cwd + '/lib/mongo'),
     debug = require('debug')('wol:leaderboard'),
     Arpad = require('arpad'),
-    $q = require('q');
+    $q = require('q'),
+    DEFAULT_POINTS = 1000;
 
 module.exports = function singles(game, match, packets) {
     debug('game: %s, idno: %d is singles', game, match.idno);
@@ -103,6 +104,15 @@ module.exports = function singles(game, match, packets) {
             }
         });
 
+        /* if packet completion status doesn't match up, consider it oos */
+        if (packets.length > 1) {
+            if (packets[0].players[0].cmp != packets[1].players[0].cmp) {
+                update.$set.oosy = 1;
+                winner = -1;
+                loser = -1;
+            }
+        }
+
         match.players.forEach(function (player, index) {
             /* increase out of sync stats for player */
             if (update.$set.oosy) {
@@ -119,7 +129,10 @@ module.exports = function singles(game, match, packets) {
                     wins: player.won || 0,
                     losses: player.loss || 0,
                     disconnects: player.discon || 0,
-                    oss: player.oos || 0
+                    oos: player.oos || 0
+                },
+                $set: {
+                    points: player.points || DEFAULT_POINTS
                 }
             };
 
@@ -189,7 +202,7 @@ function points(game, players) {
     $db.get(game + '_players').find({name: {$in: search}}, function (err, data) {
         players.forEach(function (player, key) {
 
-            players[key].points = 1000;
+            players[key].points = DEFAULT_POINTS;
 
             data.forEach(function (row) {
                 if (row.points && player.name == row.name) {
