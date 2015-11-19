@@ -50,24 +50,5 @@ describe('General Endpoints', function() {
             done();
         });
     });
-
-    it('should accept game results', function(done) {
-        var results = fs.readFileSync(scenarios + '/TS_REGULAR_PLAYER_1');
-
-        var options = {
-            method: 'POST',
-            url: url + '/ladder/ts',
-            body: results.toString(),
-            headers: {
-                'content-type': 'text/plain',
-                authorization: 'Basic dGFoajpwYXNzd29yZA=='
-            }
-        };
-
-        request(options, function(err, res) {
-            expect(res.statusCode).to.equal(202);
-            done();
-        });
-    });
 });
 
