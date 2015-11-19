@@ -1,6 +1,6 @@
 var fs = require('fs');
 var request = require('request');
-var MATCH_DELAY = parseInt(process.env.MATCH_DELAY) + 40;
+var MATCH_DELAY = parseInt(process.env.MATCH_DELAY) + 50;
 
 describe('Ladder Endpoints', function() {
     it('RA Regular match: 2 packets', function(done) {
@@ -19,35 +19,35 @@ describe('Ladder Endpoints', function() {
 
         request(options, function(err, res) {
             expect(res.statusCode).to.equal(202);
-
-            options.body = fattynoob.toString();
-            request(options, function(err, res) {
-                expect(res.statusCode).to.equal(202);
-
-                setTimeout(function() {
-                    request({url: url + '/ladder/ra/player/fattynoob'}, function(err, res, body) {
-                        expect(res.statusCode).to.equal(200);
-                        body = JSON.parse(body);
-                        expect(body.wins).to.equal(0);
-                        expect(body.losses).to.equal(1);
-                        expect(body.disconnects).to.equal(0);
-                        expect(body.games.length).to.equal(1);
-                        expect(body.points).to.equal(984);
-                    });
-
-                    request({url: url + '/ladder/ra/player/robskate'}, function(err, res, body) {
-                        expect(res.statusCode).to.equal(200);
-                        body = JSON.parse(body);
-                        expect(body.wins).to.equal(1);
-                        expect(body.losses).to.equal(0);
-                        expect(body.disconnects).to.equal(0);
-                        expect(body.games.length).to.equal(1);
-                        expect(body.points).to.equal(1016);
-                        done();
-                    });
-                }, MATCH_DELAY);
-            });
         });
+
+        options.body = fattynoob.toString();
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        setTimeout(function() {
+            request({url: url + '/ladder/ra/player/fattynoob'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(0);
+                expect(body.losses).to.equal(1);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(984);
+            });
+
+            request({url: url + '/ladder/ra/player/robskate'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(1);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1016);
+                done();
+            });
+        }, MATCH_DELAY);
     });
     it('TS Regular match: 2 packets', function(done) {
         var gameranger = fs.readFileSync(scenarios + '/TS_REGULAR_PLAYER_2');
@@ -65,35 +65,35 @@ describe('Ladder Endpoints', function() {
 
         request(options, function(err, res) {
             expect(res.statusCode).to.equal(202);
-
-            options.body = kaizen.toString();
-            request(options, function(err, res) {
-                expect(res.statusCode).to.equal(202);
-
-                setTimeout(function() {
-                    request({url: url + '/ladder/ts/player/gameranger'}, function(err, res, body) {
-                        expect(res.statusCode).to.equal(200);
-                        body = JSON.parse(body);
-                        expect(body.wins).to.equal(0);
-                        expect(body.losses).to.equal(1);
-                        expect(body.disconnects).to.equal(0);
-                        expect(body.games.length).to.equal(1);
-                        expect(body.points).to.equal(984);
-                    });
-
-                    request({url: url + '/ladder/ts/player/kaizen'}, function(err, res, body) {
-                        expect(res.statusCode).to.equal(200);
-                        body = JSON.parse(body);
-                        expect(body.wins).to.equal(1);
-                        expect(body.losses).to.equal(0);
-                        expect(body.disconnects).to.equal(0);
-                        expect(body.games.length).to.equal(1);
-                        expect(body.points).to.equal(1016);
-                        done();
-                    });
-                }, MATCH_DELAY);
-            });
         });
+
+        options.body = kaizen.toString();
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        setTimeout(function() {
+            request({url: url + '/ladder/ts/player/gameranger'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(0);
+                expect(body.losses).to.equal(1);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(984);
+            });
+
+            request({url: url + '/ladder/ts/player/kaizen'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(1);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1016);
+                done();
+            });
+        }, MATCH_DELAY);
     });
 
     it('TS D/C Scenario: 1 packet declare uploader winner', function(done) {
@@ -111,30 +111,30 @@ describe('Ladder Endpoints', function() {
 
         request(options, function(err, res) {
             expect(res.statusCode).to.equal(202);
-
-            setTimeout(function() {
-                request({url: url + '/ladder/ts/player/xy'}, function(err, res, body) {
-                    expect(res.statusCode).to.equal(200);
-                    body = JSON.parse(body);
-                    expect(body.wins).to.equal(0);
-                    expect(body.losses).to.equal(1);
-                    expect(body.disconnects).to.equal(1);
-                    expect(body.games.length).to.equal(1);
-                    expect(body.points).to.equal(984);
-                });
-
-                request({url: url + '/ladder/ts/player/test2'}, function(err, res, body) {
-                    expect(res.statusCode).to.equal(200);
-                    body = JSON.parse(body);
-                    expect(body.wins).to.equal(1);
-                    expect(body.losses).to.equal(0);
-                    expect(body.disconnects).to.equal(0);
-                    expect(body.games.length).to.equal(1);
-                    expect(body.points).to.equal(1016);
-                    done();
-                });
-            }, MATCH_DELAY);
         });
+
+        setTimeout(function() {
+            request({url: url + '/ladder/ts/player/xy'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(0);
+                expect(body.losses).to.equal(1);
+                expect(body.disconnects).to.equal(1);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(984);
+            });
+
+            request({url: url + '/ladder/ts/player/test2'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(1);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1016);
+                done();
+            });
+        }, MATCH_DELAY);
     });
 
     it('TS Conflicting packets: consider match out of sync', function(done) {
@@ -153,37 +153,37 @@ describe('Ladder Endpoints', function() {
 
         request(options, function(err, res) {
             expect(res.statusCode).to.equal(202);
-
-            options.body = puzzibaer.toString();
-            request(options, function(err, res) {
-                expect(res.statusCode).to.equal(202);
-
-                setTimeout(function() {
-                    request({url: url + '/ladder/ts/player/puzzibaer'}, function(err, res, body) {
-                        expect(res.statusCode).to.equal(200);
-                        body = JSON.parse(body);
-                        expect(body.wins).to.equal(0);
-                        expect(body.losses).to.equal(0);
-                        expect(body.disconnects).to.equal(0);
-                        expect(body.oos).to.equal(1);
-                        expect(body.games.length).to.equal(1);
-                        expect(body.points).to.equal(1000);
-                    });
-
-                    request({url: url + '/ladder/ts/player/wolfhound'}, function(err, res, body) {
-                        expect(res.statusCode).to.equal(200);
-                        body = JSON.parse(body);
-                        expect(body.wins).to.equal(0);
-                        expect(body.losses).to.equal(0);
-                        expect(body.disconnects).to.equal(0);
-                        expect(body.oos).to.equal(1);
-                        expect(body.games.length).to.equal(1);
-                        expect(body.points).to.equal(1000);
-                        done();
-                    });
-                }, MATCH_DELAY);
-            });
         });
+
+        options.body = puzzibaer.toString();
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        setTimeout(function() {
+            request({url: url + '/ladder/ts/player/puzzibaer'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(0);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.oos).to.equal(1);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1000);
+            });
+
+            request({url: url + '/ladder/ts/player/wolfhound'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(0);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.oos).to.equal(1);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1000);
+                done();
+            });
+        }, MATCH_DELAY);
     });
 
     it('should provide TS leaderboard for players', function(done) {
