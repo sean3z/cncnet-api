@@ -1,7 +1,10 @@
 var $db = require(global.cwd + '/lib/mongo'),
     debug = require('debug')('wol:leaderboard'),
     ranking = require('../ranking'),
-    MATCH_DELAY = process.env.MATCH_DELAY || 90000;
+    MATCH_DELAY = parseInt(process.env.MATCH_DELAY) || 90000;
+
+/* match cache for quick comparison */
+global.matches = {};
 
 module.exports = function process(game, dump) {
     var match = require(__dirname + '/lib/parse')(game, dump);
@@ -9,6 +12,7 @@ module.exports = function process(game, dump) {
     /* discontinue if no gameId or match is less than 1 minute */
     if (!match.idno || match.dura < 60) return;
     debug('game: %s, idno: %d game received', game, match.idno);
+    global.matches[match.idno] = global.matches[match.idno] || [];
 
     // create raw dump entry
     // TODO: check against spid (sender id) to ensure only 1 packet from each player
@@ -20,6 +24,13 @@ module.exports = function process(game, dump) {
         console.log('buffer: %s', match.buffer.toString('hex'));
         console.dir(err);
     });
+
+    global.matches[match.idno].push({
+        unid: match.client.unid
+    });
+
+    // only continue if this is the first entry for a game
+    if (global.matches[match.idno].length > 1) return;
 
     // remove unused properties from game object
     delete match.buffer; /* only used for previous parsing */

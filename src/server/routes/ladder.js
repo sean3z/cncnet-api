@@ -5,9 +5,6 @@ var match = require('../lib/match'),
     auth = require('basic-auth'),
     debug = require('debug')('wol:leaderboard');
 
-/* match cache for quick comparison */
-global.matches = {};
-
 exports.submit = function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.header('Expires', '-1');
@@ -19,29 +16,12 @@ exports.submit = function (req, res, next) {
     var credentials = auth(req) || {},
         dump = gameres.parse(req.body) || {};
 
-    global.matches[dump.idno] = global.matches[dump.idno] || [];
-
     /* discontinue if missing gameres data */
     if (!dump.client || !dump.client.nick) return res.send(400);
 
-    /* discontinue if same player detected in match */
-    if (global.matches[dump.idno].length) {
-        for (var i = 0, x = global.matches[dump.idno].length; i < x; i++) {
-            var row = global.matches[dump.idno][i];
-            if (dump.client.unid == row.unid) return res.send(400);
-        }
-    }
-
     var _success = function() {
         res.send(202);
-
-        global.matches[dump.idno].push({
-            unid: dump.client.unid
-        });
-
-        if (global.matches[dump.idno].length < 2) {
-            match.process(req.params.game, dump);
-        }
+        match.process(req.params.game, dump);
     };
 
     var _error = function() {
