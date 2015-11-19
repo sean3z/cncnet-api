@@ -17,5 +17,8 @@ module.exports = [
     'myid', /* !(int) index of uploader in player array */
     'pils', /* !(int) player ping connectivity streak */
     'para', /* !(bool) player aborted recon attempt */
+    'myip', /* !(str) player's remote address */
+    'wine', /* !(bool) player is using wine */
+    'utcd', /* !(str) system time settings */
     'unid'
 ];
