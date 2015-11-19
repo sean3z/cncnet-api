@@ -20,5 +20,6 @@ module.exports = [
     'myip', /* !(str) player's remote address */
     'wine', /* !(bool) player is using wine */
     'utcd', /* !(str) system time settings */
+    'cult', /* !(str) player's OS language */
     'unid'
 ];
