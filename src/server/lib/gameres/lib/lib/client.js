@@ -4,7 +4,7 @@ module.exports = [
     'vers', /* (str) game client version */
     'vidm', /* (int) client's available video memory */
     'memo', /* (int) client's available pc memory */
-    'proc', /* (str) client's processcor family (defunct) */
+    'proc', /* (str) client's processor family (defunct) */
     'afps', /* (int) average frames per second for match */
     'oosy', /* (bool) whether match was out of sync */
     'gsku', /* (int) game sku */
