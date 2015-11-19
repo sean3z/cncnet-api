@@ -26,4 +26,39 @@ describe('Player Endpoints', function() {
             done();
         });
     });
+
+    it('should error (404) if search is missing criteria', function(done) {
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ts/search',
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(404);
+            done();
+        });
+    });
+
+    it('should provide rank for individual players', function(done) {
+        request(url + '/ladder/ts/player/kaizen', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.games.length).to.equal(1);
+            expect(body.rank).to.equal(1);
+            done();
+        });
+    });
+
+    it('should hide games from player object when query param passed', function(done) {
+        request(url + '/ladder/ts/player/kaizen?games=false', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.games).to.be.undefined;
+            expect(body.rank).to.equal(1);
+            done();
+        });
+    });
 });
