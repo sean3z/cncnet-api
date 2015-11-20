@@ -81,6 +81,8 @@ module.exports = function singles(game, match, packets) {
         }
     }
 
+    // @TODO: RA Draw Scenario: check if game is RA and both packets.cmpl are 64
+
     var elo = new Arpad(),
         $players = $db.get(game + '_players');
 
@@ -106,7 +108,9 @@ module.exports = function singles(game, match, packets) {
 
         /* if packet completion status doesn't match up, consider it oos */
         if (packets.length > 1) {
-            if (packets[0].players[0].cmp != packets[1].players[0].cmp) {
+            var player1 = (packets[0].players[0].cmp == packets[1].players[0].cmp);
+            var player2 = (packets[0].players[1].cmp == packets[1].players[1].cmp);
+            if (!player1 || !player2) {
                 update.$set.oosy = 1;
                 winner = -1;
                 loser = -1;
