@@ -1,4 +1,3 @@
-var $db = require('../lib/mongo');
 var debug = require('debug')('wol:leaderboard');
 
 var official_maps = [
@@ -14,6 +13,7 @@ var official_maps = [
     'Ice Cliffs',
     'Limited Access',
     'Night of the Mutants',
+    'No where to run',
     'Pentagram',
     'Pit Or Plateau',
     'Pockets',
@@ -27,10 +27,17 @@ var official_maps = [
     'The Ice Must Flow',
     'Tiberium Garden Redux',
     'Tread Lightly',
-    'Tunnel Training',
-    'Big Bluntz Green 4',
+    'Tunnel Training'
 ];
 
-exports.process = function(match) {
-    return;
+exports.official = function(settings) {
+    /* check if map is official */
+    for(var i = 0, x = official_maps.length; i < x; i++) {
+        if (settings.scen == official_maps[i]) {
+            settings.official = true;
+            break;
+        }
+    }
+
+    return settings;
 };

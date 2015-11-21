@@ -5,6 +5,11 @@ var $db = require(global.cwd + '/lib/mongo'),
     $q = require('q'),
     DEFAULT_POINTS = 1000;
 
+var games = {
+    ra: require(global.cwd + '/lib/games/lib/ra'),
+    ts: require(global.cwd + '/lib/games/lib/ts')
+};
+
 module.exports = function singles(game, match, packets) {
     debug('game: %s, idno: %d is singles', game, match.idno);
 
@@ -96,6 +101,14 @@ module.exports = function singles(game, match, packets) {
 
         /* note the type of match */
         update.$set.type = 'singles';
+
+        /* TS Scenario: note whether game map is mod or ww */
+        if (game == 'ts') {
+            match.settings = games[game].official(match.settings);
+            if (match.settings.official) {
+                update.$set.official = true;
+            }
+        }
 
         /* determine if game is out of sync */
         packets.forEach(function(packet) {
