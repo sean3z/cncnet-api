@@ -31,8 +31,9 @@ var official_maps = [
 ];
 
 exports.official = function(settings) {
+    settings.official = false;
     /* check if map is official */
-    for(var i = 0, x = official_maps.length; i < x; i++) {
+    for (var i = 0, x = official_maps.length; i < x; i++) {
         if (settings.scen == official_maps[i]) {
             settings.official = true;
             break;
