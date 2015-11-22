@@ -12,7 +12,7 @@ describe('Player Endpoints', function() {
     it('should return an array of players via search', function(done) {
         var options = {
             method: 'POST',
-            url: url + '/ladder/ts/search',
+            url: url + '/ladder/tsm/search',
             json: {player: 'kaizen'},
             headers: {
                 authorization: 'Basic dGFoajpwYXNzd29yZA=='
@@ -42,8 +42,28 @@ describe('Player Endpoints', function() {
         });
     });
 
-    it('should provide rank for individual players', function(done) {
-        request(url + '/ladder/ts/player/kaizen', function(err, res, body) {
+    it('TS should provide rank for (mod map) players', function(done) {
+        request(url + '/ladder/tsm/player/kaizen', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.games.length).to.equal(1);
+            expect(body.rank).to.equal(1);
+            done();
+        });
+    });
+
+    it('TS should provide rank for (official) players', function(done) {
+        request(url + '/ladder/ts/player/test2', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.games.length).to.equal(1);
+            expect(body.rank).to.equal(1);
+            done();
+        });
+    });
+
+    it('RA should provide rank for individual players', function(done) {
+        request(url + '/ladder/ra/player/robskate', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
             expect(body.games.length).to.equal(1);
@@ -53,7 +73,7 @@ describe('Player Endpoints', function() {
     });
 
     it('should hide games from player object when query param passed', function(done) {
-        request(url + '/ladder/ts/player/kaizen?games=false', function(err, res, body) {
+        request(url + '/ladder/tsm/player/kaizen?games=false', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
             expect(body.games).to.be.undefined;
