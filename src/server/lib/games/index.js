@@ -5,11 +5,11 @@ module.exports = {
         'd2',
         'ra',
         'am',
-        'ts',
+        'ts',  /* ww maps */
+        'tsm', /* mod maps */
         'fs',
         'dta',
         'ra2',
-        'yr',
-        'all'
+        'yr'
     ]
 };
