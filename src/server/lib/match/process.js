@@ -6,13 +6,27 @@ var $db = require(global.cwd + '/lib/mongo'),
 /* match cache for quick comparison */
 global.matches = {};
 
+var games = {
+    ra: require(global.cwd + '/lib/games/lib/ra'),
+    ts: require(global.cwd + '/lib/games/lib/ts')
+};
+
 module.exports = function process(game, dump) {
     var match = require(__dirname + '/lib/parse')(game, dump);
+
+    /* TS Scenario: note whether game map is mod or ww */
+    if (game === 'ts') {
+        match.settings = games[game].official(match.settings);
+        if (!match.settings.official) {
+            game = 'tsm'; /* tiberian sun mod map */
+        }
+    }
 
     /* discontinue if no gameId or match is less than 1 minute */
     if (!match.idno || match.dura < 60) return;
     debug('game: %s, idno: %d game received', game, match.idno);
-    global.matches[match.idno] = global.matches[match.idno] || [];
+    if (!global.matches[game]) global.matches[game] = {};
+    global.matches[game][match.idno] = global.matches[game][match.idno] || [];
 
     // create raw dump entry
     // TODO: check against spid (sender id) to ensure only 1 packet from each player
@@ -25,12 +39,12 @@ module.exports = function process(game, dump) {
         console.dir(err);
     });
 
-    global.matches[match.idno].push({
+    global.matches[game][match.idno].push({
         unid: match.client.unid
     });
 
     // only continue if this is the first entry for a game
-    if (global.matches[match.idno].length > 1) return;
+    if (global.matches[game][match.idno].length > 1) return;
 
     // remove unused properties from game object
     delete match.buffer; /* only used for previous parsing */
