@@ -17,6 +17,9 @@ exports.reset = function(req, res, next) {
 
 exports.buffer = function(req, res, next) {
     $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
+
+        if (!data.buffers || data.buffers.length < 1) return res.send(404);
+
         data.buffers.forEach(function(buffer, index) {
             data.buffers[index] = buffer.buffer.toString('hex');
         });
@@ -28,6 +31,8 @@ exports.buffer = function(req, res, next) {
 exports.gameres = function(req, res, next) {
     $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
 
+        if (!data.buffers || data.buffers.length < 1) return res.send(404);
+
         data.buffers.forEach(function(buffer, index) {
             data.buffers[index] = gameres.parse(buffer.buffer);
             delete data.buffers[index].buffer;
@@ -38,5 +43,8 @@ exports.gameres = function(req, res, next) {
 };
 
 exports.submit = function(req, res, next) {
+
+    if (!res.body) return res.send(401);
+
     res.send(gameres.parse(req.body));
 };
