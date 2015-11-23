@@ -136,7 +136,8 @@ module.exports = function singles(game, match, packets) {
                     oos: player.oos || 0
                 },
                 $set: {
-                    points: player.points || DEFAULT_POINTS
+                    points: player.points || DEFAULT_POINTS,
+                    activity: Math.floor(Date.now() / 1000)
                 }
             };
 
