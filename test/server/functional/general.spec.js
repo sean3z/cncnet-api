@@ -50,5 +50,12 @@ describe('General Endpoints', function() {
             done();
         });
     });
+
+    it('should error (500) if invalid game param passed', function(done) {
+        request(url + '/ladder/m30w', function(err, res, body) {
+            expect(res.statusCode).to.equal(500);
+            done();
+        });
+    });
 });
 
