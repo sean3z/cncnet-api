@@ -5,9 +5,18 @@ var debug = require('debug')('wol:leaderboard'),
 
 exports.reset = function(req, res, next) {
     games.supported.forEach(function(game) {
-        $db.get(game +'_dumps').drop();
-        $db.get(game +'_games').drop();
-        $db.get(game +'_players').drop();
+        var reset = {
+            $set: {
+                points: 0,
+                games: [],
+                wins: 0,
+                losses: 0,
+                disconnects: 0,
+                oos: 0
+            }
+        };
+
+        $db.get(game +'_players').update({}, reset, {multi: true});
     });
 
     global.ladder = {};
