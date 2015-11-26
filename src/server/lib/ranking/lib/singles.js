@@ -178,8 +178,9 @@ module.exports = function singles(game, match, packets) {
                 _player.$set = {points: player.exp};
 
                 /* update player, experience gained/loss in match object */
-                var str = ['players', index, 'exp'].join('.');
-                update.$set[str] = Math.abs(player.points - player.exp);
+                var str = ['players', index].join('.');
+                update.$set[str + '.exp'] = Math.abs(player.points - player.exp);
+                update.$set[str + '.points'] = player.points || DEFAULT_POINTS;
             }
 
             /* update win/loss/discon in game object just in case it's changed */
