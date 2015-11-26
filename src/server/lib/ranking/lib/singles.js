@@ -81,7 +81,18 @@ module.exports = function singles(game, match, packets) {
         }
     }
 
-    // @TODO: RA Draw Scenario: check if game is RA and both packets.cmpl are 64
+    /* RA Draw Scenario: both packets.cmpl are 64 */
+    if (packets.length > 1 && (game == 'ra' || game == 'am')) {
+        if (packets[0].client.cmpl == 64 && packets[1].client.cmpl == 64) {
+            loser = -1;
+            winner = 1;
+            match.players.forEach(function(player) {
+                player.won = 1;
+                player.loss = 0;
+                player.discon = 0;
+            });
+        }
+    }
 
     var elo = new Arpad(),
         $players = $db.get(game + '_players');

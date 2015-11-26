@@ -49,6 +49,7 @@ describe('Ladder Endpoints', function() {
             });
         }, MATCH_DELAY);
     });
+
     it('TS Regular (mod map) match: 2 packets', function(done) {
         var gameranger = fs.readFileSync(scenarios + '/TS_REGULAR_PLAYER_2');
         var kaizen = fs.readFileSync(scenarios + '/TS_REGULAR_PLAYER_1');
@@ -186,6 +187,53 @@ describe('Ladder Endpoints', function() {
         }, MATCH_DELAY);
     });
 
+    it('RA Draw Scenario: both winners without point allocation', function(done) {
+        var oracroboys = fs.readFileSync(scenarios + '/RA_DRAW_PLAYER_2');
+        var rc2g2g = fs.readFileSync(scenarios + '/RA_DRAW_PLAYER_1');
+
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ra',
+            body: oracroboys.toString(),
+            headers: {
+                'content-type': 'text/plain',
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        options.body = rc2g2g.toString();
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        setTimeout(function() {
+            request({url: url + '/ladder/ra/player/ora-croboys'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(1);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1000);
+            });
+
+            request({url: url + '/ladder/ra/player/rc_2g2g'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(1);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1000);
+                done();
+            });
+        }, MATCH_DELAY);
+    });
+
     it('TS leaderboard (official) for players', function(done) {
         /* warm up cache */
         request(url + '/ladder/ts', function() {});
@@ -225,7 +273,7 @@ describe('Ladder Endpoints', function() {
             request(url + '/ladder/ra', function(err, res, body) {
                 expect(res.statusCode).to.equal(200);
                 body = JSON.parse(body);
-                expect(body.length).to.equal(2);
+                expect(body.length).to.equal(4);
                 done();
             });
         }, MATCH_DELAY);
