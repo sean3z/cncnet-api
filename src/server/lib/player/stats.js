@@ -23,12 +23,10 @@ module.exports = function stats(game, player, showGames) {
             }
         }
 
-        if (!showGames) {
+        if (!showGames || !player_data.games.length) {
             delete player_data.games;
             return defer.resolve(player_data);
         }
-
-        if (!player_data.games.length) return defer.resolve(player_data);
 
         /* left join last 50 games */
         player_data.games = player_data.games.slice(-50);
