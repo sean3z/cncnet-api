@@ -175,7 +175,7 @@ module.exports = function singles(game, match, packets) {
             /* if we have points, update the game and player records */
             if (player.exp) {
                 /* update _player points */
-                _player.$set = {points: player.exp};
+                _player.$set.points = player.exp;
 
                 /* update player, experience gained/loss in match object */
                 var str = ['players', index].join('.');

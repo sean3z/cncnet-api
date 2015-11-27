@@ -82,6 +82,15 @@ describe('Player Endpoints', function() {
         });
     });
 
+    it('should track the last time the player was active', function(done) {
+        request({url: url + '/ladder/ra/player/fattynoob?games=false'}, function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.activity).to.be.above(0);
+            done();
+        });
+    });
+
     it('should reset monthly leaving critical player data intact', function(done) {
         /* ladder reset endpoint */
         request(url + '/debug/reset', function() {});
@@ -89,7 +98,7 @@ describe('Player Endpoints', function() {
         request(url + '/ladder/ts/player/test2', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
-            expect(body.games.length).to.equal(0);
+            expect(body.games).to.be.undefined;
             expect(body.wins).to.equal(0);
             expect(body.losses).to.equal(0);
             expect(body.disconnects).to.equal(0);
