@@ -48,7 +48,7 @@
                                     <tr ng-repeat="player in searchResults">
                                         <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
                                         </td>
-                                        <td>{{ player.points}} points</td>
+                                        <td>{{player.points || 0}} points</td>
                                         <td>{{player.wins || 0}}</td>
                                     </tr>
                                     </tbody>
@@ -64,16 +64,23 @@
                                 <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
                                 <th>Profile <i class="fa fa-user fa-fw"></i></th>
                                 <th class="hidden-xs">Points <i class="fa fa-bolt fa-fw"></i></th>
-                                <th>Games Won <i class="fa fa-level-up fa-fw"></i></th>
+                                <th>Won <i class="fa fa-level-up fa-fw"></i></th>
+                                <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
                                 <th>Winning % </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="player in players">
                                 <td class="rank"><strong>#{{player.rank}}</strong></td>
-                                <td><a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a></td>
+                                <td>
+                                    <i ng-if="player.rank == 1" class="fa fa-trophy fa-fw" style="color: #D2CF1A;"></i>
+                                    <i ng-if="player.rank == 2" class="fa fa-trophy fa-fw" style="color: #A2A297;"></i>
+                                    <i ng-if="player.rank == 3" class="fa fa-trophy fa-fw" style="color: #96774E;"></i>
+                                    <a ui-sref="leaderboard.player({player: player.name})">{{player.name}}</a>
+                                </td>
                                 <td class="hidden-xs">{{player.points}} points</td>
                                 <td>{{player.wins || 0}}</td>
+                                <td>{{player.losses || 0}}</td>
                                 <td>
                                     <span class="">
                                         {{player.wins / (player.wins + player.losses) * 100 | number:0}}%
