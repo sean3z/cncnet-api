@@ -53,7 +53,7 @@ exports.gameres = function(req, res, next) {
 
 exports.submit = function(req, res, next) {
 
-    if (!res.body) return res.send(401);
+    if (!req.body) return res.send(400);
 
     res.send(gameres.parse(req.body));
 };
