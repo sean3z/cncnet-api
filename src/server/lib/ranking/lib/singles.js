@@ -180,14 +180,14 @@ module.exports = function singles(game, match, packets) {
                 /* update player, experience gained/loss in match object */
                 var str = ['players', index].join('.');
                 update.$set[str + '.exp'] = Math.abs(player.points - player.exp);
-                update.$set[str + '.points'] = player.points || DEFAULT_POINTS;
             }
 
-            /* update win/loss/discon in game object just in case it's changed */
+            /* update game object with new/old totals */
             var str = ['players', index].join('.');
             update.$set[str + '.won'] = player.won;
             update.$set[str + '.loss'] = player.loss;
             update.$set[str + '.discon'] = player.discon;
+            update.$set[str + '.points'] = player.points || DEFAULT_POINTS;
 
             /* update or create player */
             $players.update({name: player.name}, _player, {upsert: true}).error(function(err) {
