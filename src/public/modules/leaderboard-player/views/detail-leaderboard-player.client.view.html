@@ -125,29 +125,19 @@
                                 <td>
                                     <div ng-repeat="participant in game.players">
                                         <ul class="list-unstyled">
-                                            <li ng-if="participant.won > 0">
+                                            <li>
                                                 <a href="#/{{ gameName }}/player/{{participant.name}}">
                                                     <span class="game-faction faction_{{ participant.sid }}"></span>
-                                                    <span class="label label-success">
+                                                    <span class="label" ng-class="{'label-success': participant.won > 0, 'label-danger': participant.loss > 0, 'label-warning': game.oosy}">
                                                         {{participant.name}}
-                                                        <i class="fa fa-smile-o fa-fw fa-lg"></i>
+                                                        <i class="fa fa-fw fa-lg" ng-class="{'fa-smile-o': participant.won > 0, 'fa-frown-o': participant.loss > 0}"></i>
                                                     </span>
                                                     <span class="label label-default" ng-if="participant.exp > 0">
                                                         <i class="fa fa-signal fa-fw fa-lg" ng-if="participant.discon > 0"></i>
-                                                        + {{participant.exp}} points
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li ng-if="participant.loss > 0">
-                                                <a href="#/{{ gameName }}/player/{{participant.name}}">
-                                                    <span class="game-faction faction_{{ participant.sid }}"></span>
-                                                    <span class="label label-danger">
-                                                        {{participant.name}}
-                                                        <i class="fa fa-frown-o fa-fw fa-lg"></i>
-                                                    </span>
-                                                    <span class="label label-default" ng-if="participant.exp > 0">
-                                                        <i class="fa fa-signal fa-fw fa-lg" ng-if="participant.discon > 0"></i>
-                                                        - {{participant.exp}} points
+                                                        <span ng-if="participant.points">({{participant.points}})</span>
+                                                        <span ng-if="participant.won > 0">+</span>
+                                                        <span ng-if="participant.loss > 0">-</span>
+                                                        {{participant.exp}} points
                                                     </span>
                                                 </a>
                                             </li>
