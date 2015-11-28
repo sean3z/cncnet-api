@@ -23,6 +23,10 @@ angular.module('Leaderboard').controller('LeaderboardController', ['$scope', '$s
                 $scope.abbr = 'ts';
                 $scope.game = 'Tiberian Sun';
                 break;
+            case 'tsm':
+                $scope.abbr = 'ts';
+                $scope.game = 'Tiberian Sun - (mod maps)';
+                break;
             case 'ra':
                 $scope.abbr = 'ra';
                 $scope.game = 'Red Alert';

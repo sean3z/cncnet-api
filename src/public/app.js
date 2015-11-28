@@ -4,7 +4,8 @@ angular.module('app', [
     'mgcrea.ngStrap',
     'index',
     'Leaderboard',
-    'Leaderboard.Player'
+    'Leaderboard.Player',
+    'Champions'
 ]);
 
 angular.module('app').config(configuration);
@@ -29,6 +30,11 @@ function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('leaderboard.player', {
             url: '/player/:player',
             templateUrl: 'modules/leaderboard-player/views/detail-leaderboard-player.client.view.html'
+        })
+
+        .state('champions', {
+            url: '/champions/:game',
+            templateUrl: 'modules/champions/views/list-champions.client.view.html'
         });
 
     $urlRouterProvider.otherwise('/index');

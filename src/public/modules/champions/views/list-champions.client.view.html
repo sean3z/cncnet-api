@@ -1,0 +1,54 @@
+<div ui-view>
+    <div ng-controller="ChampionsController">
+        <div class="feature-banner text-center jumbo-{{abbr}}">
+            <div class="container small">
+
+                <div class="logo {{abbr}}">
+                    <img ng-src="assets/images/game-logos/{{abbr}}.png">
+                </div>
+
+                <h2 class="text-uppercase small-text">Leaderboard Champions <span class="hidden-xs">-</span> {{game}}
+                </h2>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                        <div class="panel-heading">
+                            <h4>November <strong>2015</strong>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="rank">Rank <i class="fa fa-trophy fa-fw"></i></th>
+                                        <th>Profile <i class="fa fa-user fa-fw"></i></th>
+                                        <th>Points <i class="fa fa-bolt fa-fw"></i></th>
+                                        <th>Won <i class="fa fa-level-up fa-fw"></i></th>
+                                        <th>Lost <i class="fa fa-level-down fa-fw"></i></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="player in champions[abbr]">
+                                        <td class="rank"><strong>#{{player.rank}}</strong></td>
+                                        <td>
+                                            <i ng-if="player.rank == 1" class="fa fa-trophy fa-fw" style="color: #D2CF1A;"></i>
+                                            <i ng-if="player.rank == 2" class="fa fa-trophy fa-fw" style="color: #A2A297;"></i>
+                                            <i ng-if="player.rank == 3" class="fa fa-trophy fa-fw" style="color: #96774E;"></i>
+                                            <a ui-sref="leaderboard.player({game: game, player: player.name})">{{player.name}}</a>
+                                        </td>
+                                        <td>{{player.points || 0}} points</td>
+                                        <td>{{player.wins || 0}}</td>
+                                        <td>{{player.losses || 0}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
