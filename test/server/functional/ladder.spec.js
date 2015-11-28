@@ -279,4 +279,13 @@ describe('Ladder Endpoints', function() {
         }, MATCH_DELAY);
     });
 
+    it('should shorten results if limit query param passed', function(done) {
+        request(url + '/ladder/ts?limit=2', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            body = JSON.parse(body);
+            expect(body.length).to.equal(2);
+            done();
+        });
+    });
+
 });
