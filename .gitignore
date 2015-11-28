@@ -5,7 +5,7 @@ node_modules
 _storage
 src/server/config.json
 coverage
-
+dist
 data
 .sass-cache
 .idea
