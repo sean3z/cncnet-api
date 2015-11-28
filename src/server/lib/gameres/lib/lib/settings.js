@@ -16,5 +16,6 @@ module.exports = [
     'trny', /* (bool) tournament game */
     'shrt', /* (bool) short game enabled */
     'supr', /* (bool) super weapons enabled */
-    'aipl' /* (int) number of AI players */
+    'aipl', /* (int) number of AI players */
+    'mapc', /* !(str) map sha1 hash */
 ];
