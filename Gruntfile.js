@@ -70,7 +70,7 @@ module.exports = function (grunt) {
 
         concurrent: {
             development: {
-                tasks: ['watch:public', 'nodemon:development'],
+                tasks: ['watch:public', 'nodemon:development', 'ngAnnotate'],
                 options: {
                     logConcurrentOutput: true
                 }
