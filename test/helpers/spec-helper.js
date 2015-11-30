@@ -1,6 +1,6 @@
 var chai = require('chai');
 var path = require('path');
-var fs = require('fs');
+var fs = require('fs-extra');
 var spawn = require('child_process').spawn;
 var module = require('module');
 
@@ -15,7 +15,12 @@ process.env.MATCH_DELAY = 5; /* milliseconds */
 global.url = 'http://localhost:'+ process.env.WOL_PORT;
 
 console.log('Cleaning up mongodb test directory');
-rm(__dirname + '/data/db/');
+var dbpath = __dirname + '/data/db/';
+if (!fs.existsSync(dbpath)) {
+    fs.mkdirpSync(dbpath);
+} else {
+    fs.emptyDirSync(dbpath);
+}
 
 console.log('Starting mongodb instance..');
 global.mongodb = spawn('mongod', [
@@ -41,17 +46,3 @@ module._cache[auth].exports = function() {
         }
     }
 }
-
-// directory cleanup
-function rm(path) {
-    if(fs.existsSync(path)) {
-        fs.readdirSync(path).forEach(function(file){
-            var curPath = path + '/' + file;
-            if(fs.lstatSync(curPath).isDirectory()) {
-                rm(curPath);
-            } else {
-                fs.unlinkSync(curPath);
-            }
-        });
-    }
-};
