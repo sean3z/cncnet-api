@@ -2,8 +2,7 @@
 var $db = require(global.cwd + '/lib/mongo'),
     debug = require('debug')('wol:leaderboard'),
     Arpad = require('arpad'),
-    $q = require('q'),
-    DEFAULT_POINTS = 1000;
+    $q = require('q');
 
 module.exports = function singles(game, match, packets) {
     debug('game: %s, idno: %d is singles', game, match.idno);
@@ -147,7 +146,7 @@ module.exports = function singles(game, match, packets) {
                     oos: player.oos || 0
                 },
                 $set: {
-                    points: player.points || DEFAULT_POINTS,
+                    points: player.points || global.DEFAULT_POINTS,
                     activity: Math.floor(Date.now() / 1000)
                 }
             };
@@ -187,7 +186,7 @@ module.exports = function singles(game, match, packets) {
             update.$set[str + '.won'] = player.won;
             update.$set[str + '.loss'] = player.loss;
             update.$set[str + '.discon'] = player.discon;
-            update.$set[str + '.points'] = player.points || DEFAULT_POINTS;
+            update.$set[str + '.points'] = player.points || global.DEFAULT_POINTS;
 
             /* update or create player */
             $players.update({name: player.name}, _player, {upsert: true}).error(function(err) {
@@ -219,7 +218,7 @@ function points(game, players) {
     $db.get(game + '_players').find({name: {$in: search}}, function (err, data) {
         players.forEach(function (player, key) {
 
-            players[key].points = DEFAULT_POINTS;
+            players[key].points = global.DEFAULT_POINTS;
 
             data.forEach(function (row) {
                 if (row.points && player.name == row.name) {

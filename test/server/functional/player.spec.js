@@ -102,7 +102,7 @@ describe('Player Endpoints', function() {
             expect(body.wins).to.equal(0);
             expect(body.losses).to.equal(0);
             expect(body.disconnects).to.equal(0);
-            expect(body.points).to.equal(0);
+            expect(body.points).to.equal(1000);
             expect(body.rank).to.equal(0);
             done();
         });

@@ -7,7 +7,7 @@ exports.reset = function(req, res, next) {
     games.supported.forEach(function(game) {
         var reset = {
             $set: {
-                points: 1000,
+                points: global.DEFAULT_POINTS,
                 games: [],
                 wins: 0,
                 losses: 0,
