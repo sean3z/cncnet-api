@@ -43,7 +43,8 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
         }
 
         $scope.champions = {};
-        $scope.champions['ts'] = [{
+        $scope.champions['ts'] = [
+  {
     "_id": "563bca362273e407b4a8074c",
     "name": "kaizen",
     "uid": 7413,
@@ -59,12 +60,25 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "name": "sexpro",
     "uid": 9536,
     "avatar": "",
-    "points": 1378,
+    "points": 1358,
     "wins": 78,
     "losses": 9,
     "disconnects": 0,
     "oos": 0,
     "rank": 2
+  },
+  {
+    "_id": "5633bf692273e407b4a8007c",
+    "name": "wolfhound",
+    "uid": 9535,
+    "avatar": "",
+    "points": 1288,
+    "wins": 87,
+    "losses": 39,
+    "disconnects": 5,
+    "oos": 1,
+    "activity": 1448788190,
+    "rank": 3
   },
   {
     "_id": "563c4c892273e407b4a80820",
@@ -76,18 +90,6 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "disconnects": 3,
     "points": 1256,
     "oos": 0,
-    "rank": 3
-  },
-  {
-    "_id": "5633bf692273e407b4a8007c",
-    "name": "wolfhound",
-    "uid": 9535,
-    "avatar": "",
-    "points": 1233,
-    "wins": 79,
-    "losses": 39,
-    "disconnects": 5,
-    "oos": 1,
     "rank": 4
   },
   {
@@ -160,7 +162,8 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "oos": 1,
     "points": 1112,
     "rank": 10
-  }];
+  }
+];
 
         $scope.champions['ra'] = [
   {
@@ -213,29 +216,29 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "rank": 4
   },
   {
-    "_id": "563db34f2273e407b4a80b47",
-    "name": "ora-ifucuup",
-    "uid": 9746,
-    "avatar": "",
-    "wins": 100,
-    "losses": 54,
-    "disconnects": 1,
-    "points": 1297,
-    "oos": 1,
-    "activity": 1448618954,
-    "rank": 5
-  },
-  {
     "_id": "56348f6a2273e407b4a804b7",
     "name": "robskate",
     "uid": 4770,
     "avatar": "",
-    "points": 1267,
-    "wins": 110,
-    "losses": 70,
+    "points": 1308,
+    "wins": 116,
+    "losses": 71,
     "disconnects": 0,
     "oos": 0,
-    "activity": 1448605763,
+    "activity": 1448874349,
+    "rank": 5
+  },
+  {
+    "_id": "563db34f2273e407b4a80b47",
+    "name": "ora-ifucuup",
+    "uid": 9746,
+    "avatar": "",
+    "wins": 101,
+    "losses": 54,
+    "disconnects": 1,
+    "points": 1304,
+    "oos": 1,
+    "activity": 1448868344,
     "rank": 6
   },
   {
@@ -251,6 +254,19 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "rank": 7
   },
   {
+    "_id": "5633cbfb2273e407b4a80139",
+    "name": "ora-croboys",
+    "uid": 9549,
+    "avatar": "",
+    "points": 1251,
+    "wins": 129,
+    "losses": 55,
+    "disconnects": 5,
+    "oos": 1,
+    "activity": 1448852108,
+    "rank": 8
+  },
+  {
     "_id": "5634d4f62273e407b4a805ac",
     "name": "fattynoob",
     "uid": 9639,
@@ -259,7 +275,7 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "losses": 27,
     "disconnects": 0,
     "points": 1236,
-    "rank": 8
+    "rank": 9
   },
   {
     "_id": "564200882273e407b4a81352",
@@ -272,18 +288,6 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "points": 1225,
     "oos": 2,
     "activity": 1448663917,
-    "rank": 9
-  },
-  {
-    "_id": "564797a42273e407b4a818e3",
-    "name": "[sfp[-xena",
-    "uid": 9964,
-    "avatar": "",
-    "wins": 27,
-    "losses": 9,
-    "disconnects": 2,
-    "points": 1218,
-    "oos": 2,
     "rank": 10
   }
 ];
@@ -294,12 +298,13 @@ angular.module('Champions').controller('ChampionsController', ['$scope', '$state
     "name": "giantxl",
     "uid": 9559,
     "avatar": "",
-    "points": 1144,
-    "wins": 27,
+    "points": 1170,
+    "wins": 29,
     "losses": 8,
     "disconnects": 0,
     "oss": 0,
     "oos": 1,
+    "activity": 1448810044,
     "rank": 1
   },
   {
