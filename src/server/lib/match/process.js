@@ -58,6 +58,7 @@ module.exports = function process(game, dump) {
         /* process rankings at a 1.5 minute delay */
         /* this allows time for all packets to arrive */
         setTimeout(function() {
+            delete global.matches[game][match.idno];
             ranking.process(game, match);
         }, MATCH_DELAY);
     });
