@@ -37,7 +37,7 @@
                                             <i ng-if="player.rank == 1" class="fa fa-trophy fa-fw" style="color: #D2CF1A;"></i>
                                             <i ng-if="player.rank == 2" class="fa fa-trophy fa-fw" style="color: #A2A297;"></i>
                                             <i ng-if="player.rank == 3" class="fa fa-trophy fa-fw" style="color: #96774E;"></i>
-                                            <a ui-sref="leaderboard.player({game: abbr, player: player.name})">{{player.name}}</a>
+                                            {{player.name}}
                                         </td>
                                         <td>{{player.points || 0}} points</td>
                                         <td>{{player.wins || 0}}</td>
