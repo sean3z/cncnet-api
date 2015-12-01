@@ -21,7 +21,7 @@ module.exports = function ladder(game, limit) {
 
 /* updates leaderboard cache */
 function _notch(game) {
-    $db.get(game + '_players').find({$where: 'this.games.length > 0 && this.points > 0'}, {limit: 1000, sort: {points: -1}}, function(err, data) {
+    $db.get(game + '_players').find({points: {$gt: 0}, 'games.0': {$exists: true}}, {limit: 1000, sort: {points: -1}}, function(err, data) {
         if (!data || data.length < 1) return;
 
         data.forEach(function(item, index) {
