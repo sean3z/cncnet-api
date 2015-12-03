@@ -4,6 +4,7 @@ var official_maps = [
     'A River Runs Near It',
     'Casey\'s Canyon',
     'Cliffs of Insanity',
+    'Crater',
     'Desolation Redux',
     'Dueling Islands',
     'Forest Fires',
@@ -21,13 +22,13 @@ var official_maps = [
     'Sinkholes',
     'Storms',
     'Stormy Valley',
-    'Super Bidgehead Redux',
+    'Super Bridgehead Redux',
     'Tactical Opportunities',
     'Terraces',
     'The Ice Must Flow',
     'Tiberium Garden Redux',
     'Tread Lightly',
-    'Tunnel Training'
+    'Tunnel Train-ing'
 ];
 
 exports.official = function(settings) {
