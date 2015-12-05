@@ -2,14 +2,16 @@
 @import "../../lib/bootstrap-sass/assets/stylesheets/_bootstrap";
 
 // Most of these imports represent class names
-@import "_feature-banner";
-@import "_navbar";
-@import "_tables";
-@import "_buttons";
-@import "_misc";
+@import "home/_feature-banner";
+@import "home/_supported-games";
+@import "home/_home-listings";
+@import "home/_angled-feature-intro";
 
-@import "_angled-feature-intro";
-@import "_panel-profile";
-@import "_supported-games";
-@import "_search-results";
-@import "_home-listings";
+@import "misc/_misc";
+@import "misc/_navbar";
+@import "misc/_tables";
+@import "misc/_buttons";
+@import "misc/_search-results";
+
+@import "leaderboard/_leaderboard";
+@import "leaderboard-player/_panel-profile";
