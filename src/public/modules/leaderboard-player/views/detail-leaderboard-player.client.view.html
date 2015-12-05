@@ -56,8 +56,12 @@
                         <div class="col-md-6">
                             <div class="profile-rank">
                                 <div class="text-right">
-                                    <h3>Rank #{{ player.rank }}</h3>
-                                    <h5>Colonel</h5>
+                                    <h3>Rank #{{ player.rank }} </h3>
+                                    <h5>Colonel
+                                        <i ng-if="player.rank == 1" class="fa fa-trophy fa-fw cup-gold"></i>
+                                        <i ng-if="player.rank == 2" class="fa fa-trophy fa-fw cup-silver"></i>
+                                        <i ng-if="player.rank == 3" class="fa fa-trophy fa-fw cup-bronze"></i>
+                                    </h5>
                                 </div>
                             </div>
                             <div class="profile-stats">
