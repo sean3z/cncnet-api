@@ -33,6 +33,10 @@ exports.submit = function (req, res, next) {
     };
 
     if (!credentials.name || !credentials.pass) return _error();
+
+    /* dirty hack for td, since they have no accounts */
+    if (req.params.game === 'td') return _success();
+
     player.auth(dump.client.nick, credentials.name, credentials.pass).then(_success, _error);
 };
 
