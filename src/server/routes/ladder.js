@@ -32,6 +32,9 @@ exports.submit = function (req, res, next) {
         res.end();
     };
 
+    /* dirty hack for td, since they have no accounts */
+    if (req.params.game === 'td') return _success();
+
     if (!credentials.name || !credentials.pass) return _error();
     player.auth(dump.client.nick, credentials.name, credentials.pass).then(_success, _error);
 };
