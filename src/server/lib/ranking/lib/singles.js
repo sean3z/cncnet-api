@@ -81,7 +81,7 @@ module.exports = function singles(game, match, packets) {
     }
 
     /* RA Draw Scenario: both packets.cmpl are 64 */
-    if (packets.length > 1 && (game == 'ra' || game == 'am')) {
+    if (packets.length > 1 && (game == 'ra' || game == 'am' || game == 'td')) {
         if (packets[0].client.cmpl == 64 && packets[1].client.cmpl == 64) {
             loser = -1;
             winner = 1;

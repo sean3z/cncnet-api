@@ -24,9 +24,14 @@ module.exports = function parse(game, match) {
         }
     });
 
-    /* if we have ra stats normalize packet then carry on  */
+    /* if we have ra stats, normalize packet then carry on  */
     if (game == 'ra' || game == 'am') {
         match = require(global.cwd + '/lib/games/lib/ra').normalize(match);
+    }
+
+    /* if we have td stats, normalize packet then carry on  */
+    if (game == 'td') {
+        match = require(global.cwd + '/lib/games/lib/td').normalize(match);
     }
 
     /* determine win/loss outcome for each player */
