@@ -91,4 +91,54 @@ describe('Clan Endpoints', function() {
         });
     });
 
+    it('Destroy: should error (401) if no auth provided', function(done) {
+        var options = {
+            method: 'DELETE',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'test2'},
+            headers: {
+            }
+        };
+
+        request(options, function(err, res, body) {
+            expect(res.statusCode).to.equal(401);
+            done();
+        });
+    });
+
+    it('Destroy: should error (400) if player not in clan', function(done) {
+        var options = {
+            method: 'DELETE',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'xy'},
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(400);
+            done();
+        });
+    });
+
+    it('Destroy: should allow founders to delete clan', function(done) {
+        var options = {
+            method: 'DELETE',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'test2'},
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(200);
+
+            request({url: url + '/ladder/ts/clan/TXz'}, function(err, res) {
+                expect(res.statusCode).to.equal(404);
+                done();
+            });
+        });
+    });
 });

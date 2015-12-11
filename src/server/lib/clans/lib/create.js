@@ -9,6 +9,8 @@ module.exports = function create(game, clan, player) {
     var $clans = $db.get(game +'_clans');
     var $players = $db.get(game +'_players');
 
+    player = player.toLowerCase();
+
     // check if player is in clan
     $players.findOne({name: _sanitize(player, true)}, function(err, player_data) {
         if (player_data.clan) return deferred.reject(); // player already in clan

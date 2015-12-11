@@ -69,7 +69,7 @@ exports.adjust = function (req, res) {
             case 'modify':
                 break;
         }
-    }
+    };
 
     var _error = function() {
         res.writeHead(401, {
@@ -102,7 +102,7 @@ exports.destroy = function (req, res) {
             res.send(400);
         };
 
-        clans.destroy(req.params.clan, req.params.player).then(__success, __error);
+        clans.destroy(req.params.game, req.params.clan, req.params.player).then(__success, __error);
     };
 
     var _error = function() {

@@ -19,7 +19,7 @@ exports.normalize = function(match) {
 
     /* cmpl only works for 1v1 */
     if (match.players.length == 2 && client.cmpl) {
-        switch(client.cmpl) {
+        switch (client.cmpl) {
             case 6:
                 match.players[0].cmp = 2;
                 match.players[1].cmp = 256;
