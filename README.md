@@ -10,8 +10,8 @@ This is an open source WOL leaderboard emulator for legacy [Westwood Studios](ht
 * [Tiberian Sun: Firestorm](http://cncnet.org/leaderboard/#/fs)
 * [Red Alert 2](http://cncnet.org/leaderboard/#/ra2)
 * [Yuri's Revenge](http://cncnet.org/leaderboard/#/yr)
+* [Tiberian Dawn](http://cncnet.org/leaderboard/#/td)
 * Dune 2000
-* Tiberian Dawn
 
 ### Usage
 1. `npm install --production`
@@ -22,7 +22,7 @@ There's a few params listed below.
 
 * `:game` can be any of the following `^(td|d2k?|ra2?|ts|dta|fs|yr|am)$`
 * `:gameId` can only be numeric `(\d+)`
-* `:player` can be alpha-numeric with some special characters `(\w\d\[\])`
+* `:player` and `:clan` can be alpha-numeric with some special characters `(\w\d\[\])`
 
 ###### General Endpoints
 * GET `/ping` to ensure that the leaderboard is online
@@ -32,6 +32,7 @@ There's a few params listed below.
 * GET `/ladder/:game` will return the top 150 leaderboard players for the supplied `:game`
 * GET `/ladder/:game/game/:gameId` will return all data for a given `:gameId`
 * GET `/ladder/:game/player/:player` will return most data for given `:player`
+* GET `/ladder/:game/clan/:clan` will return most data for the given `:clan`
 
 ###### Player Authentication
 * GET `/auth/:player` HTTP authentication using player credentials
