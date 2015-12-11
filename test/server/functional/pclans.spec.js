@@ -22,7 +22,13 @@ describe('Clan Endpoints', function() {
 
         request(options, function(err, res, body) {
             expect(res.statusCode).to.equal(200);
-            done();
+
+            request(url + '/ladder/ts/player/test2', function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.clan).to.equal('TXz');
+                done();
+            });
         });
     });
 

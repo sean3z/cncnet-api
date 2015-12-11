@@ -34,7 +34,7 @@ module.exports = function create(game, clan, player) {
                 /* add clan to player record */
                 $players.update({name: _sanitize(player, true)}, {
                     $set: {
-                        clan: _sanitize(clan, null, true)
+                        clan: clan
                     }
                 });
 
