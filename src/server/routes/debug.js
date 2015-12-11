@@ -17,6 +17,7 @@ exports.reset = function(req, res, next) {
         };
 
         $db.get(game +'_players').update({}, reset, {multi: true});
+        $db.get(game +'_clans').update({}, reset, {multi: true});
     });
 
     global.ladder = {};
