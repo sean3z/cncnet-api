@@ -19,7 +19,7 @@ module.exports = function create(game, clan, player) {
 
             // create clan and add player to it
             var record = {
-                name: _sanitize(clan, null, true),
+                name: clan.toLowerCase(),
                 nam: clan,
                 created: Math.floor(Date.now() / 1000),
                 points: global.DEFAULT_POINTS,

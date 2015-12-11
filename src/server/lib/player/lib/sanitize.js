@@ -1,8 +1,5 @@
-module.exports = function _sanitize(str, strict, repl) {
+module.exports = function _sanitize(str, strict) {
     var reg = str.toLowerCase().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    if (!repl) {
-        if (strict) reg = '^' + reg + '$';
-        return new RegExp(reg);
-    }
-    return reg;
+    if (strict) reg = '^' + reg + '$';
+    return new RegExp(reg);
 };
