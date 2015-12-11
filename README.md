@@ -32,7 +32,12 @@ There's a few params listed below.
 * GET `/ladder/:game` will return the top 150 leaderboard players for the supplied `:game`
 * GET `/ladder/:game/game/:gameId` will return all data for a given `:gameId`
 * GET `/ladder/:game/player/:player` will return most data for given `:player`
-* GET `/ladder/:game/clan/:clan` will return most data for the given `:clan`
+
+###### Clan Endpoints
+URL `/ladder/:game/clan/:clan` is used for the following methods. Each of these endpoints require authorization similar to Player Authentication. 
+* `GET`  will return most data for the given `:clan`
+* `POST` will `join`, `part` or `modify` (supplied to `method` query) the given `:clan`
+* `DELETE` permanently delete the given `:clan`
 
 ###### Player Authentication
 * GET `/auth/:player` HTTP authentication using player credentials

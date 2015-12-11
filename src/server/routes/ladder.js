@@ -73,6 +73,10 @@ exports.player = function(req, res, next) {
     player.stats(req.params.game, req.params.player, req.params.games).then(_success, _error);
 };
 
+exports.clan = function(req, res, next) {
+  res.send(200);
+};
+
 exports.match = function(req, res) {
     var _success = function (data) {
         res.header('Cache-Control', 'public, max-age=950400');

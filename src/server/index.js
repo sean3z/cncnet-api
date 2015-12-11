@@ -11,7 +11,8 @@ global.DEFAULT_POINTS = 1000;
 var ping = require('./routes/ping'),
     ladder = require('./routes/ladder'),
     auth = require('./routes/auth'),
-    debug = require('./routes/debug');
+    debug = require('./routes/debug'),
+    clans = require('./routes/clans');
 
 app.use(restify.queryParser());
 app.use(restify.jsonp());
@@ -41,9 +42,15 @@ app.get('/ping', ping);
 /* leaderboard */
 app.post('/ladder/:game', ladder.submit);
 app.get('/ladder/:game', ladder.ladder);
-app.get('/ladder/:game/game/:gameId', ladder.match);
-app.get('/ladder/:game/player/:player', ladder.player);
+app.get('/ladder/:game/game/:gameId', ladder.match); // game info
+app.get('/ladder/:game/player/:player', ladder.player); // player info
 app.post('/ladder/:game/search', ladder.search);
+
+/* clan */
+app.get('/ladder/:game/clan/:clan', clans.info); // clan info
+app.put('/ladder/:game/clan/:clan', clans.create); // create clan
+app.post('/ladder/:game/clan/:clan', clans.adjust); // join/leave/modify clan
+app.del('/ladder/:game/clan/:clan', clans.destroy); // delete clan
 
 /* auth */
 app.get('/auth/:player', auth.player);
