@@ -6,6 +6,7 @@ games.supported.forEach(function(game) {
     $db.get(game +'_dumps').index('idno', {unique: true});
     $db.get(game +'_players').index('name', {unique: true});
     $db.get(game +'_games').index('idno', {unique: true});
+    $db.get(game +'_clans').index('name', {unique: true});
 });
 
 $db.get('auth').index('name', {unique: true});
