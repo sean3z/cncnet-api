@@ -36,6 +36,7 @@ There's a few params listed below.
 ###### Clan Endpoints
 URL `/ladder/:game/clan/:clan` is used for the following methods. Each of these endpoints require authorization similar to Player Authentication. 
 * `GET`  will return most data for the given `:clan`
+* `PUT` create the given `:clan`
 * `POST` will `join`, `part` or `modify` (supplied to `method` query) the given `:clan`
 * `DELETE` permanently delete the given `:clan`
 
