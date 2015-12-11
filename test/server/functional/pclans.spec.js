@@ -10,6 +10,21 @@ describe('Clan Endpoints', function() {
         });
     });
 
+    it('Create: should error (401) if no auth provided', function(done) {
+        var options = {
+            method: 'PUT',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'test2'},
+            headers: {
+            }
+        };
+
+        request(options, function(err, res, body) {
+            expect(res.statusCode).to.equal(401);
+            done();
+        });
+    });
+
     it('Create: should allow users to create clan', function(done) {
         var options = {
             method: 'PUT',
