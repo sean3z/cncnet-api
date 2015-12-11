@@ -45,13 +45,13 @@ exports.ladder = function (req, res, next) {
             res.header('Cache-Control', 'public, max-age=60');
         }
 
-        res.send(data);
+        res.json(data);
     });
 };
 
 exports.search = function (req, res, next) {
     var _success = function (data) {
-        res.send(data);
+        res.json(data);
     };
     var _error = function () {
         res.send(404);
@@ -64,7 +64,7 @@ exports.search = function (req, res, next) {
 exports.player = function(req, res, next) {
     var _success = function (data) {
         res.header('Cache-Control', 'public, max-age=30');
-        res.send(data);
+        res.json(data);
     };
     var _error = function () {
         res.send(404);
@@ -76,7 +76,7 @@ exports.player = function(req, res, next) {
 exports.match = function(req, res) {
     var _success = function (data) {
         res.header('Cache-Control', 'public, max-age=950400');
-        res.send(data);
+        res.json(data);
     };
     var _error = function () {
         res.send(404);
