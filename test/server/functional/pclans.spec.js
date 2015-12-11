@@ -137,7 +137,13 @@ describe('Clan Endpoints', function() {
 
             request({url: url + '/ladder/ts/clan/TXz'}, function(err, res) {
                 expect(res.statusCode).to.equal(404);
-                done();
+
+                request(url + '/ladder/ts/player/test2', function(err, res, body) {
+                    expect(res.statusCode).to.equal(200);
+                    body = JSON.parse(body);
+                    expect(body.clan).to.be.undefined;
+                    done();
+                });
             });
         });
     });

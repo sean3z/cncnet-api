@@ -28,6 +28,14 @@ module.exports = function(game, clan, player) {
 
             // delete clan
             $clans.remove({name: _sanitize(clan, true)}).success(function() {
+
+                // remove player from clan
+                $players.update({name: _sanitize(player, true)}, {
+                    $unset: {
+                        clan: ''
+                    }
+                });
+
                 deferred.resolve();
             });
         });
