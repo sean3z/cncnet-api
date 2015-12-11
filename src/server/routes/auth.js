@@ -17,7 +17,7 @@ exports.player = function(req, res, next) {
 
     var _error = function() {
         res.writeHead(401, {
-            'WWW-Authenticate': 'Basic realm="CnCNet 5 Leaderboard"'
+            'WWW-Authenticate': 'Basic realm="CnCNet 5 Leaderboard (Player Auth)"'
         });
 
         res.end();
