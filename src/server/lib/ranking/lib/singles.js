@@ -94,115 +94,122 @@ module.exports = function singles(game, match, packets) {
     }
 
     var elo = new Arpad(),
-        $players = $db.get(game + '_players');
+        $players = $db.get(game + '_players'),
+        forPoints = true; // is the game for points
 
-    /* get points for players */
-    points(game, match.players).then(function (players) {
-        /* reassign modified players */
-        match.players = players;
+    /* Player daily limit: no points for more than 3 games/day vs. same opponent */
 
-        /* query to update match obj */
-        var update = {$set: {}};
+    dailyLimit(game, match.players).then(function(exceeded) {
+        if (exceeded) forPoints = false;
 
-        /* note the type of match */
-        update.$set.type = 'singles';
+        /* get points for players */
+        points(game, match.players).then(function (players) {
+            /* reassign modified players */
+            match.players = players;
 
-        /* determine if game is out of sync */
-        packets.forEach(function(packet) {
-            if (packet.client.oosy) {
-                update.$set.oosy = 1;
-                winner = -1;
-                loser = -1;
-            }
-        });
+            /* query to update match obj */
+            var update = {$set: {}};
 
-        /* if packet completion status doesn't match up, consider it oos */
-        if (packets.length > 1) {
-            var player1 = (packets[0].players[0].cmp == packets[1].players[0].cmp);
-            var player2 = (packets[0].players[1].cmp == packets[1].players[1].cmp);
-            if (!player1 || !player2) {
-                update.$set.oosy = 1;
-                winner = -1;
-                loser = -1;
-            }
-        }
+            /* note the type of match */
+            update.$set.type = 'singles';
 
-        match.players.forEach(function (player, index) {
-            /* increase out of sync stats for player */
-            if (update.$set.oosy) {
-                player.oos = 1;
-                player.won = 0;
-                player.loss = 0;
-                player.discon = 0;
-            }
-
-            /* query to update player obj */
-            var _player = {
-                $push: {games: match.idno},
-                $inc: {
-                    wins: player.won || 0,
-                    losses: player.loss || 0,
-                    disconnects: player.discon || 0,
-                    oos: player.oos || 0
-                },
-                $set: {
-                    points: player.points || global.DEFAULT_POINTS,
-                    activity: Math.floor(Date.now() / 1000)
+            /* determine if game is out of sync */
+            packets.forEach(function(packet) {
+                if (packet.client.oosy) {
+                    update.$set.oosy = 1;
+                    winner = -1;
+                    loser = -1;
                 }
-            };
+            });
 
-            /* calculate points if winner and loser */
-            if (winner >= 0 && loser >= 0) {
-                var opponent = match.players[loser];
-                var method = 'newRatingIfWon';
+            /* if packet completion status doesn't match up, consider it oos */
+            if (packets.length > 1) {
+                var player1 = (packets[0].players[0].cmp == packets[1].players[0].cmp);
+                var player2 = (packets[0].players[1].cmp == packets[1].players[1].cmp);
+                if (!player1 || !player2) {
+                    update.$set.oosy = 1;
+                    winner = -1;
+                    loser = -1;
+                }
+            }
 
-                if (player.loss > 0) {
-                    opponent = match.players[winner];
-                    method = 'newRatingIfLost';
+            match.players.forEach(function (player, index) {
+                /* increase out of sync stats for player */
+                if (update.$set.oosy) {
+                    player.oos = 1;
+                    player.won = 0;
+                    player.loss = 0;
+                    player.discon = 0;
                 }
 
-                /* calculate new point value */
-                player.exp = elo[method](player.points, opponent.points);
-            }
+                /* query to update player obj */
+                var _player = {
+                    $push: {games: match.idno},
+                    $inc: {
+                        wins: player.won || 0,
+                        losses: player.loss || 0,
+                        disconnects: player.discon || 0,
+                        oos: player.oos || 0
+                    },
+                    $set: {
+                        points: player.points || global.DEFAULT_POINTS,
+                        activity: Math.floor(Date.now() / 1000)
+                    }
+                };
 
-            /* if we only have losers, deduct from both players */
-            else if (winner < 0 && loser >= 0) {
-                /* deduct 0.7% percent of points (higher points, d/c hits harder) */
-                player.exp = player.points - Math.floor((0.7 / 100) * player.points);
-            }
+                /* calculate points if winner and loser */
+                if (winner >= 0 && loser >= 0 && forPoints) {
+                    var opponent = match.players[loser];
+                    var method = 'newRatingIfWon';
 
-            /* if we have points, update the game and player records */
-            if (player.exp) {
-                /* update _player points */
-                _player.$set.points = player.exp;
+                    if (player.loss > 0) {
+                        opponent = match.players[winner];
+                        method = 'newRatingIfLost';
+                    }
 
-                /* update player, experience gained/loss in match object */
+                    /* calculate new point value */
+                    player.exp = elo[method](player.points, opponent.points);
+                }
+
+                /* if we only have losers, deduct from both players */
+                else if (winner < 0 && loser >= 0 && forPoints) {
+                    /* deduct 0.7% percent of points (higher points, d/c hits harder) */
+                    player.exp = player.points - Math.floor((0.7 / 100) * player.points);
+                }
+
+                /* if we have points, update the game and player records */
+                if (player.exp) {
+                    /* update _player points */
+                    _player.$set.points = player.exp;
+
+                    /* update player, experience gained/loss in match object */
+                    var str = ['players', index].join('.');
+                    update.$set[str + '.exp'] = Math.abs(player.points - player.exp);
+                }
+
+                /* update game object with new/old totals */
                 var str = ['players', index].join('.');
-                update.$set[str + '.exp'] = Math.abs(player.points - player.exp);
-            }
+                update.$set[str + '.won'] = player.won;
+                update.$set[str + '.loss'] = player.loss;
+                update.$set[str + '.discon'] = player.discon;
+                update.$set[str + '.points'] = player.points || global.DEFAULT_POINTS;
 
-            /* update game object with new/old totals */
-            var str = ['players', index].join('.');
-            update.$set[str + '.won'] = player.won;
-            update.$set[str + '.loss'] = player.loss;
-            update.$set[str + '.discon'] = player.discon;
-            update.$set[str + '.points'] = player.points || global.DEFAULT_POINTS;
+                /* update or create player */
+                $players.update({name: player.name}, _player, {upsert: true}).error(function(err) {
+                    console.log('ranking/singles player update error');
+                    console.log('game: %s, match: %d, player: %s', game, match.idno, player.name);
+                    console.dir(_player);
+                    console.dir(err);
+                });
+            });
 
-            /* update or create player */
-            $players.update({name: player.name}, _player, {upsert: true}).error(function(err) {
-                console.log('ranking/singles player update error');
-                console.log('game: %s, match: %d, player: %s', game, match.idno, player.name);
-                console.dir(_player);
+            /* update match object */
+            $db.get(game + '_games').update({idno: match.idno}, update).error(function(err) {
+                console.log('ranking/singles game update error');
+                console.log('game: %s, match: %d', game, match.idno);
+                console.dir(update);
                 console.dir(err);
             });
-        });
-
-        /* update match object */
-        $db.get(game + '_games').update({idno: match.idno}, update).error(function(err) {
-            console.log('ranking/singles game update error');
-            console.log('game: %s, match: %d', game, match.idno);
-            console.dir(update);
-            console.dir(err);
         });
     });
 };
@@ -229,6 +236,15 @@ function points(game, players) {
 
         deferred.resolve(players);
     });
+
+    return deferred.promise;
+}
+
+
+function dailyLimit(game, players) {
+    var deferred = $q.defer();
+
+    deferred.resolve(false);
 
     return deferred.promise;
 }
