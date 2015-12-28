@@ -25,11 +25,12 @@ if (!fs.existsSync(dbpath)) {
 console.log('Starting mongodb instance..');
 global.mongodb = spawn('mongod', [
     '--dbpath', __dirname +'/data/db',
-    '--port', process.env.MONGO_PORT
+    '--port', process.env.MONGO_PORT,
+    '--storageEngine', 'mmapv1'
 ]);
 
 global.mongodb.stdout.on('data', function (data) {
-    // console.log(data.toString());
+    //console.log(data.toString());
     if (/waiting for connections on port/.test(data.toString())) {
         /* startup ladder */
         require(global.cwd + '/index');
