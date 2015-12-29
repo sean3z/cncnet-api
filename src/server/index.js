@@ -6,6 +6,7 @@ var restify = require('restify'),
 global.noop = function(){};
 global.cwd = __dirname;
 global.DEFAULT_POINTS = 1000;
+global.DAILY_LIMIT = 3;
 
 /* route separation http://bit.ly/1Kt87xZ */
 var ping = require('./routes/ping'),

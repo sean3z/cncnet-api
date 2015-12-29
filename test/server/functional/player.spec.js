@@ -57,7 +57,7 @@ describe('Player Endpoints', function() {
             expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
             expect(body.games.length).to.equal(1);
-            expect(body.rank).to.equal(1);
+            expect(body.rank).to.equal(2);
             done();
         });
     });

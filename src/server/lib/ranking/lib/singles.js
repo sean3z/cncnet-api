@@ -94,13 +94,10 @@ module.exports = function singles(game, match, packets) {
     }
 
     var elo = new Arpad(),
-        $players = $db.get(game + '_players'),
-        forPoints = true; // is the game for points
+        $players = $db.get(game + '_players');
 
-    /* Player daily limit: no points for more than 3 games/day vs. same opponent */
-
-    dailyLimit(game, match.players).then(function(exceeded) {
-        if (exceeded) forPoints = false;
+    /* 24 hour limit: no points vs. same opponent when quota exceeded */
+    quota(game, match.players).then(function(exceeded) {
 
         /* get points for players */
         points(game, match.players).then(function (players) {
@@ -112,6 +109,9 @@ module.exports = function singles(game, match, packets) {
 
             /* note the type of match */
             update.$set.type = 'singles';
+
+            /* note whether quota exceeded */
+            update.$set.quota = exceeded;
 
             /* determine if game is out of sync */
             packets.forEach(function(packet) {
@@ -158,7 +158,7 @@ module.exports = function singles(game, match, packets) {
                 };
 
                 /* calculate points if winner and loser */
-                if (winner >= 0 && loser >= 0 && forPoints) {
+                if (winner >= 0 && loser >= 0 && !exceeded) {
                     var opponent = match.players[loser];
                     var method = 'newRatingIfWon';
 
@@ -172,7 +172,7 @@ module.exports = function singles(game, match, packets) {
                 }
 
                 /* if we only have losers, deduct from both players */
-                else if (winner < 0 && loser >= 0 && forPoints) {
+                else if (winner < 0 && loser >= 0 && !exceeded) {
                     /* deduct 0.7% percent of points (higher points, d/c hits harder) */
                     player.exp = player.points - Math.floor((0.7 / 100) * player.points);
                 }
@@ -241,10 +241,30 @@ function points(game, players) {
 }
 
 
-function dailyLimit(game, players) {
+function quota(game, players) {
     var deferred = $q.defer();
 
-    deferred.resolve(false);
+    var query = {
+      $or: [{
+        'players.0.name': players[0].name, 
+        'players.1.name': players[1].name
+      }, {
+        'players.0.name': players[1].name, 
+        'players.1.name': players[0].name
+      }],
+      date: {
+         $gt: Math.floor((Date.now() / 1000) - 86400)
+      },
+      type: 'singles'
+    };
+
+    $db.get(game + '_games').find(query, function(err, data) {
+      if (!data || data.length < global.DAILY_LIMIT) {
+        return deferred.resolve(false);
+      }
+
+      deferred.resolve(true);
+    });
 
     return deferred.promise;
 }

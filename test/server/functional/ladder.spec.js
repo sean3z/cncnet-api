@@ -281,6 +281,72 @@ describe('Ladder Endpoints', function() {
         }, MATCH_DELAY);
     });
 
+    it('24 hour limit for games played vs. same opponent', function(done) {
+        // southvibe vs. microsoft
+        var game1 = fs.readFileSync(scenarios + '/TS_LIMIT_GAME_1'); // 1159091692
+        var game2 = fs.readFileSync(scenarios + '/TS_LIMIT_GAME_2'); // 1159087596
+        var game3 = fs.readFileSync(scenarios + '/TS_LIMIT_GAME_3'); // 1159083500
+        var game4 = fs.readFileSync(scenarios + '/TS_LIMIT_GAME_4'); // 1159079404
+
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ts',
+            headers: {
+                'content-type': 'text/plain',
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        options.body = game1.toString();
+        request(options, function() {});
+
+        setTimeout(function() {
+            options.body = game2.toString();
+            request(options, function(){});
+        }, MATCH_DELAY + 3)
+
+        setTimeout(function() {
+            options.body = game3.toString();
+            request(options, function(){});
+        }, MATCH_DELAY + 7)
+
+        setTimeout(function() {
+            options.body = game4.toString();
+            request(options, function(){});
+
+            setTimeout(function() {
+                request({url: url + '/ladder/ts/game/1159091692'}, function(err, res, body) {
+                    expect(res.statusCode).to.equal(200);
+                    body = JSON.parse(body);
+                    expect(body.quota).to.equal(false);
+                    expect(body.players[0].exp).to.exist;
+                });
+
+                request({url: url + '/ladder/ts/game/1159087596'}, function(err, res, body) {
+                    expect(res.statusCode).to.equal(200);
+                    body = JSON.parse(body);
+                    expect(body.quota).to.equal(false);
+                    expect(body.players[0].exp).to.exist;
+                });
+                
+                request({url: url + '/ladder/ts/game/1159083500'}, function(err, res, body) {
+                    expect(res.statusCode).to.equal(200);
+                    body = JSON.parse(body);
+                    expect(body.quota).to.equal(false);
+                    expect(body.players[0].exp).to.exist;
+                });
+
+                request({url: url + '/ladder/ts/game/1159079404'}, function(err, res, body) {
+                    expect(res.statusCode).to.equal(200);
+                    body = JSON.parse(body);
+                    expect(body.quota).to.equal(true);
+                    expect(body.players[0].exp).to.be.undefined;
+                    done();
+                });
+            }, MATCH_DELAY + 3);
+        }, MATCH_DELAY + 15);
+    });
+
     it('TS leaderboard (official) for players', function(done) {
         /* warm up cache */
         request(url + '/ladder/ts', function() {});
@@ -290,7 +356,7 @@ describe('Ladder Endpoints', function() {
             request(url + '/ladder/ts', function(err, res, body) {
                 expect(res.statusCode).to.equal(200);
                 body = JSON.parse(body);
-                expect(body.length).to.equal(4);
+                expect(body.length).to.equal(6);
                 done();
             });
         }, MATCH_DELAY);
