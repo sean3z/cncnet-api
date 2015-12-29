@@ -234,6 +234,35 @@ describe('Ladder Endpoints', function() {
         }, MATCH_DELAY);
     });
 
+    it('TS match hadn\'t started: consider match out of sync', function(done) {
+        var game = fs.readFileSync(scenarios + '/TS_CONFLICT_GAME_2'); // 5546451
+
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ts',
+            body: game.toString(),
+            headers: {
+                'content-type': 'text/plain',
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        setTimeout(function() {
+            request({url: url + '/ladder/ts/game/5546451'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+
+                // console.dir(body);
+                expect(body.oosy).to.equal(1);
+                done();
+            });
+        }, MATCH_DELAY);
+    });
+
     it('RA Draw Scenario: both winners without point allocation', function(done) {
         var oracroboys = fs.readFileSync(scenarios + '/RA_DRAW_PLAYER_2');
         var rc2g2g = fs.readFileSync(scenarios + '/RA_DRAW_PLAYER_1');
@@ -328,7 +357,7 @@ describe('Ladder Endpoints', function() {
                     expect(body.quota).to.equal(false);
                     expect(body.players[0].exp).to.exist;
                 });
-                
+
                 request({url: url + '/ladder/ts/game/1159083500'}, function(err, res, body) {
                     expect(res.statusCode).to.equal(200);
                     body = JSON.parse(body);

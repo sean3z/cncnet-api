@@ -133,6 +133,18 @@ module.exports = function singles(game, match, packets) {
                 }
             }
 
+            /* if both player's credits == match.settings.crd, assume it's oos  */
+            var credits = [match.players[0].crd, match.players[1].crd, match.settings.cred];
+            var same = !!credits.reduce(function(prev, curr) {
+              return prev == curr ? prev : false;
+            });
+
+            if (same) {
+              update.$set.oosy = 1;
+              winner = -1;
+              loser = -1;
+            }
+
             match.players.forEach(function (player, index) {
                 /* increase out of sync stats for player */
                 if (update.$set.oosy) {
@@ -239,7 +251,6 @@ function points(game, players) {
 
     return deferred.promise;
 }
-
 
 function quota(game, players) {
     var deferred = $q.defer();
