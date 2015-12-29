@@ -7,7 +7,7 @@ exports.info = function (req, res) {
     if (!req.params.clan) return res.send(400);
 
     var _success = function(data) {
-        res.json(data);
+        res.send(data);
     };
 
     var _error = function() {

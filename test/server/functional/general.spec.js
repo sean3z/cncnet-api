@@ -94,5 +94,14 @@ describe('General Endpoints', function() {
             done();
         });
     });
+
+    it('should respond to JSONP requests', function(done) {
+        request(url + '/ladder/ts?callback=callbacks._0', function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+            var expected = 'typeof callbacks._0 === \'function\' && callbacks._0([]);';
+            expect(body).to.equal(expected);
+            done();
+        });
+    });
 });
 
