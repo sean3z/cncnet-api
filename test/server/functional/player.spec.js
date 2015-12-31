@@ -90,21 +90,4 @@ describe('Player Endpoints', function() {
             done();
         });
     });
-
-    it('should reset monthly leaving critical player data intact', function(done) {
-        /* ladder reset endpoint */
-        request(url + '/debug/reset', function() {});
-
-        request(url + '/ladder/ts/player/test2', function(err, res, body) {
-            expect(res.statusCode).to.equal(200);
-            body = JSON.parse(body);
-            expect(body.games).to.be.undefined;
-            expect(body.wins).to.equal(0);
-            expect(body.losses).to.equal(0);
-            expect(body.disconnects).to.equal(0);
-            expect(body.points).to.equal(1000);
-            expect(body.rank).to.equal(0);
-            done();
-        });
-    });
 });

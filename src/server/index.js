@@ -13,7 +13,8 @@ var ping = require('./routes/ping'),
     ladder = require('./routes/ladder'),
     auth = require('./routes/auth'),
     debug = require('./routes/debug'),
-    clans = require('./routes/clans');
+    clans = require('./routes/clans'),
+    hof = require('./routes/hof');
 
 app.use(restify.queryParser());
 app.use(restify.jsonp());
@@ -40,6 +41,9 @@ app.use(function(req, res, next) {
 /* general */
 app.get('/ping', ping);
 
+/* hall of fame (hof) */
+app.get('/ladder/hof', hof.list);
+
 /* leaderboard */
 app.post('/ladder/:game', ladder.submit);
 app.get('/ladder/:game', ladder.ladder);
@@ -55,7 +59,7 @@ app.del('/ladder/:game/clan/:clan', clans.destroy); // delete clan
 
 /* auth */
 app.get('/auth/:player', auth.player);
-// app.put('/auth/:player', auth.create); // registration through cncnet forums
+// registration through cncnet forums
 
 /* debug */
 app.get('/debug/reset', debug.reset);

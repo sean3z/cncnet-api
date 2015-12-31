@@ -10,5 +10,6 @@ games.supported.forEach(function(game) {
 });
 
 $db.get('auth').index('name', {unique: true});
+$db.get('hof').index('month year', {unique: true});
 
 module.exports = $db;
