@@ -6,7 +6,6 @@
 * `BLCx` Buildings Captured
 * `BLKx` Buildings Killed
 * `BLLx` Buildings Left
-* `CIDx` ??
 * `COLx` {int} color
 * `CRAx` crates consumed
 * `CRAT` {bool int} Game Setting: whether crates enabled
