@@ -1,7 +1,6 @@
 ### WOL Game Resolution Packet
 * `AFPS` {int} Client Average FPS
 * `AIPL` {int} Game Setting: number of AI Players
-* `BAMR` {int} ??
 * `BASE` {int} Game Setting: bases enabled
 * `BLBx` Buildings Built
 * `BLCx` Buildings Captured
