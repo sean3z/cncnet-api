@@ -42,7 +42,7 @@ SCEN
 AIPL                           
 CRAT                           
 BASE                           
-BAMR                           
+BAMR  Build Ally Mvc Redeploy (BAMR) -  `BAMR = (gMCVRedeploy == 1) + 2 * (gBuildOffAlly == 1);`                     
 MODE                           
 SUPR                           
 SHRT                           
