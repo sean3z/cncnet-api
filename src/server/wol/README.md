@@ -29,8 +29,8 @@
 * `PLK#` Planes Killed
 * `PLL#` Planes Left
 * `PLRS` {int} Game Setting: number of players
-* `PNGR` {int} ??
-* `PNGS` {int} ??
+* `PNGR` {int} Pings Received (from WOL server)
+* `PNGS` {int} Pings Sent (to WOL server)
 * `PROC` {int} Processor Family
 * `SCEN` {string} Game Setting: map
 * `SHRT` {bool int} Game Setting: short game
