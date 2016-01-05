@@ -23,7 +23,7 @@ CMP
 IPA                            
 CID                            
 LCN                            
-CPT - {int} CPU Type, -1 if unknown, 0 == Unkown, 1 == intel, 2 == umc, 3 == amd, 4 == cyrix, 5 == nextgen, 6 == via, 7 == rise, 8 == transmeta                      
+CPT - {int} CPU Type, -1 == not avail, 0 == Unkown, 1 == intel, 2 == umc, 3 == amd, 4 == cyrix, 5 == nextgen, 6 == via, 7 == rise, 8 == transmeta                      
 CPS - {int} the return value from a function that runs a series of QueryPerformanceFrequency (CPU Speed)????                            
 MEM                            
 VID                            
