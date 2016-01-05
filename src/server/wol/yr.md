@@ -23,8 +23,8 @@ CMP
 IPA                            
 CID                            
 LCN                            
-CPT                            
-CPS - the return value from a function that runs a series of QueryPerformanceFrequency (CPU Speed)????                            
+CPT - {int}                           
+CPS - {int} the return value from a function that runs a series of QueryPerformanceFrequency (CPU Speed)????                            
 MEM                            
 VID                            
 ACCO  - todo with MP Game Modes                         
