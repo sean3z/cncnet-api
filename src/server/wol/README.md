@@ -7,7 +7,7 @@
 * `BLK#` Buildings Killed
 * `BLL#` Buildings Left
 * `COL#` {int} color
-* `CRA#` crates consumed
+* `CRA#` player_crates_found
 * `CRAT` {bool int} Game Setting: whether crates enabled
 * `CRD#` {int} credits player ended match with
 * `CRED` {int} Game Setting: credits
@@ -15,7 +15,7 @@
 * `DURA` {int} how long the match lasted (in seconds)
 * `FINI` {bool int} SawCompletion (did this player, who is sending the stats packet see completeion)
 * `GSKU` {int} game SKU
-* `HRV#` {int} amount harvested??
+* `HRV#` {int} player_harvested
 * `IDNO` {int} Game ID
 * `INB#` Infantry Built
 * `INK#` Infantry Killed
