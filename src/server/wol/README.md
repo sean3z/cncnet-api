@@ -23,7 +23,7 @@
 * `INKx` Infantry Killed
 * `INLx` Infantry Left
 * `IPAx` IP Address
-* `LCNx` Lost Connection??
+* `LCNx` Lost Connection
 * `MEMO` {uint} Client Memory Available
 * `NAMx` {string} player name
 * `OOSY` {bool int} Match Out of Sync
