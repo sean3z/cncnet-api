@@ -1,6 +1,6 @@
 NAM                            
 SID                            
-TID                            
+TID - TextGameId - `TXT_GAME_ID` in ra2.csf                 
 COL                            
 CTY                            
 CRD                            
