@@ -2,32 +2,32 @@
 * `AFPS` {int} Client Average FPS
 * `AIPL` {int} Game Setting: number of AI Players
 * `BASE` {int} Game Setting: bases enabled
-* `BLBx` Buildings Built
-* `BLCx` Buildings Captured
-* `BLKx` Buildings Killed
-* `BLLx` Buildings Left
-* `COLx` {int} color
-* `CRAx` crates consumed
+* `BLB#` Buildings Built
+* `BLC#` Buildings Captured
+* `BLK#` Buildings Killed
+* `BLL#` Buildings Left
+* `COL#` {int} color
+* `CRA#` crates consumed
 * `CRAT` {bool int} Game Setting: whether crates enabled
-* `CRDx` {int} credits player ended match with
+* `CRD#` {int} credits player ended match with
 * `CRED` {int} Game Setting: credits
 * `DATE` {datetime} timestamp of the match
 * `DURA` {int} how long the match lasted (in seconds)
 * `FINI` {bool int} ??
 * `GSKU` {int} game SKU
-* `HRVx` {int} amount harvested??
+* `HRV#` {int} amount harvested??
 * `IDNO` {int} Game ID
-* `INBx` Infantry Built
-* `INKx` Infantry Killed
-* `INLx` Infantry Left
-* `IPAx` IP Address
-* `LCNx` Lost Connection
+* `INB#` Infantry Built
+* `INK#` Infantry Killed
+* `INL#` Infantry Left
+* `IPA#` IP Address
+* `LCN#` Lost Connection
 * `MEMO` {uint} Client Memory Available
-* `NAMx` {string} player name
+* `NAM#` {string} player name
 * `OOSY` {bool int} Match Out of Sync
-* `PLBx` Planes Built
-* `PLKx` Planes Killed
-* `PLLx` Planes Left
+* `PLB#` Planes Built
+* `PLK#` Planes Killed
+* `PLL#` Planes Left
 * `PLRS` {int} Game Setting: number of players
 * `PNGR` {int} ??
 * `PNGS` {int} ??
@@ -38,42 +38,42 @@
 * `SUPR` {bool int} Game Setting: super weapons
 * `TIME` {timestamp} game start time
 * `TRNY` {bool int} Game Setting: tournament
-* `UNBx` Units Built
-* `UNKx` Units Killed
-* `UNLx` Units Left
+* `UNB#` Units Built
+* `UNK#` Units Killed
+* `UNL#` Units Left
 * `UNIT` {int} Game Setting: starting units
 * `VERS` Client version
 * `VIDM` Client video memory
 
 ### Red Alert
-* `ALYx` {int} alliance *
+* `ALY#` {int} alliance *
 * `CMPL` {int} completion status
-* `CONx` {int} connection lost*
-* `DEDx` {bool int} is dead*
+* `CON#` {int} connection lost*
+* `DED#` {bool int} is dead*
 * `REMN` {int} remaining players
 * `NUMP` {int} number of players
-* `RSGx` {int} player resigned *
-* `SIDx` {string} Player country
-* `SPAx` {int} spawn location *
-* `SPCx` {bool int} Spectator *
-* `VSBx` Vessels Built
-* `VSKx` Vessels Killed
-* `VSLx` Vessels Left
+* `RSG#` {int} player resigned *
+* `SID#` {string} Player country
+* `SPA#` {int} spawn location *
+* `SPC#` {bool int} Spectator *
+* `VSB#` Vessels Built
+* `VSK#` Vessels Killed
+* `VSL#` Vessels Left
 * `QUIT` Bugged??
 
 ### Tiberian Sun
 * `BASE` {bool int} Game Setting: Bases enabled
-* `CMPx` {int} completion status `2|8|256|512|528`
+* `CMP#` {int} completion status `2|8|256|512|528`
 * `SHAD` {bool int} Game Setting: Fog of War enabled
-* `SIDx` {bool int} GDI or Nod
+* `SID#` {bool int} GDI or Nod
 * `SPID` {int} Client sender Id
 * `TECH` {int} Game Setting: tech level
 * `TIBR` {bool int} Game Setting: tiberium on
 
 ### Red Alert 2/Yuri's Revenge
-* `CMPx` {int} completion status `2|8|256|512|528`
-* `CTYx` {int} player country (RA2/YR)
-* `SIDx` {bool int} Soviet or Allied
+* `CMP#` {int} completion status `2|8|256|512|528`
+* `CTY#` {int} player country (RA2/YR)
+* `SID#` {bool int} Soviet or Allied
 * `SPID` {int} Client sender Id
 * `NAM` 
 * `SID` 
