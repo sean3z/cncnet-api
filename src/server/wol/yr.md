@@ -36,7 +36,7 @@ AFPS
 TIME                           
 SPID                           
 PLRS                           
-PNGR                           
+PNGR {int} - counter that is increased on every OnPing command                          
 PNGS                           
 SCEN                           
 AIPL                           
