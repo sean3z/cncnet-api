@@ -1,5 +1,5 @@
 NAM                            
-SID - Side Index - Allied or Soviet                            
+SID {int} - Side Index - Allied or Soviet                            
 TID - TextGameId - `TXT_GAME_ID` in ra2.csf                 
 COL                            
 CTY                            
@@ -42,7 +42,7 @@ SCEN
 AIPL                           
 CRAT                           
 BASE                           
-BAMR  Build Ally Mvc Redeploy (BAMR) -  `BAMR = (gMCVRedeploy == 1) + 2 * (gBuildOffAlly == 1);`                     
+BAMR  {int} Build Ally Mvc Redeploy (BAMR) -  `BAMR = (gMCVRedeploy == 1) + 2 * (gBuildOffAlly == 1);`                     
 MODE                           
 SUPR                           
 SHRT                           
@@ -52,5 +52,5 @@ FINI
 OOSY                           
 TRNY                           
 GSKU                           
-WDTT                           
+WDTT {bool} World Domination                         
 IDNO
