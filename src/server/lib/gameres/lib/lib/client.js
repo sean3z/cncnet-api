@@ -14,6 +14,7 @@ module.exports = [
     'cmpl', /* (int) match completion status */
     'sdfx', /* !(bool) sudden disconnect from game  */
     'quit', /* (bool) whether the player quit */
+    'fini', /* (bool) whether player saw game completion */
     'myid', /* !(int) index of uploader in player array */
     'pils', /* !(int) player ping connectivity streak */
     'para', /* !(bool) player aborted recon attempt */
