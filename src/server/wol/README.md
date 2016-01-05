@@ -36,7 +36,6 @@
 * `SHRT` {bool int} Game Setting: short game
 * `SPED` {int} Game Setting: game speed
 * `SUPR` {bool int} Game Setting: super weapons
-* `TIDx` {int} Team Id??
 * `TIME` {timestamp} game start time
 * `TRNY` {bool int} Game Setting: tournament
 * `UNBx` Units Built
