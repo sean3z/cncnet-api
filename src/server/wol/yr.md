@@ -27,8 +27,8 @@ CPT
 CPS                            
 MEM                            
 VID                            
-ACCO                           
-BROK                           
+ACCO  - todo with MP Game Modes                         
+BROK {int}                           
 DATE                           
 VERS                           
 SPED                           
@@ -43,8 +43,8 @@ AIPL
 CRAT                           
 BASE                           
 BAMR  {int} Build Ally Mvc Redeploy (BAMR) -  `BAMR = (gMCVRedeploy == 1) + 2 * (gBuildOffAlly == 1);`                     
-MODE                           
-SUPR                           
+MODE  MP Mode Index                         
+SUPR {bool}  IsSuperWeaponsAllowed (the dialog toggle option)                           
 SHRT                           
 CRED                           
 DURA                           
