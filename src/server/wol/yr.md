@@ -1,5 +1,5 @@
 NAM                            
-SID                            
+SID - Side Index - Allied or Soviet                            
 TID - TextGameId - `TXT_GAME_ID` in ra2.csf                 
 COL                            
 CTY                            
