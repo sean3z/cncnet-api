@@ -28,7 +28,7 @@
 * `PLB#` Planes Built
 * `PLK#` Planes Killed
 * `PLL#` Planes Left
-* `PLRS` {int} Game Setting: number of players
+* `PLRS` {int} (WDT) Players Seen
 * `PNGR` {int} Pings Received (from WOL server)
 * `PNGS` {int} Pings Sent (to WOL server)
 * `PROC` {int} Processor Family
