@@ -37,7 +37,7 @@ TIME
 SPID                           
 PLRS                           
 PNGR {int} - counter that is increased on every OnPing command                          
-PNGS                           
+PNGS {int}                           
 SCEN                           
 AIPL                           
 CRAT                           
