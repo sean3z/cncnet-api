@@ -13,7 +13,7 @@
 * `CRED` {int} Game Setting: credits
 * `DATE` {datetime} timestamp of the match
 * `DURA` {int} how long the match lasted (in seconds)
-* `FINI` {bool int} ??
+* `FINI` {bool int} SawCompletion (did this player, who is sending the stats packet see completeion)
 * `GSKU` {int} game SKU
 * `HRV#` {int} amount harvested??
 * `IDNO` {int} Game ID
