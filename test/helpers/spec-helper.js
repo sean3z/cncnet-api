@@ -38,12 +38,12 @@ global.mongodb.stdout.on('data', function (data) {
 });
 
 // mock player auth into always returning true
-require(global.cwd + '/lib/player/auth');
-var auth = require.resolve(global.cwd + '/lib/player/auth');
-module._cache[auth].exports = function() {
-    return {
-        then: function(cb) {
-            cb();
-        }
-    }
-}
+// require(global.cwd + '/lib/player/auth');
+// var auth = require.resolve(global.cwd + '/lib/player/auth');
+// module._cache[auth].exports = function() {
+//     return {
+//         then: function(cb) {
+//             cb();
+//         }
+//     }
+// }

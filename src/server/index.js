@@ -59,7 +59,7 @@ app.del('/ladder/:game/clan/:clan', clans.destroy); // delete clan
 
 /* auth */
 app.get('/auth/:player', auth.player);
-// registration through cncnet forums
+app.put('/auth/:player', auth.player);
 
 /* debug */
 app.get('/debug/reset', debug.reset);

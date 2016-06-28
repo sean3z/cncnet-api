@@ -26,7 +26,3 @@ exports.player = function(req, res, next) {
     if (!credentials.name || !credentials.pass) return _error();
     player.auth(req.params.player, credentials.name, credentials.pass).then(_success, _error);
 };
-
-exports.create = function(req, res, next) {
-    res.send(503);
-};

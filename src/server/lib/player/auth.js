@@ -1,5 +1,4 @@
 var debug = require('debug')('wol:leaderboard'),
-    $mysql = require(global.cwd + '/lib/mysql'),
     $db = require(global.cwd + '/lib/mongo'),
     games = require(global.cwd + '/lib/games'),
     _sanitize = require('./lib/sanitize'),
@@ -14,38 +13,34 @@ module.exports = function auth(player, username, password) {
 
     player = player.toLowerCase();
 
-    authorize(username, password).then(function(record) {
-        /* forum user not found or login incorrect */
-        if (!record.id_member) return deferred.reject();
+    var $auth = $db.get('auth');
+    $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
+        data = data || {};
 
-        var $auth = $db.get('auth');
-        $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
-            data = data || {};
+        /* success if player enters correct user/pass */
+        if (data.username === username && data.password === password) {
+            return deferred.resolve();
+        }
 
-            /* success if forum account associated to player */
-            if (data.uid && data.uid == record.id_member) return deferred.resolve();
+        /* otherwise create auth entry */
+        if (!data.username && !data.password) {
+            var entry = {
+                name: player,
+                username: username,
+                password: password,
+                registered: Date.now()
+            };
 
-            /* otherwise create auth entry */
-            if (!data.uid) {
-                var entry = {
-                    name: player,
-                    uid: record.id_member,
-                    email: record.email_address,
-                    avatar: record.avatar,
-                    registered: record.date_registered
-                };
+            $auth.insert(entry).success(function() {
+                debug('auth entry created for %s', player);
+                deferred.resolve();
+                associate(player, entry);
+            });
 
-                $auth.insert(entry).success(function() {
-                    debug('auth entry created for %s', player);
-                    deferred.resolve();
-                    associate(player, entry);
-                });
+            return;
+        }
 
-                return;
-            }
-
-            deferred.reject();
-        });
+        deferred.reject();
     });
 
     return deferred.promise;
@@ -58,39 +53,16 @@ function associate(player, entry) {
         $players.findOne({name: _sanitize(player, true)}, function(err, data) {
             data = data || {};
 
-            if (data.uid && data.uid != entry.uid) {
-                // nick was somehow associated to another user
-                // no clue what to do here...
-                // something is wrong!! abort abort!!
-                return;
-            }
-
             /* associate if not already claimed */
             if (!data.uid) {
                 $players.update({name: player}, {
                     $set: {
                         name: player,
-                        uid: entry.uid,
-                        avatar: entry.avatar
+                        username: entry.username,
+                        password: entry.password
                     }
                 }, {upsert: true});
             }
         });
     });
-}
-
-function authorize(username, password) {
-    var deferred = $q.defer();
-
-    var query = $mysql.format(
-        'SELECT id_member, email_address, avatar, date_registered FROM smf_members WHERE member_name = ? AND passwd = SHA1(CONCAT(?, ?))',
-        [username, username.toLowerCase(), password]
-    );
-
-    $mysql.query(query, function(err, results) {
-        if (results.length < 1) return deferred.resolve({});
-        deferred.resolve(results[0] || {});
-    });
-
-    return deferred.promise;
 }

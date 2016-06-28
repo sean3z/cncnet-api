@@ -58,43 +58,6 @@ describe('General Endpoints', function() {
         });
     });
 
-    it('should respond to auth requests', function(done) {
-        var options = {
-            method: 'GET',
-            url: url + '/auth/tahj',
-            headers: {
-                authorization: 'Basic dGFoajpwYXNzd29yZA=='
-            }
-        };
-
-        request(options, function(err, res) {
-            expect(res.statusCode).to.equal(200);
-            done();
-        });
-    });
-
-    it('should error (400) if auth request is missing player', function(done) {
-        var options = {
-            method: 'GET',
-            url: url + '/auth/',
-            headers: {
-                authorization: 'Basic dGFoajpwYXNzd29yZA=='
-            }
-        };
-
-        request(options, function(err, res) {
-            expect(res.statusCode).to.equal(400);
-            done();
-        });
-    });
-
-    it('should error (401) if auth request is credentials', function(done) {
-        request(url + '/auth/tahj', function(err, res) {
-            expect(res.statusCode).to.equal(401);
-            done();
-        });
-    });
-
     it('should respond to JSONP requests', function(done) {
         request(url + '/ladder/ts?callback=callbacks._0', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
