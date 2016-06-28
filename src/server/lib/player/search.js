@@ -11,7 +11,8 @@ module.exports = function search(game, player) {
         if (data && data.length > 0) {
             data.forEach(function(row) {
                 delete row.games;
-                delete row.uid;
+                delete row.username;
+                delete row.password;
             });
         }
 

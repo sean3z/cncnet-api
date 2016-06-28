@@ -11,7 +11,8 @@ module.exports = function stats(game, player, showGames) {
         player_data.games = player_data.games || [];
 
         /* remove any sensitive data from response */
-        delete player_data.uid;
+        delete player_data.username;
+        delete player_data.password;
 
         /* leaderboard position; todo make more efficient */
         player_data.rank = 0;

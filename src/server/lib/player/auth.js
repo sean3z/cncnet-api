@@ -54,7 +54,7 @@ function associate(player, entry) {
             data = data || {};
 
             /* associate if not already claimed */
-            if (!data.uid) {
+            if (!data.username && !data.password) {
                 $players.update({name: player}, {
                     $set: {
                         name: player,
