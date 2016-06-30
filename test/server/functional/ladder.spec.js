@@ -35,7 +35,6 @@ describe('Ladder Endpoints', function() {
                 expect(body.disconnects).to.equal(0);
                 expect(body.games.length).to.equal(1);
                 expect(body.points).to.equal(1016);
-
             });
 
             request({url: url + '/ladder/yr/player/xmexyou'}, function(err, res, body) {
@@ -420,7 +419,7 @@ describe('Ladder Endpoints', function() {
                     expect(body.players[0].exp).to.be.undefined;
                     done();
                 });
-            }, MATCH_DELAY + 3);
+            }, MATCH_DELAY + 5);
         }, MATCH_DELAY + 15);
     });
 
