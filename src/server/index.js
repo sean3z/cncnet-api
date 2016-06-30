@@ -67,12 +67,6 @@ app.get('/debug/buffer/:game/:gameId', debug.buffer);
 app.get('/debug/gameres/:game/:gameId', debug.gameres);
 app.post('/debug/gameres/:game', debug.submit);
 
-/* static server for development */
-app.get(/.*/, restify.serveStatic({
-    directory: __dirname + '/../../dist/public',
-    default: 'index.html'
-}));
-
 app.listen(WOL_PORT, function () {
     console.log('WOL Leaderboard listening on %s:%s', app.name, app.url);
 });

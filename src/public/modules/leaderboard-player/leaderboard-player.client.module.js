@@ -1,1 +1,0 @@
-angular.module('Leaderboard.Player', ['ui.router']);
