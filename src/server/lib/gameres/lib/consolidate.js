@@ -38,6 +38,13 @@ module.exports = function _consolidate(flat) {
         consolidated.players.shift();
     }
 
+    /* use MYID field if we can't determine who sent packet */
+    if (!consolidated.client.nick && consolidated.client.myid >= 0) {
+        var player = consolidated.players[consolidated.client.myid];
+        consolidated.client.nick = player.nam;
+    }
+
+
     /* overwrite date */
     consolidated.date = Math.floor(Date.now() / 1000);
 

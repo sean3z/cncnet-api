@@ -27,6 +27,10 @@ function _notch(game) {
         data.forEach(function(item, index) {
             item.rank = (index + 1);
             delete item.games;
+
+            /* remove sensitive data */
+            delete item.username;
+            delete item.password;
         });
 
         global.ladder[game] = data;

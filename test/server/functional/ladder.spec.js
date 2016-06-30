@@ -3,6 +3,54 @@ var request = require('request');
 var MATCH_DELAY = parseInt(process.env.MATCH_DELAY) + 50;
 
 describe('Ladder Endpoints', function() {
+    it('YR Regular match: 2 packets', function(done) {
+        var xmexyou = fs.readFileSync(scenarios + '/YR_REGULAR_PLAYER_2');
+        var nemesis = fs.readFileSync(scenarios + '/YR_REGULAR_PLAYER_1');
+
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/yr',
+            body: xmexyou.toString(),
+            headers: {
+                'content-type': 'text/plain',
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        options.body = nemesis.toString();
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+        });
+
+        setTimeout(function() {
+            request({url: url + '/ladder/yr/player/nemesis'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(1);
+                expect(body.losses).to.equal(0);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(1016);
+
+            });
+
+            request({url: url + '/ladder/yr/player/xmexyou'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.wins).to.equal(0);
+                expect(body.losses).to.equal(1);
+                expect(body.disconnects).to.equal(0);
+                expect(body.games.length).to.equal(1);
+                expect(body.points).to.equal(984);
+                done();
+            });
+        }, MATCH_DELAY);
+    });
+
     it('RA Regular match: 2 packets', function(done) {
         var robskate = fs.readFileSync(scenarios + '/RA_REGULAR_PLAYER_2');
         var fattynoob = fs.readFileSync(scenarios + '/RA_REGULAR_PLAYER_1');
