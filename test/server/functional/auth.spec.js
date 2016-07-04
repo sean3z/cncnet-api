@@ -16,7 +16,7 @@ describe('Auth Endpoints', function() {
         });
     });
 
-    it.skip('should retun (409) if user already exists', function(done) {
+    it.skip('should return (409) if user already exists', function(done) {
         var options = {
             method: 'PUT',
             url: url + '/auth/tahj',
@@ -61,7 +61,7 @@ describe('Auth Endpoints', function() {
         });
     });
 
-    it('should error (400) if auth request is missing player', function(done) {
+    it('should return (200) if auth request is missing player', function(done) {
         var options = {
             method: 'GET',
             url: url + '/auth/',
@@ -71,7 +71,7 @@ describe('Auth Endpoints', function() {
         };
 
         request(options, function(err, res) {
-            expect(res.statusCode).to.equal(400);
+            expect(res.statusCode).to.equal(200);
             done();
         });
     });
@@ -80,6 +80,21 @@ describe('Auth Endpoints', function() {
         var options = {
             method: 'GET',
             url: url + '/auth/tahj',
+            headers: {
+                authorization: 'Basic AZy92dzNXYwpjaoFGd=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(401);
+            done();
+        });
+    });
+
+    it('should error (401) if credentials are incorrect (without player)', function(done) {
+        var options = {
+            method: 'GET',
+            url: url + '/auth/',
             headers: {
                 authorization: 'Basic AZy92dzNXYwpjaoFGd=='
             }
