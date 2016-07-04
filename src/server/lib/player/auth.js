@@ -82,8 +82,7 @@ function associate(player, entry) {
                 $players.update({name: player}, {
                     $set: {
                         name: player,
-                        username: entry.username,
-                        password: entry.password
+                        username: entry.username
                     }
                 }, {upsert: true});
             }
