@@ -31,10 +31,16 @@ app.use(function(req, res, next) {
     next();
 });
 
-/* declare api version and allow origin */
+/* declare api version and allow origin/headers */
 app.use(function(req, res, next) {
     res.header('API-Version', require('../../package').version);
     res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'accept, authorization');
+    next();
+});
+
+app.opts(/\.*/, function (req, res, next) {
+    res.send(200);
     next();
 });
 
