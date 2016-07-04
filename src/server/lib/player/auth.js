@@ -13,7 +13,7 @@ module.exports = function auth(player, username, password) {
 
     var $auth = $db.get('auth');
 
-    (player) ? playerAuth() : regularAuth();
+    player ? playerAuth() : regularAuth();
 
     return deferred.promise;
 
@@ -33,7 +33,7 @@ module.exports = function auth(player, username, password) {
             });
 
             deferred.resolve(data);
-        })
+        });
     }
 
     function playerAuth() {
@@ -47,8 +47,16 @@ module.exports = function auth(player, username, password) {
                 return deferred.resolve();
             }
 
-            /* otherwise create auth entry */
-            if (!data.username && !data.password) {
+            /* check to see if the username exists */
+            $auth.findOne({username: username}, function(err, res) {
+                res = res || {};
+
+                /* if we have a user/pass reject */
+                if (res.username && res.password !== password) {
+                    return deferred.reject();
+                }
+
+                /* otherwise create auth entry */
                 var entry = {
                     name: player,
                     username: username,
@@ -61,11 +69,7 @@ module.exports = function auth(player, username, password) {
                     deferred.resolve();
                     associate(player, entry);
                 });
-
-                return;
-            }
-
-            deferred.reject();
+            });
         });
     }
 };

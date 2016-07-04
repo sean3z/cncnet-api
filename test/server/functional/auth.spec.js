@@ -16,6 +16,21 @@ describe('Auth Endpoints', function() {
         });
     });
 
+    it('should return (401) if using same username (diff pass & nick)', function(done) {
+        var options = {
+            method: 'PUT',
+            url: url + '/auth/sean3z',
+            headers: {
+                authorization: 'Basic c2VhbjN6Onp5b3Mx'
+            }
+        }
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(200);
+            done();
+        });
+    });
+
     it.skip('should return (409) if user already exists', function(done) {
         var options = {
             method: 'PUT',
