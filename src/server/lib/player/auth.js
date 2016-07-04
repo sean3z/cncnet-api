@@ -7,43 +7,67 @@ var debug = require('debug')('wol:leaderboard'),
 module.exports = function auth(player, username, password) {
     var deferred = $q.defer();
 
-    if (!player || !username || !password) {
+    if (!username || !password) {
         return deferred.reject();
     }
 
-    player = player.toLowerCase();
-
     var $auth = $db.get('auth');
-    $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
-        data = data || {};
 
-        /* success if player enters correct user/pass */
-        if (data.username === username && data.password === password) {
-            return deferred.resolve();
-        }
-
-        /* otherwise create auth entry */
-        if (!data.username && !data.password) {
-            var entry = {
-                name: player,
-                username: username,
-                password: password,
-                registered: Date.now()
-            };
-
-            $auth.insert(entry).success(function() {
-                debug('auth entry created for %s', player);
-                deferred.resolve();
-                associate(player, entry);
-            });
-
-            return;
-        }
-
-        deferred.reject();
-    });
+    (player) ? playerAuth() : regularAuth();
 
     return deferred.promise;
+
+    ///////////////////
+
+    function regularAuth() {
+        $auth.find({username: username, password: password}, function(err, data) {
+            data =  data || [];
+
+            if (data.length < 1) {
+                return deferred.reject();
+            }
+
+            data.forEach(function(item) {
+                delete item.username;
+                delete item.password;
+            });
+
+            deferred.resolve(data);
+        })
+    }
+
+    function playerAuth() {
+        player = player.toLowerCase();
+
+        $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
+            data = data || {};
+
+            /* success if player enters correct user/pass */
+            if (data.username === username && data.password === password) {
+                return deferred.resolve();
+            }
+
+            /* otherwise create auth entry */
+            if (!data.username && !data.password) {
+                var entry = {
+                    name: player,
+                    username: username,
+                    password: password,
+                    registered: Date.now()
+                };
+
+                $auth.insert(entry).success(function() {
+                    debug('auth entry created for %s', player);
+                    deferred.resolve();
+                    associate(player, entry);
+                });
+
+                return;
+            }
+
+            deferred.reject();
+        });
+    }
 };
 
 /* add uid to given player in all supported games */

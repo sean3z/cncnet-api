@@ -8,9 +8,6 @@ exports.player = function(req, res, next) {
     res.header('Expires', '-1');
     res.header('Pragma', 'no-cache');
 
-    /* discontinue if missing request data */
-    if (!req.params.player) return res.send(400);
-
     var _success = function() {
         res.send(200);
     };
