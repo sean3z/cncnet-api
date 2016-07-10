@@ -1,7 +1,6 @@
-var restify = require('restify'),
-    app = restify.createServer(),
-    path = require('path'),
-    WOL_PORT = process.env.WOL_PORT || 4007;
+var restify = require('restify');
+var app = restify.createServer();
+var WOL_PORT = process.env.WOL_PORT || 4007;
 
 global.noop = function(){};
 global.cwd = __dirname;
@@ -9,12 +8,12 @@ global.DEFAULT_POINTS = 1000;
 global.DAILY_LIMIT = 3;
 
 /* route separation http://bit.ly/1Kt87xZ */
-var ping = require('./routes/ping'),
-    ladder = require('./routes/ladder'),
-    auth = require('./routes/auth'),
-    debug = require('./routes/debug'),
-    clans = require('./routes/clans'),
-    hof = require('./routes/hof');
+var ping = require('./routes/ping');
+var ladder = require('./routes/ladder');
+var auth = require('./routes/auth');
+var debug = require('./routes/debug');
+var clans = require('./routes/clans');
+var hof = require('./routes/hof');
 
 app.use(restify.queryParser());
 app.use(restify.jsonp());
