@@ -29,6 +29,7 @@ module.exports = function(game, clan, player) {
             // delete clan
             $clans.remove({name: _sanitize(clan, true)}).success(function() {
 
+                // TODO: Remove ALL players from clan (clan_data.members) 
                 // remove player from clan
                 $players.update({name: _sanitize(player, true)}, {
                     $unset: {
