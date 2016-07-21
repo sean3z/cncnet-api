@@ -31,6 +31,21 @@ describe('Auth Endpoints', function() {
         });
     });
 
+    it('should return (401) if user does not exist but nick belongs to another user', function(done) {
+        var options = {
+            method: 'PUT',
+            url: url + '/auth/tahj',
+            headers: {
+                authorization: 'Basic dGFhc2RmaGo6enlvczE='
+            }
+        }
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(401);
+            done();
+        });
+    });
+
     it.skip('should return (409) if user already exists', function(done) {
         var options = {
             method: 'PUT',

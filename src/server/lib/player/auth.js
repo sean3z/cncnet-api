@@ -47,11 +47,16 @@ module.exports = function auth(player, username, password) {
                 return deferred.resolve();
             }
 
+            /* if player is already associated to another username, reject */
+            if (data.username && data.username !== username) {
+                return deferred.reject();
+            }
+
             /* check to see if the username exists */
             $auth.findOne({username: username}, function(err, res) {
                 res = res || {};
 
-                /* if we have a user/pass reject */
+                /* if we already have a user/pass reject */
                 if (res.username && res.password !== password) {
                     return deferred.reject();
                 }
