@@ -44,7 +44,6 @@ module.exports = function _consolidate(flat) {
         consolidated.client.nick = player.nam;
     }
 
-
     /* overwrite date */
     consolidated.date = Math.floor(Date.now() / 1000);
 

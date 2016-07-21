@@ -21,12 +21,12 @@ describe('Auth Endpoints', function() {
             method: 'PUT',
             url: url + '/auth/sean3z',
             headers: {
-                authorization: 'Basic c2VhbjN6Onp5b3Mx'
+                authorization: 'Basic dGFoajp6eW9zMQ=='
             }
         }
 
         request(options, function(err, res) {
-            expect(res.statusCode).to.equal(200);
+            expect(res.statusCode).to.equal(401);
             done();
         });
     });
