@@ -13,7 +13,6 @@ exports.list = function(req, res, next) {
     search.year = parseInt(req.params.year);
   }
 
-  // @TODO: if month or year provided use .findOne()
   $db.get('hof').find(search, function(err, data) {
     res.send(data);
   });
@@ -32,6 +31,7 @@ exports.snapshot = function(req, res, next) {
     };
 
     games.supported.forEach(function(game) {
+        hof[game] = [];
         if (global.ladder[game]) {
             hof[game] = global.ladder[game].slice(0, 10);
         }
@@ -54,8 +54,22 @@ exports.snapshot = function(req, res, next) {
     global.ladder = {};
 
     /* cleanup HoF */
-    // @TODO if hof[game].length < 10 or each player doesn't
-    // have at least 1 win; remove from hof[game]
+    games.supported.forEach(function(game) {
+        // @TODO if hof[game].length < 10 or each player doesn't
+        // have at least 1 win; remove from hof[game]
+        if (hof[game].length) {
+            hof[game].forEach(function(player) {
+                $db.get(game +'_players').update({name: player.name}, {
+                    $push: {
+                        hof: {
+                            month: hof.month,
+                            year: hof.year
+                        }
+                    }
+                });
+            });
+        }
+    });
 
     $db.get('hof').insert(hof);
 }

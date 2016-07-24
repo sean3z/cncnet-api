@@ -18,12 +18,16 @@ describe('HoF Endpoints', function() {
     request(url + '/ladder/ts/player/test2', function(err, res, body) {
         expect(res.statusCode).to.equal(200);
         body = JSON.parse(body);
-        expect(body.games).to.be.undefined;
+        expect(body.games).to.be.empty;
         expect(body.wins).to.equal(0);
         expect(body.losses).to.equal(0);
         expect(body.disconnects).to.equal(0);
         expect(body.points).to.equal(1000);
         expect(body.rank).to.equal(0);
+
+        var date = new Date();
+        expect(body.hof[[0]].month).to.equal(date.getMonth());
+        expect(body.hof[[0]].year).to.equal(date.getFullYear());
         done();
     });
   });
