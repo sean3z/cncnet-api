@@ -4,7 +4,13 @@ describe('HoF Endpoints', function() {
 
   before(function(done) {
       /* reset ladder */
-      request(url + '/debug/reset', function() {});
+      request({
+        url: url + '/ladder/hof/snapshot',
+        qs: {
+          pw: 'supersecret'
+        }
+      }, global.noop);
+      
       setTimeout(done, 10);
   });
 

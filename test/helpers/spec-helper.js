@@ -9,6 +9,7 @@ global.chai = chai;
 global.expect = chai.expect;
 global.cwd = path.resolve(__dirname + '/../../src/server');
 global.scenarios = path.resolve(__dirname + '/scenarios');
+global.noop = function() {};
 process.env.MONGO_PORT = 27020;
 process.env.WOL_PORT = 4007;
 process.env.MATCH_DELAY = 5; /* milliseconds */

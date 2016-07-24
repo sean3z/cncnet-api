@@ -6,6 +6,7 @@ global.noop = function(){};
 global.cwd = __dirname;
 global.DEFAULT_POINTS = 1000;
 global.DAILY_LIMIT = 3;
+global.WOL_ADMIN = process.env.WOL_ADMIN || 'supersecret';
 
 /* route separation http://bit.ly/1Kt87xZ */
 var ping = require('./routes/ping');
@@ -48,6 +49,7 @@ app.get('/ping', ping);
 
 /* hall of fame (hof) */
 app.get('/ladder/hof', hof.list);
+app.get('/ladder/hof/snapshot', hof.snapshot);
 
 /* leaderboard */
 app.post('/ladder/:game', ladder.submit);
@@ -67,7 +69,6 @@ app.get('/auth/:player', auth.player);
 app.put('/auth/:player', auth.player);
 
 /* debug */
-app.get('/debug/reset', debug.reset);
 app.get('/debug/buffer/:game/:gameId', debug.buffer);
 app.get('/debug/gameres/:game/:gameId', debug.gameres);
 app.post('/debug/gameres/:game', debug.submit);
