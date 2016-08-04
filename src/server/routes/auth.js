@@ -9,8 +9,7 @@ exports.player = function(req, res, next) {
     res.header('Pragma', 'no-cache');
 
     var _success = function(data) {
-        data = data || 200;
-        res.send(data);
+        res.send(data || 200);
     };
 
     var _error = function() {
