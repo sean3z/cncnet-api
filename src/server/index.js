@@ -52,7 +52,7 @@ app.get('/ladder/hof', hof.list);
 app.get('/ladder/hof/snapshot', hof.snapshot);
 
 /* leaderboard */
-app.post('/ladder/:game', ladder.submit);
+app.post('/ladder/:game', auth.required, ladder.submit);
 app.get('/ladder/:game', ladder.ladder);
 app.get('/ladder/:game/game/:gameId', ladder.match); // game info
 app.get('/ladder/:game/player/:player', ladder.player); // player info
@@ -60,9 +60,9 @@ app.post('/ladder/:game/search', ladder.search);
 
 /* clan */
 app.get('/ladder/:game/clan/:clan', clans.info); // clan info
-app.put('/ladder/:game/clan/:clan', clans.create); // create clan
-app.post('/ladder/:game/clan/:clan', clans.adjust); // join/leave/modify clan
-app.del('/ladder/:game/clan/:clan', clans.destroy); // delete clan
+app.put('/ladder/:game/clan/:clan', auth.required, clans.create); // create clan
+app.post('/ladder/:game/clan/:clan', auth.required, clans.adjust); // join/leave/modify clan
+app.del('/ladder/:game/clan/:clan', auth.required, clans.destroy); // delete clan
 
 /* auth */
 app.get('/auth/:player', auth.player);
