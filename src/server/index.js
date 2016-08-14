@@ -65,8 +65,8 @@ app.post('/ladder/:game/clan/:clan', auth.required, clans.adjust); // join/leave
 app.del('/ladder/:game/clan/:clan', auth.required, clans.destroy); // delete clan
 
 /* auth */
-app.get('/auth/:player', auth.player);
-app.put('/auth/:player', auth.player);
+app.get('/auth/:player', auth.required, auth.player);
+app.put('/auth/:player', auth.required, auth.player);
 
 /* debug */
 app.get('/debug/buffer/:game/:gameId', debug.buffer);
