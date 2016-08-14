@@ -26,9 +26,9 @@ exports.player = function(req, res, next) {
 
 exports.required = function(req, res, next) {
     var credentials = auth(req) || {};
-    req.params = req.params || {};
-    req.body = req.body || {};
-    var nick = req.params.player || req.body.player;
+    var params = req.params || {};
+    var body = req.body || {};
+    var nick = params.player || body.player;
 
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.header('Expires', '-1');
@@ -43,5 +43,5 @@ exports.required = function(req, res, next) {
     };
 
     if (!credentials.name || !credentials.pass) return _error();
-    player.auth(nick || credentials.name, credentials.name, credentials.pass).then(next, _error);
+    player.auth(nick, credentials.name, credentials.pass).then(next, _error);
 };
