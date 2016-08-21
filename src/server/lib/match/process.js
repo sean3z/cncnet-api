@@ -40,7 +40,8 @@ module.exports = function process(game, dump) {
     });
 
     global.matches[game][match.idno].push({
-        unid: match.client.unid
+        unid: match.client.unid,
+        nick: match.client.nick
     });
 
     // only continue if this is the first entry for a game
@@ -64,7 +65,7 @@ module.exports = function process(game, dump) {
     });
 
     p.error(function(err) {
-        console.log('error');
+        console.log('!! Error when trying to save game: %s idno: %d', game, match.idno);
         console.dir(err);
     });
 
