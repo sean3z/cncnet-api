@@ -72,4 +72,4 @@ exports.snapshot = function(req, res, next) {
     });
 
     $db.get('hof').insert(hof);
-}
+};
