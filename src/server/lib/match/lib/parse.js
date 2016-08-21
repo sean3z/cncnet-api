@@ -40,6 +40,11 @@ module.exports = function parse(game, match) {
         player.loss = 0;
         player.discon = 0;
 
+        /* shortcut: if player lost connection */
+        if (player.lcn && player.lcn > 0) {
+            player.discon = 1;
+        }
+
         /* evaluate completions */
         if (player.cmp) {
             switch (player.cmp) {
@@ -52,8 +57,8 @@ module.exports = function parse(game, match) {
                     player.won = 1;
                     break;
 
-                case 512:
-                case 528:
+                case 512: /* resigned */
+                case 528: /* defeated */
                     player.loss = 1;
                     break;
             }
