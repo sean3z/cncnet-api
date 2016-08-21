@@ -228,29 +228,27 @@ module.exports = function singles(game, match, packets) {
 };
 
 function quota(game, players) {
-    var deferred = $q.defer();
+    return new Promise(function(resolve, reject) {
+        var query = {
+          $or: [{
+            'players.0.name': players[0].name,
+            'players.1.name': players[1].name
+          }, {
+            'players.0.name': players[1].name,
+            'players.1.name': players[0].name
+          }],
+          date: {
+             $gt: Math.floor((Date.now() / 1000) - 86400)
+          },
+          type: 'singles'
+        };
 
-    var query = {
-      $or: [{
-        'players.0.name': players[0].name, 
-        'players.1.name': players[1].name
-      }, {
-        'players.0.name': players[1].name, 
-        'players.1.name': players[0].name
-      }],
-      date: {
-         $gt: Math.floor((Date.now() / 1000) - 86400)
-      },
-      type: 'singles'
-    };
+        $db.get(game + '_games').find(query, function(err, data) {
+          if (!data || data.length < global.DAILY_LIMIT) {
+            return resolve(false);
+          }
 
-    $db.get(game + '_games').find(query, function(err, data) {
-      if (!data || data.length < global.DAILY_LIMIT) {
-        return deferred.resolve(false);
-      }
-
-      deferred.resolve(true);
+          return resolve(true);
+        });
     });
-
-    return deferred.promise;
 }
