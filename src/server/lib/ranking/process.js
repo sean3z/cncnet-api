@@ -10,6 +10,9 @@ module.exports = function process(game, match) {
 
     var $dumps = $db.get(game +'_dumps');
 
+    /* discontinue if non-tournament game */
+    // if (!match.settings.trny) return;
+
     $dumps.findOne({idno: match.idno}, function(err, doc) {
         // only continue if we have a game entry
         if (!doc || !doc.buffers || !doc.buffers.length) return;
