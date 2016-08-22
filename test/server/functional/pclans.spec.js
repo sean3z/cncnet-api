@@ -25,6 +25,35 @@ describe('Clan Endpoints', function() {
         });
     });
 
+    it('Create: should error (400) if missing clan or player', function(done) {
+        var options = {
+            method: 'PUT',
+            url: url + '/ladder/ts/clan/',
+            json: {player: 'test2'},
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res, body) {
+            expect(res.statusCode).to.equal(400);
+
+            var options = {
+                method: 'PUT',
+                url: url + '/ladder/ts/clan/TXz',
+                json: {player: ''},
+                headers: {
+                    authorization: 'Basic dGFoajpwYXNzd29yZA=='
+                }
+            };
+
+            request(options, function(err, res, body) {
+                expect(res.statusCode).to.equal(400);
+                done();
+            });
+        });
+    });
+
     it('Create: should allow users to create clan', function(done) {
         var options = {
             method: 'PUT',
@@ -55,6 +84,13 @@ describe('Clan Endpoints', function() {
             expect(body.nam).to.equal('TXz');
             expect(body.founder).to.equal('test2');
             expect(body.members.length).to.equal(1);
+            done();
+        });
+    });
+
+    it('Info: should error (400) if missing clan', function(done) {
+        request({url: url + '/ladder/ts/clan/'}, function(err, res, body) {
+            expect(res.statusCode).to.equal(400);
             done();
         });
     });
