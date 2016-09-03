@@ -31,7 +31,10 @@ exports.create = function (req, res, next) {
 };
 
 exports.adjust = function (req, res) {
-    switch (req.params.method) {
+    /* discontinue if missing request data */
+    if (!req.params.clan || !req.body.method) return res.send(400);
+
+    switch (req.body.method) {
         case 'join':
             break;
 
@@ -44,6 +47,8 @@ exports.adjust = function (req, res) {
 };
 
 exports.destroy = function (req, res) {
+    if (!req.params.clan) return res.send(400);
+
     var _success = function() {
         res.send(200);
     };
