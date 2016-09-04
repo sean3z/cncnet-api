@@ -209,8 +209,16 @@ describe('Clan Endpoints', function() {
                 expect(res.statusCode).to.equal(200);
                 body = JSON.parse(body);
                 expect(body.clan).to.equal('TXz');
-                done();
+
+                request(url + '/ladder/ts/clan/TXz', function(err, res, body) {
+                    expect(res.statusCode).to.equal(200);
+                    body = JSON.parse(body);
+                    expect(body.members).to.include('kaizen');
+                    done();
+                });
             });
+
+
         });
     });
 

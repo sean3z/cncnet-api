@@ -28,6 +28,12 @@ module.exports = function modify(game, clan, options) {
                         }
                     })
 
+                    $clans.update({name: _sanitize(clan, true)}, {
+                        $push: {
+                            members: player
+                        }
+                    });
+
                    return resolve(); 
                 }
 
