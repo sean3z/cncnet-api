@@ -273,6 +273,12 @@ describe('Clan Endpoints', function() {
                     expect(res.statusCode).to.equal(200);
                     body = JSON.parse(body);
                     expect(body.clan).to.be.undefined;
+                });
+
+                request(url + '/ladder/ts/player/kaizen', function(err, res, body) {
+                    expect(res.statusCode).to.equal(200);
+                    body = JSON.parse(body);
+                    expect(body.clan).to.be.undefined;
                     done();
                 });
             });
