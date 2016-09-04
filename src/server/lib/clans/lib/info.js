@@ -8,6 +8,10 @@ module.exports = function info(game, clan) {
 
     $db.get(game + '_clans').findOne({name: _sanitize(clan, true)}, function(err, data) {
         if (!data) return defer.reject();
+
+        // hide sensitive info
+        delete data.password;
+
         defer.resolve(data);
     });
 

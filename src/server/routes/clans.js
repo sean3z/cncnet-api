@@ -31,19 +31,25 @@ exports.create = function (req, res, next) {
 };
 
 exports.adjust = function (req, res) {
+    var method = req.body.method;
+
     /* discontinue if missing request data */
-    if (!req.params.clan || !req.body.method) return res.send(400);
+    if (!req.params.clan || !method) return res.send(400);
 
-    switch (req.body.method) {
-        case 'join':
-            break;
+    /* discontinue if method isn't supported */
+    var methods = ['join', 'part', 'modify'];
+    if (methods.indexOf(method) < 0) return res.send(400);
 
-        case 'part':
-            break;
+    var _success = function() {
+        res.send(200);
+    };
 
-        case 'modify':
-            break;
-    }
+    var _error = function() {
+        res.send(400);
+    };
+
+    delete req.body.method;
+    clans[method](req.params.game, req.params.clan, req.body).then(_success, _error);
 };
 
 exports.destroy = function (req, res) {

@@ -1,4 +1,4 @@
-/* DO NOT RENAME - intentionally running between match.spec and player.spec */
+/* DO  RENAME - intentionally running between match.spec and player.spec */
 
 var request = require('request');
 
@@ -124,6 +124,93 @@ describe('Clan Endpoints', function() {
         request(options, function(err, res, body) {
             expect(res.statusCode).to.equal(400);
             done();
+        });
+    });
+
+    it('Adjust: should allow users to modify their clan', function(done) {
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'test2', method: 'modify', newField: 'meowmix', password: 'test'},
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+
+            request(url + '/ladder/ts/clan/TXz', function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.newField).to.equal('meowmix');
+                done();
+            });
+        });
+    });
+
+    it('Adjust: should error (400) if attempt to modify clan without being founder', function(done) {
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'test', method: 'modify', w00f: 'meowmix'},
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res, body) {
+            expect(res.statusCode).to.equal(400);
+
+            request(url + '/ladder/ts/clan/TXz', function(err, res, body) {
+                body = JSON.parse(body);
+                expect(body.w00f).to.be.undefined;
+                done();
+            });
+        });
+    });
+
+    it('Join: should error (400) if wrong password provided when joining clan', function(done) {
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'kaizen', method: 'join', password: 'w00f'},
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res, body) {
+            expect(res.statusCode).to.equal(400);
+
+            request(url + '/ladder/ts/player/kaizen', function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.clan).to.be.undefined;
+                done();
+            });
+        });
+    });
+
+    it('Join: should allow users to join clans (if using correct password)', function(done) {
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/ts/clan/TXz',
+            json: {player: 'kaizen', method: 'join', password: 'test'},
+            headers: {
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res, body) {
+            expect(res.statusCode).to.equal(200);
+
+            request(url + '/ladder/ts/player/kaizen', function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.clan).to.equal('TXz');
+                done();
+            });
         });
     });
 
