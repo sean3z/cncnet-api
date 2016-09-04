@@ -26,7 +26,7 @@ module.exports = function modify(game, clan, options) {
                         $set: {
                             clan: clan
                         }
-                    })
+                    });
 
                     $clans.update({name: _sanitize(clan, true)}, {
                         $push: {

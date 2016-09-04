@@ -217,8 +217,6 @@ describe('Clan Endpoints', function() {
                     done();
                 });
             });
-
-
         });
     });
 
