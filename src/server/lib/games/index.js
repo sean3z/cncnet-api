@@ -1,3 +1,4 @@
+var gameId = require('./lib/gameId');
 
 module.exports = {
     supported: [
@@ -5,11 +6,14 @@ module.exports = {
         'd2',
         'ra',
         'am',
-        'ts',  /* ww maps */
-        'tsm', /* mod maps */
+        'ts',  /* ts: ww maps */
+        'tsm', /* ts: mod maps */
         'fs',
         'dta',
         'ra2',
         'yr'
-    ]
+    ],
+    gameId: {
+        reserve: gameId.reserve
+    }
 };
