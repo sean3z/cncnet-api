@@ -1,22 +1,20 @@
-var $db = require(global.cwd + '/lib/mongo'),
-    $q = require('q');
+var $db = require(global.cwd + '/lib/mongo');
 
 global.ladder = {};
 
 var last_update = {};
 
 module.exports = function ladder(game, limit) {
-    var defer = $q.defer();
-    limit = limit || 150;
+    return new Promise(function(resolve, reject) {
+        limit = limit || 150;
 
-    defer.resolve((global.ladder[game] || []).slice(0, limit));
+        resolve((global.ladder[game] || []).slice(0, limit));
 
-    /* if cache threshold elapsed; generate new cache */
-    if ((last_update[game] || 0) < _timestamp() - 60) {
-        _notch(game, limit);
-    }
-
-    return defer.promise;
+        /* if cache threshold elapsed; generate new cache */
+        if ((last_update[game] || 0) < _timestamp() - 60) {
+            _notch(game, limit);
+        }
+    });
 };
 
 /* updates leaderboard cache */

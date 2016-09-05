@@ -1,11 +1,10 @@
-var $db = require(global.cwd + '/lib/mongo'),
-    $q = require('q');
+var $db = require(global.cwd + '/lib/mongo');
 
 module.exports = function information(game, gameId) {
-    var defer = $q.defer();
+  return new Promise(function(resolve, reject) {
     $db.get(game +'_games').find({idno: gameId}, function(err, data) {
-        if (data.length < 1) return defer.reject();
-        defer.resolve(data[0]);
+        if (data.length < 1) return reject();
+        resolve(data[0]);
     });
-    return defer.promise;
+  });
 };
