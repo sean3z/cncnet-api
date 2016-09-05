@@ -9,6 +9,18 @@ describe('General Endpoints', function() {
         });
     });
 
+    it('should reply to OPTIONS requests', function(done) {
+        var options = {
+            method: 'OPTIONS',
+            url: url + '/ladder/ts',
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(200);
+            done();
+        });
+    });
+
     it('should respond to ladder requests', function(done) {
         request(url + '/ladder/ts', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
