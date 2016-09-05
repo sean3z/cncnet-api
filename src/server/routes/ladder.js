@@ -18,7 +18,7 @@ exports.submit = function (req, res, next) {
 };
 
 exports.ladder = function (req, res, next) {
-    ranking.ladder(req.params.game, (req.params.limit || 150)).then(function(data) {
+    ranking.ladder(req.params.game, req.params.limit).then(function(data) {
         if (data && data.length > 0) {
             res.header('Cache-Control', 'public, max-age=60');
         }
