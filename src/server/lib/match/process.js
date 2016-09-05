@@ -14,6 +14,10 @@ var games = {
 module.exports = function process(game, dump) {
     var match = require(__dirname + '/lib/parse')(game, dump);
 
+    /* TODO: REMOVE!! */
+    /* hack until tests and client packets are updated */
+    match.settings.trny = 1;
+
     /* TS Scenario: note whether game map is mod or ww */
     if (game === 'ts') {
         match.settings = games[game].official(match.settings);
@@ -56,11 +60,30 @@ module.exports = function process(game, dump) {
     p.success(function(doc) {
         debug('game: %s, idno: %d game saved!', game, match.idno);
 
-        /* process rankings at a 1.5 minute delay */
+        /* further processing at a 1.5 minute delay */
         /* this allows time for all packets to arrive */
         setTimeout(function() {
             delete global.matches[game][match.idno];
-            ranking.process(game, match);
+
+            /* add match to all players objects involved */
+            $players = $db.get(game + '_players');
+            match.players.forEach(function (player, index) {
+                /* query to update player obj */
+                var _player = {
+                    $push: {games: match.idno},
+                }
+
+                $players.update({name: player.name}, _player, {upsert: true}).error(function(err) {
+                    console.log('match/process game entry player update error');
+                    console.log('game: %s, match: %d, player: %s', game, match.idno, player.name);
+                    console.dir(err);
+                });
+            });
+
+            /* process ranking only if game is trny */
+            if (match.settings.trny) {
+                ranking.process(game, match);
+            }
         }, MATCH_DELAY);
     });
 

@@ -157,7 +157,6 @@ module.exports = function singles(game, match, packets) {
 
                 /* query to update player obj */
                 var _player = {
-                    $push: {games: match.idno},
                     $inc: {
                         wins: player.won || 0,
                         losses: player.loss || 0,
