@@ -71,7 +71,7 @@ module.exports = function process(game, dump) {
                 /* query to update player obj */
                 var _player = {
                     $push: {games: match.idno},
-                }
+                };
 
                 $players.update({name: player.name}, _player, {upsert: true}).error(function(err) {
                     console.log('match/process game entry player update error');
