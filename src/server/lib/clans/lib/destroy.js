@@ -1,7 +1,6 @@
 var debug = require('debug')('wol:leaderboard');
 var $db = require(global.cwd + '/lib/mongo');
 var _sanitize = require(global.cwd + '/lib/player/lib/sanitize');
-var $q = require('q');
 
 module.exports = function(game, clan, player) {
     return new Promise(function(resolve, reject) {
