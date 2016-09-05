@@ -14,6 +14,9 @@ module.exports = function modify(game, clan, options) {
             if (!clan_data) return reject();
 
             $players.findOne({name: _sanitize(player, true)}, function(err, player_data) {
+                // ensure player exists
+                if (!player_data) return reject();
+
                 // ensure player is not in another clan
                 if (player_data.clan) return reject();
 
