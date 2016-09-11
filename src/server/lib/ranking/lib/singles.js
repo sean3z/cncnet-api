@@ -2,8 +2,7 @@
 var $db = require(global.cwd + '/lib/mongo'),
     debug = require('debug')('wol:leaderboard'),
     Arpad = require('arpad'),
-    points = require('./points').points,
-    $q = require('q');
+    points = require('./points').points;
 
 module.exports = function singles(game, match, packets) {
     debug('game: %s, idno: %d is singles', game, match.idno);
@@ -157,7 +156,6 @@ module.exports = function singles(game, match, packets) {
 
                 /* query to update player obj */
                 var _player = {
-                    $push: {games: match.idno},
                     $inc: {
                         wins: player.won || 0,
                         losses: player.loss || 0,

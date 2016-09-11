@@ -1,82 +1,79 @@
 var debug = require('debug')('wol:leaderboard'),
     $db = require(global.cwd + '/lib/mongo'),
     games = require(global.cwd + '/lib/games'),
-    _sanitize = require('./lib/sanitize'),
-    $q = require('q');
+    _sanitize = require('./lib/sanitize');
 
 module.exports = function auth(player, username, password) {
-    var deferred = $q.defer();
+    return new Promise(function(resolve, reject) {
+        if (!username || !password) {
+            return reject();
+        }
 
-    if (!username || !password) {
-        return deferred.reject();
-    }
+        var $auth = $db.get('auth');
 
-    var $auth = $db.get('auth');
+        player ? playerAuth() : regularAuth();
 
-    player ? playerAuth() : regularAuth();
+        ///////////////////
 
-    return deferred.promise;
+        function regularAuth() {
+            $auth.find({username: username, password: password}, function(err, data) {
+                data =  data || [];
 
-    ///////////////////
-
-    function regularAuth() {
-        $auth.find({username: username, password: password}, function(err, data) {
-            data =  data || [];
-
-            if (data.length < 1) {
-                return deferred.reject();
-            }
-
-            data.forEach(function(item) {
-                delete item.username;
-                delete item.password;
-            });
-
-            deferred.resolve(data);
-        });
-    }
-
-    function playerAuth() {
-        player = player.toLowerCase();
-
-        $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
-            data = data || {};
-
-            /* success if player enters correct user/pass */
-            if (data.username === username && data.password === password) {
-                return deferred.resolve();
-            }
-
-            /* if player is already associated to another username, reject */
-            if (data.username && data.username !== username) {
-                return deferred.reject();
-            }
-
-            /* check to see if the username exists */
-            $auth.findOne({username: username}, function(err, res) {
-                res = res || {};
-
-                /* if we already have a user/pass reject */
-                if (res.username && res.password !== password) {
-                    return deferred.reject();
+                if (data.length < 1) {
+                    return reject();
                 }
 
-                /* otherwise create auth entry */
-                var entry = {
-                    name: player,
-                    username: username,
-                    password: password,
-                    registered: Date.now()
-                };
+                data.forEach(function(item) {
+                    delete item.username;
+                    delete item.password;
+                });
 
-                $auth.insert(entry).success(function() {
-                    debug('auth entry created for %s', player);
-                    deferred.resolve();
-                    associate(player, entry);
+                resolve(data);
+            });
+        }
+
+        function playerAuth() {
+            player = player.toLowerCase();
+
+            $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
+                data = data || {};
+
+                /* success if player enters correct user/pass */
+                if (data.username === username && data.password === password) {
+                    return resolve();
+                }
+
+                /* if player is already associated to another username, reject */
+                if (data.username && data.username !== username) {
+                    return reject();
+                }
+
+                /* check to see if the username exists */
+                $auth.findOne({username: username}, function(err, res) {
+                    res = res || {};
+
+                    /* if we already have a user/pass reject */
+                    if (res.username && res.password !== password) {
+                        return reject();
+                    }
+
+                    /* otherwise create auth entry */
+                    var entry = {
+                        name: player,
+                        username: username,
+                        password: password,
+                        registered: Date.now()
+                    };
+
+                    $auth.insert(entry).success(function() {
+                        debug('auth entry created for %s', player);
+                        resolve();
+                        associate(player, entry);
+                    });
                 });
             });
-        });
-    }
+        }
+    });
 };
 
 /* add uid to given player in all supported games */

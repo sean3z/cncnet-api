@@ -14,7 +14,6 @@
     "body-parser": "^1.12.4",
     "debug": "^2.2.0",
     "monk": "^1.0.1",
-    "q": "^1.1.2",
     "restify": "^3.0.3"
   },
   "devDependencies": {
