@@ -1,6 +1,6 @@
 {
   "name": "cncnet-leaderboard",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Leaderboard for CnCNet 5 games",
   "author": "Sean Wragg <seanwragg@gmail.com>",
   "main": "src/server",
