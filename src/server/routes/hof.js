@@ -58,12 +58,13 @@ exports.snapshot = function(req, res, next) {
         // @TODO if hof[game].length < 10 or each player doesn't
         // have at least 1 win; remove from hof[game]
         if (hof[game].length) {
-            hof[game].forEach(function(player) {
+            hof[game].forEach(function(player, index) {
                 $db.get(game +'_players').update({name: player.name}, {
                     $push: {
                         hof: {
                             month: hof.month,
-                            year: hof.year
+                            year: hof.year,
+                            rank: index + 1
                         }
                     }
                 });
