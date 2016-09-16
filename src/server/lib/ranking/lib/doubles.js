@@ -1,7 +1,8 @@
 /*jshint -W004 */
 var $db = require(global.cwd + '/lib/mongo'),
     debug = require('debug')('wol:leaderboard'),
-    Arpad = require('arpad');
+    Arpad = require('arpad'),
+    points = require('./points').points;
 
 modules.export = function doubles(game, match, packets) {
   debug('game: %s, idno: %d is doubles', game, match.idno);

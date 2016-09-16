@@ -144,6 +144,7 @@ describe('Clan Endpoints', function() {
                 expect(res.statusCode).to.equal(200);
                 body = JSON.parse(body);
                 expect(body.newField).to.equal('meowmix');
+                expect(body.password).to.be.undefined;
                 done();
             });
         });
