@@ -6,8 +6,6 @@ exports.reserve = function reserve(game) {
 
 };
 
-
-
 /* create a new gameId */
 function generate(game) {
   return new Promise(function(resolve, reject) {

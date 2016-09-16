@@ -6,7 +6,9 @@ var $db = require(global.cwd + '/lib/mongo'),
 modules.export = function doubles(game, match, packets) {
   debug('game: %s, idno: %d is doubles', game, match.idno);
 
+  /* jshint ignore:start */
   return; /* TODO: finialize */
+  /* jshint ignore:end */
 
   /* stop if <> 2v2 */
   if (match.players.length != 4) return;

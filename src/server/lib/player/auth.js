@@ -1,3 +1,5 @@
+/* jshint expr: true */
+
 var debug = require('debug')('wol:leaderboard'),
     $db = require(global.cwd + '/lib/mongo'),
     games = require(global.cwd + '/lib/games'),
