@@ -28,7 +28,7 @@ describe('HoF Endpoints', function() {
         var date = new Date();
         expect(body.hof[0].month).to.equal(date.getMonth());
         expect(body.hof[0].year).to.equal(date.getFullYear());
-        expect(body.hof[0].rank).to.equal(1);
+        expect(body.hof[0].rank).to.equal(2);
         done();
     });
   });
