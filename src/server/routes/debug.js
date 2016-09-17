@@ -4,7 +4,7 @@ var debug = require('debug')('wol:leaderboard'),
 
 exports.buffer = function(req, res, next) {
     $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
-
+        data = data || {};
         if (!data.buffers || data.buffers.length < 1) return res.send(404);
 
         data.buffers.forEach(function(buffer, index) {
@@ -17,7 +17,7 @@ exports.buffer = function(req, res, next) {
 
 exports.gameres = function(req, res, next) {
     $db.get(req.params.game +'_dumps').findOne({idno: parseInt(req.params.gameId)}, function(err, data) {
-
+        data = data || {};
         if (!data.buffers || data.buffers.length < 1) return res.send(404);
 
         data.buffers.forEach(function(buffer, index) {
