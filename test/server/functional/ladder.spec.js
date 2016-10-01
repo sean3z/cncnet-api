@@ -357,6 +357,31 @@ describe('Ladder Endpoints', function() {
         }, MATCH_DELAY);
     });
 
+    it('Any game should remove Spectator from player list', function(done) {
+        var oracroboys = fs.readFileSync(scenarios + '/TSM_SPECTATOR');
+
+        var options = {
+            method: 'POST',
+            url: url + '/ladder/tsm',
+            body: oracroboys.toString(),
+            headers: {
+                'content-type': 'text/plain',
+                authorization: 'Basic dGFoajpwYXNzd29yZA=='
+            }
+        };
+
+        request(options, function(err, res) {
+            expect(res.statusCode).to.equal(202);
+
+            request({url: url + '/ladder/tsm/game/610270065'}, function(err, res, body) {
+                expect(res.statusCode).to.equal(200);
+                body = JSON.parse(body);
+                expect(body.players.length).to.equal(4);
+                done();
+            });
+        });
+    });
+
     it('24 hour limit for games played vs. same opponent', function(done) {
         // southvibe vs. microsoft
         var game1 = fs.readFileSync(scenarios + '/TS_LIMIT_GAME_1'); // 1159091692

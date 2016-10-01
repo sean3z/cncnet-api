@@ -19,7 +19,7 @@ module.exports = function parse(game, match) {
 
         /* remove spectators */
         if (player.spc && player.spc > 0) {
-            delete match.players[index];
+            match.players.splice(index, 1);
             return;
         }
     });
