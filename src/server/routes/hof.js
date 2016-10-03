@@ -4,6 +4,7 @@ var games = require('../lib/games');
 
 exports.list = function(req, res, next) {
   var search = {};
+  var fields = '';
 
   if (req.params.month) {
     search.month = parseInt(req.params.month);
@@ -13,7 +14,12 @@ exports.list = function(req, res, next) {
     search.year = parseInt(req.params.year);
   }
 
-  $db.get('hof').find(search, function(err, data) {
+  if (req.params.game) {
+    search[req.params.game] = {$exists: true};
+    fields = 'month year '+ req.params.game;
+  }
+
+  $db.get('hof').find(search, fields, function(err, data) {
     res.send(data);
   });
 };

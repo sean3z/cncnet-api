@@ -55,8 +55,22 @@ describe('HoF Endpoints', function() {
       expect(body.length).to.equal(1);
       expect(body[0].month).to.equal(date.getMonth());
       expect(body[0].year).to.equal(date.getFullYear());
+      expect(Object.keys(body[0]).length).to.be.above(4);
       done();
     });
   });
 
+  it('should allow us to search hof by game', function(done) {
+    var date = new Date();
+    var query = '?game=ts';
+    request(url + '/ladder/hof' + query, function(err, res, body) {
+      expect(res.statusCode).to.equal(200);
+      body = JSON.parse(body);
+      expect(body.length).to.equal(1);
+      expect(body[0].month).to.equal(date.getMonth());
+      expect(body[0].year).to.equal(date.getFullYear());
+      expect(Object.keys(body[0]).length).to.equal(4);
+      done();
+    });
+  });
 });
