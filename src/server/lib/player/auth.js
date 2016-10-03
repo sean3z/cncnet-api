@@ -18,17 +18,13 @@ module.exports = function auth(player, username, password) {
         ///////////////////
 
         function regularAuth() {
-            $auth.find({username: username, password: password}, function(err, data) {
-                data =  data || [];
+            $auth.findOne({username: username, password: password}, function(err, data) {
 
-                if (data.length < 1) {
-                    return reject();
-                }
+                /* unable to find user/pass combo*/
+                if (!data) return reject();
 
-                data.forEach(function(item) {
-                    delete item.username;
-                    delete item.password;
-                });
+                /* remove sensitive data from reply */
+                delete data.password;
 
                 resolve(data);
             });
@@ -37,7 +33,7 @@ module.exports = function auth(player, username, password) {
         function playerAuth() {
             player = player.toLowerCase();
 
-            $auth.findOne({name: _sanitize(player, true)}, function(err, data) {
+            $auth.findOne({handles: {$in: [_sanitize(player, true)]}}, function(err, data) {
                 data = data || {};
 
                 /* success if player enters correct user/pass */
@@ -50,6 +46,8 @@ module.exports = function auth(player, username, password) {
                     return reject();
                 }
 
+                console.log('hit1');
+
                 /* check to see if the username exists */
                 $auth.findOne({username: username}, function(err, res) {
                     res = res || {};
@@ -59,12 +57,25 @@ module.exports = function auth(player, username, password) {
                         return reject();
                     }
 
+                    /* if username exists, add new handle */
+                    if (res.username) {
+                        $auth.update({username: username}, {
+                            $push: {
+                                handles: player
+                            }
+                        });
+
+                        return resolve();
+                    }
+
                     /* otherwise create auth entry */
                     var entry = {
-                        name: player,
                         username: username,
                         password: password,
-                        registered: Date.now()
+                        registered: Date.now(),
+                        handles: [
+                            player
+                        ]
                     };
 
                     $auth.insert(entry).success(function() {

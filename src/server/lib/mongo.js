@@ -9,7 +9,7 @@ games.supported.forEach(function(game) {
     $db.get(game +'_clans').index('name', {unique: true});
 });
 
-$db.get('auth').index('name', {unique: true});
+$db.get('auth').index('handles', {unique: true});
 $db.get('hof').index('month year', {unique: true});
 
 module.exports = $db;
