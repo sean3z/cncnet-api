@@ -63,7 +63,10 @@ module.exports = function auth(player, username, password) {
                             }
                         });
 
-                        return resolve();
+                        debug('auth entry updated for %s', username);
+                        resolve();
+                        associate(player, username);
+                        return;
                     }
 
                     /* otherwise create auth entry */
@@ -77,9 +80,9 @@ module.exports = function auth(player, username, password) {
                     };
 
                     $auth.insert(entry).success(function() {
-                        debug('auth entry created for %s', player);
+                        debug('auth entry created for %s', username);
                         resolve();
-                        associate(player, entry);
+                        associate(player, username);
                     });
                 });
             });
@@ -88,18 +91,18 @@ module.exports = function auth(player, username, password) {
 };
 
 /* add uid to given player in all supported games */
-function associate(player, entry) {
+function associate(player, username) {
     games.supported.forEach(function(game) {
         var $players = $db.get(game + '_players');
         $players.findOne({name: _sanitize(player, true)}, function(err, data) {
             data = data || {};
 
             /* associate if not already claimed */
-            if (!data.username && !data.password) {
+            if (!data.username) {
                 $players.update({name: player}, {
                     $set: {
                         name: player,
-                        username: entry.username
+                        username: username
                     }
                 }, {upsert: true});
             }
