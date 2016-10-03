@@ -62,13 +62,13 @@ describe('HoF Endpoints', function() {
 
   it('should allow us to search hof by game', function(done) {
     var date = new Date();
-    var query = '?game=ts';
-    request(url + '/ladder/hof' + query, function(err, res, body) {
+    request(url + '/ladder/hof?game=ts', function(err, res, body) {
       expect(res.statusCode).to.equal(200);
       body = JSON.parse(body);
       expect(body.length).to.equal(1);
       expect(body[0].month).to.equal(date.getMonth());
       expect(body[0].year).to.equal(date.getFullYear());
+      expect(body[0].ts).to.exist;
       expect(Object.keys(body[0]).length).to.equal(4);
       done();
     });
