@@ -46,8 +46,6 @@ module.exports = function auth(player, username, password) {
                     return reject();
                 }
 
-                console.log('hit1');
-
                 /* check to see if the username exists */
                 $auth.findOne({username: username}, function(err, res) {
                     res = res || {};
