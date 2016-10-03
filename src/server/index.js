@@ -78,7 +78,6 @@ app.listen(WOL_PORT, function () {
 });
 
 app.on('uncaughtException', function (req, res, route, err) {
-    res.send(500);
     console.log('uncaughtException: %s', err.message);
     console.log(err.stack);
 });
