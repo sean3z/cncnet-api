@@ -16,7 +16,7 @@ exports.list = function(req, res, next) {
 
   if (req.params.game) {
     search[req.params.game] = {$exists: true};
-    fields = 'month year '+ req.params.game;
+    fields = 'month year ' + req.params.game;
   }
 
   $db.get('hof').find(search, fields, function(err, data) {
