@@ -30,7 +30,7 @@ module.exports = function process(game, dump) {
     if (!match.idno || match.dura < 60) return;
     debug('game: %s, idno: %d game received', game, match.idno);
     if (!global.matches[game]) global.matches[game] = {};
-    if (!global.matches[game].length) global.matches[game] = []
+    if (!global.matches[game].length) global.matches[game] = [];
 
     // create raw dump entry
     // TODO: check against spid (sender id) to ensure only 1 packet from each player
@@ -61,7 +61,7 @@ module.exports = function process(game, dump) {
         /* this allows time for all packets to arrive */
         setTimeout(function() {
             /* remove match from local gate (otherwise, memory leak) */
-            global.matches[game].splice(global.matches[game].indexOf(match.idno), 1)
+            global.matches[game].splice(global.matches[game].indexOf(match.idno), 1);
 
             /* add match to all players objects involved */
             $players = $db.get(game + '_players');
