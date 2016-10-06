@@ -2,6 +2,7 @@ var match = require('../lib/match'),
     ranking = require('../lib/ranking'),
     player = require('../lib/player'),
     gameres = require('../lib/gameres'),
+    auth = require('./auth'),
     debug = require('debug')('wol:leaderboard');
 
 exports.submit = function (req, res, next) {
@@ -13,8 +14,11 @@ exports.submit = function (req, res, next) {
     /* discontinue if missing gameres data */
     if (!dump.client || !dump.client.nick) return res.send(400);
 
-    res.send(202);
-    match.process(req.params.game, dump);
+    req.params.player = dump.client.nick;
+    auth.required(req, res, function() {
+        res.send(202);
+        match.process(req.params.game, dump);
+    });
 };
 
 exports.ladder = function (req, res, next) {

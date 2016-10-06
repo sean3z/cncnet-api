@@ -52,7 +52,7 @@ app.get('/ladder/hof', hof.list);
 app.get('/ladder/hof/snapshot', hof.snapshot);
 
 /* leaderboard */
-app.post('/ladder/:game', auth.required, ladder.submit);
+app.post('/ladder/:game', ladder.submit);
 app.get('/ladder/:game', ladder.ladder);
 app.get('/ladder/:game/game/:gameId', ladder.match); // game info
 app.get('/ladder/:game/player/:player', ladder.player); // player info
