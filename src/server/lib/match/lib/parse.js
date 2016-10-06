@@ -6,6 +6,7 @@ module.exports = function parse(game, match) {
     if (!match.players || match.players.length < 1) return;
 
     /* normalize nicks and remove useless entries */
+    var spectators = [];
     match.players.forEach(function(player, index) {
         /* typically Computer */
         if (!player.nam) {
@@ -19,9 +20,13 @@ module.exports = function parse(game, match) {
 
         /* remove spectators */
         if (player.spc && player.spc > 0) {
-            match.players.splice(index, 1);
+            spectators.push(index);
             return;
         }
+    });
+
+    spectators.forEach(function(spectator) {
+        match.players.splice(spectator, 1);
     });
 
     /* if we have ra stats, normalize packet then carry on  */
