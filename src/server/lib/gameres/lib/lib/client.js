@@ -22,5 +22,7 @@ module.exports = [
     'wine', /* !(bool) player is using wine */
     'utcd', /* !(str) system time settings */
     'cult', /* !(str) player's OS language */
+    'pngr', /* (int) YR: pings recieved */
+    'pngs', /* (int) YR: pings sent */
     'unid'
 ];

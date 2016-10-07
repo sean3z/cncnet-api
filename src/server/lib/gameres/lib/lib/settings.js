@@ -18,4 +18,7 @@ module.exports = [
     'supr', /* (bool) super weapons enabled */
     'aipl', /* (int) number of AI players */
     'mapc', /* !(str) map sha1 hash */
+    'mode', /* (int) YR: game mode */
+    'bamr', /* (int) YR: build ally mvc redeploy */
+    'acco', /* (int) YR: related to game mode? */
 ];
