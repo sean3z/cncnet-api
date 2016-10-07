@@ -49,7 +49,7 @@ app.get('/ping', ping);
 
 /* hall of fame (hof) */
 app.get('/ladder/hof', hof.list);
-app.get('/ladder/hof/snapshot', hof.snapshot);
+app.get('/ladder/hof/snapshot', auth.hof, hof.snapshot);
 
 /* leaderboard */
 app.post('/ladder/:game', ladder.submit);

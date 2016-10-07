@@ -31,3 +31,9 @@ exports.required = function(req, res, next) {
     if (!credentials.name || !credentials.pass) return _error();
     player.auth(nick, credentials.name, credentials.pass).then(_success, _error);
 };
+
+exports.hof = function(req, res, next) {
+    /* reset request has to match server password */
+    if (req.params.pw !== global.WOL_ADMIN) return res.send(401);
+    next();
+};

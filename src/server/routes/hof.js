@@ -27,9 +27,6 @@ exports.list = function(req, res, next) {
 exports.snapshot = function(req, res, next) {
     res.send(200);
 
-    /* reset request has to match server password */
-    if (req.params.pw !== global.WOL_ADMIN) return;
-
     var date = new Date();
     var hof = {
         month: date.getMonth(),
