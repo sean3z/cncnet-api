@@ -8,11 +8,14 @@ global.matches = {};
 
 var games = {
     ra: require(global.cwd + '/lib/games/lib/ra'),
+    yr: require(global.cwd + '/lib/games/lib/yr'),
     ts: require(global.cwd + '/lib/games/lib/ts')
 };
 
 module.exports = function process(game, dump) {
     var match = require(__dirname + '/lib/parse')(game, dump);
+
+    ////////////// Game Related Hacks //////////////
 
     /* TODO: REMOVE!! */
     /* hack until tests and client packets are updated */
@@ -25,6 +28,13 @@ module.exports = function process(game, dump) {
             game = 'tsm'; /* tiberian sun mod map */
         }
     }
+
+    /* YR client is sending IDNO collisions */
+    if (game === 'yr') {
+        match.idno = games[game].indo(match);
+    }
+
+    ////////////// Game Related Hacks //////////////
 
     /* discontinue if no gameId or match is less than 1 minute */
     if (!match.idno || match.dura < 60) return;
