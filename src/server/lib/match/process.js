@@ -15,24 +15,6 @@ var games = {
 module.exports = function process(game, dump) {
     var match = require(__dirname + '/lib/parse')(game, dump);
 
-    /* discontinue if no gameId or match is less than 1 minute */
-    if (!match.idno || match.dura < 60) return;
-    debug('game: %s, idno: %d game received', game, match.idno);
-    
-    if (!global.matches[game]) global.matches[game] = {};
-    if (!global.matches[game].length) global.matches[game] = [];
-
-    // create raw dump entry
-    // TODO: check against spid (sender id) to ensure only 1 packet from each player
-    // TODO: idno is random but could collide. check if record exists and compare dates
-    var $dumps = $db.get(game +'_dumps');
-    $dumps.update({idno: match.idno}, {$push: {buffers: match.buffer}}, {upsert: true}).error(function(err) {
-        console.log('match/process dump entry error');
-        console.log('game: %s, match: %d', game, match.idno);
-        console.log('buffer: %s', match.buffer.toString('hex'));
-        console.dir(err);
-    });
-
     ////////////// Game Related Hacks //////////////
 
     /* TODO: REMOVE!! */
@@ -47,12 +29,27 @@ module.exports = function process(game, dump) {
         }
     }
 
-    /* YR client is sending IDNO collisions */
-    if (game === 'yr') {
-        match.idno = games[game].indo(match);
-    }
+    /* all clients are sending IDNO collisions */
+    match.idno = games['yr'].indo(match);
 
     ////////////// Game Related Hacks //////////////
+
+    /* discontinue if no gameId or match is less than 1 minute */
+    if (!match.idno || match.dura < 60) return;
+    debug('game: %s, idno: %d game received', game, match.idno);
+    if (!global.matches[game]) global.matches[game] = {};
+    if (!global.matches[game].length) global.matches[game] = [];
+
+    // create raw dump entry
+    // TODO: check against spid (sender id) to ensure only 1 packet from each player
+    // TODO: idno is random but could collide. check if record exists and compare dates
+    var $dumps = $db.get(game +'_dumps');
+    $dumps.update({idno: match.idno}, {$push: {buffers: match.buffer}}, {upsert: true}).error(function(err) {
+        console.log('match/process dump entry error');
+        console.log('game: %s, match: %d', game, match.idno);
+        console.log('buffer: %s', match.buffer.toString('hex'));
+        console.dir(err);
+    });
 
     // only continue if this is the first entry for a game
     if (global.matches[game].indexOf(match.idno) >= 0) return;
