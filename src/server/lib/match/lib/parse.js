@@ -6,28 +6,27 @@ module.exports = function parse(game, match) {
     if (!match.players || match.players.length < 1) return;
 
     /* normalize nicks and remove useless entries */
-    var spectators = [];
+    var players = [];
     match.players.forEach(function(player, index) {
+        /* do nothing with spectators */
+        if (player.spc && player.spc > 0) {
+            return;
+        }
+
         /* typically Computer */
         if (!player.nam) {
             player.nam = 'Computer'; // stylized (CaMeLcAsE)
-            player.name = 'computer'; // computational (lowercase)
-            return;
         }
 
         /* lowercase username for further reference */
         player.name = player.nam.toLowerCase();
 
-        /* remove spectators */
-        if (player.spc && player.spc > 0) {
-            spectators.push(index);
-            return;
-        }
+        /* keep sanitized player */
+        players.push(player);
     });
 
-    spectators.forEach(function(spectator) {
-        match.players.splice(spectator, 1);
-    });
+    /* reassign players to keep */
+    match.players = players;
 
     /* if we have ra stats, normalize packet then carry on  */
     if (game == 'ra' || game == 'am') {
