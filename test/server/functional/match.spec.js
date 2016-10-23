@@ -2,7 +2,7 @@ var request = require('request');
 
 describe('Match Endpoints', function() {
     it('TS should persist (mod map) match information', function(done) {
-        request(url + '/ladder/tsm/game/732242669', function(err, res, body) {
+        request(url + '/ladder/tsm/game/1554103450', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
             expect(body.players.length).to.equal(2);
@@ -12,7 +12,7 @@ describe('Match Endpoints', function() {
     });
 
     it('TS should persist (official) match information', function(done) {
-        request(url + '/ladder/ts/game/1870851982', function(err, res, body) {
+        request(url + '/ladder/ts/game/799032354', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
             expect(body.players.length).to.equal(2);
@@ -22,7 +22,7 @@ describe('Match Endpoints', function() {
     });
 
     it('should maintain player point/exp information', function(done) {
-        request(url + '/ladder/tsm/game/732242669', function(err, res, body) {
+        request(url + '/ladder/tsm/game/1554103450', function(err, res, body) {
             expect(res.statusCode).to.equal(200);
             body = JSON.parse(body);
             expect(body.players.length).to.equal(2);

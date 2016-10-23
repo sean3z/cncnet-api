@@ -8,7 +8,6 @@ global.matches = {};
 
 var games = {
     ra: require(global.cwd + '/lib/games/lib/ra'),
-    yr: require(global.cwd + '/lib/games/lib/yr'),
     ts: require(global.cwd + '/lib/games/lib/ts')
 };
 
@@ -30,7 +29,7 @@ module.exports = function process(game, dump) {
     }
 
     /* all clients are sending IDNO collisions */
-    match.idno = games['yr'].indo(match);
+    // match.idno = games['yr'].indo(match);
 
     ////////////// Game Related Hacks //////////////
 

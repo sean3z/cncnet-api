@@ -299,7 +299,7 @@ describe('Ladder Endpoints', function() {
         });
 
         setTimeout(function() {
-            request({url: url + '/ladder/ts/game/2089088108'}, function(err, res, body) {
+            request({url: url + '/ladder/ts/game/5546451'}, function(err, res, body) {
                 expect(res.statusCode).to.equal(200);
                 body = JSON.parse(body);
 
@@ -373,7 +373,7 @@ describe('Ladder Endpoints', function() {
         request(options, function(err, res) {
             expect(res.statusCode).to.equal(202);
 
-            request({url: url + '/ladder/tsm/game/1800790855'}, function(err, res, body) {
+            request({url: url + '/ladder/tsm/game/610270065'}, function(err, res, body) {
                 expect(res.statusCode).to.equal(200);
                 body = JSON.parse(body);
                 expect(body.players.length).to.equal(4);
@@ -416,28 +416,28 @@ describe('Ladder Endpoints', function() {
             request(options, function(){});
 
             setTimeout(function() {
-                request({url: url + '/ladder/ts/game/1870851982'}, function(err, res, body) {
+                request({url: url + '/ladder/ts/game/1159091692'}, function(err, res, body) {
                     expect(res.statusCode).to.equal(200);
                     body = JSON.parse(body);
                     expect(body.quota).to.equal(false);
                     expect(body.players[0].exp).to.exist;
                 });
 
-                request({url: url + '/ladder/ts/game/1869503242'}, function(err, res, body) {
+                request({url: url + '/ladder/ts/game/1159087596'}, function(err, res, body) {
                     expect(res.statusCode).to.equal(200);
                     body = JSON.parse(body);
                     expect(body.quota).to.equal(false);
                     expect(body.players[0].exp).to.exist;
                 });
 
-                request({url: url + '/ladder/ts/game/767577745'}, function(err, res, body) {
+                request({url: url + '/ladder/ts/game/1159083500'}, function(err, res, body) {
                     expect(res.statusCode).to.equal(200);
                     body = JSON.parse(body);
                     expect(body.quota).to.equal(false);
                     expect(body.players[0].exp).to.exist;
                 });
 
-                request({url: url + '/ladder/ts/game/766229005'}, function(err, res, body) {
+                request({url: url + '/ladder/ts/game/1159079404'}, function(err, res, body) {
                     expect(res.statusCode).to.equal(200);
                     body = JSON.parse(body);
                     expect(body.quota).to.equal(true);
