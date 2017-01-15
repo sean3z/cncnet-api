@@ -6,7 +6,7 @@ var debug = require('debug')('wol:leaderboard'),
 module.exports = function parse(packet) {
     var buffer = packet;
     if (typeof packet === 'string') {
-        // remove any unnessiccary whitespace
+        // remove any unnecessary whitespace
         packet = packet.replace(/(\r|\n|\r\n|\s+)/gm, '');
         buffer = new Buffer(packet, 'hex');
     }

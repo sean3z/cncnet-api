@@ -1,4 +1,4 @@
-/* DO  RENAME - intentionally running between match.spec and player.spec */
+/* DO NOT RENAME - intentionally running between match.spec and player.spec */
 
 var request = require('request');
 
@@ -131,7 +131,7 @@ describe('Clan Endpoints', function() {
         var options = {
             method: 'POST',
             url: url + '/ladder/ts/clan/TXz',
-            json: {player: 'test2', method: 'modify', newField: 'meowmix', password: 'test'},
+            json: {player: 'test2', action: 'modify', newField: 'meowmix', password: 'test'},
             headers: {
                 authorization: 'Basic dGFoajpwYXNzd29yZA=='
             }
@@ -154,7 +154,7 @@ describe('Clan Endpoints', function() {
         var options = {
             method: 'POST',
             url: url + '/ladder/ts/clan/TXz',
-            json: {player: 'test', method: 'modify', w00f: 'meowmix'},
+            json: {player: 'test', action: 'modify', w00f: 'meowmix'},
             headers: {
                 authorization: 'Basic dGFoajpwYXNzd29yZA=='
             }
@@ -175,7 +175,7 @@ describe('Clan Endpoints', function() {
         var options = {
             method: 'POST',
             url: url + '/ladder/ts/clan/TXz',
-            json: {player: 'kaizen', method: 'join', password: 'w00f'},
+            json: {player: 'kaizen', action: 'join', password: 'w00f'},
             headers: {
                 authorization: 'Basic dGFoajpwYXNzd29yZA=='
             }
@@ -197,7 +197,7 @@ describe('Clan Endpoints', function() {
         var options = {
             method: 'POST',
             url: url + '/ladder/ts/clan/TXz',
-            json: {player: 'kaizen', method: 'join', password: 'test'},
+            json: {player: 'kaizen', action: 'join', password: 'test'},
             headers: {
                 authorization: 'Basic dGFoajpwYXNzd29yZA=='
             }

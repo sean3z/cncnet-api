@@ -31,14 +31,14 @@ exports.create = function (req, res, next) {
 };
 
 exports.adjust = function (req, res) {
-    var method = req.body.method;
+    var action = req.body.action;
 
     /* discontinue if missing request data */
-    if (!req.params.clan || !method) return res.send(400);
+    if (!req.params.clan || !action) return res.send(400);
 
     /* discontinue if method isn't supported */
-    var methods = ['join', 'part', 'modify'];
-    if (methods.indexOf(method) < 0) return res.send(400);
+    var actions = ['join', 'part', 'modify'];
+    if (actions.indexOf(action) < 0) return res.send(400);
 
     var _success = function() {
         res.send(200);
@@ -48,8 +48,8 @@ exports.adjust = function (req, res) {
         res.send(400);
     };
 
-    delete req.body.method;
-    clans[method](req.params.game, req.params.clan, req.body).then(_success, _error);
+    delete req.body.action;
+    clans[action](req.params.game, req.params.clan, req.body).then(_success, _error);
 };
 
 exports.destroy = function (req, res) {
