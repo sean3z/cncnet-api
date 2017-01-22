@@ -49,7 +49,19 @@ describe('Clan Endpoints', function() {
 
             request(options, function(err, res, body) {
                 expect(res.statusCode).to.equal(400);
-                done();
+
+                var options = {
+                  method: 'PUT',
+                  url: url + '/ladder/ts/clan/TXz',
+                  headers: {
+                      authorization: 'Basic dGFoajpwYXNzd29yZA=='
+                  }
+                };
+
+                request(options, function(err, res, body) {
+                  expect(res.statusCode).to.equal(400);
+                  done();
+                });
             });
         });
     });

@@ -17,7 +17,7 @@ exports.info = function (req, res) {
 
 exports.create = function (req, res, next) {
     /* discontinue if missing request data */
-    if (!req.params.clan || !req.body.player) return res.send(400);
+    if (!req.params.clan || !req.body || !req.body.player) return res.send(400);
 
     var _success = function() {
         res.send(200);
