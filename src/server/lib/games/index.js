@@ -1,5 +1,3 @@
-var gameId = require('./lib/gameId');
-
 module.exports = {
     supported: [
         'td',
@@ -12,8 +10,5 @@ module.exports = {
         'dta',
         'ra2',
         'yr'
-    ],
-    gameId: {
-        reserve: gameId.reserve
-    }
+    ]
 };
