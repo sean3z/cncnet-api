@@ -4,18 +4,18 @@
 This is an open source WOL leaderboard emulator for legacy [Westwood Studios](http://en.wikipedia.org/wiki/Westwood_Studios) games; specifically, those hosted by [CnCNet](http://cncnet.org). Ideally though, this application should work with any client sending WOLv1 or WOLv2 Game Resolution packets. This application serves several REST API endpoints (documented below) to consume and post leaderboard data.
 
 ### Games Supported
-* [Red Alert](http://cncnet.org/leaderboard/#/ra)
-* [Red Alert: The Aftermath](http://cncnet.org/leaderboard/#/am)
-* [Tiberian Sun](http://cncnet.org/leaderboard/#/ts)
-* [Tiberian Sun: Firestorm](http://cncnet.org/leaderboard/#/fs)
-* [Red Alert 2](http://cncnet.org/leaderboard/#/ra2)
-* [Yuri's Revenge](http://cncnet.org/leaderboard/#/yr)
-* [Tiberian Dawn](http://cncnet.org/leaderboard/#/td)
+* [Red Alert](http://ladder.cncnet.org/#/ra)
+* [Red Alert: The Aftermath](http://ladder.cncnet.org/#/am)
+* [Tiberian Sun](http://ladder.cncnet.org/#/ts)
+* [Tiberian Sun: Firestorm](http://ladder.cncnet.org/#/fs)
+* [Red Alert 2](http://ladder.cncnet.org/#/ra2)
+* [Yuri's Revenge](http://ladder.cncnet.org/#/yr)
+* [Tiberian Dawn](http://ladder.cncnet.org/#/td)
 * Dune 2000
 
 ### Usage
 1. `npm install --production`
-2. `grunt serve`
+2. `npm start`
 
 ## REST API Endpoints
 There's a few params listed below.
@@ -25,7 +25,7 @@ There's a few params listed below.
 * `:player` and `:clan` can be alpha-numeric with some special characters `(\w\d\[\])`
 
 ###### General Endpoints
-* GET `/ping` to ensure that the leaderboard is online
+* GET `/ping` to ensure that the server is online
 
 ###### Leaderboard Endpoints
 * POST `/ladder/:game` accepts gameres packet (via POST body) for the supplied `:game`
@@ -35,20 +35,25 @@ There's a few params listed below.
 
 ###### Clan Endpoints
 URL `/ladder/:game/clan/:clan` is used for the following methods. Most of these endpoints require authorization similar to Player Authentication.
-* `GET`  will return most data for the given `:clan` (does not require Auth)
+* `GET`  will return most data for the given `:clan` (does not require auth)
 * `PUT` create the given `:clan`
-* `POST` will `join`, `part` or `modify` (supplied to `method` query) the given `:clan`
+* `POST` will `join`, `part` or `modify` (supplied to `action` query) the given `:clan`
 * `DELETE` permanently delete the given `:clan`
 
 ###### Player Authentication
-* GET `/auth/:player` HTTP authentication using player credentials
+* GET `/auth/:player` HTTP authentication using Account credentials
 
-Accounts can be created using the [CnCNet forum](http://cnc-comm.com/community/index.php?action=register). After an account has been created, users can then proceed to login using the GET `/auth/:player` endpoint. This is accomplished over [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). An example login request would look similar to the following
+Successful authentication of this endpoint will return an [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token) which can be used to call subsequent endpoints which require auth. This endpoint uses [basic HTTP authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). 
 
 _example player auth request_
 ```shell
 curl -isu Tahj:MyPassword http://localhost:4007/auth/tahj3z
 ```
+
+###### Account Creation
+* PUT `/auth/:player` using HTTP authentication
+
+Accounts can be created using this endpoint. After an account has been created, users can then proceed to login using the [Player Authentication]() endpoint above. Future iterations will allow consumers to additionally update Account information using this endpoint.
 
 ## Contributing
 The below subjects outline how to extend the functionality of this project. Any help is warmly accepted and greatly appreciated! :)
