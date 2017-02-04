@@ -54,6 +54,8 @@ app.get('/ladder/hof/snapshot', auth.hof, hof.snapshot);
 /* leaderboard */
 app.post('/ladder/:game', ladder.submit);
 app.get('/ladder/:game', ladder.ladder);
+app.post('/ladder/:game/game/startg', ladder.startg);
+app.put('/ladder/:game/game/:gameId', ladder.submit);
 app.get('/ladder/:game/game/:gameId', ladder.match); // game info
 app.get('/ladder/:game/player/:player', ladder.player); // player info
 app.post('/ladder/:game/search', ladder.search);

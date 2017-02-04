@@ -14,6 +14,8 @@ exports.submit = function (req, res, next) {
     /* discontinue if missing gameres data */
     if (!dump.client || !dump.client.nick) return res.send(400);
 
+    console.log('gameId', req.params.gameId);
+
     req.params.player = dump.client.nick;
     auth.required(req, res, function() {
         res.send(202);
@@ -65,4 +67,25 @@ exports.match = function(req, res) {
     };
 
     match.information(req.params.game, parseInt(req.params.gameId)).then(_success, _error);
+};
+
+exports.startg = function(req, res) {
+    /* discontinue if missing request data */
+    if (!req.body || !req.params.game) return res.send(400);
+
+    var _success = function (gameId) {
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+
+        res.send(201, {
+            gameId: gameId,
+            location: '/ladder/'+ req.params.game +'/game/'+ gameId
+        });
+    };
+    var _error = function (err) {
+        res.send(409);
+    };
+
+    match.create(req.params.game, req.body).then(_success, _error);
 };
