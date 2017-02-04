@@ -29,7 +29,9 @@ module.exports = function process(game, dump) {
     }
 
     /* all clients are sending IDNO collisions */
-    // match.idno = games['yr'].indo(match);
+    var today = new Date();
+    var timestamp = parseInt('' + today.getFullYear() + (today.getMonth() + 1) + today.getDate());
+    match.idno = parseInt('' + match.idno + timestamp);
 
     ////////////// Game Related Hacks //////////////
 
