@@ -41,9 +41,8 @@ module.exports = function auth(email, password, nick) {
                     return resolve();
                 }
 
-                if (data.email && data.email !== email)
-                {
-                    console.log("auth: incorrect email");
+                if (data.email && data.email !== email) {
+                    debug("auth: incorrect email");
                     return reject();
                 }
 

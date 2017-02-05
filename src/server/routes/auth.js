@@ -28,14 +28,11 @@ exports.required = function(req, res, next) {
         res.end();
     };
 
-    if (!credentials.name || !credentials.pass)
-    {
-        console.log(credentials);
-        console.log("No Email or Password in Auth Request");
+    if (!credentials.name || !credentials.pass) {
         return _error();
     } 
 
-    /* name = email */
+    /* credentials.name = email */
     player.auth(credentials.name, credentials.pass, nick).then(_success, _error);
 };
 
