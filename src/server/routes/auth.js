@@ -28,8 +28,15 @@ exports.required = function(req, res, next) {
         res.end();
     };
 
-    if (!credentials.name || !credentials.pass) return _error();
-    player.auth(nick, credentials.name, credentials.pass).then(_success, _error);
+    if (!credentials.name || !credentials.pass)
+    {
+        console.log(credentials);
+        console.log("No Email or Password in Auth Request");
+        return _error();
+    } 
+
+    /* name = email */
+    player.auth(credentials.name, credentials.pass, nick).then(_success, _error);
 };
 
 exports.hof = function(req, res, next) {

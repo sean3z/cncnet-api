@@ -5,22 +5,22 @@ var debug = require('debug')('wol:leaderboard'),
     games = require(global.cwd + '/lib/games'),
     _sanitize = require('./lib/sanitize');
 
-module.exports = function auth(player, username, password) {
+module.exports = function auth(email, password, nick) {
     return new Promise(function(resolve, reject) {
-        if (!username || !password) {
+        if (!email || !password) {
             return reject();
         }
 
         var $auth = $db.get('auth');
 
-        player ? playerAuth() : regularAuth();
+        nick ? playerAuth() : regularAuth();
 
         ///////////////////
 
         function regularAuth() {
-            $auth.findOne({username: username, password: password}, function(err, data) {
+            $auth.findOne({email: email, password: password}, function(err, data) {
 
-                /* unable to find user/pass combo*/
+                /* unable to find email/pass combo*/
                 if (!data) return reject();
 
                 /* remove sensitive data from reply */
@@ -31,58 +31,59 @@ module.exports = function auth(player, username, password) {
         }
 
         function playerAuth() {
-            player = player.toLowerCase();
+            email = email.toLowerCase();
 
-            $auth.findOne({handles: {$in: [_sanitize(player, true)]}}, function(err, data) {
+            $auth.findOne({handles: {$in: [_sanitize(nick, true)]}}, function(err, data) {
                 data = data || {};
 
                 /* success if player enters correct user/pass */
-                if (data.username === username && data.password === password) {
+                if (data.email === email && data.password === password) {
                     return resolve();
                 }
 
-                /* if player is already associated to another username, reject */
-                if (data.username && data.username !== username) {
+                if (data.email && data.email !== email)
+                {
+                    console.log("auth: incorrect email");
                     return reject();
                 }
 
-                /* check to see if the username exists */
-                $auth.findOne({username: username}, function(err, res) {
+                /* update existing email */
+                $auth.findOne({email: email}, function(err, res) {
                     res = res || {};
 
                     /* if we already have a user/pass reject */
-                    if (res.username && res.password !== password) {
+                    if (res.email && res.password !== password) {
                         return reject();
                     }
 
-                    /* if username exists, add new handle */
-                    if (res.username) {
-                        $auth.update({username: username}, {
+                    /* if email exists, add new handle */
+                    if (res.email) {
+                        $auth.update({email: email}, {
                             $push: {
-                                handles: player
+                                handles: nick
                             }
                         });
 
-                        debug('auth entry updated for %s', username);
+                        debug('auth entry updated for %s', email);
                         resolve();
-                        associate(player, username);
+                        associate(nick, email);
                         return;
                     }
 
                     /* otherwise create auth entry */
                     var entry = {
-                        username: username,
+                        email: email,
                         password: password,
                         registered: Date.now(),
                         handles: [
-                            player
+                            nick
                         ]
                     };
 
                     $auth.insert(entry).success(function() {
-                        debug('auth entry created for %s', username);
+                        debug('auth entry created for %s', email);
                         resolve();
-                        associate(player, username);
+                        associate(nick, email);
                     });
                 });
             });
@@ -91,18 +92,18 @@ module.exports = function auth(player, username, password) {
 };
 
 /* add uid to given player in all supported games */
-function associate(player, username) {
+function associate(player, email) {
     games.supported.forEach(function(game) {
         var $players = $db.get(game + '_players');
         $players.findOne({name: _sanitize(player, true)}, function(err, data) {
             data = data || {};
 
             /* associate if not already claimed */
-            if (!data.username) {
+            if (!data.email) {
                 $players.update({name: player}, {
                     $set: {
                         name: player,
-                        username: username
+                        email: email
                     }
                 }, {upsert: true});
             }
